@@ -13,4 +13,10 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+    #import"AppMacro.h"
+    #import"AFNetworking.h"
+    #import"SVPullToRefresh.h"
+    #import "SVProgressHUD.h"
+    #import "MBProgressHUD.h"
+    #import "HttpTool.h"
 #endif
