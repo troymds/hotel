@@ -377,16 +377,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55B2489D1A392D2200B3F5C7 /* libsqlite3.0.dylib in Frameworks */,
+				F33543B51A36A70D005B21C8 /* Security.framework in Frameworks */,
+				F33543B91A36A73F005B21C8 /* libz.1.2.5.dylib in Frameworks */,
 				F33543C71A36A917005B21C8 /* libicucore.dylib in Frameworks */,
 				F33543C51A36A898005B21C8 /* CoreTelephony.framework in Frameworks */,
-				F33543C31A36A83B005B21C8 /* CFNetwork.framework in Frameworks */,
-				F33543C11A36A81D005B21C8 /* SystemConfiguration.framework in Frameworks */,
-				F33543BF1A36A7AF005B21C8 /* CoreText.framework in Frameworks */,
 				F33543BD1A36A7A3005B21C8 /* QuartzCore.framework in Frameworks */,
+				F33543C11A36A81D005B21C8 /* SystemConfiguration.framework in Frameworks */,
+				F33543C31A36A83B005B21C8 /* CFNetwork.framework in Frameworks */,
+				F33543BF1A36A7AF005B21C8 /* CoreText.framework in Frameworks */,
 				F33543BB1A36A780005B21C8 /* libiconv.dylib in Frameworks */,
-				F33543B91A36A73F005B21C8 /* libz.1.2.5.dylib in Frameworks */,
 				F33543B71A36A735005B21C8 /* libstdc++.dylib in Frameworks */,
-				F33543B51A36A70D005B21C8 /* Security.framework in Frameworks */,
 				F33543B31A36A6CF005B21C8 /* MessageUI.framework in Frameworks */,
 				F33543601A369ED1005B21C8 /* WeChatConnection.framework in Frameworks */,
 				F335436C1A369ED1005B21C8 /* ShareSDKFlatShareViewUI.framework in Frameworks */,
@@ -422,6 +423,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		55B248A71A394AB400B3F5C7 /* loginView */ = {
+			isa = PBXGroup;
+			children = (
+				55B248C41A3992CF00B3F5C7 /* QQTool */,
+				55B248B11A394D5B00B3F5C7 /* tool */,
+				55B248A81A394AE100B3F5C7 /* SinaView.h */,
+				55B248A91A394AE100B3F5C7 /* SinaView.m */,
+				55B248BF1A398DDC00B3F5C7 /* QQView.h */,
+				55B248C01A398DDC00B3F5C7 /* QQView.m */,
+			);
+			path = loginView;
+			sourceTree = "<group>";
+		};
+		55B248B11A394D5B00B3F5C7 /* tool */ = {
+			isa = PBXGroup;
+			children = (
+				55B248B91A394DA500B3F5C7 /* Account.h */,
+				55B248BA1A394DA500B3F5C7 /* Account.m */,
+				55B248B21A394D5B00B3F5C7 /* AccountTool.h */,
+				55B248B31A394D5B00B3F5C7 /* AccountTool.m */,
+				55B248B41A394D5B00B3F5C7 /* Singleton.h */,
+				55B248B51A394D5B00B3F5C7 /* ZYOAuthConfig.h */,
+				55B248B61A394D5B00B3F5C7 /* ZYOAuthConfig.m */,
+				55B248BC1A39808300B3F5C7 /* SinaTool.h */,
+				55B248BD1A39808300B3F5C7 /* SinaTool.m */,
+			);
+			path = tool;
+			sourceTree = "<group>";
+		};
+		55B248C41A3992CF00B3F5C7 /* QQTool */ = {
+			isa = PBXGroup;
+			children = (
+				55B248C51A3992EA00B3F5C7 /* QQOAuthConfig.h */,
+				55B248C61A3992EA00B3F5C7 /* QQOAuthConfig.m */,
+				55B248C81A399A7600B3F5C7 /* QQtool.h */,
+				55B248C91A399A7600B3F5C7 /* QQtool.m */,
+			);
+			path = QQTool;
+			sourceTree = "<group>";
+		};
 		F33541D01A367D91005B21C8 = {
 			isa = PBXGroup;
 			children = (
@@ -444,6 +485,7 @@
 		F33541DB1A367D91005B21C8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				55B2489C1A392D2200B3F5C7 /* libsqlite3.0.dylib */,
 				F33543C61A36A917005B21C8 /* libicucore.dylib */,
 				F33543C41A36A898005B21C8 /* CoreTelephony.framework */,
 				F33543C21A36A83B005B21C8 /* CFNetwork.framework */,
@@ -680,6 +722,12 @@
 		F33542701A369D92005B21C8 /* cell */ = {
 			isa = PBXGroup;
 			children = (
+				55B248A11A393BA900B3F5C7 /* subscribeCell.h */,
+				55B248A21A393BA900B3F5C7 /* subscribeCell.m */,
+				5551FF3A1A3A919B0057598D /* MyOrderCell.h */,
+				5551FF3B1A3A919B0057598D /* MyOrderCell.m */,
+				5551FF401A3AB87A0057598D /* AddressCell.h */,
+				5551FF411A3AB87A0057598D /* AddressCell.m */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -710,6 +758,17 @@
 		F33542741A369D92005B21C8 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				55B2489E1A3938F600B3F5C7 /* MysubscribeView.h */,
+				55B2489F1A3938F600B3F5C7 /* MysubscribeView.m */,
+				5551FF371A3A907E0057598D /* MyOrderView.h */,
+				5551FF381A3A907E0057598D /* MyOrderView.m */,
+				5551FF3D1A3AB6060057598D /* AddressView.h */,
+				5551FF3E1A3AB6060057598D /* AddressView.m */,
+				55B248991A39252700B3F5C7 /* ShareView.h */,
+				55B2489A1A39252700B3F5C7 /* ShareView.m */,
+				55B248A41A39420C00B3F5C7 /* LoginViewController.h */,
+				55B248A51A39420C00B3F5C7 /* LoginViewController.m */,
+				55B248A71A394AB400B3F5C7 /* loginView */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1275,6 +1334,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55B248A61A39420C00B3F5C7 /* LoginViewController.m in Sources */,
 				F335433D1A369ED1005B21C8 /* MJRefreshFooterView.m in Sources */,
 				F33543421A369ED1005B21C8 /* REMenuItemView.m in Sources */,
 				F335434A1A369ED1005B21C8 /* SDWebImageManager.m in Sources */,
@@ -1282,12 +1342,16 @@
 				F335439E1A36A1EB005B21C8 /* DockController.m in Sources */,
 				F33543321A369ED1005B21C8 /* AFImageRequestOperation.m in Sources */,
 				F33543311A369ED1005B21C8 /* AFHTTPRequestOperation.m in Sources */,
+				55B2489B1A39252700B3F5C7 /* ShareView.m in Sources */,
 				F33542971A369E84005B21C8 /* UIImage+MJ.m in Sources */,
 				F33543B11A36A63C005B21C8 /* SystemConfig.m in Sources */,
+				55B248BB1A394DA500B3F5C7 /* Account.m in Sources */,
+				5551FF421A3AB87A0057598D /* AddressCell.m in Sources */,
 				F33541ED1A367D91005B21C8 /* AppDelegate.m in Sources */,
 				F335439C1A36A1EB005B21C8 /* MainController.m in Sources */,
 				F318699E1A3940B500259FA1 /* NiceFoodView.m in Sources */,
 				F335439F1A36A1EB005B21C8 /* DockItem.m in Sources */,
+				55B248A01A3938F600B3F5C7 /* MysubscribeView.m in Sources */,
 				F33543491A369ED1005B21C8 /* SDWebImageDownloaderOperation.m in Sources */,
 				F33543521A369ED1005B21C8 /* SVProgressHUD.m in Sources */,
 				F33543861A369F58005B21C8 /* SSKeychainQuery.m in Sources */,
@@ -1295,19 +1359,23 @@
 				F33543361A369ED1005B21C8 /* AFURLConnectionOperation.m in Sources */,
 				F335433E1A369ED1005B21C8 /* MJRefreshHeaderView.m in Sources */,
 				F33543341A369ED1005B21C8 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				55B248B81A394D5B00B3F5C7 /* ZYOAuthConfig.m in Sources */,
 				F33543831A369F58005B21C8 /* FileManager.m in Sources */,
 				F335433F1A369ED1005B21C8 /* REMenu.m in Sources */,
 				F33542951A369E84005B21C8 /* NSString+MJ.m in Sources */,
 				F335438F1A36A146005B21C8 /* WBNavigationController.m in Sources */,
 				F33543351A369ED1005B21C8 /* AFPropertyListRequestOperation.m in Sources */,
+				5551FF391A3A907E0057598D /* MyOrderView.m in Sources */,
 				F33543551A369ED1005B21C8 /* DimensionalCodeViewController.m in Sources */,
 				F33543391A369ED1005B21C8 /* KDCycleBannerView.m in Sources */,
+				55B248B71A394D5B00B3F5C7 /* AccountTool.m in Sources */,
 				F33543A51A36A2CF005B21C8 /* MapController.m in Sources */,
 				F335438E1A36A146005B21C8 /* labelColor.m in Sources */,
 				F335434D1A369ED1005B21C8 /* UIImage+GIF.m in Sources */,
 				F33543851A369F58005B21C8 /* SSKeychain.m in Sources */,
 				F33543371A369ED1005B21C8 /* AFXMLRequestOperation.m in Sources */,
 				F33543841A369F58005B21C8 /* GTMBase64.m in Sources */,
+				55B248BE1A39808300B3F5C7 /* SinaTool.m in Sources */,
 				F33543381A369ED1005B21C8 /* UIImageView+AFNetworking.m in Sources */,
 				F33541E91A367D91005B21C8 /* main.m in Sources */,
 				F31869A71A39A3F300259FA1 /* MenuItem.m in Sources */,
@@ -1319,6 +1387,7 @@
 				F33543501A369ED1005B21C8 /* UIImageView+WebCache.m in Sources */,
 				F33543481A369ED1005B21C8 /* SDWebImageDownloader.m in Sources */,
 				F335434F1A369ED1005B21C8 /* UIImage+WebP.m in Sources */,
+				55B248A31A393BA900B3F5C7 /* subscribeCell.m in Sources */,
 				F335434E1A369ED1005B21C8 /* UIImage+MultiFormat.m in Sources */,
 				F335439D1A36A1EB005B21C8 /* Dock.m in Sources */,
 				F33543531A369ED1005B21C8 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
@@ -1327,6 +1396,8 @@
 				F37437931A3EE28300B8B793 /* CarOrderToolBar.m in Sources */,
 				F33542981A369E84005B21C8 /* UIScrollView+UITouch.m in Sources */,
 				F33543461A369ED1005B21C8 /* SDWebImageCompat.m in Sources */,
+				55B248C71A3992EA00B3F5C7 /* QQOAuthConfig.m in Sources */,
+				55B248CA1A399A7600B3F5C7 /* QQtool.m in Sources */,
 				F33543711A369F16005B21C8 /* HttpTool.m in Sources */,
 				F33543A21A36A270005B21C8 /* HomeController.m in Sources */,
 				F31869A41A398C0300259FA1 /* MenuController.m in Sources */,
@@ -1345,9 +1416,12 @@
 				F335433C1A369ED1005B21C8 /* MJRefreshBaseView.m in Sources */,
 				F31869A11A39454A00259FA1 /* NiceFoodModel.m in Sources */,
 				F335428C1A369DFB005B21C8 /* NSString+MD5.m in Sources */,
+				55B248AA1A394AE100B3F5C7 /* SinaView.m in Sources */,
 				F33543411A369ED1005B21C8 /* REMenuItem.m in Sources */,
 				F33543441A369ED1005B21C8 /* NSData+GIF.m in Sources */,
 				F33543301A369ED1005B21C8 /* AFHTTPClient.m in Sources */,
+				5551FF3F1A3AB6060057598D /* AddressView.m in Sources */,
+				55B248C11A398DDC00B3F5C7 /* QQView.m in Sources */,
 				F33543A81A36A2FF005B21C8 /* MeController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
