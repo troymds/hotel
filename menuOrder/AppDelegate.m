@@ -19,7 +19,8 @@
 #import <TencentOpenAPI/TencentOAuth.h>
 #import "WeiboSDK.h"
 #import "WXApi.h"
-
+#import "MeController.h"
+#import "AccountTool.h"
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -51,9 +52,13 @@
     if ([version isEqualToString:saveVersion]) { // 不是第一次使用这个版本
         // 显示状态栏
         application.statusBarHidden = NO;
-        
-        self.window.rootViewController = [[MainController alloc] init];
-    } else { // 版本号不一样：第一次使用新版本
+         self.window.rootViewController = [[MainController alloc] init];
+//        if ([AccountTool sharedAccountTool].account) {
+//            self.window.rootViewController = [[MainController alloc] init];
+//        } else {
+//            self.window.rootViewController = [[MeController alloc] init];
+//        }
+       } else { // 版本号不一样：第一次使用新版本
         // 将新版本号写入沙盒
         [[NSUserDefaults standardUserDefaults] setObject:version forKey:key];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -64,6 +69,7 @@
     }
     
     self.window.backgroundColor = [UIColor whiteColor];
+     [self shareRegister];
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -89,6 +95,39 @@
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];
+}
+- (void)shareRegister
+{
+    //分享
+    [ShareSDK registerApp:shareAppKey];
+    
+    //添加新浪微博应用 注册网址 http://open.weibo.com
+    [ShareSDK connectSinaWeiboWithAppKey:@"568898243"
+                               appSecret:@"38a4f8204cc784f81f9f0daaf31e02e3"
+                             redirectUri:@"http://www.sharesdk.cn"];
+    //当使用新浪微博客户端分享的时候需要按照下面的方法来初始化新浪的平台
+    [ShareSDK  connectSinaWeiboWithAppKey:@"568898243"
+                                appSecret:@"38a4f8204cc784f81f9f0daaf31e02e3"
+                              redirectUri:@"http://www.sharesdk.cn"
+                              weiboSDKCls:[WeiboSDK class]];
+    
+    //添加QQ空间应用  注册网址  http://connect.qq.com/intro/login/
+    [ShareSDK connectQZoneWithAppKey:@"100371282"
+                           appSecret:@"aed9b0303e3ed1e27bae87c33761161d"
+                   qqApiInterfaceCls:[QQApiInterface class]
+                     tencentOAuthCls:[TencentOAuth class]];
+    
+    //添加QQ应用  注册网址  http://open.qq.com/
+    [ShareSDK connectQQWithQZoneAppKey:@"100371282"
+                     qqApiInterfaceCls:[QQApiInterface class]
+                       tencentOAuthCls:[TencentOAuth class]];
+    
+    //添加微信应用 注册网址 http://open.weixin.qq.com
+    [ShareSDK connectWeChatWithAppId:WXAppId
+                           wechatCls:[WXApi class]];
+    
+    //短信分享
+    [ShareSDK connectSMS];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

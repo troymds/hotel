@@ -49,6 +49,7 @@
 #define kHeight   [UIScreen mainScreen].bounds.size.height
 #define kWidth    [UIScreen mainScreen].bounds.size.width
 
+
 //拨打电话
 #define canTel                 [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tel:"]
 #define tel(phoneNumber)      [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",phoneNumber]]]
@@ -70,7 +71,7 @@
 // 2.日志输出宏定义
 #ifdef DEBUG
 // 调试状态
-#define NSLog(...) NSLog(__VA_ARGS__)
+#define ccNSLog(...) NSLog(__VA_ARGS__)
 #else
 // 发布状态
 #define NSLog(...)
