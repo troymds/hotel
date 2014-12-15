@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F318699E1A3940B500259FA1 /* NiceFoodView.m in Sources */ = {isa = PBXBuildFile; fileRef = F318699D1A3940B500259FA1 /* NiceFoodView.m */; };
+		F31869A11A39454A00259FA1 /* NiceFoodModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F31869A01A39454A00259FA1 /* NiceFoodModel.m */; };
+		F31869A41A398C0300259FA1 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = F31869A31A398C0300259FA1 /* MenuController.m */; };
+		F31869A71A39A3F300259FA1 /* MenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F31869A61A39A3F300259FA1 /* MenuItem.m */; };
 		F33541DD1A367D91005B21C8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F33541DC1A367D91005B21C8 /* Foundation.framework */; };
 		F33541DF1A367D91005B21C8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F33541DE1A367D91005B21C8 /* CoreGraphics.framework */; };
 		F33541E11A367D91005B21C8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F33541E01A367D91005B21C8 /* UIKit.framework */; };
@@ -117,6 +121,13 @@
 		F33543C51A36A898005B21C8 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F33543C41A36A898005B21C8 /* CoreTelephony.framework */; };
 		F33543C71A36A917005B21C8 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F33543C61A36A917005B21C8 /* libicucore.dylib */; };
 		F33543CA1A36A9D8005B21C8 /* NewFeatureController.m in Sources */ = {isa = PBXBuildFile; fileRef = F33543C91A36A9D8005B21C8 /* NewFeatureController.m */; };
+		F35A1DE11A3A83A40040312D /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F35A1DE01A3A83A40040312D /* MenuCell.m */; };
+		F35A1DE41A3A88EF0040312D /* MenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F35A1DE31A3A88EF0040312D /* MenuModel.m */; };
+		F374377F1A3E858300B8B793 /* DetailFoodController.m in Sources */ = {isa = PBXBuildFile; fileRef = F374377E1A3E858300B8B793 /* DetailFoodController.m */; };
+		F37437821A3EB1CC00B8B793 /* DetailFoodShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = F37437811A3EB1CC00B8B793 /* DetailFoodShowView.m */; };
+		F37437851A3ECCF100B8B793 /* FoodCarController.m in Sources */ = {isa = PBXBuildFile; fileRef = F37437841A3ECCF100B8B793 /* FoodCarController.m */; };
+		F37437881A3ED45F00B8B793 /* FoodOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F37437871A3ED45F00B8B793 /* FoodOrderCell.m */; };
+		F37437931A3EE28300B8B793 /* CarOrderToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = F37437921A3EE28300B8B793 /* CarOrderToolBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,6 +141,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F318699C1A3940B500259FA1 /* NiceFoodView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NiceFoodView.h; sourceTree = "<group>"; };
+		F318699D1A3940B500259FA1 /* NiceFoodView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NiceFoodView.m; sourceTree = "<group>"; };
+		F318699F1A39454A00259FA1 /* NiceFoodModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NiceFoodModel.h; sourceTree = "<group>"; };
+		F31869A01A39454A00259FA1 /* NiceFoodModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NiceFoodModel.m; sourceTree = "<group>"; };
+		F31869A21A398C0300259FA1 /* MenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuController.h; sourceTree = "<group>"; };
+		F31869A31A398C0300259FA1 /* MenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuController.m; sourceTree = "<group>"; };
+		F31869A51A39A3F300259FA1 /* MenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuItem.h; sourceTree = "<group>"; };
+		F31869A61A39A3F300259FA1 /* MenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuItem.m; sourceTree = "<group>"; };
 		F33541D91A367D91005B21C8 /* menuOrder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = menuOrder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F33541DC1A367D91005B21C8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F33541DE1A367D91005B21C8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -337,6 +356,20 @@
 		F33543C61A36A917005B21C8 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		F33543C81A36A9D8005B21C8 /* NewFeatureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFeatureController.h; sourceTree = "<group>"; };
 		F33543C91A36A9D8005B21C8 /* NewFeatureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFeatureController.m; sourceTree = "<group>"; };
+		F35A1DDF1A3A83A40040312D /* MenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCell.h; sourceTree = "<group>"; };
+		F35A1DE01A3A83A40040312D /* MenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCell.m; sourceTree = "<group>"; };
+		F35A1DE21A3A88EF0040312D /* MenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuModel.h; sourceTree = "<group>"; };
+		F35A1DE31A3A88EF0040312D /* MenuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuModel.m; sourceTree = "<group>"; };
+		F374377D1A3E858300B8B793 /* DetailFoodController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailFoodController.h; sourceTree = "<group>"; };
+		F374377E1A3E858300B8B793 /* DetailFoodController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailFoodController.m; sourceTree = "<group>"; };
+		F37437801A3EB1CC00B8B793 /* DetailFoodShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailFoodShowView.h; sourceTree = "<group>"; };
+		F37437811A3EB1CC00B8B793 /* DetailFoodShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailFoodShowView.m; sourceTree = "<group>"; };
+		F37437831A3ECCF100B8B793 /* FoodCarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodCarController.h; sourceTree = "<group>"; };
+		F37437841A3ECCF100B8B793 /* FoodCarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodCarController.m; sourceTree = "<group>"; };
+		F37437861A3ED45F00B8B793 /* FoodOrderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodOrderCell.h; sourceTree = "<group>"; };
+		F37437871A3ED45F00B8B793 /* FoodOrderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodOrderCell.m; sourceTree = "<group>"; };
+		F37437911A3EE28300B8B793 /* CarOrderToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarOrderToolBar.h; sourceTree = "<group>"; };
+		F37437921A3EE28300B8B793 /* CarOrderToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarOrderToolBar.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -518,6 +551,10 @@
 		F33542631A369D92005B21C8 /* cell */ = {
 			isa = PBXGroup;
 			children = (
+				F35A1DDF1A3A83A40040312D /* MenuCell.h */,
+				F35A1DE01A3A83A40040312D /* MenuCell.m */,
+				F37437861A3ED45F00B8B793 /* FoodOrderCell.h */,
+				F37437871A3ED45F00B8B793 /* FoodOrderCell.m */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -527,6 +564,12 @@
 			children = (
 				F33543A01A36A270005B21C8 /* HomeController.h */,
 				F33543A11A36A270005B21C8 /* HomeController.m */,
+				F31869A21A398C0300259FA1 /* MenuController.h */,
+				F31869A31A398C0300259FA1 /* MenuController.m */,
+				F374377D1A3E858300B8B793 /* DetailFoodController.h */,
+				F374377E1A3E858300B8B793 /* DetailFoodController.m */,
+				F37437831A3ECCF100B8B793 /* FoodCarController.h */,
+				F37437841A3ECCF100B8B793 /* FoodCarController.m */,
 			);
 			path = control;
 			sourceTree = "<group>";
@@ -534,6 +577,10 @@
 		F33542651A369D92005B21C8 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				F318699F1A39454A00259FA1 /* NiceFoodModel.h */,
+				F31869A01A39454A00259FA1 /* NiceFoodModel.m */,
+				F35A1DE21A3A88EF0040312D /* MenuModel.h */,
+				F35A1DE31A3A88EF0040312D /* MenuModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -548,6 +595,14 @@
 		F33542671A369D92005B21C8 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				F318699C1A3940B500259FA1 /* NiceFoodView.h */,
+				F318699D1A3940B500259FA1 /* NiceFoodView.m */,
+				F31869A51A39A3F300259FA1 /* MenuItem.h */,
+				F31869A61A39A3F300259FA1 /* MenuItem.m */,
+				F37437801A3EB1CC00B8B793 /* DetailFoodShowView.h */,
+				F37437811A3EB1CC00B8B793 /* DetailFoodShowView.m */,
+				F37437911A3EE28300B8B793 /* CarOrderToolBar.h */,
+				F37437921A3EE28300B8B793 /* CarOrderToolBar.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1231,6 +1286,7 @@
 				F33543B11A36A63C005B21C8 /* SystemConfig.m in Sources */,
 				F33541ED1A367D91005B21C8 /* AppDelegate.m in Sources */,
 				F335439C1A36A1EB005B21C8 /* MainController.m in Sources */,
+				F318699E1A3940B500259FA1 /* NiceFoodView.m in Sources */,
 				F335439F1A36A1EB005B21C8 /* DockItem.m in Sources */,
 				F33543491A369ED1005B21C8 /* SDWebImageDownloaderOperation.m in Sources */,
 				F33543521A369ED1005B21C8 /* SVProgressHUD.m in Sources */,
@@ -1254,6 +1310,9 @@
 				F33543841A369F58005B21C8 /* GTMBase64.m in Sources */,
 				F33543381A369ED1005B21C8 /* UIImageView+AFNetworking.m in Sources */,
 				F33541E91A367D91005B21C8 /* main.m in Sources */,
+				F31869A71A39A3F300259FA1 /* MenuItem.m in Sources */,
+				F374377F1A3E858300B8B793 /* DetailFoodController.m in Sources */,
+				F37437821A3EB1CC00B8B793 /* DetailFoodShowView.m in Sources */,
 				F33543401A369ED1005B21C8 /* REMenuContainerView.m in Sources */,
 				F335434C1A369ED1005B21C8 /* UIButton+WebCache.m in Sources */,
 				F33543AE1A36A5FA005B21C8 /* RemindView.m in Sources */,
@@ -1265,19 +1324,26 @@
 				F33543531A369ED1005B21C8 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				F33543331A369ED1005B21C8 /* AFJSONRequestOperation.m in Sources */,
 				F335433A1A369ED1005B21C8 /* MBProgressHUD.m in Sources */,
+				F37437931A3EE28300B8B793 /* CarOrderToolBar.m in Sources */,
 				F33542981A369E84005B21C8 /* UIScrollView+UITouch.m in Sources */,
 				F33543461A369ED1005B21C8 /* SDWebImageCompat.m in Sources */,
 				F33543711A369F16005B21C8 /* HttpTool.m in Sources */,
 				F33543A21A36A270005B21C8 /* HomeController.m in Sources */,
+				F31869A41A398C0300259FA1 /* MenuController.m in Sources */,
 				F33543811A369F58005B21C8 /* AdaptationSize.m in Sources */,
 				F33543541A369ED1005B21C8 /* UIScrollView+SVPullToRefresh.m in Sources */,
+				F37437851A3ECCF100B8B793 /* FoodCarController.m in Sources */,
+				F35A1DE11A3A83A40040312D /* MenuCell.m in Sources */,
 				F33543AB1A36A339005B21C8 /* SubScribeController.m in Sources */,
 				F33543471A369ED1005B21C8 /* SDWebImageDecoder.m in Sources */,
 				F33543451A369ED1005B21C8 /* SDImageCache.m in Sources */,
+				F35A1DE41A3A88EF0040312D /* MenuModel.m in Sources */,
 				F33543821A369F58005B21C8 /* DateManeger.m in Sources */,
 				F33543431A369ED1005B21C8 /* MKAnnotationView+WebCache.m in Sources */,
 				F33542961A369E84005B21C8 /* UIBarButtonItem+MJ.m in Sources */,
+				F37437881A3ED45F00B8B793 /* FoodOrderCell.m in Sources */,
 				F335433C1A369ED1005B21C8 /* MJRefreshBaseView.m in Sources */,
+				F31869A11A39454A00259FA1 /* NiceFoodModel.m in Sources */,
 				F335428C1A369DFB005B21C8 /* NSString+MD5.m in Sources */,
 				F33543411A369ED1005B21C8 /* REMenuItem.m in Sources */,
 				F33543441A369ED1005B21C8 /* NSData+GIF.m in Sources */,
@@ -1518,6 +1584,7 @@
 				F33542071A367D91005B21C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F33542081A367D91005B21C8 /* Build configuration list for PBXNativeTarget "menuOrderTests" */ = {
 			isa = XCConfigurationList;
@@ -1526,6 +1593,7 @@
 				F335420A1A367D91005B21C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
