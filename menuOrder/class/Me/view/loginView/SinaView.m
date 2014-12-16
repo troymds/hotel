@@ -86,7 +86,8 @@
            [[AccountTool sharedAccountTool] saveAccount:account];
            
            // 回到主页面
-           self.view.window.rootViewController = [[MainController alloc] init];
+//           self.view.window.rootViewController = [[MainController alloc] init];
+//           [self.navigationController popViewControllerAnimated:YES];
             // 清除指示器
            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
        } failure:^(NSError *error) {
@@ -97,7 +98,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+   
 }
 
 /*

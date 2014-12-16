@@ -12,6 +12,9 @@
 #import "LoginViewController.h"
 #import "MyOrderView.h"
 #import "AddressView.h"
+#import "aboutOurView.h"
+#import "SystemConfig.h"
+#import "SuggestView.h"
 #define HEADERWY 85
 #define YYBODERY 11
 #define BUTTONH 40
@@ -117,7 +120,7 @@
         }
         [_backScrollView addSubview:backView];
     }
-//    退出登录
+//    退出登录 dddddddd
     UIButton *returnLogin =[UIButton buttonWithType:UIButtonTypeCustom];
     [_backScrollView addSubview:returnLogin];
     returnLogin.frame=CGRectMake(13, _backScrollView.frame.size.height-76, kWidth-26, 40);
@@ -126,26 +129,41 @@
 }
 
 -(void)myBtnClick:(UIButton *)sender{
-    if (sender.tag==MYBTNTAG) {
-        MysubscribeView *mySubscriVc =[[MysubscribeView alloc]init];
-        [self.navigationController pushViewController:mySubscriVc animated:YES];
-    }if (sender.tag==MYBTNTAG+1) {
-        MyOrderView *MyOrderVC=[[MyOrderView alloc]init];
-        [self.navigationController pushViewController:MyOrderVC animated:YES];
-    }
-    if (sender.tag==MYBTNTAG+2) {
-        AddressView *addressVC=[[AddressView alloc]init];
-        [self.navigationController pushViewController:addressVC animated:YES];
-    }
-    if (sender.tag==MYBTNTAG+3) {
-        [ShareView showViewWithTitle:@"分享" content:@"这是一段紫金渔府的分享" description:@"这是一段紫金渔府的分享"  url:@"chinapromo.cn" delegate:self];
-    }
     
-    else{
-        return;
+//    if ([SystemConfig sharedInstance ].isUserLogin) {
+        if (sender.tag==MYBTNTAG) {
+            MysubscribeView *mySubscriVc =[[MysubscribeView alloc]init];
+            [self.navigationController pushViewController:mySubscriVc animated:YES];
+        }if (sender.tag==MYBTNTAG+1) {
+            MyOrderView *MyOrderVC=[[MyOrderView alloc]init];
+            [self.navigationController pushViewController:MyOrderVC animated:YES];
+        }
+        if (sender.tag==MYBTNTAG+2) {
+            AddressView *addressVC=[[AddressView alloc]init];
+            [self.navigationController pushViewController:addressVC animated:YES];
+        }
+        if (sender.tag==MYBTNTAG+3) {
+            [ShareView showViewWithTitle:@"分享" content:@"这是一段紫金渔府的分享" description:@"这是一段紫金渔府的分享"  url:@"chinapromo.cn" delegate:self];
+        }
+    if (sender.tag==MYBTNTAG+4) {
+        SuggestView *suggestVc=[[SuggestView alloc]init];
+        [self.navigationController pushViewController:suggestVc animated:YES];
     }
+        if (sender.tag==MYBTNTAG+5) {
+            aboutOurView *aboutVC=[[aboutOurView alloc]init];
+            [self.navigationController pushViewController:aboutVC animated:YES];
+        }
+        else{
+            return;
+        }
+ 
+//    }else{
+//        LoginViewController *loginVC=[[LoginViewController alloc]init];
+//        [self.navigationController pushViewController:loginVC animated:YES];
+//    }
     
 }
+
 -(void)headerBtnClick:(UIButton *)login{
     LoginViewController *loginVC=[[LoginViewController alloc]init];
     [self.navigationController pushViewController:loginVC animated:YES];

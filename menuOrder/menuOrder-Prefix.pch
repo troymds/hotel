@@ -19,4 +19,7 @@
     #import "SVProgressHUD.h"
     #import "MBProgressHUD.h"
     #import "HttpTool.h"
+    #import "UIBarButtonItem+MJ.h"
+    #import "HttpTool.h"
+
 #endif
