@@ -7,6 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5551FF391A3A907E0057598D /* MyOrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5551FF381A3A907E0057598D /* MyOrderView.m */; };
+		5551FF3C1A3A919B0057598D /* MyOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5551FF3B1A3A919B0057598D /* MyOrderCell.m */; };
+		5551FF3F1A3AB6060057598D /* AddressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5551FF3E1A3AB6060057598D /* AddressView.m */; };
+		5551FF421A3AB87A0057598D /* AddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5551FF411A3AB87A0057598D /* AddressCell.m */; };
+		55B2489B1A39252700B3F5C7 /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B2489A1A39252700B3F5C7 /* ShareView.m */; };
+		55B2489D1A392D2200B3F5C7 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 55B2489C1A392D2200B3F5C7 /* libsqlite3.0.dylib */; };
+		55B248A01A3938F600B3F5C7 /* MysubscribeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B2489F1A3938F600B3F5C7 /* MysubscribeView.m */; };
+		55B248A31A393BA900B3F5C7 /* subscribeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B248A21A393BA900B3F5C7 /* subscribeCell.m */; };
+		55B248A61A39420C00B3F5C7 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B248A51A39420C00B3F5C7 /* LoginViewController.m */; };
+		55B248AA1A394AE100B3F5C7 /* SinaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B248A91A394AE100B3F5C7 /* SinaView.m */; };
+		55B248B71A394D5B00B3F5C7 /* AccountTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B248B31A394D5B00B3F5C7 /* AccountTool.m */; };
+		55B248B81A394D5B00B3F5C7 /* ZYOAuthConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B248B61A394D5B00B3F5C7 /* ZYOAuthConfig.m */; };
+		55B248BB1A394DA500B3F5C7 /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B248BA1A394DA500B3F5C7 /* Account.m */; };
+		55B248BE1A39808300B3F5C7 /* SinaTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B248BD1A39808300B3F5C7 /* SinaTool.m */; };
+		55B248C11A398DDC00B3F5C7 /* QQView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B248C01A398DDC00B3F5C7 /* QQView.m */; };
+		55B248C71A3992EA00B3F5C7 /* QQOAuthConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B248C61A3992EA00B3F5C7 /* QQOAuthConfig.m */; };
+		55B248CA1A399A7600B3F5C7 /* QQtool.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B248C91A399A7600B3F5C7 /* QQtool.m */; };
 		F318699E1A3940B500259FA1 /* NiceFoodView.m in Sources */ = {isa = PBXBuildFile; fileRef = F318699D1A3940B500259FA1 /* NiceFoodView.m */; };
 		F31869A11A39454A00259FA1 /* NiceFoodModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F31869A01A39454A00259FA1 /* NiceFoodModel.m */; };
 		F31869A41A398C0300259FA1 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = F31869A31A398C0300259FA1 /* MenuController.m */; };
@@ -141,6 +158,40 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5551FF371A3A907E0057598D /* MyOrderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderView.h; sourceTree = "<group>"; };
+		5551FF381A3A907E0057598D /* MyOrderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderView.m; sourceTree = "<group>"; };
+		5551FF3A1A3A919B0057598D /* MyOrderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderCell.h; sourceTree = "<group>"; };
+		5551FF3B1A3A919B0057598D /* MyOrderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderCell.m; sourceTree = "<group>"; };
+		5551FF3D1A3AB6060057598D /* AddressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressView.h; sourceTree = "<group>"; };
+		5551FF3E1A3AB6060057598D /* AddressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressView.m; sourceTree = "<group>"; };
+		5551FF401A3AB87A0057598D /* AddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressCell.h; sourceTree = "<group>"; };
+		5551FF411A3AB87A0057598D /* AddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressCell.m; sourceTree = "<group>"; };
+		55B248991A39252700B3F5C7 /* ShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareView.h; sourceTree = "<group>"; };
+		55B2489A1A39252700B3F5C7 /* ShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareView.m; sourceTree = "<group>"; };
+		55B2489C1A392D2200B3F5C7 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		55B2489E1A3938F600B3F5C7 /* MysubscribeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MysubscribeView.h; sourceTree = "<group>"; };
+		55B2489F1A3938F600B3F5C7 /* MysubscribeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MysubscribeView.m; sourceTree = "<group>"; };
+		55B248A11A393BA900B3F5C7 /* subscribeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = subscribeCell.h; sourceTree = "<group>"; };
+		55B248A21A393BA900B3F5C7 /* subscribeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = subscribeCell.m; sourceTree = "<group>"; };
+		55B248A41A39420C00B3F5C7 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		55B248A51A39420C00B3F5C7 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		55B248A81A394AE100B3F5C7 /* SinaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinaView.h; sourceTree = "<group>"; };
+		55B248A91A394AE100B3F5C7 /* SinaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinaView.m; sourceTree = "<group>"; };
+		55B248B21A394D5B00B3F5C7 /* AccountTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountTool.h; sourceTree = "<group>"; };
+		55B248B31A394D5B00B3F5C7 /* AccountTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountTool.m; sourceTree = "<group>"; };
+		55B248B41A394D5B00B3F5C7 /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
+		55B248B51A394D5B00B3F5C7 /* ZYOAuthConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYOAuthConfig.h; sourceTree = "<group>"; };
+		55B248B61A394D5B00B3F5C7 /* ZYOAuthConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYOAuthConfig.m; sourceTree = "<group>"; };
+		55B248B91A394DA500B3F5C7 /* Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Account.h; sourceTree = "<group>"; };
+		55B248BA1A394DA500B3F5C7 /* Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Account.m; sourceTree = "<group>"; };
+		55B248BC1A39808300B3F5C7 /* SinaTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinaTool.h; sourceTree = "<group>"; };
+		55B248BD1A39808300B3F5C7 /* SinaTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinaTool.m; sourceTree = "<group>"; };
+		55B248BF1A398DDC00B3F5C7 /* QQView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQView.h; sourceTree = "<group>"; };
+		55B248C01A398DDC00B3F5C7 /* QQView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQView.m; sourceTree = "<group>"; };
+		55B248C51A3992EA00B3F5C7 /* QQOAuthConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQOAuthConfig.h; sourceTree = "<group>"; };
+		55B248C61A3992EA00B3F5C7 /* QQOAuthConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQOAuthConfig.m; sourceTree = "<group>"; };
+		55B248C81A399A7600B3F5C7 /* QQtool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQtool.h; sourceTree = "<group>"; };
+		55B248C91A399A7600B3F5C7 /* QQtool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQtool.m; sourceTree = "<group>"; };
 		F318699C1A3940B500259FA1 /* NiceFoodView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NiceFoodView.h; sourceTree = "<group>"; };
 		F318699D1A3940B500259FA1 /* NiceFoodView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NiceFoodView.m; sourceTree = "<group>"; };
 		F318699F1A39454A00259FA1 /* NiceFoodModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NiceFoodModel.h; sourceTree = "<group>"; };
@@ -1412,6 +1463,7 @@
 				F33543821A369F58005B21C8 /* DateManeger.m in Sources */,
 				F33543431A369ED1005B21C8 /* MKAnnotationView+WebCache.m in Sources */,
 				F33542961A369E84005B21C8 /* UIBarButtonItem+MJ.m in Sources */,
+				5551FF3C1A3A919B0057598D /* MyOrderCell.m in Sources */,
 				F37437881A3ED45F00B8B793 /* FoodOrderCell.m in Sources */,
 				F335433C1A369ED1005B21C8 /* MJRefreshBaseView.m in Sources */,
 				F31869A11A39454A00259FA1 /* NiceFoodModel.m in Sources */,
