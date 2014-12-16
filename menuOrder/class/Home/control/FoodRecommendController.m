@@ -1,24 +1,27 @@
 //
-//  FoodCarController.m
+//  FoodRecommendController.m
 //  menuOrder
-//  点餐车
-//  Created by promo on 14-12-15.
+//  菜品推荐 
+//  Created by promo on 14-12-16.
 //  Copyright (c) 2014年 promo. All rights reserved.
 //
 
-#import "FoodCarController.h"
-#import "FoodOrderCell.h"
-#import "CarOrderToolBar.h"
-#import "NiceFoodModel.h"
+#import "FoodRecommendController.h"
+#import "foodRecommendCell.h"
 #import "MenuModel.h"
 
-#define KDelX        5
-
-@interface FoodCarController ()<UITableViewDataSource,UITableViewDelegate>
+@interface FoodRecommendController ()<UITableViewDataSource,UITableViewDelegate>
 
 @end
 
-@implementation FoodCarController
+@implementation FoodRecommendController
+
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBarHidden = NO;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -26,14 +29,11 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
-    self.title = @"点餐车";
+    self.title = @"菜品推荐";
     self.view.backgroundColor = HexRGB(0xe0e0e0);
     
     //1 tableview
-    CGFloat tableX = KDelX;
-    CGFloat tableY = KDelX;
-    CGFloat tableH = KAppHeight - 44 - tableY - 60;
-    UITableView *table = [[UITableView alloc] initWithFrame: CGRectMake(tableX, tableY, kWidth - KDelX * 2, tableH) style:UITableViewStylePlain];
+    UITableView *table = [[UITableView alloc] initWithFrame: CGRectMake(0, 0, kWidth, KAppHeight - 44) style:UITableViewStylePlain];
     table.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:table];
     table.backgroundColor =[UIColor clearColor];
@@ -41,24 +41,23 @@
     table.delegate =self;
     table.dataSource = self;
     
-    //2 底边工具栏
-    CGFloat toolViewH = 60;
-    CGFloat toolViewY = KAppHeight - toolViewH - 44;
-    CarOrderToolBar *toolBar = [[CarOrderToolBar alloc] initWithFrame:Rect(0, toolViewY, kWidth, toolViewH)];
-    toolBar.backgroundColor = HexRGB(0xf5f5f5);
-    NiceFoodModel *data = [[NiceFoodModel alloc] init];
-    toolBar.data = data;
-    [self.view addSubview:toolBar];
+    [self buildUI];
+}
+
+
+-(void)buildUI
+{
+
 }
 
 #pragma mark tableview cell
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString * cellID = @"cell";
-    FoodOrderCell *cell = (FoodOrderCell *)[tableView dequeueReusableCellWithIdentifier:cellID];
+    foodRecommendCell *cell = (foodRecommendCell *)[tableView dequeueReusableCellWithIdentifier:cellID];
     if (!cell)
     {
-        cell =[[FoodOrderCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+        cell =[[foodRecommendCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
     MenuModel *data = [[MenuModel alloc] init];
     cell.data = data;
@@ -83,13 +82,13 @@
 #pragma mark tableview cell 高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 100;
+    return 334;
 }
 
 #pragma mark tableview 行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return 2;
 }
 
 @end

@@ -28,6 +28,11 @@
 		F31869A11A39454A00259FA1 /* NiceFoodModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F31869A01A39454A00259FA1 /* NiceFoodModel.m */; };
 		F31869A41A398C0300259FA1 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = F31869A31A398C0300259FA1 /* MenuController.m */; };
 		F31869A71A39A3F300259FA1 /* MenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F31869A61A39A3F300259FA1 /* MenuItem.m */; };
+		F31B983A1A3FFC67007DB439 /* FoodRecommendController.m in Sources */ = {isa = PBXBuildFile; fileRef = F31B98391A3FFC67007DB439 /* FoodRecommendController.m */; };
+		F31B983D1A3FFE22007DB439 /* foodRecommendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F31B983C1A3FFE22007DB439 /* foodRecommendCell.m */; };
+		F31B98401A4014C5007DB439 /* PromotionController.m in Sources */ = {isa = PBXBuildFile; fileRef = F31B983F1A4014C5007DB439 /* PromotionController.m */; };
+		F31B98431A40152C007DB439 /* PromotionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F31B98421A40152C007DB439 /* PromotionCell.m */; };
+		F31B98461A401FE1007DB439 /* ShowHotelController.m in Sources */ = {isa = PBXBuildFile; fileRef = F31B98451A401FE1007DB439 /* ShowHotelController.m */; };
 		F33541DD1A367D91005B21C8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F33541DC1A367D91005B21C8 /* Foundation.framework */; };
 		F33541DF1A367D91005B21C8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F33541DE1A367D91005B21C8 /* CoreGraphics.framework */; };
 		F33541E11A367D91005B21C8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F33541E01A367D91005B21C8 /* UIKit.framework */; };
@@ -200,6 +205,16 @@
 		F31869A31A398C0300259FA1 /* MenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuController.m; sourceTree = "<group>"; };
 		F31869A51A39A3F300259FA1 /* MenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuItem.h; sourceTree = "<group>"; };
 		F31869A61A39A3F300259FA1 /* MenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuItem.m; sourceTree = "<group>"; };
+		F31B98381A3FFC67007DB439 /* FoodRecommendController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodRecommendController.h; sourceTree = "<group>"; };
+		F31B98391A3FFC67007DB439 /* FoodRecommendController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodRecommendController.m; sourceTree = "<group>"; };
+		F31B983B1A3FFE22007DB439 /* foodRecommendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = foodRecommendCell.h; sourceTree = "<group>"; };
+		F31B983C1A3FFE22007DB439 /* foodRecommendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = foodRecommendCell.m; sourceTree = "<group>"; };
+		F31B983E1A4014C5007DB439 /* PromotionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromotionController.h; sourceTree = "<group>"; };
+		F31B983F1A4014C5007DB439 /* PromotionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PromotionController.m; sourceTree = "<group>"; };
+		F31B98411A40152C007DB439 /* PromotionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromotionCell.h; sourceTree = "<group>"; };
+		F31B98421A40152C007DB439 /* PromotionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PromotionCell.m; sourceTree = "<group>"; };
+		F31B98441A401FE1007DB439 /* ShowHotelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowHotelController.h; sourceTree = "<group>"; };
+		F31B98451A401FE1007DB439 /* ShowHotelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowHotelController.m; sourceTree = "<group>"; };
 		F33541D91A367D91005B21C8 /* menuOrder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = menuOrder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F33541DC1A367D91005B21C8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F33541DE1A367D91005B21C8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -648,6 +663,10 @@
 				F35A1DE01A3A83A40040312D /* MenuCell.m */,
 				F37437861A3ED45F00B8B793 /* FoodOrderCell.h */,
 				F37437871A3ED45F00B8B793 /* FoodOrderCell.m */,
+				F31B983B1A3FFE22007DB439 /* foodRecommendCell.h */,
+				F31B983C1A3FFE22007DB439 /* foodRecommendCell.m */,
+				F31B98411A40152C007DB439 /* PromotionCell.h */,
+				F31B98421A40152C007DB439 /* PromotionCell.m */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -663,6 +682,12 @@
 				F374377E1A3E858300B8B793 /* DetailFoodController.m */,
 				F37437831A3ECCF100B8B793 /* FoodCarController.h */,
 				F37437841A3ECCF100B8B793 /* FoodCarController.m */,
+				F31B98381A3FFC67007DB439 /* FoodRecommendController.h */,
+				F31B98391A3FFC67007DB439 /* FoodRecommendController.m */,
+				F31B983E1A4014C5007DB439 /* PromotionController.h */,
+				F31B983F1A4014C5007DB439 /* PromotionController.m */,
+				F31B98441A401FE1007DB439 /* ShowHotelController.h */,
+				F31B98451A401FE1007DB439 /* ShowHotelController.m */,
 			);
 			path = control;
 			sourceTree = "<group>";
@@ -1385,6 +1410,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F31B98401A4014C5007DB439 /* PromotionController.m in Sources */,
 				55B248A61A39420C00B3F5C7 /* LoginViewController.m in Sources */,
 				F335433D1A369ED1005B21C8 /* MJRefreshFooterView.m in Sources */,
 				F33543421A369ED1005B21C8 /* REMenuItemView.m in Sources */,
@@ -1425,6 +1451,7 @@
 				F335434D1A369ED1005B21C8 /* UIImage+GIF.m in Sources */,
 				F33543851A369F58005B21C8 /* SSKeychain.m in Sources */,
 				F33543371A369ED1005B21C8 /* AFXMLRequestOperation.m in Sources */,
+				F31B983A1A3FFC67007DB439 /* FoodRecommendController.m in Sources */,
 				F33543841A369F58005B21C8 /* GTMBase64.m in Sources */,
 				55B248BE1A39808300B3F5C7 /* SinaTool.m in Sources */,
 				F33543381A369ED1005B21C8 /* UIImageView+AFNetworking.m in Sources */,
@@ -1464,14 +1491,17 @@
 				F33543431A369ED1005B21C8 /* MKAnnotationView+WebCache.m in Sources */,
 				F33542961A369E84005B21C8 /* UIBarButtonItem+MJ.m in Sources */,
 				5551FF3C1A3A919B0057598D /* MyOrderCell.m in Sources */,
+				F31B98461A401FE1007DB439 /* ShowHotelController.m in Sources */,
 				F37437881A3ED45F00B8B793 /* FoodOrderCell.m in Sources */,
 				F335433C1A369ED1005B21C8 /* MJRefreshBaseView.m in Sources */,
+				F31B98431A40152C007DB439 /* PromotionCell.m in Sources */,
 				F31869A11A39454A00259FA1 /* NiceFoodModel.m in Sources */,
 				F335428C1A369DFB005B21C8 /* NSString+MD5.m in Sources */,
 				55B248AA1A394AE100B3F5C7 /* SinaView.m in Sources */,
 				F33543411A369ED1005B21C8 /* REMenuItem.m in Sources */,
 				F33543441A369ED1005B21C8 /* NSData+GIF.m in Sources */,
 				F33543301A369ED1005B21C8 /* AFHTTPClient.m in Sources */,
+				F31B983D1A3FFE22007DB439 /* foodRecommendCell.m in Sources */,
 				5551FF3F1A3AB6060057598D /* AddressView.m in Sources */,
 				55B248C11A398DDC00B3F5C7 /* QQView.m in Sources */,
 				F33543A81A36A2FF005B21C8 /* MeController.m in Sources */,

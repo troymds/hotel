@@ -1,5 +1,6 @@
 
 #import "WBNavigationController.h"
+#import "UIImage+MJ.h"
 
 @interface WBNavigationController ()
 
@@ -16,11 +17,12 @@
     
     // 2.设置导航栏的背景图片
     bar.backgroundColor =RGBNAVbackGroundColor;
+    UIImage *navBack = [UIImage resizedImage:@"nav_bg"];
     if (IsIos7) {
-        [bar setBackgroundImage:[UIImage imageNamed:@"nav_bgimge.png"] forBarMetrics:UIBarMetricsDefault];
+        [bar setBackgroundImage:navBack forBarMetrics:UIBarMetricsDefault];
 
     }else{
-        [bar setBackgroundImage:[UIImage imageNamed:@"nav_bgimg.png"] forBarMetrics:UIBarMetricsDefault];
+        [bar setBackgroundImage:navBack forBarMetrics:UIBarMetricsDefault];
 
     }
     // 3.设置导航栏文字的主题

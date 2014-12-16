@@ -11,6 +11,9 @@
 #import "NiceFoodModel.h"
 #import "MenuController.h"
 #import "DetailFoodController.h"
+#import "FoodRecommendController.h"
+#import "PromotionController.h"
+#import "ShowHotelController.h"
 
 #define KTopImgH  254 // 顶部展示图片高度
 #define KStartY   20 //起始Y坐标（状态栏高度）
@@ -129,10 +132,16 @@
 {
     switch (btn.tag) {
         case kHotrecommended:
-            NSLog(@"热门推荐");
+        {
+            FoodRecommendController *ctl = [[FoodRecommendController alloc] init];
+            [self.navigationController pushViewController:ctl animated:YES];
+        }
             break;
         case KLatestPrice:
-            NSLog(@"最新优惠");
+        {
+            PromotionController *ctl = [[PromotionController alloc] init];
+            [self.navigationController pushViewController:ctl animated:YES];
+        }
             break;
         case KMenu:
         {
@@ -141,7 +150,10 @@
         }
         break;
         case KView:
-            NSLog(@"渔府风采");
+        {
+            ShowHotelController * ctl = [[ShowHotelController alloc] init];
+            [self.navigationController pushViewController:ctl animated:YES];
+        }
             break;
         default:
             break;

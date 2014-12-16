@@ -79,6 +79,7 @@
         count.textColor = HexRGB(0x3b7800);
         count.backgroundColor = [UIColor clearColor];
         count.text = @"12";
+        count.textAlignment = NSTextAlignmentCenter;
         [self addSubview:count];
         _foodConnt = count;
         
@@ -138,14 +139,14 @@
     
     //6 减号按钮
     CGFloat buttonY = KLeftX + 5;
-    CGFloat buttonX = self.frame.size.width - KImgH * 3;
+    CGFloat buttonX = self.frame.size.width - KImgH * 3 + 1;
     _plusBtn.frame = Rect(buttonX, buttonY, KImgH, KImgH);
     
     //7 数量
-    _foodConnt.frame = Rect(CGRectGetMaxX(_plusBtn.frame), buttonY, KImgH, KImgH);
+    _foodConnt.frame = Rect(CGRectGetMaxX(_plusBtn.frame), buttonY, 25, KImgH);
     
     //8 加号按钮
-    _addBun.frame = Rect(CGRectGetMaxX(_foodConnt.frame) - 10, buttonY, KImgH, KImgH);
+    _addBun.frame = Rect(CGRectGetMaxX(_foodConnt.frame) - 1, buttonY, KImgH, KImgH);
     
     //9 评论
     CGFloat commentW = self.frame.size.width - KLeftX;
