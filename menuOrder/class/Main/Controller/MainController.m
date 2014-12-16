@@ -152,9 +152,9 @@
         // .往Dock里面填充内容
     [_dock addItemWithIcon:@"tab_index.png" selectedIcon:@"tab_index_pre.png" title:@"首页"];
     
-    [_dock addItemWithIcon:@"tab_product.png" selectedIcon:@"tab_product_pre.png" title:@"预约"];
+    [_dock addItemWithIcon:@"tab_reservation" selectedIcon:@"tab_reservation_pre" title:@"预约"];
     
-    [_dock addItemWithIcon:@"tab_release.png" selectedIcon:@"tab_release_pre.png" title:@"地图"];
+    [_dock addItemWithIcon:@"tab_map.png" selectedIcon:@"tab_map_pre.png" title:@"地图"];
     
     [_dock addItemWithIcon:@"tab_user.png" selectedIcon:@"tab_user_pre.png" title:@"我的"];
     

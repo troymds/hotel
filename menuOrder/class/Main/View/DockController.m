@@ -21,7 +21,7 @@
 - (void)addDock
 {
     Dock *dock = [[Dock alloc] init];
-    dock.backgroundColor=[UIColor whiteColor];
+    dock.backgroundColor=[UIColor blackColor];
     dock.frame = CGRectMake(0, self.view.frame.size.height - kDockHeight, self.view.frame.size.width, kDockHeight);
     dock.delegate = self;
     [self.view addSubview:dock];

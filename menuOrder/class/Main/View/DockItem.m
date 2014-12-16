@@ -14,10 +14,10 @@
         // 1.文字居中
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         // 2.文字大小
-        self.titleLabel.font = [UIFont systemFontOfSize:PxFont(14)];
+        self.titleLabel.font = [UIFont systemFontOfSize:PxFont(16)];
 
-        [self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [self setTitleColor:HexRGB(0x02a6e0) forState:UIControlStateSelected];
+        [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self setTitleColor:HexRGB(0x56b001) forState:UIControlStateSelected];
         // 3.图片的内容模式
         self.imageView.contentMode = UIViewContentModeCenter;
        

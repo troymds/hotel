@@ -145,6 +145,13 @@
 		F33543C51A36A898005B21C8 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F33543C41A36A898005B21C8 /* CoreTelephony.framework */; };
 		F33543C71A36A917005B21C8 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F33543C61A36A917005B21C8 /* libicucore.dylib */; };
 		F33543CA1A36A9D8005B21C8 /* NewFeatureController.m in Sources */ = {isa = PBXBuildFile; fileRef = F33543C91A36A9D8005B21C8 /* NewFeatureController.m */; };
+		F35A1DE11A3A83A40040312D /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F35A1DE01A3A83A40040312D /* MenuCell.m */; };
+		F35A1DE41A3A88EF0040312D /* MenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F35A1DE31A3A88EF0040312D /* MenuModel.m */; };
+		F374377F1A3E858300B8B793 /* DetailFoodController.m in Sources */ = {isa = PBXBuildFile; fileRef = F374377E1A3E858300B8B793 /* DetailFoodController.m */; };
+		F37437821A3EB1CC00B8B793 /* DetailFoodShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = F37437811A3EB1CC00B8B793 /* DetailFoodShowView.m */; };
+		F37437851A3ECCF100B8B793 /* FoodCarController.m in Sources */ = {isa = PBXBuildFile; fileRef = F37437841A3ECCF100B8B793 /* FoodCarController.m */; };
+		F37437881A3ED45F00B8B793 /* FoodOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F37437871A3ED45F00B8B793 /* FoodOrderCell.m */; };
+		F37437931A3EE28300B8B793 /* CarOrderToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = F37437921A3EE28300B8B793 /* CarOrderToolBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -421,6 +428,20 @@
 		F33543C61A36A917005B21C8 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		F33543C81A36A9D8005B21C8 /* NewFeatureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFeatureController.h; sourceTree = "<group>"; };
 		F33543C91A36A9D8005B21C8 /* NewFeatureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFeatureController.m; sourceTree = "<group>"; };
+		F35A1DDF1A3A83A40040312D /* MenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCell.h; sourceTree = "<group>"; };
+		F35A1DE01A3A83A40040312D /* MenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCell.m; sourceTree = "<group>"; };
+		F35A1DE21A3A88EF0040312D /* MenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuModel.h; sourceTree = "<group>"; };
+		F35A1DE31A3A88EF0040312D /* MenuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuModel.m; sourceTree = "<group>"; };
+		F374377D1A3E858300B8B793 /* DetailFoodController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailFoodController.h; sourceTree = "<group>"; };
+		F374377E1A3E858300B8B793 /* DetailFoodController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailFoodController.m; sourceTree = "<group>"; };
+		F37437801A3EB1CC00B8B793 /* DetailFoodShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailFoodShowView.h; sourceTree = "<group>"; };
+		F37437811A3EB1CC00B8B793 /* DetailFoodShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailFoodShowView.m; sourceTree = "<group>"; };
+		F37437831A3ECCF100B8B793 /* FoodCarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodCarController.h; sourceTree = "<group>"; };
+		F37437841A3ECCF100B8B793 /* FoodCarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodCarController.m; sourceTree = "<group>"; };
+		F37437861A3ED45F00B8B793 /* FoodOrderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodOrderCell.h; sourceTree = "<group>"; };
+		F37437871A3ED45F00B8B793 /* FoodOrderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodOrderCell.m; sourceTree = "<group>"; };
+		F37437911A3EE28300B8B793 /* CarOrderToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarOrderToolBar.h; sourceTree = "<group>"; };
+		F37437921A3EE28300B8B793 /* CarOrderToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarOrderToolBar.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -685,6 +706,10 @@
 		F33542631A369D92005B21C8 /* cell */ = {
 			isa = PBXGroup;
 			children = (
+				F35A1DDF1A3A83A40040312D /* MenuCell.h */,
+				F35A1DE01A3A83A40040312D /* MenuCell.m */,
+				F37437861A3ED45F00B8B793 /* FoodOrderCell.h */,
+				F37437871A3ED45F00B8B793 /* FoodOrderCell.m */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -694,6 +719,12 @@
 			children = (
 				F33543A01A36A270005B21C8 /* HomeController.h */,
 				F33543A11A36A270005B21C8 /* HomeController.m */,
+				F31869A21A398C0300259FA1 /* MenuController.h */,
+				F31869A31A398C0300259FA1 /* MenuController.m */,
+				F374377D1A3E858300B8B793 /* DetailFoodController.h */,
+				F374377E1A3E858300B8B793 /* DetailFoodController.m */,
+				F37437831A3ECCF100B8B793 /* FoodCarController.h */,
+				F37437841A3ECCF100B8B793 /* FoodCarController.m */,
 			);
 			path = control;
 			sourceTree = "<group>";
@@ -701,6 +732,10 @@
 		F33542651A369D92005B21C8 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				F318699F1A39454A00259FA1 /* NiceFoodModel.h */,
+				F31869A01A39454A00259FA1 /* NiceFoodModel.m */,
+				F35A1DE21A3A88EF0040312D /* MenuModel.h */,
+				F35A1DE31A3A88EF0040312D /* MenuModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -715,6 +750,14 @@
 		F33542671A369D92005B21C8 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				F318699C1A3940B500259FA1 /* NiceFoodView.h */,
+				F318699D1A3940B500259FA1 /* NiceFoodView.m */,
+				F31869A51A39A3F300259FA1 /* MenuItem.h */,
+				F31869A61A39A3F300259FA1 /* MenuItem.m */,
+				F37437801A3EB1CC00B8B793 /* DetailFoodShowView.h */,
+				F37437811A3EB1CC00B8B793 /* DetailFoodShowView.m */,
+				F37437911A3EE28300B8B793 /* CarOrderToolBar.h */,
+				F37437921A3EE28300B8B793 /* CarOrderToolBar.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1468,6 +1511,9 @@
 				55B248BE1A39808300B3F5C7 /* SinaTool.m in Sources */,
 				F33543381A369ED1005B21C8 /* UIImageView+AFNetworking.m in Sources */,
 				F33541E91A367D91005B21C8 /* main.m in Sources */,
+				F31869A71A39A3F300259FA1 /* MenuItem.m in Sources */,
+				F374377F1A3E858300B8B793 /* DetailFoodController.m in Sources */,
+				F37437821A3EB1CC00B8B793 /* DetailFoodShowView.m in Sources */,
 				F33543401A369ED1005B21C8 /* REMenuContainerView.m in Sources */,
 				F335434C1A369ED1005B21C8 /* UIButton+WebCache.m in Sources */,
 				F33543AE1A36A5FA005B21C8 /* RemindView.m in Sources */,
@@ -1481,14 +1527,18 @@
 				F33543531A369ED1005B21C8 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				F33543331A369ED1005B21C8 /* AFJSONRequestOperation.m in Sources */,
 				F335433A1A369ED1005B21C8 /* MBProgressHUD.m in Sources */,
+				F37437931A3EE28300B8B793 /* CarOrderToolBar.m in Sources */,
 				F33542981A369E84005B21C8 /* UIScrollView+UITouch.m in Sources */,
 				F33543461A369ED1005B21C8 /* SDWebImageCompat.m in Sources */,
 				55B248C71A3992EA00B3F5C7 /* QQOAuthConfig.m in Sources */,
 				55B248CA1A399A7600B3F5C7 /* QQtool.m in Sources */,
 				F33543711A369F16005B21C8 /* HttpTool.m in Sources */,
 				F33543A21A36A270005B21C8 /* HomeController.m in Sources */,
+				F31869A41A398C0300259FA1 /* MenuController.m in Sources */,
 				F33543811A369F58005B21C8 /* AdaptationSize.m in Sources */,
 				F33543541A369ED1005B21C8 /* UIScrollView+SVPullToRefresh.m in Sources */,
+				F37437851A3ECCF100B8B793 /* FoodCarController.m in Sources */,
+				F35A1DE11A3A83A40040312D /* MenuCell.m in Sources */,
 				F33543AB1A36A339005B21C8 /* SubScribeController.m in Sources */,
 				F33543471A369ED1005B21C8 /* SDWebImageDecoder.m in Sources */,
 				55BA74B81A3EDC0600203DA2 /* aboutOurTool.m in Sources */,
@@ -1497,8 +1547,9 @@
 				F33543821A369F58005B21C8 /* DateManeger.m in Sources */,
 				F33543431A369ED1005B21C8 /* MKAnnotationView+WebCache.m in Sources */,
 				F33542961A369E84005B21C8 /* UIBarButtonItem+MJ.m in Sources */,
-				5551FF3C1A3A919B0057598D /* MyOrderCell.m in Sources */,
+				F37437881A3ED45F00B8B793 /* FoodOrderCell.m in Sources */,
 				F335433C1A369ED1005B21C8 /* MJRefreshBaseView.m in Sources */,
+				F31869A11A39454A00259FA1 /* NiceFoodModel.m in Sources */,
 				F335428C1A369DFB005B21C8 /* NSString+MD5.m in Sources */,
 				55B248AA1A394AE100B3F5C7 /* SinaView.m in Sources */,
 				F33543411A369ED1005B21C8 /* REMenuItem.m in Sources */,

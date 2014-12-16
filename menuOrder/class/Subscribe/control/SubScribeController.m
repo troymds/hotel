@@ -22,7 +22,8 @@
     }
     
     self.title = @"预约";
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = HexRGB(0xeeeeee);
+    
 }
 
 @end
