@@ -9,7 +9,7 @@
 + (void)requestWithPath:(NSString *)path params:(NSDictionary *)params success:(HttpSuccessBlock)success failure:(HttpFailureBlock)failure method:(NSString *)method
 {
     // 1.创建post请求
-    AFHTTPClient *client = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:kBaseURL]];
+    AFHTTPClient *client = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:kUrl]];
 
     NSMutableDictionary *allParams = [NSMutableDictionary dictionary];
 //    // 拼接传进来的参数
@@ -18,13 +18,14 @@
     }
     NSString *time =[DateManeger getCurrentTimeStamps];
     NSString *uuid = [SystemConfig sharedInstance].uuidStr;
-    NSString *md5 = [NSString stringWithFormat:@"%@%@%@",uuid,time,@"hdy782634j23487sdfkjw3486"];
+    NSString *md5 = [NSString stringWithFormat:@"%@%@%@",uuid,time,@"ju34s4&6d567nuwe678l89kjdf56o34iw!e"];
     md5 = [md5 md5Encrypt];
-        
+    NSString *ios =@"ios";
+    [allParams setObject:ios forKey:@"os"];
     [allParams setObject:time forKey:@"time"];
     [allParams setObject:uuid forKey:@"uuid"];
     [allParams setObject:md5 forKey:@"secret"];
-    NSString *pathStr = [NSString stringWithFormat:@"/index.php?s=/Home/Api/%@",path];
+    NSString *pathStr = [NSString stringWithFormat:@"/restaurant/index.php?s=/Home/Api/%@",path];
    
     NSURLRequest *request = [client requestWithMethod:method path:pathStr parameters:allParams];
     

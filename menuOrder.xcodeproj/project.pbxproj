@@ -24,6 +24,17 @@
 		55B248C11A398DDC00B3F5C7 /* QQView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B248C01A398DDC00B3F5C7 /* QQView.m */; };
 		55B248C71A3992EA00B3F5C7 /* QQOAuthConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B248C61A3992EA00B3F5C7 /* QQOAuthConfig.m */; };
 		55B248CA1A399A7600B3F5C7 /* QQtool.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B248C91A399A7600B3F5C7 /* QQtool.m */; };
+		55BA749D1A3E78BB00203DA2 /* address_addView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BA749C1A3E78BB00203DA2 /* address_addView.m */; };
+		55BA74A01A3E82C400203DA2 /* modificationAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BA749F1A3E82C400203DA2 /* modificationAddress.m */; };
+		55BA74A31A3E85A300203DA2 /* aboutOurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BA74A21A3E85A300203DA2 /* aboutOurView.m */; };
+		55BA74A61A3E8EA400203DA2 /* addressListTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BA74A51A3E8EA400203DA2 /* addressListTool.m */; };
+		55BA74AC1A3EB1B800203DA2 /* UserItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BA74A91A3EB1B800203DA2 /* UserItem.m */; };
+		55BA74AD1A3EB1B800203DA2 /* XWDataModelSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BA74AB1A3EB1B800203DA2 /* XWDataModelSingleton.m */; };
+		55BA74B01A3EC08E00203DA2 /* addressListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BA74AF1A3EC08E00203DA2 /* addressListModel.m */; };
+		55BA74B51A3EC5F200203DA2 /* addAdressTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BA74B41A3EC5F200203DA2 /* addAdressTool.m */; };
+		55BA74B81A3EDC0600203DA2 /* aboutOurTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BA74B71A3EDC0600203DA2 /* aboutOurTool.m */; };
+		55BA74BB1A3EDDAE00203DA2 /* suggestTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BA74BA1A3EDDAE00203DA2 /* suggestTool.m */; };
+		55BA74BE1A3EDE2200203DA2 /* SuggestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BA74BD1A3EDE2200203DA2 /* SuggestView.m */; };
 		F33541DD1A367D91005B21C8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F33541DC1A367D91005B21C8 /* Foundation.framework */; };
 		F33541DF1A367D91005B21C8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F33541DE1A367D91005B21C8 /* CoreGraphics.framework */; };
 		F33541E11A367D91005B21C8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F33541E01A367D91005B21C8 /* UIKit.framework */; };
@@ -181,6 +192,28 @@
 		55B248C61A3992EA00B3F5C7 /* QQOAuthConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQOAuthConfig.m; sourceTree = "<group>"; };
 		55B248C81A399A7600B3F5C7 /* QQtool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQtool.h; sourceTree = "<group>"; };
 		55B248C91A399A7600B3F5C7 /* QQtool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQtool.m; sourceTree = "<group>"; };
+		55BA749B1A3E78BB00203DA2 /* address_addView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = address_addView.h; sourceTree = "<group>"; };
+		55BA749C1A3E78BB00203DA2 /* address_addView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = address_addView.m; sourceTree = "<group>"; };
+		55BA749E1A3E82C400203DA2 /* modificationAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = modificationAddress.h; sourceTree = "<group>"; };
+		55BA749F1A3E82C400203DA2 /* modificationAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = modificationAddress.m; sourceTree = "<group>"; };
+		55BA74A11A3E85A300203DA2 /* aboutOurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aboutOurView.h; sourceTree = "<group>"; };
+		55BA74A21A3E85A300203DA2 /* aboutOurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = aboutOurView.m; sourceTree = "<group>"; };
+		55BA74A41A3E8EA400203DA2 /* addressListTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = addressListTool.h; sourceTree = "<group>"; };
+		55BA74A51A3E8EA400203DA2 /* addressListTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = addressListTool.m; sourceTree = "<group>"; };
+		55BA74A81A3EB1B800203DA2 /* UserItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserItem.h; sourceTree = "<group>"; };
+		55BA74A91A3EB1B800203DA2 /* UserItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserItem.m; sourceTree = "<group>"; };
+		55BA74AA1A3EB1B800203DA2 /* XWDataModelSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWDataModelSingleton.h; sourceTree = "<group>"; };
+		55BA74AB1A3EB1B800203DA2 /* XWDataModelSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWDataModelSingleton.m; sourceTree = "<group>"; };
+		55BA74AE1A3EC08E00203DA2 /* addressListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = addressListModel.h; sourceTree = "<group>"; };
+		55BA74AF1A3EC08E00203DA2 /* addressListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = addressListModel.m; sourceTree = "<group>"; };
+		55BA74B31A3EC5F200203DA2 /* addAdressTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = addAdressTool.h; sourceTree = "<group>"; };
+		55BA74B41A3EC5F200203DA2 /* addAdressTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = addAdressTool.m; sourceTree = "<group>"; };
+		55BA74B61A3EDC0600203DA2 /* aboutOurTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aboutOurTool.h; sourceTree = "<group>"; };
+		55BA74B71A3EDC0600203DA2 /* aboutOurTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = aboutOurTool.m; sourceTree = "<group>"; };
+		55BA74B91A3EDDAE00203DA2 /* suggestTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = suggestTool.h; sourceTree = "<group>"; };
+		55BA74BA1A3EDDAE00203DA2 /* suggestTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = suggestTool.m; sourceTree = "<group>"; };
+		55BA74BC1A3EDE2200203DA2 /* SuggestView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestView.h; sourceTree = "<group>"; };
+		55BA74BD1A3EDE2200203DA2 /* SuggestView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestView.m; sourceTree = "<group>"; };
 		F33541D91A367D91005B21C8 /* menuOrder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = menuOrder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F33541DC1A367D91005B21C8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F33541DE1A367D91005B21C8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -444,6 +477,7 @@
 		55B248A71A394AB400B3F5C7 /* loginView */ = {
 			isa = PBXGroup;
 			children = (
+				55BA74A71A3EB17A00203DA2 /* loginViewOther */,
 				55B248C41A3992CF00B3F5C7 /* QQTool */,
 				55B248B11A394D5B00B3F5C7 /* tool */,
 				55B248A81A394AE100B3F5C7 /* SinaView.h */,
@@ -479,6 +513,46 @@
 				55B248C91A399A7600B3F5C7 /* QQtool.m */,
 			);
 			path = QQTool;
+			sourceTree = "<group>";
+		};
+		55BA749A1A3E786300203DA2 /* addressView */ = {
+			isa = PBXGroup;
+			children = (
+				55BA74B11A3EC5CE00203DA2 /* adModel */,
+				55BA74B21A3EC5CE00203DA2 /* adTool */,
+				55BA749B1A3E78BB00203DA2 /* address_addView.h */,
+				55BA749C1A3E78BB00203DA2 /* address_addView.m */,
+				55BA749E1A3E82C400203DA2 /* modificationAddress.h */,
+				55BA749F1A3E82C400203DA2 /* modificationAddress.m */,
+			);
+			path = addressView;
+			sourceTree = "<group>";
+		};
+		55BA74A71A3EB17A00203DA2 /* loginViewOther */ = {
+			isa = PBXGroup;
+			children = (
+				55BA74A81A3EB1B800203DA2 /* UserItem.h */,
+				55BA74A91A3EB1B800203DA2 /* UserItem.m */,
+				55BA74AA1A3EB1B800203DA2 /* XWDataModelSingleton.h */,
+				55BA74AB1A3EB1B800203DA2 /* XWDataModelSingleton.m */,
+			);
+			path = loginViewOther;
+			sourceTree = "<group>";
+		};
+		55BA74B11A3EC5CE00203DA2 /* adModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = adModel;
+			sourceTree = "<group>";
+		};
+		55BA74B21A3EC5CE00203DA2 /* adTool */ = {
+			isa = PBXGroup;
+			children = (
+				55BA74B31A3EC5F200203DA2 /* addAdressTool.h */,
+				55BA74B41A3EC5F200203DA2 /* addAdressTool.m */,
+			);
+			path = adTool;
 			sourceTree = "<group>";
 		};
 		F33541D01A367D91005B21C8 = {
@@ -740,6 +814,8 @@
 		F33542721A369D92005B21C8 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				55BA74AE1A3EC08E00203DA2 /* addressListModel.h */,
+				55BA74AF1A3EC08E00203DA2 /* addressListModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -747,6 +823,12 @@
 		F33542731A369D92005B21C8 /* tool */ = {
 			isa = PBXGroup;
 			children = (
+				55BA74A41A3E8EA400203DA2 /* addressListTool.h */,
+				55BA74A51A3E8EA400203DA2 /* addressListTool.m */,
+				55BA74B61A3EDC0600203DA2 /* aboutOurTool.h */,
+				55BA74B71A3EDC0600203DA2 /* aboutOurTool.m */,
+				55BA74B91A3EDDAE00203DA2 /* suggestTool.h */,
+				55BA74BA1A3EDDAE00203DA2 /* suggestTool.m */,
 			);
 			path = tool;
 			sourceTree = "<group>";
@@ -760,10 +842,15 @@
 				5551FF381A3A907E0057598D /* MyOrderView.m */,
 				5551FF3D1A3AB6060057598D /* AddressView.h */,
 				5551FF3E1A3AB6060057598D /* AddressView.m */,
+				55BA74A11A3E85A300203DA2 /* aboutOurView.h */,
+				55BA74A21A3E85A300203DA2 /* aboutOurView.m */,
+				55BA74BC1A3EDE2200203DA2 /* SuggestView.h */,
+				55BA74BD1A3EDE2200203DA2 /* SuggestView.m */,
 				55B248991A39252700B3F5C7 /* ShareView.h */,
 				55B2489A1A39252700B3F5C7 /* ShareView.m */,
 				55B248A41A39420C00B3F5C7 /* LoginViewController.h */,
 				55B248A51A39420C00B3F5C7 /* LoginViewController.m */,
+				55BA749A1A3E786300203DA2 /* addressView */,
 				55B248A71A394AB400B3F5C7 /* loginView */,
 			);
 			path = view;
@@ -1333,6 +1420,7 @@
 				55B248A61A39420C00B3F5C7 /* LoginViewController.m in Sources */,
 				F335433D1A369ED1005B21C8 /* MJRefreshFooterView.m in Sources */,
 				F33543421A369ED1005B21C8 /* REMenuItemView.m in Sources */,
+				55BA74A01A3E82C400203DA2 /* modificationAddress.m in Sources */,
 				F335434A1A369ED1005B21C8 /* SDWebImageManager.m in Sources */,
 				F335434B1A369ED1005B21C8 /* SDWebImagePrefetcher.m in Sources */,
 				F335439E1A36A1EB005B21C8 /* DockController.m in Sources */,
@@ -1342,14 +1430,17 @@
 				F33542971A369E84005B21C8 /* UIImage+MJ.m in Sources */,
 				F33543B11A36A63C005B21C8 /* SystemConfig.m in Sources */,
 				55B248BB1A394DA500B3F5C7 /* Account.m in Sources */,
+				55BA74BB1A3EDDAE00203DA2 /* suggestTool.m in Sources */,
 				5551FF421A3AB87A0057598D /* AddressCell.m in Sources */,
 				F33541ED1A367D91005B21C8 /* AppDelegate.m in Sources */,
 				F335439C1A36A1EB005B21C8 /* MainController.m in Sources */,
+				55BA74BE1A3EDE2200203DA2 /* SuggestView.m in Sources */,
 				F335439F1A36A1EB005B21C8 /* DockItem.m in Sources */,
 				55B248A01A3938F600B3F5C7 /* MysubscribeView.m in Sources */,
 				F33543491A369ED1005B21C8 /* SDWebImageDownloaderOperation.m in Sources */,
 				F33543521A369ED1005B21C8 /* SVProgressHUD.m in Sources */,
 				F33543861A369F58005B21C8 /* SSKeychainQuery.m in Sources */,
+				55BA74A31A3E85A300203DA2 /* aboutOurView.m in Sources */,
 				F33543CA1A36A9D8005B21C8 /* NewFeatureController.m in Sources */,
 				F33543361A369ED1005B21C8 /* AFURLConnectionOperation.m in Sources */,
 				F335433E1A369ED1005B21C8 /* MJRefreshHeaderView.m in Sources */,
@@ -1358,15 +1449,19 @@
 				F33543831A369F58005B21C8 /* FileManager.m in Sources */,
 				F335433F1A369ED1005B21C8 /* REMenu.m in Sources */,
 				F33542951A369E84005B21C8 /* NSString+MJ.m in Sources */,
+				55BA74AD1A3EB1B800203DA2 /* XWDataModelSingleton.m in Sources */,
 				F335438F1A36A146005B21C8 /* WBNavigationController.m in Sources */,
 				F33543351A369ED1005B21C8 /* AFPropertyListRequestOperation.m in Sources */,
 				5551FF391A3A907E0057598D /* MyOrderView.m in Sources */,
 				F33543551A369ED1005B21C8 /* DimensionalCodeViewController.m in Sources */,
 				F33543391A369ED1005B21C8 /* KDCycleBannerView.m in Sources */,
+				55BA74AC1A3EB1B800203DA2 /* UserItem.m in Sources */,
 				55B248B71A394D5B00B3F5C7 /* AccountTool.m in Sources */,
+				55BA74B01A3EC08E00203DA2 /* addressListModel.m in Sources */,
 				F33543A51A36A2CF005B21C8 /* MapController.m in Sources */,
 				F335438E1A36A146005B21C8 /* labelColor.m in Sources */,
 				F335434D1A369ED1005B21C8 /* UIImage+GIF.m in Sources */,
+				55BA749D1A3E78BB00203DA2 /* address_addView.m in Sources */,
 				F33543851A369F58005B21C8 /* SSKeychain.m in Sources */,
 				F33543371A369ED1005B21C8 /* AFXMLRequestOperation.m in Sources */,
 				F33543841A369F58005B21C8 /* GTMBase64.m in Sources */,
@@ -1380,6 +1475,7 @@
 				F33543481A369ED1005B21C8 /* SDWebImageDownloader.m in Sources */,
 				F335434F1A369ED1005B21C8 /* UIImage+WebP.m in Sources */,
 				55B248A31A393BA900B3F5C7 /* subscribeCell.m in Sources */,
+				55BA74A61A3E8EA400203DA2 /* addressListTool.m in Sources */,
 				F335434E1A369ED1005B21C8 /* UIImage+MultiFormat.m in Sources */,
 				F335439D1A36A1EB005B21C8 /* Dock.m in Sources */,
 				F33543531A369ED1005B21C8 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
@@ -1395,7 +1491,9 @@
 				F33543541A369ED1005B21C8 /* UIScrollView+SVPullToRefresh.m in Sources */,
 				F33543AB1A36A339005B21C8 /* SubScribeController.m in Sources */,
 				F33543471A369ED1005B21C8 /* SDWebImageDecoder.m in Sources */,
+				55BA74B81A3EDC0600203DA2 /* aboutOurTool.m in Sources */,
 				F33543451A369ED1005B21C8 /* SDImageCache.m in Sources */,
+				55BA74B51A3EC5F200203DA2 /* addAdressTool.m in Sources */,
 				F33543821A369F58005B21C8 /* DateManeger.m in Sources */,
 				F33543431A369ED1005B21C8 /* MKAnnotationView+WebCache.m in Sources */,
 				F33542961A369E84005B21C8 /* UIBarButtonItem+MJ.m in Sources */,

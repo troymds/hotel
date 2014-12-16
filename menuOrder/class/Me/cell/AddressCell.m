@@ -28,24 +28,37 @@
         
         
         
-        nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(YYBORDERWw, YYBORDERWw, 60, 20)];
+        nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(YYBORDERWw, YYBORDERWw, 80, 20)];
         [backCell addSubview:nameLabel];
         nameLabel.font =[UIFont systemFontOfSize:PxFont(23)];
         nameLabel.textColor=HexRGB(0x666666);
-        nameLabel.backgroundColor=[UIColor redColor];
+        nameLabel.backgroundColor=[UIColor clearColor];
         
-        numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(YYBORDERWw+100,YYBORDERWw, 150, 20)];
+        numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(YYBORDERWw+100,YYBORDERWw, 120, 20)];
         [backCell addSubview:numberLabel];
         numberLabel.font =[UIFont systemFontOfSize:PxFont(23)];
         numberLabel.textColor = HexRGB(0x666666);
-        numberLabel.backgroundColor=[UIColor cyanColor];
+        numberLabel.backgroundColor=[UIColor clearColor];
         
-        addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(YYBORDERWw, YYBORDERWw, kWidth-YYBORDERW*2-YYBORDERWw*2, 20)];
+        addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(YYBORDERWw, YYBORDERWw*3, kWidth-YYBORDERW*2-YYBORDERWw*3-40, 40)];
         [backCell addSubview:addressLabel];
         addressLabel.numberOfLines = 0;
         addressLabel.font =[UIFont systemFontOfSize:PxFont(20)];
         addressLabel.textColor=HexRGB(0x666666);
-        addressLabel.backgroundColor=[UIColor purpleColor];
+        addressLabel.backgroundColor=[UIColor clearColor];
+        
+        UIView *lineView=[[UIView alloc]initWithFrame:CGRectMake(kWidth-YYBORDERW*2-YYBORDERWw-40, 16, 1, 52)];
+        [backCell addSubview:lineView];
+        lineView.backgroundColor=HexRGB(0xcacaca);
+        
+        delegateBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+        delegateBtn.frame=CGRectMake(kWidth-YYBORDERW-YYBORDERWw*4, 20, 40, 40);
+        [delegateBtn setImage:[UIImage imageNamed:@"me_address_delete"] forState:UIControlStateNormal];
+        [backCell addSubview:delegateBtn];
+        delegateBtn.backgroundColor=[UIColor clearColor];
+        
+        
+        
     }
     return self;
 }

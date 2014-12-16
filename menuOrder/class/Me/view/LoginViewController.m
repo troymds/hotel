@@ -47,7 +47,7 @@
         UIButton *loginBtn =[UIButton buttonWithType:UIButtonTypeCustom];
         [self.view addSubview:loginBtn];
         loginBtn.frame=CGRectMake(YYBORDER, HearderImageH+YYBORDER*3+NAVHEIGHT+i%3*60, kWidth-YYBORDER*2, 40);
-        [loginBtn setImage:[UIImage imageNamed:@"return_logion"] forState:UIControlStateNormal];
+        [loginBtn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"login_imageBtn%d.png",i ]] forState:UIControlStateNormal];
         [loginBtn addTarget:self action:@selector(LoginBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         loginBtn.tag =LOGINTAG+i;
     }

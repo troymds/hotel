@@ -67,7 +67,7 @@
 #define isNull(dic,key) [[dic objectForKey:key] isKindOfClass:[NSNull class]]?YES:NO
 
 #define kBaseURL @"http://ebingoo.bingoso.com"
-
+#define kUrl @"http://192.168.1.112"
 // 2.日志输出宏定义
 #ifdef DEBUG
 // 调试状态

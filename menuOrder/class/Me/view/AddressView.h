@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface AddressView : UIViewController
-
+@property(nonatomic,copy)NSString *dataId;
 @end
