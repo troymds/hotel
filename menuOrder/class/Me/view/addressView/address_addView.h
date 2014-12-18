@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface address_addView : UIViewController<UITextFieldDelegate>
+{
+    UIView *backView;
+}
 @property(nonatomic ,retain)UITextField *nameField;
 @property(nonatomic ,copy)NSString *nameStr;
 @property(nonatomic ,copy)NSString *telStr;

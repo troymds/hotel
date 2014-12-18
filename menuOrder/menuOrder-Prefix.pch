@@ -21,5 +21,5 @@
     #import "HttpTool.h"
     #import "UIBarButtonItem+MJ.h"
     #import "HttpTool.h"
-
+#import"RemindView.h"
 #endif

@@ -24,6 +24,8 @@
 {
    
     UIScrollView *_backScrollView;
+    NSString *_url;
+
 }
 @end
 
@@ -42,8 +44,14 @@
 }
 -(void)addUIView{
     
-    _backScrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight)];
-    _backScrollView.contentSize = CGSizeMake(kWidth,kHeight+90);
+    _backScrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 20, kWidth, kHeight)];
+    if (kHeight==480) {
+        _backScrollView.contentSize = CGSizeMake(kWidth,kHeight+140);
+
+    }else{
+        _backScrollView.contentSize = CGSizeMake(kWidth,kHeight+50);
+
+    }
     _backScrollView.userInteractionEnabled=YES;
     [self.view addSubview:_backScrollView];
     _backScrollView.showsVerticalScrollIndicator = NO;
@@ -60,6 +68,10 @@
     headerBtn.frame=CGRectMake((kWidth-HEADERWY)/2, (HearderImageH-HEADERWY)/2, HEADERWY, HEADERWY);
     [headerBtn setImage:[UIImage imageNamed:@"header_img"] forState:UIControlStateNormal];
     [headerBtn addTarget:self action:@selector(headerBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    headerBtn.layer.cornerRadius=0;
+    headerBtn.layer.borderWidth=2.0;
+    headerBtn.layer.masksToBounds = YES;
+    headerBtn.layer.borderColor=[UIColor colorWithRed:72.0/255.0 green:144.0/255.0 blue:5.0/255.0 alpha:1 ] .CGColor;
     
     NSArray *myTitle =@[@"   我的预约",@"   我的点餐",@"   地址管理",@"   分享渔府",@"   意见反馈",@"   关于我们",@"   检查更新"];
     for (int i=0; i<7; i++) {
@@ -123,7 +135,7 @@
 //    退出登录 dddddddd
     UIButton *returnLogin =[UIButton buttonWithType:UIButtonTypeCustom];
     [_backScrollView addSubview:returnLogin];
-    returnLogin.frame=CGRectMake(13, _backScrollView.frame.size.height-76, kWidth-26, 40);
+    returnLogin.frame=CGRectMake(13, _backScrollView.contentSize.height-126, kWidth-26, 40);
     [returnLogin setImage:[UIImage imageNamed:@"return_logion"] forState:UIControlStateNormal];
     
 }
@@ -153,6 +165,31 @@
             aboutOurView *aboutVC=[[aboutOurView alloc]init];
             [self.navigationController pushViewController:aboutVC animated:YES];
         }
+    if (sender.tag==MYBTNTAG+6) {
+//        NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:@"ios",@"os", nil];
+//        [HttpTool postWithPath:@"getNewestVersion" params:param success:^(id JSON) {
+//            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:nil];
+//            NSDictionary *dic = [result objectForKey:@"response"];
+//            if (dic) {
+//                NSString *key = (NSString *)kCFBundleVersionKey;
+//                NSString *version = [NSBundle mainBundle].infoDictionary[key];
+//                NSString *current = [dic objectForKey:@"version"];
+//                if ([current isEqualToString:version]) {
+//                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"版本更新" message:@"您当前已是最新版本" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles:nil, nil];
+//                    alertView.tag = 1000;
+//                    [alertView show];
+//                }else{
+//                    _url = [dic objectForKey:@"url"];
+//                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"检测到新版本" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"立即升级", nil];
+//                    alertView.tag = 1001;
+//                    [alertView show];
+//                }
+//            }
+//        } failure:^(NSError *error) {
+//            NSLog(@"%@",error);
+//        }];
+//
+    }
         else{
             return;
         }
@@ -163,9 +200,20 @@
 //    }
     
 }
-
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    //版本更新
+    openURL(_url);
+}
 -(void)headerBtnClick:(UIButton *)login{
     LoginViewController *loginVC=[[LoginViewController alloc]init];
     [self.navigationController pushViewController:loginVC animated:YES];
 }
+#pragma mark 控件将要显示
+- (void)viewWillAppear:(BOOL)animated
+{
+    //隐藏导航栏
+    self.navigationController.navigationBarHidden = YES;
+}
+
 @end

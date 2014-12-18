@@ -22,7 +22,7 @@
         UIView *backCell=[[UIView alloc]initWithFrame:CGRectMake(YYBORDERW, 6, kWidth-YYBORDERW*2, 84)];
         backCell.backgroundColor =[UIColor whiteColor];
         [self.contentView addSubview:backCell];
-        backCell.layer.cornerRadius=8;
+        backCell.layer.cornerRadius=CORNERrADIUS;
         backCell.layer.masksToBounds=YES;
         
         MeSubscribeImage = [[UIImageView alloc] initWithFrame:CGRectMake(2, 2, IMAGEWIDTH, 80)];
@@ -32,7 +32,7 @@
         [backCell addSubview:MeSubscribeCategoryLabel];
         MeSubscribeCategoryLabel.backgroundColor=[UIColor clearColor];
         MeSubscribeCategoryLabel.textColor=HexRGB(0x666666);
-        MeSubscribeImage.layer.cornerRadius=8;
+        MeSubscribeImage.layer.cornerRadius=CORNERrADIUS;
         MeSubscribeImage.layer.masksToBounds=YES;
         
         

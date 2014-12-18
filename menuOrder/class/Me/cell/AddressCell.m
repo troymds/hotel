@@ -23,7 +23,7 @@
         UIView *backCell=[[UIView alloc]initWithFrame:CGRectMake(YYBORDERW, 6, kWidth-YYBORDERW*2, 80)];
         backCell.backgroundColor =[UIColor whiteColor];
         [self.contentView addSubview:backCell];
-        backCell.layer.cornerRadius=8;
+        backCell.layer.cornerRadius=CORNERrADIUS;
         backCell.layer.masksToBounds=YES;
         
         

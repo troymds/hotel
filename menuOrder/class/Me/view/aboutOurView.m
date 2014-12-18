@@ -7,6 +7,7 @@
 //
 
 #import "aboutOurView.h"
+#import "aboutTool.h"
 #define YYBODERY 9
 #define BUTTONH 30
 #define HearderImageH 170
@@ -22,19 +23,30 @@
     self.title=@" 关于我们";
 
     [self addUIView];
+    [self addLoadStatus];
 }
 
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBarHidden = NO;
+}
+-(void)addLoadStatus{
+    [aboutTool statusesWithSuccess:^(NSArray *statues) {
+        
+    }  failure:^(NSError *error) {
+        
+    }];
+}
 -(void)addUIView{
     //    背景图
-    UIImageView *headerImage =[[UIImageView alloc]initWithFrame:CGRectMake(0, 64, kWidth, HearderImageH)];
+    UIImageView *headerImage =[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWidth, HearderImageH)];
     [self.view addSubview:headerImage];
     headerImage.image=[UIImage imageNamed:@"header"];
     
     UIView *backView=[[UIView alloc]initWithFrame:CGRectMake(YYBODERY, 80+HearderImageH, kWidth-YYBODERY*2, 170)];
     backView.backgroundColor =[UIColor whiteColor];
     [self.view addSubview:backView];
-    backView.layer.cornerRadius=8;
+    backView.layer.cornerRadius=CORNERrADIUS;
     backView.layer.masksToBounds=YES;
     
     for (int i=0; i<5; i++) {

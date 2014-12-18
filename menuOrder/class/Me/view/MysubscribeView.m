@@ -8,27 +8,59 @@
 
 #import "MysubscribeView.h"
 #import "subscribeCell.h"
+#import "sureSubscribeVC.h"
+#import "MysubscribeTool.h"
+#import "MysubscribeModel.h"
+#import "MysubscribeTool.h"
+#import "subscribeModel.h"
 @interface MysubscribeView ()<UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *_tableView;
     NSArray *_sectionTitleArray;
+    NSMutableArray *_normalArray;
+    NSMutableArray *_overdueArray;
+    
 }
 @end
 
 @implementation MysubscribeView
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.title=@"我的预约";
-    [self addTableView];
     self.view.backgroundColor=HexRGB(0xeeeeee);
     _sectionTitleArray=[NSArray array];
+//    _normalArray=[NSMutableArray array];
+//    _overdueArray=[NSMutableArray array];
     _sectionTitleArray=@[@"   未到期预约",@"   已过期预约"];
-
+    
+    
+    [self addTableView];
+    [self addLoadStatus];
 
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBarHidden = NO;
+}
 
--(void)addTableView{
+#pragma mark ---加载数据
+-(void)addLoadStatus
+{
+  [MysubscribeTool statusesWithSuccess:^(NSMutableArray *statues) {
+      
+      _normalArray = [statues objectAtIndex:0];
+      _overdueArray = [statues objectAtIndex:1];
+      
+      [_tableView reloadData];
+      NSLog(@"%@  %@",_normalArray,_overdueArray);
+  } orderListUid_ID:@"uid" failure:^(NSError *error) {
+      
+  }];
+}
+-(void)addTableView
+{
     _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight) style:UITableViewStylePlain];
     _tableView.delegate =self;
     _tableView.dataSource =self;
@@ -45,7 +77,16 @@
     return _sectionTitleArray.count;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    
+    if (section==0)
+    {
+        return _normalArray.count;
+    }
+    else
+    {
+        return _overdueArray.count;
+    }
+//    return 3;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -56,11 +97,29 @@
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
         cell.backgroundColor=HexRGB(0xeeeeee);
     }
-    cell.MeSubscribeTimeLabel.text=@"123333333";
-    cell.MeSubscribeCategoryLabel.text=@"都看开点";
-    cell.MeSubscribeNumLabel.text=@"33";
-    [cell.MeSubscribeImage setImageWithURL:[NSURL URLWithString:nil] placeholderImage:[UIImage imageNamed:@"header"]];
+   
+    subscribeModel *subModel;
+    if (indexPath.section == 0)
+    {
+        subModel = [_normalArray objectAtIndex:indexPath.row];
+    }
+    else
+    {
+        subModel = [_overdueArray objectAtIndex:indexPath.row];
+    }
+    
+    
+    cell.MeSubscribeTimeLabel.text=subModel.use_time;
+    cell.MeSubscribeCategoryLabel.text=subModel.type;
+    cell.MeSubscribeNumLabel.text=subModel.people_num;
+    [cell.MeSubscribeImage setImageWithURL:[NSURL URLWithString:subModel.cover] placeholderImage:[UIImage imageNamed:@"header"]];
+    
     return cell;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    sureSubscribeVC *sureVc=[[sureSubscribeVC alloc]init];
+    [self.navigationController pushViewController:sureVc animated:YES];
 }
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     return [_sectionTitleArray objectAtIndex:section];
@@ -79,7 +138,7 @@
     [sectionLabel setImage:[UIImage imageNamed:[NSString stringWithFormat:@"meSubscribe_Image%ld",(long)section]] forState:UIControlStateNormal];
 
 //    [sectionLabel setImage:[UIImage imageNamed:@"meImage0"] forState:UIControlStateNormal];
-    sectionLabel.frame=CGRectMake(30, 0, 150, 40);
+    sectionLabel.frame=CGRectMake(30, -5, 150, 40);
     return headerView;
 }
 //-(NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView{
