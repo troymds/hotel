@@ -31,6 +31,7 @@
 		55B600D51A42726F0002808F /* MyOrderTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B600D41A42726F0002808F /* MyOrderTool.m */; };
 		55B600D81A42728B0002808F /* sureSubscribeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B600D71A42728B0002808F /* sureSubscribeVC.m */; };
 		55B600DF1A4277ED0002808F /* ZYAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B600DE1A4277ED0002808F /* ZYAnnotation.m */; };
+		55B600E51A427F730002808F /* aboutModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B600E41A427F730002808F /* aboutModel.m */; };
 		55BA749D1A3E78BB00203DA2 /* address_addView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BA749C1A3E78BB00203DA2 /* address_addView.m */; };
 		55BA74A01A3E82C400203DA2 /* modificationAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BA749F1A3E82C400203DA2 /* modificationAddress.m */; };
 		55BA74A31A3E85A300203DA2 /* aboutOurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BA74A21A3E85A300203DA2 /* aboutOurView.m */; };
@@ -229,6 +230,8 @@
 		55B600D71A42728B0002808F /* sureSubscribeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sureSubscribeVC.m; sourceTree = "<group>"; };
 		55B600DD1A4277ED0002808F /* ZYAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYAnnotation.h; sourceTree = "<group>"; };
 		55B600DE1A4277ED0002808F /* ZYAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYAnnotation.m; sourceTree = "<group>"; };
+		55B600E31A427F730002808F /* aboutModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aboutModel.h; sourceTree = "<group>"; };
+		55B600E41A427F730002808F /* aboutModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = aboutModel.m; sourceTree = "<group>"; };
 		55BA749B1A3E78BB00203DA2 /* address_addView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = address_addView.h; sourceTree = "<group>"; };
 		55BA749C1A3E78BB00203DA2 /* address_addView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = address_addView.m; sourceTree = "<group>"; };
 		55BA749E1A3E82C400203DA2 /* modificationAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = modificationAddress.h; sourceTree = "<group>"; };
@@ -887,6 +890,8 @@
 		F33542721A369D92005B21C8 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				55B600E31A427F730002808F /* aboutModel.h */,
+				55B600E41A427F730002808F /* aboutModel.m */,
 				55B600CD1A42721C0002808F /* subscribeModel.h */,
 				55B600CE1A42721C0002808F /* subscribeModel.m */,
 				55B600CA1A42720D0002808F /* MysubscribeModel.h */,
@@ -1525,6 +1530,7 @@
 				F335439F1A36A1EB005B21C8 /* DockItem.m in Sources */,
 				55B248A01A3938F600B3F5C7 /* MysubscribeView.m in Sources */,
 				F33543491A369ED1005B21C8 /* SDWebImageDownloaderOperation.m in Sources */,
+				55B600E51A427F730002808F /* aboutModel.m in Sources */,
 				F33543521A369ED1005B21C8 /* SVProgressHUD.m in Sources */,
 				F33543861A369F58005B21C8 /* SSKeychainQuery.m in Sources */,
 				55BA74A31A3E85A300203DA2 /* aboutOurView.m in Sources */,

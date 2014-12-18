@@ -15,5 +15,6 @@ typedef void (^StatusFailureBlock)(NSError *error);
 + (void)statusesWithSuccess:(StatusSuccessBlock)success uid_ID:(NSString *)uid_id failure:(StatusFailureBlock)failure;
 
 + (void)statusesWithSuccessDelete:(StatusSuccessBlock)success address_Id:(NSString *)address_id failure:(StatusFailureBlock)failure;
++ (void)statusesWithSuccessDelete:(StatusSuccessBlock)success address_Id:(NSString *)address_id failure:(StatusFailureBlock)failure;
 
 @end
