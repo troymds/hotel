@@ -36,15 +36,15 @@
     for (int i=0; i<3; i++)
     {
         
-        _nameField =[[UITextField alloc]initWithFrame:CGRectMake(10, i%3*50, kWidth-YYBORDERW*2-10, 50)];
+        _nameField =[[UITextField alloc]initWithFrame:CGRectMake(10, i%3*50, kWidth-YYBORDERW*2-50, 50)];
         [backView addSubview:_nameField];
         _nameField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         
         _nameField.tag = TEXTFIDLDTAG+i;
         _nameField.placeholder =placeHoderArray[i];
         
-        UIImageView *writeView =[[UIImageView alloc]initWithFrame:CGRectMake(kWidth-YYBORDERW*5, 15, 20, 20)];
-        [_nameField addSubview:writeView];
+        UIImageView *writeView =[[UIImageView alloc]initWithFrame:CGRectMake(kWidth-YYBORDERW*4, 15+i%3*50, 20, 20)];
+        [backView addSubview:writeView];
         writeView.image=[UIImage imageNamed:@"me_write_enter"];
         
         UIView *lineView=[[UIView alloc]initWithFrame:CGRectMake(0, 50+i%2*50, kWidth-YYBORDERW*2, 1)];
@@ -103,13 +103,17 @@
 
 -(void)addLoadStatus
 {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+    hud.dimBackground = NO;
     [addAdressTool statusesWithSuccess:^(NSArray *statues) {
-        
+        [MBProgressHUD hideAllHUDsForView:[UIApplication sharedApplication].keyWindow animated:YES];
+
         [self disMissVC];
         
     } uid_ID:@"uid" ContentStr:addressStr TelStr:telStr ContactStr:nameStr failure:^(NSError *error) {
-        
-        NSLog(@"增添新地址失败！ ---- >%@",error);
+        [MBProgressHUD hideAllHUDsForView:[UIApplication sharedApplication].keyWindow animated:YES];
+
+       
         
     }];
     

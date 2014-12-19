@@ -38,11 +38,11 @@
 }
 -(void)addUIView
 {
-    UIImageView *headerImage =[[UIImageView alloc]initWithFrame:CGRectMake(YYBORDER, YYBORDER*2+64, kWidth-YYBORDER*2, 70)];
+    UIImageView *headerImage =[[UIImageView alloc]initWithFrame:CGRectMake(YYBORDER, YYBORDER*2, kWidth-YYBORDER*2, 70)];
     [self.view addSubview:headerImage];
     headerImage.image =[UIImage imageNamed:@"suggest_banner"];
     
-    suggestText =[[UITextView alloc]initWithFrame:CGRectMake(YYBORDER, YYBORDER*4+64+70, kWidth-YYBORDER*2, 200)];
+    suggestText =[[UITextView alloc]initWithFrame:CGRectMake(YYBORDER, YYBORDER*4+70, kWidth-YYBORDER*2, 200)];
     [self.view addSubview:suggestText];
     suggestText.font =[UIFont systemFontOfSize:PxFont(20)];
     suggestText.delegate =self;
@@ -55,7 +55,7 @@
     
     
     
-    placeholderLabel=[[UILabel alloc]initWithFrame:CGRectMake(YYBORDER+10, YYBORDER*4+64+70,  kWidth-YYBORDER*2, 30)];
+    placeholderLabel=[[UILabel alloc]initWithFrame:CGRectMake(YYBORDER+10, YYBORDER*4+70,  kWidth-YYBORDER*2, 30)];
     placeholderLabel.text=@"请输入您对我们的宝贵意见!";
     placeholderLabel.textColor=HexRGB(0x9a9a9a);
     placeholderLabel.font =[UIFont systemFontOfSize:PxFont(20)];
@@ -67,7 +67,7 @@
     [self.view addSubview:commintBtn];
     [commintBtn setImage:[UIImage imageNamed:@"suggest_ok.png"] forState:UIControlStateNormal];
     [commintBtn setImage:[UIImage imageNamed:@"suggest_ok_pre.png"] forState:UIControlStateHighlighted];
-    commintBtn.frame =CGRectMake(YYBORDER, YYBORDER*4+64+70+225, kWidth-YYBORDER*2, 40) ;
+    commintBtn.frame =CGRectMake(YYBORDER, YYBORDER*4+70+225, kWidth-YYBORDER*2, 40) ;
     [commintBtn addTarget:self action:@selector(commitBtnClick) forControlEvents:UIControlEventTouchUpInside];
 
     

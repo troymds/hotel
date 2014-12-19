@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5519EC721A44031E00D9845F /* phoneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5519EC711A44031E00D9845F /* phoneView.m */; };
 		554ECD341A42A7D90091C020 /* myOrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 554ECD331A42A7D90091C020 /* myOrderDetailModel.m */; };
 		554ECD371A42B8750091C020 /* myOrderListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 554ECD361A42B8750091C020 /* myOrderListModel.m */; };
 		5551FF391A3A907E0057598D /* MyOrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5551FF381A3A907E0057598D /* MyOrderView.m */; };
@@ -184,6 +185,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5519EC701A44031E00D9845F /* phoneView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = phoneView.h; sourceTree = "<group>"; };
+		5519EC711A44031E00D9845F /* phoneView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = phoneView.m; sourceTree = "<group>"; };
 		554ECD321A42A7D90091C020 /* myOrderDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myOrderDetailModel.h; sourceTree = "<group>"; };
 		554ECD331A42A7D90091C020 /* myOrderDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myOrderDetailModel.m; sourceTree = "<group>"; };
 		554ECD351A42B8750091C020 /* myOrderListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myOrderListModel.h; sourceTree = "<group>"; };
@@ -843,6 +846,8 @@
 		F335426B1A369D92005B21C8 /* control */ = {
 			isa = PBXGroup;
 			children = (
+				5519EC701A44031E00D9845F /* phoneView.h */,
+				5519EC711A44031E00D9845F /* phoneView.m */,
 				F33543A31A36A2CF005B21C8 /* MapController.h */,
 				F33543A41A36A2CF005B21C8 /* MapController.m */,
 				55B600DD1A4277ED0002808F /* ZYAnnotation.h */,
@@ -1591,6 +1596,7 @@
 				F33542981A369E84005B21C8 /* UIScrollView+UITouch.m in Sources */,
 				F33543461A369ED1005B21C8 /* SDWebImageCompat.m in Sources */,
 				55B248C71A3992EA00B3F5C7 /* QQOAuthConfig.m in Sources */,
+				5519EC721A44031E00D9845F /* phoneView.m in Sources */,
 				55B248CA1A399A7600B3F5C7 /* QQtool.m in Sources */,
 				F33543711A369F16005B21C8 /* HttpTool.m in Sources */,
 				F33543A21A36A270005B21C8 /* HomeController.m in Sources */,

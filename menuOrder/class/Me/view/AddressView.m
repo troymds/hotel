@@ -16,6 +16,7 @@
 {
     UITableView *_tableView;
     NSMutableArray *_addressArray;
+    UIImageView *noStatusImg;
 }
 
 
@@ -31,6 +32,7 @@
     
     [self addTableView];
     [self addMBprogressView];
+    [self addNoStatusImage];
 
 
 }
@@ -45,6 +47,13 @@
     [self addLoadStatus];
     self.navigationController.navigationBarHidden = NO;
 }
+//没有数据时的状态
+-(void)addNoStatusImage{
+    noStatusImg =[[UIImageView alloc]initWithFrame:CGRectMake((kWidth-230)/2, ((kHeight-100)/8)*5, 230, 100)];
+    [self.view addSubview:noStatusImg];
+    noStatusImg.image =[UIImage imageNamed:@"subscib_img"];
+    noStatusImg.hidden =YES;
+}
 
 #pragma mark ---加载数据
 -(void)addLoadStatus
@@ -52,6 +61,14 @@
    
     [addressListTool statusesWithSuccess:^(NSArray *statues) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        if (statues.count>0) {
+            _tableView.hidden =NO;
+            noStatusImg.hidden =YES;
+        }
+        else{
+            _tableView.hidden =YES;
+            noStatusImg.hidden =NO;
+        }
 
         [_addressArray removeAllObjects];
         
@@ -59,7 +76,9 @@
         [_addressArray addObjectsFromArray:statues];
         [_tableView reloadData];
     } uid_ID:@"uid" failure:^(NSError *error) {
-        
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        [RemindView showViewWithTitle:@"网络错误！" location:MIDDLE];
+
     }];
     
 }
@@ -107,28 +126,29 @@
     
     return cell;
 }
--(void)delegateBtnClick:(UIButton *)delegate
+-(void)delegateBtnClick:(UIButton *)delete
 {
     // 根据cell的子视图 去找当前的cell , 在这里为了找到当前的cell 可以使用[[[[delegate superview] superview] ...] class]; 只到 class的类名为：CustomCell的名为止
     
-    
-    AddressCell *currentCell = (AddressCell *)[[[delegate superview] superview] superview];
-    NSLog(@"class For cell %@", [[[delegate superview] superview] superview]);
+    [self addMBprogressView];
+    AddressCell *currentCell = (AddressCell *)[[[delete superview] superview] superview];
+//    NSLog(@"class For cell %@", [[[delete superview] superview] superview]);
     
     NSIndexPath *indexPath = [_tableView indexPathForCell:currentCell];
     addressListModel *addressModel =[_addressArray objectAtIndex:indexPath.row];
     
     [addressListTool statusesWithSuccessDelete:^(NSArray *statues) {
-        
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     } address_Id:addressModel.addressId failure:^(NSError *error) {
-        
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        [RemindView showViewWithTitle:@"网络错误！" location:MIDDLE];
     }];
     
     [_addressArray removeObjectAtIndex:indexPath.row];
 
     NSMutableArray *index = [NSMutableArray arrayWithObject:indexPath];
     [_tableView deleteRowsAtIndexPaths:index withRowAnimation:UITableViewRowAnimationLeft];
-    
+    [self addLoadStatus];
     
     
 }

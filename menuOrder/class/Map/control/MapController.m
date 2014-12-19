@@ -8,6 +8,7 @@
 
 #import "MapController.h"
 #import <MapKit/MapKit.h>
+#import "phoneView.h"
 @interface MapController ()<MKMapViewDelegate,CLLocationManagerDelegate>
 {
     MKMapView *_mapView;
@@ -38,22 +39,34 @@
     _mapView.showsUserLocation = YES;
     _mapView.userLocation.title = @"当前位置";
 
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setTitle:@"定位" forState:UIControlStateNormal];
+    [button setTitleColor:HexRGB(0x899c02) forState:UIControlStateNormal];
     [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     button.frame = CGRectMake(220, 20, 100, 50);
     [_mapView addSubview:button];
+    
+    UIButton *phoneTel = [UIButton buttonWithType:UIButtonTypeCustom];
+    phoneTel.backgroundColor =[UIColor clearColor];
+    [phoneTel setImage:[UIImage imageNamed:@"Tel"] forState:UIControlStateNormal];
+    [phoneTel setImage:[UIImage imageNamed:@"Tel_rep"] forState:UIControlStateHighlighted];
+
+    [phoneTel addTarget:self action:@selector(phoneBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    phoneTel.frame = CGRectMake(kWidth-85, kHeight-210, 55, 73);
+    [self.view addSubview:phoneTel];
+    [self.view bringSubviewToFront:phoneTel];
 
     for (int i=0; i<100; i++) {
         ZYAddress *address = [[ZYAddress alloc] init];
-        address.latitude = 34.729337 + i*0.001;
-        address.longitude = 113.746080 + i*0.001;
-        address.name = [NSString stringWithFormat:@"大河国际%d", i];
-        address.address = [NSString stringWithFormat:@"第三大街经北%d路", i];
+        address.latitude = 118.772698 + i*0.001;
+        address.longitude = 32.074764 + i*0.001;
+        address.name = [NSString stringWithFormat:@"紫金渔府%d", i];
+        address.address = [NSString stringWithFormat:@"江苏南京鼓楼水佐岗鼓楼区水佐岗老菜市%d路", i];
         
         ZYAnnotation *annotation = [ZYAnnotation annotationWithAdress:address];
         [_mapView addAnnotation:annotation];
     }
+    
     
     //一个经纬度的结构体数组
     CLLocationCoordinate2D  points[4];
@@ -79,7 +92,15 @@
     
     // Do any additional setup after loading the view, typically from a nib.
 }
-
+-(void)phoneBtnClick{
+    [phoneView callPhoneNumber:@"13913008373" call:^(NSTimeInterval duration) {
+        
+    } cancel:^{
+        
+    } finish:^{
+        
+    }];
+}
 //如果要想覆盖物显示出来，那么必须实现该协议方法，而且需要创建对应的渲染器进行渲染（创建对应的画笔，把该图形绘制出来）
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView viewForOverlay:(id<MKOverlay>)overlay
 {
@@ -148,7 +169,7 @@
     }
     
     //更改大头针的图片
-    //annotationView.image = [UIImage imageNamed:@"arrest.png"];
+    annotationView.image = [UIImage imageNamed:@"heaar_img"];
     //更改大头针的颜色
     annotationView.pinColor = MKPinAnnotationColorPurple;
     

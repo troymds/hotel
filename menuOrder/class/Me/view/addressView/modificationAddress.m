@@ -48,14 +48,14 @@
         placeHoderLabel.textColor=HexRGB(0xa6a6a6);
         [backView addSubview:placeHoderLabel];
 
-        _updateNameField =[[UITextField alloc]initWithFrame:CGRectMake(10, i%3*50, kWidth-YYBORDERW*2-60, 35)];
+        _updateNameField =[[UITextField alloc]initWithFrame:CGRectMake(10, i%3*50, kWidth-YYBORDERW*2-50, 35)];
         [backView addSubview:_updateNameField];
         _updateNameField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         _updateNameField.text=updateArray[i];
         _updateNameField.tag = TEXTFIDLDTAG+i;
 
-        UIImageView *writeView =[[UIImageView alloc]initWithFrame:CGRectMake(kWidth-YYBORDERW*5, 15, 20, 20)];
-        [_updateNameField addSubview:writeView];
+        UIImageView *writeView =[[UIImageView alloc]initWithFrame:CGRectMake(kWidth-YYBORDERW*4, 15+i%3*50, 20, 20)];
+        [backView addSubview:writeView];
         writeView.image=[UIImage imageNamed:@"me_write_enter"];
         
         UIView *lineView=[[UIView alloc]initWithFrame:CGRectMake(0, 50+i%2*50, kWidth-YYBORDERW*2, 1)];
@@ -119,11 +119,15 @@
 }
 -(void)addLoadStatus
 {
-    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+    hud.dimBackground = NO;
     [addAdressTool updateAddressID:updateIndex ContentStr:updateAddressStr TelStr:updateTelStr ContactStr:updateNameStr statusesWithSuccess:^(NSArray *statues) {
+        [MBProgressHUD hideAllHUDsForView:[UIApplication sharedApplication].keyWindow animated:YES];
+
         [self disMissVC];
     } failure:^(NSError *error) {
-        
+        [MBProgressHUD hideAllHUDsForView:[UIApplication sharedApplication].keyWindow animated:YES];
+ 
     }];
 
 }

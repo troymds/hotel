@@ -19,6 +19,7 @@
     NSArray *_sectionTitleArray;
     NSMutableArray *_normalArray;
     NSMutableArray *_overdueArray;
+    UIImageView *noStatusImg;
     
 }
 @end
@@ -38,6 +39,7 @@
     
     [self addTableView];
     [self addLoadStatus];
+    [self addNoStatusImage];
 
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -45,17 +47,43 @@
     self.navigationController.navigationBarHidden = NO;
 }
 
+//没有数据时的状态
+-(void)addNoStatusImage{
+    noStatusImg =[[UIImageView alloc]initWithFrame:CGRectMake((kWidth-230)/2, ((kHeight-100)/8)*5, 230, 100)];
+    [self.view addSubview:noStatusImg];
+    noStatusImg.image =[UIImage imageNamed:@"noSubscribe_img"];
+    noStatusImg.hidden =YES;
+}
+#pragma  mark ------显示指示器
+-(void)addMBprogressView{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"加载中...";
+    
+    
+}
+
 #pragma mark ---加载数据
 -(void)addLoadStatus
 {
   [MysubscribeTool statusesWithSuccess:^(NSMutableArray *statues) {
-      
+      [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+
+      if (statues.count>0) {
+          _tableView.hidden =NO;
+          noStatusImg.hidden =YES;
+      }
+      else{
+          _tableView.hidden =YES;
+          noStatusImg.hidden =NO;
+      }
       _normalArray = [statues objectAtIndex:0];
       _overdueArray = [statues objectAtIndex:1];
       
       [_tableView reloadData];
   } orderListUid_ID:@"uid" failure:^(NSError *error) {
-      
+      [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+      [RemindView showViewWithTitle:@"网络错误！" location:MIDDLE];
+
   }];
 }
 -(void)addTableView
@@ -63,7 +91,7 @@
     _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight) style:UITableViewStylePlain];
     _tableView.delegate =self;
     _tableView.dataSource =self;
-    _tableView.hidden = NO;
+    _tableView.hidden = YES;
     _tableView.backgroundColor =HexRGB(0xeeeeee);
     _tableView.showsHorizontalScrollIndicator = NO;
     _tableView.showsVerticalScrollIndicator = NO;
@@ -74,6 +102,7 @@
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return _sectionTitleArray.count;
+    
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
@@ -129,7 +158,6 @@
     sureSubscribeVC *sureVc=[[sureSubscribeVC alloc]init];
     sureVc.subcribeIndex =subModel.subscribeID;
     
-    NSLog(@"%@-----%@",sureVc.subcribeIndex,subModel.subscribeID);
     [self.navigationController pushViewController:sureVc animated:YES];
 }
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
@@ -147,14 +175,25 @@
     sectionLabel.titleLabel.font=[UIFont systemFontOfSize:PxFont(22)];
     [sectionLabel setTitleColor:HexRGB(0x808080) forState:UIControlStateNormal];
     [sectionLabel setImage:[UIImage imageNamed:[NSString stringWithFormat:@"meSubscribe_Image%ld",(long)section]] forState:UIControlStateNormal];
+    
+    if (_normalArray.count>0) {
+        if (section==0) {
+            sectionLabel.hidden =NO;
+        }else{
+            sectionLabel.hidden = YES;
+        }
+    }if (_overdueArray.count>0) {
+        if (section==1) {
+            sectionLabel.hidden =NO;
+        }else{
+            sectionLabel.hidden = YES;
+        }
+    }
 
-//    [sectionLabel setImage:[UIImage imageNamed:@"meImage0"] forState:UIControlStateNormal];
     sectionLabel.frame=CGRectMake(30, -5, 150, 40);
     return headerView;
 }
-//-(NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView{
-//    return _sectionTitleArray;
-//}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 90;
 }

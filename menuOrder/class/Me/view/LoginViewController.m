@@ -54,7 +54,7 @@
     UIButton *headerBtn =[UIButton buttonWithType:UIButtonTypeCustom];
     [headerImage addSubview:headerBtn];
     headerBtn.frame=CGRectMake((kWidth-HEADERWY)/2, HearderImageH-(HEADERWY)/2, HEADERWY, HEADERWY);
-    [headerBtn setImage:[UIImage imageNamed:@"header_img"] forState:UIControlStateNormal];
+    [headerBtn setImage:[UIImage imageNamed:@"heaar_img"] forState:UIControlStateNormal];
     [headerBtn addTarget:self action:@selector(headerBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     headerBtn.layer.cornerRadius=0;
     headerBtn.layer.borderWidth=2.0;
