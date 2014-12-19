@@ -20,7 +20,7 @@
 @synthesize updateAddressStr,updateIndex,updateNameStr,updateTelStr;
 - (void)viewDidLoad
 {
-    self.title=@"新增地址";
+    self.title=@"修改地址";
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithSearch:@"nav_ok" highlightedSearch:@"nav_ok_pre" target:(self) action:@selector(navSaveContentClick)];
     self.view.backgroundColor=HexRGB(0xeeeeee);
     [self addAdressUI];
@@ -101,13 +101,22 @@
     }else if ([updateAddressStr isEqualToString:@""]) {
         [RemindView showViewWithTitle:@"联系人详细地址不能为空" location:MIDDLE];
         
+    }else if ([updateTelStr isEqualToString:@""]) {
+        [RemindView showViewWithTitle:@"联系人姓名不能为空" location:MIDDLE];
+        
     }else{
         [self addLoadStatus];
         
     }
     
 }
-
+-(BOOL)isValidateMobile:(NSString *)mobile
+{
+    //手机号以13， 15，18开头，八个 \d 数字字符
+    NSString *phoneRegex = @"^((13[0-9])|(15[^4,\\D])|(17[^4,\\D])|(18[0,0-9]))\\d{8}$";
+    NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",phoneRegex];
+    return [phoneTest evaluateWithObject:mobile];
+}
 -(void)addLoadStatus
 {
     

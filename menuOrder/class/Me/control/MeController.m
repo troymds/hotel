@@ -45,11 +45,16 @@
 -(void)addUIView{
     
     _backScrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 20, kWidth, kHeight)];
+//    if (IsIos6) {
+//        _backScrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight)];
+//
+//    }
     if (kHeight==480) {
-        _backScrollView.contentSize = CGSizeMake(kWidth,kHeight+140);
+
+        _backScrollView.contentSize = CGSizeMake(kWidth,kHeight+70);
 
     }else{
-        _backScrollView.contentSize = CGSizeMake(kWidth,kHeight+50);
+        _backScrollView.contentSize = CGSizeMake(kWidth,kHeight);
 
     }
     _backScrollView.userInteractionEnabled=YES;
@@ -66,7 +71,7 @@
     UIButton *headerBtn =[UIButton buttonWithType:UIButtonTypeCustom];
     [_backScrollView addSubview:headerBtn];
     headerBtn.frame=CGRectMake((kWidth-HEADERWY)/2, (HearderImageH-HEADERWY)/2, HEADERWY, HEADERWY);
-    [headerBtn setImage:[UIImage imageNamed:@"header_img"] forState:UIControlStateNormal];
+    [headerBtn setImage:[UIImage imageNamed:@"heaar_img"] forState:UIControlStateNormal];
     [headerBtn addTarget:self action:@selector(headerBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     headerBtn.layer.cornerRadius=0;
     headerBtn.layer.borderWidth=2.0;
@@ -132,11 +137,6 @@
         }
         [_backScrollView addSubview:backView];
     }
-//    退出登录 dddddddd
-    UIButton *returnLogin =[UIButton buttonWithType:UIButtonTypeCustom];
-    [_backScrollView addSubview:returnLogin];
-    returnLogin.frame=CGRectMake(13, _backScrollView.contentSize.height-126, kWidth-26, 40);
-    [returnLogin setImage:[UIImage imageNamed:@"return_logion"] forState:UIControlStateNormal];
     
 }
 
@@ -166,29 +166,30 @@
             [self.navigationController pushViewController:aboutVC animated:YES];
         }
     if (sender.tag==MYBTNTAG+6) {
-//        NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:@"ios",@"os", nil];
-//        [HttpTool postWithPath:@"getNewestVersion" params:param success:^(id JSON) {
-//            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:nil];
-//            NSDictionary *dic = [result objectForKey:@"response"];
-//            if (dic) {
-//                NSString *key = (NSString *)kCFBundleVersionKey;
-//                NSString *version = [NSBundle mainBundle].infoDictionary[key];
-//                NSString *current = [dic objectForKey:@"version"];
-//                if ([current isEqualToString:version]) {
-//                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"版本更新" message:@"您当前已是最新版本" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles:nil, nil];
-//                    alertView.tag = 1000;
-//                    [alertView show];
-//                }else{
-//                    _url = [dic objectForKey:@"url"];
-//                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"检测到新版本" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"立即升级", nil];
-//                    alertView.tag = 1001;
-//                    [alertView show];
-//                }
-//            }
-//        } failure:^(NSError *error) {
-//            NSLog(@"%@",error);
-//        }];
-//
+        NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:@"version",@"version", nil];
+        [HttpTool postWithPath:@"getNewestVersion" params:param success:^(id JSON) {
+            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:nil];
+            NSDictionary *dic = [result objectForKey:@"response"];
+            if (dic) {
+                NSString *key = (NSString *)kCFBundleVersionKey;
+                NSString *version = [NSBundle mainBundle].infoDictionary[key];
+                NSString *current = [dic objectForKey:@"version"];
+                NSLog(@"---%@",current);
+                if ([current isEqualToString:version]) {
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"版本更新" message:@"您当前已是最新版本" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles:nil, nil];
+                    alertView.tag = 1000;
+                    [alertView show];
+                }else{
+                    _url = [dic objectForKey:@"url"];
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"检测到新版本" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"立即升级", nil];
+                    alertView.tag = 1001;
+                    [alertView show];
+                }
+            }
+        } failure:^(NSError *error) {
+            
+        }];
+
     }
         else{
             return;
@@ -204,6 +205,7 @@
 {
     //版本更新
     openURL(_url);
+    NSLog(@"%@",_url);
 }
 -(void)headerBtnClick:(UIButton *)login{
     LoginViewController *loginVC=[[LoginViewController alloc]init];

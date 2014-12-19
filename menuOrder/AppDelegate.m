@@ -89,7 +89,7 @@
     [HttpTool postWithPath:@"getNewestVersion" params:param success:^(id JSON) {
         NSDictionary *result = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:nil];
         NSDictionary *dic = [result objectForKey:@"response"];
-        if (dic) {
+                if (dic) {
             NSString *key = @"CFBundleShortVersionString";
             NSString *version = [NSBundle mainBundle].infoDictionary[key];
             NSString *current = [dic objectForKey:@"version"];

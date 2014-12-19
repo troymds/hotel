@@ -54,7 +54,6 @@
       _overdueArray = [statues objectAtIndex:1];
       
       [_tableView reloadData];
-      NSLog(@"%@  %@",_normalArray,_overdueArray);
   } orderListUid_ID:@"uid" failure:^(NSError *error) {
       
   }];
@@ -118,7 +117,19 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    subscribeModel *subModel;
+    if (indexPath.section == 0)
+    {
+        subModel = [_normalArray objectAtIndex:indexPath.row];
+    }
+    else
+    {
+        subModel = [_overdueArray objectAtIndex:indexPath.row];
+    }
     sureSubscribeVC *sureVc=[[sureSubscribeVC alloc]init];
+    sureVc.subcribeIndex =subModel.subscribeID;
+    
+    NSLog(@"%@-----%@",sureVc.subcribeIndex,subModel.subscribeID);
     [self.navigationController pushViewController:sureVc animated:YES];
 }
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{

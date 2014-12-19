@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface sureSubscribeVC : UIViewController
-
+@property(nonatomic,copy)NSString *subcribeIndex;
 @end

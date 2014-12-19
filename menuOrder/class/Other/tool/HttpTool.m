@@ -21,10 +21,15 @@
     NSString *md5 = [NSString stringWithFormat:@"%@%@%@",uuid,time,@"ju34s4&6d567nuwe678l89kjdf56o34iw!e"];
     md5 = [md5 md5Encrypt];
     NSString *ios =@"ios";
+    NSString *key = @"CFBundleShortVersionString";
+    // 1.从Info.plist中取出版本号
+    NSString *version = [NSBundle mainBundle].infoDictionary[key];
     [allParams setObject:ios forKey:@"os"];
     [allParams setObject:time forKey:@"time"];
     [allParams setObject:uuid forKey:@"uuid"];
     [allParams setObject:md5 forKey:@"secret"];
+    [allParams setObject:version forKey:@"version"];
+
     NSString *pathStr = [NSString stringWithFormat:@"/index.php?s=/Home/Api/%@",path];
    
     NSURLRequest *request = [client requestWithMethod:method path:pathStr parameters:allParams];

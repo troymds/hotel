@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		554ECD341A42A7D90091C020 /* myOrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 554ECD331A42A7D90091C020 /* myOrderDetailModel.m */; };
+		554ECD371A42B8750091C020 /* myOrderListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 554ECD361A42B8750091C020 /* myOrderListModel.m */; };
 		5551FF391A3A907E0057598D /* MyOrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5551FF381A3A907E0057598D /* MyOrderView.m */; };
 		5551FF3C1A3A919B0057598D /* MyOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5551FF3B1A3A919B0057598D /* MyOrderCell.m */; };
 		5551FF3F1A3AB6060057598D /* AddressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5551FF3E1A3AB6060057598D /* AddressView.m */; };
@@ -182,6 +184,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		554ECD321A42A7D90091C020 /* myOrderDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myOrderDetailModel.h; sourceTree = "<group>"; };
+		554ECD331A42A7D90091C020 /* myOrderDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myOrderDetailModel.m; sourceTree = "<group>"; };
+		554ECD351A42B8750091C020 /* myOrderListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myOrderListModel.h; sourceTree = "<group>"; };
+		554ECD361A42B8750091C020 /* myOrderListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myOrderListModel.m; sourceTree = "<group>"; };
 		5551FF371A3A907E0057598D /* MyOrderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderView.h; sourceTree = "<group>"; };
 		5551FF381A3A907E0057598D /* MyOrderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderView.m; sourceTree = "<group>"; };
 		5551FF3A1A3A919B0057598D /* MyOrderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderCell.h; sourceTree = "<group>"; };
@@ -590,7 +596,6 @@
 		55BA749A1A3E786300203DA2 /* addressView */ = {
 			isa = PBXGroup;
 			children = (
-				55BA74B11A3EC5CE00203DA2 /* adModel */,
 				55BA74B21A3EC5CE00203DA2 /* adTool */,
 				55BA749B1A3E78BB00203DA2 /* address_addView.h */,
 				55BA749C1A3E78BB00203DA2 /* address_addView.m */,
@@ -609,13 +614,6 @@
 				55BA74AB1A3EB1B800203DA2 /* XWDataModelSingleton.m */,
 			);
 			path = loginViewOther;
-			sourceTree = "<group>";
-		};
-		55BA74B11A3EC5CE00203DA2 /* adModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = adModel;
 			sourceTree = "<group>";
 		};
 		55BA74B21A3EC5CE00203DA2 /* adTool */ = {
@@ -894,10 +892,14 @@
 				55B600E41A427F730002808F /* aboutModel.m */,
 				55B600CD1A42721C0002808F /* subscribeModel.h */,
 				55B600CE1A42721C0002808F /* subscribeModel.m */,
+				554ECD321A42A7D90091C020 /* myOrderDetailModel.h */,
+				554ECD331A42A7D90091C020 /* myOrderDetailModel.m */,
 				55B600CA1A42720D0002808F /* MysubscribeModel.h */,
 				55B600CB1A42720D0002808F /* MysubscribeModel.m */,
 				55BA74AE1A3EC08E00203DA2 /* addressListModel.h */,
 				55BA74AF1A3EC08E00203DA2 /* addressListModel.m */,
+				554ECD351A42B8750091C020 /* myOrderListModel.h */,
+				554ECD361A42B8750091C020 /* myOrderListModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1445,7 +1447,11 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = promo;
 				TargetAttributes = {
+					F33541D81A367D91005B21C8 = {
+						DevelopmentTeam = 64Y2W23677;
+					};
 					F33541F31A367D91005B21C8 = {
+						DevelopmentTeam = 64Y2W23677;
 						TestTargetID = F33541D81A367D91005B21C8;
 					};
 				};
@@ -1528,6 +1534,7 @@
 				F335439C1A36A1EB005B21C8 /* MainController.m in Sources */,
 				55BA74BE1A3EDE2200203DA2 /* SuggestView.m in Sources */,
 				F335439F1A36A1EB005B21C8 /* DockItem.m in Sources */,
+				554ECD341A42A7D90091C020 /* myOrderDetailModel.m in Sources */,
 				55B248A01A3938F600B3F5C7 /* MysubscribeView.m in Sources */,
 				F33543491A369ED1005B21C8 /* SDWebImageDownloaderOperation.m in Sources */,
 				55B600E51A427F730002808F /* aboutModel.m in Sources */,
@@ -1596,6 +1603,7 @@
 				55B600D21A42724F0002808F /* aboutTool.m in Sources */,
 				F33543471A369ED1005B21C8 /* SDWebImageDecoder.m in Sources */,
 				F33543451A369ED1005B21C8 /* SDImageCache.m in Sources */,
+				554ECD371A42B8750091C020 /* myOrderListModel.m in Sources */,
 				55BA74B51A3EC5F200203DA2 /* addAdressTool.m in Sources */,
 				F33543821A369F58005B21C8 /* DateManeger.m in Sources */,
 				55B600D51A42726F0002808F /* MyOrderTool.m in Sources */,
@@ -1744,6 +1752,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/menuOrder/class/Other/ShareSDK/Connection",
@@ -1763,6 +1773,7 @@
 					"$(PROJECT_DIR)/menuOrder/class/Other/ShareSDK/Extend/WeChatSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1772,6 +1783,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/menuOrder/class/Other/ShareSDK/Connection",
@@ -1791,6 +1804,7 @@
 					"$(PROJECT_DIR)/menuOrder/class/Other/ShareSDK/Extend/WeChatSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1799,6 +1813,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/menuOrder.app/menuOrder";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1812,6 +1828,7 @@
 				);
 				INFOPLIST_FILE = "menuOrderTests/menuOrderTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1821,6 +1838,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/menuOrder.app/menuOrder";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1830,6 +1849,7 @@
 				GCC_PREFIX_HEADER = "menuOrder/menuOrder-Prefix.pch";
 				INFOPLIST_FILE = "menuOrderTests/menuOrderTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};

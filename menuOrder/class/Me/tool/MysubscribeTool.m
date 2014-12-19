@@ -17,10 +17,8 @@
         
         NSDictionary *dic =[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:nil];
         
-        NSMutableArray *statuses =[NSMutableArray array];
         NSDictionary *dict1 =dic[@"response"];
        
-        NSLog(@"vvvvvvvvv%@",dict1);
         
         if (![dict1 isKindOfClass:[NSNull class]])
         {
@@ -42,7 +40,8 @@
 }
 #pragma mark ---获取预约详情
 + (void)getOrderDetailId:(NSString *)order_id statusesWithSuccess:(StatusSuccessBlock)success  failure:(StatusFailureBlock)failure{
-    NSDictionary *dict =[NSDictionary dictionaryWithObjectsAndKeys:order_id,@"order_id", nil];
+    NSLog(@"=========%@",order_id);
+    NSDictionary *dict =[NSDictionary dictionaryWithObjectsAndKeys:order_id,@"order_id ", nil];
     [HttpTool postWithPath:@"getOrderDetail" params:dict success:^(id JSON) {
         NSDictionary *dic =[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:nil];
         NSMutableArray *statuses =[NSMutableArray array];

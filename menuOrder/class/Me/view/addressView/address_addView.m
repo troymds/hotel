@@ -90,7 +90,11 @@
     }else if ([addressStr isEqualToString:@""]) {
         [RemindView showViewWithTitle:@"联系人详细地址不能为空" location:MIDDLE];
         
-    }else{
+    }else if(![self isValidateMobile:telStr]){
+        [RemindView showViewWithTitle:@"手机号不合法" location:TOP];
+
+    }
+    else{
         [self addLoadStatus];
         
     }
@@ -99,7 +103,6 @@
 
 -(void)addLoadStatus
 {
-    
     [addAdressTool statusesWithSuccess:^(NSArray *statues) {
         
         [self disMissVC];
@@ -127,6 +130,14 @@
         [self.navigationController popViewControllerAnimated:YES];
 
     }
+}
+
+-(BOOL)isValidateMobile:(NSString *)mobile
+{
+    //手机号以13， 15，18开头，八个 \d 数字字符
+    NSString *phoneRegex = @"^((13[0-9])|(15[^4,\\D])|(17[^4,\\D])|(18[0,0-9]))\\d{8}$";
+    NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",phoneRegex];
+    return [phoneTest evaluateWithObject:mobile];
 }
 
 

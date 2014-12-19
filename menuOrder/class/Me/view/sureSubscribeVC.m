@@ -8,6 +8,7 @@
 
 #import "sureSubscribeVC.h"
 #import "MysubscribeTool.h"
+#import "myOrderDetailModel.h"
 #define  YYBORDERW 9
 #define YYBORDERWw 20
 #define YYBORDERY 15
@@ -15,6 +16,7 @@
 @interface sureSubscribeVC ()
 {
     NSMutableArray *_orderCategoryArray;
+    myOrderDetailModel *orderModel ;
 }
 @end
 
@@ -35,7 +37,24 @@
 }
 #pragma mark ---加载数据
 -(void)addLoadStatus{
-    [MysubscribeTool getOrderDetailId:@"1" statusesWithSuccess:^(NSArray *statues) {
+    [MysubscribeTool getOrderDetailId:_subcribeIndex statusesWithSuccess:^(NSArray *statues) {
+        NSDictionary *dict =[statues objectAtIndex:0];
+        orderModel =[[myOrderDetailModel alloc  ]init];
+        orderModel.price =[dict objectForKey:@"price"];
+        orderModel.contact =[dict objectForKey:@"contact"];
+        orderModel.people_num =[dict objectForKey:@"people_num"];
+        orderModel.use_time =[dict objectForKey:@"create_time"];
+        orderModel.type =[dict objectForKey:@"type"];
+//        if (![orderModel.products isEqualToString:@" "]) {
+//            orderModel.products =[[dict objectForKey:@"products"]objectForKey:@"name"];
+//
+//        }else{
+//
+//        }
+        orderModel.address =[dict objectForKey:@"address"];
+
+        
+        
         
     } failure:^(NSError *error) {
         
@@ -43,7 +62,7 @@
 }
 -(void)addUIView
 {
-    UIView *backView=[[UIView alloc]initWithFrame:CGRectMake(YYBORDERW, YYBORDERW+64, kWidth-YYBORDERW*2, 350)];
+    UIView *backView=[[UIView alloc]initWithFrame:CGRectMake(YYBORDERW, YYBORDERW, kWidth-YYBORDERW*2, 350)];
     backView.backgroundColor =[UIColor whiteColor];
     [self.view addSubview:backView];
     backView.layer.cornerRadius=8;
@@ -60,8 +79,7 @@
         titleBtn.frame =CGRectMake(0, YYBORDERWw+i%2*185, 130, 30);
         
     }
-    NSArray *orderArr =@[@"  订单金额:",@"  联系人:",@"  就餐人数:",@"  就餐时间:"];
-
+    NSArray *orderArr =@[[NSString stringWithFormat:@"  订单金额:%@元",orderModel.price],[NSString stringWithFormat:@"  联系人:%@",orderModel.contact],[NSString stringWithFormat:@"  就餐人数:%@",orderModel.people_num],[NSString stringWithFormat:@"  就餐时间:%@",orderModel.use_time]];
     for (int p=0; p<4; p++) {
         UILabel *orderLabel =[[UILabel alloc]initWithFrame:CGRectMake(YYBORDERW, YYBORDERWw+40+p%4*(YYBORDERY+20), kWidth-YYBORDERWw*2-YYBORDERW*2, 20 )];
         [backView addSubview:orderLabel];
@@ -83,7 +101,8 @@
         orderCategory.backgroundColor =[UIColor clearColor];
         orderCategory.font =[UIFont systemFontOfSize:PxFont(20)];
         orderCategory.textColor=HexRGB(0x605e5f);
-        orderCategory.text=orderArr[l];
+        orderCategory.textAlignment=NSTextAlignmentCenter;
+        orderCategory.text=_orderCategoryArray[l];
     }
 
     
