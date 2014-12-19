@@ -11,7 +11,8 @@
 @implementation addressListModel
 @synthesize tel,contact,content,addressId,addressUid;
 - (instancetype)initWithDictionaryForAddress:(NSDictionary *)dict{
-    if ([super self ]) {
+    if ([super self ])
+    {
         self.tel =dict[@"tel"];
         self.content =dict[@"content"];
         self.contact =dict[@"contact"];

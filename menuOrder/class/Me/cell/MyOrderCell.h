@@ -11,4 +11,6 @@
 @interface MyOrderCell : UITableViewCell
 @property (copy, nonatomic)  UIImageView *MeOrderImage;
 @property (copy, nonatomic)  UILabel *MeOrderTitle;
+@property (copy, nonatomic)   UIImageView *backImage;
+
 @end

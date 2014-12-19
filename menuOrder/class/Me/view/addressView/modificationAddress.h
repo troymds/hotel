@@ -9,7 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @interface modificationAddress : UIViewController<UITextFieldDelegate>
-@property(nonatomic ,retain)UITextField *nameField;
+{
+     UIView *backView;
+}
+@property(nonatomic ,retain)UITextField *updateNameField;
+@property(nonatomic,retain )NSString *updateIndex;
+@property(nonatomic ,copy)NSString *updateNameStr;
+@property(nonatomic ,copy)NSString *updateTelStr;
+@property(nonatomic ,copy)NSString *updateAddressStr;
 
 
 @end

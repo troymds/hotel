@@ -10,6 +10,8 @@
 #import "addressListTool.h"
 #import "addressListModel.h"
 @implementation addressListTool
+#pragma mark---- 获取地址列表
+
 + (void)statusesWithSuccess:(StatusSuccessBlock)success uid_ID:(NSString *)uid_id failure:(StatusFailureBlock)failure{
      NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:uid_id,@"uid" ,nil];
     [HttpTool postWithPath:@"getAddressList" params:dic success:^(id JSON) {
@@ -33,20 +35,12 @@
         
     }];
 }
-
+#pragma mark---- 删除地址
 + (void)statusesWithSuccessDelete:(StatusSuccessBlock)success address_Id:(NSString *)address_id failure:(StatusFailureBlock)failure{
-    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:address_id,@"uid" ,nil];
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:address_id,@"address_id" ,nil];
     [HttpTool postWithPath:@"deleteAddress" params:dic success:^(id JSON) {
         NSDictionary *dict =[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:nil];
-        NSMutableArray *statuses =[NSMutableArray array];
-        NSDictionary *array =dict[@"response"];
-        if (![array isKindOfClass:[NSNull class]]) {
-            [statuses addObject:[array objectForKey:@"data"]];
-        }
-        else{
-            
-        }
-        success(statuses);
+
     } failure:^(NSError *error) {
         
     }];

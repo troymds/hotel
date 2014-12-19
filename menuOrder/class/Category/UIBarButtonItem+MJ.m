@@ -11,7 +11,7 @@
 @implementation UIBarButtonItem (MJ)
 - (id)initWithIcon:(NSString *)icon highlightedIcon:(NSString *)highlighted target:(id)target action:(SEL)action
 {
-    UIView *viewItem =[[UIView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+    UIView *viewItem =[[UIView alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
     viewItem.backgroundColor =[UIColor clearColor];
     // 创建按钮
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];

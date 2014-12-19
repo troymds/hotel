@@ -8,6 +8,7 @@
 
 #import "MyOrderView.h"
 #import "MyOrderCell.h"
+#import "MyOrderTool.h"
 @interface MyOrderView ()<UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *_tableView;
@@ -19,13 +20,27 @@
 
 @implementation MyOrderView
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.title=@"我的点餐";
     self.view.backgroundColor=HexRGB(0xeeeeee);
     _sectionTitleArray=[NSArray array];
-    _sectionTitleArray=@[@"   未到期预约",@"   已过期预约"];
+    _sectionTitleArray=@[@"   未到期预约",@"   未到期预约",@"   已过期预约"];
     [self addTableView];
+    [self addLoadStatus];
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBarHidden = NO;
+}
+#pragma mark ---加载数据
+-(void)addLoadStatus{
+    [MyOrderTool myOrderUid:@"uid" statusesWithSuccess:^(NSArray *statues) {
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 -(void)addTableView{
     _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight) style:UITableViewStylePlain];
@@ -44,7 +59,7 @@
     return _sectionTitleArray.count;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    return _sectionTitleArray.count;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -55,8 +70,23 @@
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
         cell.backgroundColor=HexRGB(0xeeeeee);
     }
+    if (_sectionTitleArray.count==1) {
+        cell.backImage.image=[UIImage imageNamed:@""];
+    }else{
+        if (indexPath.row==0) {
+            cell.backImage.image =[UIImage imageNamed:@"up"];
+        }else if (indexPath.row ==_sectionTitleArray.count-1) {
+            cell.backImage.image =[UIImage imageNamed:@"down"];
+            
+        }else{
+            cell.backImage.image =[UIImage imageNamed:@"center"];
+            
+        }
+    }
+    
     cell.MeOrderTitle.text=@"123333333";
-    [cell.MeOrderImage setImageWithURL:[NSURL URLWithString:nil] placeholderImage:[UIImage imageNamed:@"header"]];
+    cell.MeOrderImage.image=[UIImage imageNamed:@"header"];
+//    [cell.MeOrderImage setImageWithURL:[NSURL URLWithString:nil] placeholderImage:[UIImage imageNamed:@"header"]];
     return cell;
 }
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
@@ -75,14 +105,12 @@
     [sectionLabel setTitleColor:HexRGB(0x808080) forState:UIControlStateNormal];
     [sectionLabel setImage:[UIImage imageNamed:@"MyOrder_image"] forState:UIControlStateNormal];
     
-    sectionLabel.frame=CGRectMake(30, 0, 150, 40);
+    sectionLabel.frame=CGRectMake(30, -5, 150, 40);
     return headerView;
 }
-//-(NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView{
-//    return _sectionTitleArray;
-//}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 115;
+    return 110;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

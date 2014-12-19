@@ -26,15 +26,36 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title=@"地址管理";
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithSearch:@"nav_add" highlightedSearch:@"nav_add" target:(self) action:@selector(categoryBtnClick)];
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithSearch:@"nav_add_pre" highlightedSearch:@"nav_add" target:(self) action:@selector(categoryBtnClick)];
     _addressArray=[NSMutableArray array];
+    
     [self addTableView];
-    [self addLoadStatus];
+    [self addMBprogressView];
+
 
 }
--(void)addLoadStatus{
+#pragma  mark ------显示指示器
+-(void)addMBprogressView
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"加载中...";
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self addLoadStatus];
+    self.navigationController.navigationBarHidden = NO;
+}
+
+#pragma mark ---加载数据
+-(void)addLoadStatus
+{
    
     [addressListTool statusesWithSuccess:^(NSArray *statues) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+
+        [_addressArray removeAllObjects];
+        
+        
         [_addressArray addObjectsFromArray:statues];
         [_tableView reloadData];
     } uid_ID:@"uid" failure:^(NSError *error) {
@@ -42,12 +63,15 @@
     }];
     
 }
--(void)categoryBtnClick{
+
+-(void)categoryBtnClick
+{
     address_addView *addVc=[[address_addView alloc]init];
     [self.navigationController pushViewController:addVc animated:YES];
 }
 
--(void)addTableView{
+-(void)addTableView
+{
     _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight) style:UITableViewStylePlain];
     _tableView.delegate =self;
     _tableView.dataSource =self;
@@ -60,12 +84,7 @@
     [self.view addSubview:_tableView];
     
 }
-//-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
-//    NSUInteger row =[indexPath row];
-//    [_addressArray removeObjectAtIndex:row];
-//    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-//    
-//}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return _addressArray.count;
 }
@@ -84,16 +103,30 @@
     cell.addressLabel.text=addressModel.content;
     
     [cell.delegateBtn addTarget:self action:@selector(delegateBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    cell.delegateBtn.tag = 100;
     
     return cell;
 }
--(void)delegateBtnClick:(UIButton *)delegate{
+-(void)delegateBtnClick:(UIButton *)delegate
+{
+    // 根据cell的子视图 去找当前的cell , 在这里为了找到当前的cell 可以使用[[[[delegate superview] superview] ...] class]; 只到 class的类名为：CustomCell的名为止
+    
     
     AddressCell *currentCell = (AddressCell *)[[[delegate superview] superview] superview];
+    NSLog(@"class For cell %@", [[[delegate superview] superview] superview]);
+    
     NSIndexPath *indexPath = [_tableView indexPathForCell:currentCell];
+    addressListModel *addressModel =[_addressArray objectAtIndex:indexPath.row];
+    
+    [addressListTool statusesWithSuccessDelete:^(NSArray *statues) {
+        
+    } address_Id:addressModel.addressId failure:^(NSError *error) {
+        
+    }];
+    
     [_addressArray removeObjectAtIndex:indexPath.row];
 
-    NSArray *index = [NSArray arrayWithObject:indexPath];
+    NSMutableArray *index = [NSMutableArray arrayWithObject:indexPath];
     [_tableView deleteRowsAtIndexPaths:index withRowAnimation:UITableViewRowAnimationLeft];
     
     
@@ -104,8 +137,13 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    addressListModel *addressModel =[_addressArray objectAtIndex:indexPath.row];
 
     modificationAddress *modification =[[modificationAddress alloc]init];
+    modification.updateIndex=addressModel.addressId;
+    modification.updateAddressStr=addressModel.content;
+    modification.updateNameStr =addressModel.contact;
+    modification.updateTelStr=addressModel.tel;
     [self.navigationController pushViewController:modification animated:YES];
    }
 - (void)didReceiveMemoryWarning {

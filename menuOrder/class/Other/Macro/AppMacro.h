@@ -59,15 +59,16 @@
 #define canOpenURL(appScheme) [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:appScheme]]
 #define openURL(appScheme) [[UIApplication sharedApplication] openURL:[NSURL URLWithString:appScheme]]
 #endif
-
+#define CORNERrADIUS 4
 #define offline @"网络断开，请连网"
 #define serviceWrong @"服务器故障，请稍后再试"
 
 //判断字典dic中键key对应的值是否为空
 #define isNull(dic,key) [[dic objectForKey:key] isKindOfClass:[NSNull class]]?YES:NO
 
-#define kBaseURL @"http://ebingoo.bingoso.com"
-#define kUrl @"http://192.168.1.112"
+//#define kUrl @"http://192.168.1.112/restaurant"
+//#define kUrl @"http://192.168.0.126/restaurant"
+#define kUrl @"http://fish.ebingoo.com"
 // 2.日志输出宏定义
 #ifdef DEBUG
 // 调试状态

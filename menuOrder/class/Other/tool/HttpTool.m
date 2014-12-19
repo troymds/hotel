@@ -25,7 +25,7 @@
     [allParams setObject:time forKey:@"time"];
     [allParams setObject:uuid forKey:@"uuid"];
     [allParams setObject:md5 forKey:@"secret"];
-    NSString *pathStr = [NSString stringWithFormat:@"/restaurant/index.php?s=/Home/Api/%@",path];
+    NSString *pathStr = [NSString stringWithFormat:@"/index.php?s=/Home/Api/%@",path];
    
     NSURLRequest *request = [client requestWithMethod:method path:pathStr parameters:allParams];
     

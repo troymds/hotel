@@ -13,4 +13,5 @@ typedef void (^StatusFailureBlock)(NSError *error);
 @interface addAdressTool : NSObject
 
 + (void)statusesWithSuccess:(StatusSuccessBlock)success uid_ID:(NSString *)uid_id ContentStr:(NSString *)content TelStr:(NSString *)tel ContactStr:(NSString *)contact failure:(StatusFailureBlock)failure;
++ (void)updateAddressID:(NSString *)id_id ContentStr:(NSString *)content TelStr:(NSString *)tel ContactStr:(NSString *)contact   statusesWithSuccess:(StatusSuccessBlock)success  failure:(StatusFailureBlock)failure;
 @end

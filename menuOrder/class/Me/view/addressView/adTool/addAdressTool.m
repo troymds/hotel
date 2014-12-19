@@ -10,30 +10,34 @@
 
 @implementation addAdressTool
 + (void)statusesWithSuccess:(StatusSuccessBlock)success uid_ID:(NSString *)uid_id ContentStr:(NSString *)content TelStr:(NSString *)tel ContactStr:(NSString *)contact failure:(StatusFailureBlock)failure{
-    NSLog(@"%@---%@---%@",contact,content,tel);
-
+    
     NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:uid_id,@"uid",content,@"content",tel,@"tel",contact,@"contact",nil];
     [HttpTool postWithPath:@"addAddress" params:dic success:^(id JSON) {
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:nil];
+//        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:nil];
         NSMutableArray *statuses =[NSMutableArray array];
-        NSLog(@"%@",dict);
-//        NSDictionary *array =[dict[@"response"]objectForKey:@"data"];
-//        if (array) {
-//            if ([array isKindOfClass:[NSNull class]])
-//            {
-//            }else{
-//                
-//                for (NSDictionary *diction in array) {
-//                    addressListModel *s =[[addressListModel alloc] initWithDictionaryForAddress:diction];
-//                    [statuses addObject:s];
-//                }
-//            }
-//        }
-        success(statuses);
         
+        success(statuses);
     } failure:^(NSError *error) {
         
+        failure(error);
     }];
+
+}
++ (void)updateAddressID:(NSString *)id_id ContentStr:(NSString *)content TelStr:(NSString *)tel ContactStr:(NSString *)contact   statusesWithSuccess:(StatusSuccessBlock)success  failure:(StatusFailureBlock)failure{
+    NSLog(@"%@---%@---%@",contact,content,tel);
+    
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:id_id,@"id",content,@"content",tel,@"tel",contact,@"contact",nil];
+    [HttpTool postWithPath:@"updateAddress" params:dic success:^(id JSON) {
+//        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:nil];
+        NSMutableArray *statuses =[NSMutableArray array];
+        
+        success(statuses);
+    } failure:^(NSError *error) {
+        
+        failure(error);
+    }];
+    
+
 
 }
 @end

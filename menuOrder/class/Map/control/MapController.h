@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ZYAnnotation.h"
 @interface MapController : UIViewController
 
 @end
