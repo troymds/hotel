@@ -18,16 +18,27 @@
 #define Menu3 102
 #define KMenuItemW  kWidth/3
 #define KMenuH      30
+#define KBackScroolViewH KAppHeight - 44 - KMenuH
 
 @interface SubScribeController ()<EditViewDelegate,UIScrollViewDelegate>
 {
     UIButton *_selectedBtn;//选中的菜单栏按钮
     UIView *_orangLin;
-    UITextField *_selectedField;//当前被编辑的
+    UITextField *_selectedField;//当前被编辑的UITextField
+    EditView *_selectedEditView;//当前被点中的
     UIScrollView *_backScroll; //最底层的ScrollView
-    UIView *_menuBack;//菜单栏背景view
+    UIView *_menuBack;//菜单栏背景viewEditView
+    UIScrollView *_menu1Scrool;//亲临渔府Scrool
+    UIScrollView *_menu2Scrool;//外带取餐Scrool
+    UIScrollView *_menu3Scrool;//外卖服务Scrool
+    UIScrollView *_currentScroll;//当前的Scrool；
+    CGFloat keyBoardH;//键盘高度
+    CGFloat _menu1ScrollViewContentH;//亲临渔府scroll的内容高度
+    CGFloat _menu2ScrollViewContentH;//外带取餐scroll的内容高度
+    CGFloat _menu3ScrollViewContentH;//外卖服务scroll的内容高度
 }
--(void)buileEditView:(NSArray *)placeHolds icons:(NSArray *)icons pageNum:(int)pageIndex;
+
+-(void)buileEditView:(NSArray *)placeHolds icons:(NSArray *)icons pageNum:(int)pageIndex scrollView:(UIScrollView *)scroll;
 @end
 
 @implementation SubScribeController
@@ -42,6 +53,8 @@
     self.title = @"预约";
     self.view.backgroundColor = HexRGB(0xeeeeee);
     
+    // 利用通知中心监听键盘的变化（打开、关闭、中英文切换）
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
 
     [self buildUI];
 }
@@ -82,6 +95,7 @@
     _orangLin.backgroundColor =HexRGB(0x488f05);
     
     //3 填写资料view
+    //3.1 view 的底部ScrollView
     CGFloat editStartY = btnH + KEditViewOffMenuBar;
     CGFloat backScroolH = KAppHeight - 44 - btnH;
     UIScrollView *backScroll = [[UIScrollView alloc] initWithFrame:Rect(0, editStartY, kWidth, backScroolH)];
@@ -94,7 +108,35 @@
     backScroll.scrollEnabled = YES;
     backScroll.userInteractionEnabled = YES;
     backScroll.delegate = self;
+    backScroll.tag = 9999;
     backScroll.contentSize = CGSizeMake(kWidth * 3, backScroolH);
+    //3.2 每一个菜单下的父视图ScrollView
+    for (int i = 0; i < 3; i++) {
+        CGFloat scrollX = kWidth * i;
+        UIScrollView *scrol =[[UIScrollView alloc] initWithFrame:Rect(scrollX, 0, kWidth, backScroolH)];
+        scrol.showsHorizontalScrollIndicator = NO;
+        scrol.showsVerticalScrollIndicator = NO;
+        scrol.pagingEnabled = NO;
+        scrol.bounces = NO;
+        scrol.scrollEnabled = YES;
+        scrol.userInteractionEnabled = YES;
+        scrol.delegate = self;
+        scrol.contentSize = CGSizeMake(kWidth, backScroolH);
+        if (i == 0) {
+            _menu1Scrool = scrol;
+            scrol.tag = 301;
+            [_backScroll addSubview:scrol];
+            _currentScroll = scrol;
+        } else if(i == 1) {
+             _menu2Scrool = scrol;
+            scrol.tag = 302;
+            [_backScroll addSubview:scrol];
+        }else{
+            _menu3Scrool = scrol;
+            scrol.tag = 303;
+            [_backScroll addSubview:scrol];
+        }
+    }
     
     [self buildMenu1UI];
     [self buildMenu2UI];
@@ -102,30 +144,28 @@
 }
 
 #pragma mark 编辑页面代码重构
--(void)buileEditView:(NSArray *)placeHolds icons:(NSArray *)icons pageNum:(int)pageIndex
+-(void)buileEditView:(NSArray *)placeHolds icons:(NSArray *)icons pageNum:(int)pageIndex scrollView:(UIScrollView *)scroll
 {
-    
-    
     CGFloat editW = kWidth - KRightOffset;
     CGFloat editH = 50;
-    CGFloat startX = pageIndex * kWidth;
-
     CGFloat h = 0.0;
     NSUInteger count = [placeHolds count];
     for (int i = 0; i < count; i++) {
+        
         //1.1 编辑框
         CGFloat editY = (editH + 10)* i;
-        EditView * edit = [[EditView alloc] initWithFrame:Rect(startX, editY, editW, editH)];
+        EditView * edit = [[EditView alloc] initWithFrame:Rect(0, editY, editW, editH)];
         [edit addEditView:i+1 placeHoldString:placeHolds[i] editIcon:icons[i]];
         edit.delegate = self;
-        [_backScroll addSubview:edit];
+        edit.editTag = KEditStartTag + i + 1;
+        [scroll addSubview:edit];
         //1.2 线框
         CGFloat lineFrameX = KEditLeftX * 2 + KEditCircleW;
         CGFloat lineFrameW = kWidth - lineFrameX - KRightOffset;
         CGFloat lineFrameY = editY + (editH + 10);
-        UIImageView *lineFrame = [[UIImageView alloc] initWithFrame:Rect(startX + lineFrameX, lineFrameY, lineFrameW, 4)];
+        UIImageView *lineFrame = [[UIImageView alloc] initWithFrame:Rect(0 + lineFrameX, lineFrameY, lineFrameW, 4)];
         lineFrame.image = LOADPNGIMAGE(@"enter_pre");
-        [_backScroll addSubview:lineFrame];
+        [scroll addSubview:lineFrame];
         if (i == (count - 1)) {
             h  = CGRectGetMaxY(lineFrame.frame);
         }
@@ -135,9 +175,19 @@
     submit.tag = 300;
     [submit setBackgroundImage:LOADPNGIMAGE(@"submit_ok_pre") forState:UIControlStateHighlighted];
     [submit setBackgroundImage:LOADPNGIMAGE(@"submit_ok") forState:UIControlStateNormal];
-    submit.frame = Rect(startX + KRightOffset + 5, h + 30, kWidth - KRightOffset * 2, 40);
-    [_backScroll addSubview:submit];
+    submit.frame = Rect(KRightOffset + 5, h + 30, kWidth - KRightOffset * 2, 40);
+    [scroll addSubview:submit];
     [submit addTarget:self action:@selector(summitDeal) forControlEvents:UIControlEventTouchUpInside];
+    CGFloat backScroolH = CGRectGetMaxY(submit.frame) + 70;
+    scroll.contentSize = CGSizeMake(kWidth, backScroolH);
+    //记录下每个menu下的scrollview的content height
+    if (pageIndex == 0) {
+        _menu1ScrollViewContentH = backScroolH;
+    }else if (pageIndex == 1){
+        _menu2ScrollViewContentH = backScroolH;
+    }else{
+        _menu3ScrollViewContentH = backScroolH;
+    }
 }
 
 #pragma mark 亲临渔府
@@ -146,8 +196,8 @@
     NSArray *placeHolds = @[@"斯大林",@"联系电话",@"就餐人数",@"就餐时间",@"其他就餐要求(选填)"];
     NSArray *icons = @[@"home_contacts_icon",@"home_phone_icon",@"home_address_icon",@"home_time_icom",@"home_remark_icon"];
     
-    [self buileEditView:placeHolds icons:icons pageNum:0];
-
+    [self buileEditView:placeHolds icons:icons pageNum:0 scrollView:_menu1Scrool];
+    
 }
 
 #pragma mark 外带取餐
@@ -155,7 +205,7 @@
 {
     NSArray *placeHolds = @[@"斯大林",@"联系电话",@"就餐时间",@"其他就餐要求(选填)"];
     NSArray *icons = @[@"home_contacts_icon",@"home_phone_icon",@"home_time_icom",@"home_remark_icon"];
-    [self buileEditView:placeHolds icons:icons pageNum:1];
+    [self buileEditView:placeHolds icons:icons pageNum:1 scrollView:_menu2Scrool];
 
 }
 
@@ -164,7 +214,7 @@
 {
     NSArray *placeHolds = @[@"斯大林",@"联系电话",@"就餐人数",@"就餐时间",@"其他就餐要求(选填)"];
     NSArray *icons = @[@"home_contacts_icon",@"home_phone_icon",@"home_address_icon",@"home_time_icom",@"home_remark_icon"];
-    [self buileEditView:placeHolds icons:icons pageNum:2];
+    [self buileEditView:placeHolds icons:icons pageNum:2 scrollView:_menu3Scrool];
 
 }
 
@@ -197,30 +247,59 @@
 - (void)textFieldBeganEditting:(UITextField *)textField
 {
     _selectedField = textField;
+    //拿到选中的editview 计算 frame
+    //1.1 找到当前menu下的scrollview
+    //1.2 拿到editview,计算高度
+    CGFloat backScroolViewX = _backScroll.contentOffset.x;
+    if (backScroolViewX == 0) {
+        //menu1下
+        _currentScroll = _menu1Scrool;
+    }else if (backScroolViewX == kWidth){
+        //menu2下
+        _currentScroll = _menu2Scrool;
+    }else{
+        //menu3下
+        _currentScroll = _menu3Scrool;
+    }
     //更新位置，和UI状态
-    switch (textField.tag) {
-        case KNameEdit:
-            //姓名
-            NSLog(@"KNameEdit");
-            break;
-        case KPhoneEdit:
-            //电话号码
-            NSLog(@"KPhoneEdit");
-            break;
-        case KPersonsEdit:
-            //顾客人数
-            NSLog(@"KPersonsEdit");
-            break;
-        case KTimeEdit:
-            //时间
-            NSLog(@"KTimeEdit");
-            break;
-        case KOthersEdit:
-            //其他
-            NSLog(@"KOthersEdit");
-            break;
-        default:
-            break;
+    for (UIView *view in _currentScroll.subviews) {
+        if ([view isKindOfClass:[EditView class]]) {
+            EditView *editview = (EditView *)view;
+            if (editview.editTag == textField.tag) {
+                CGFloat editViewY = editview.frame.origin.y;
+                [UIView animateWithDuration:0.25 animations:^{
+                    if (textField.tag == 201) {
+                        [_currentScroll setContentOffset:CGPointMake(0, editViewY) animated:YES];
+                    }else{
+                        [_currentScroll setContentOffset:CGPointMake(0, editViewY - 30) animated:YES];
+                    }
+                    [_currentScroll setContentSize:CGSizeMake(kWidth, _menu1ScrollViewContentH + 253)];
+                } completion:^(BOOL finished) {
+                }];
+                break;
+            }
+        }
+    }
+}
+
+#pragma mark - 键盘边框大小变化
+- (void)keyboardChangeFrame:(NSNotification *)notification
+{
+    
+    // 1. 获取键盘的目标区域
+    NSDictionary *info = notification.userInfo;
+    CGRect rect = [info[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat duration = [info[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    keyBoardH = rect.size.height;
+    // 2. 根据rect的orgion.y可以判断键盘是开启还是关闭
+    if (rect.origin.y == [UIScreen mainScreen].bounds.size.height) {
+        // 键盘已经关闭
+        [UIView animateWithDuration:duration animations:^{
+            [_currentScroll setContentSize:CGSizeMake(kWidth, _menu1ScrollViewContentH - 253)];
+            [_currentScroll setContentOffset:CGPointMake(0, 0) animated:YES];
+        }];
+    } else {
+        // 键盘打开
     }
 }
 
@@ -238,77 +317,71 @@
 #pragma mark scrollView  滚动
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    
-    if (scrollView == _backScroll) {
-
-        if (scrollView.contentOffset.x <=0) {
-            scrollView.contentOffset = CGPointMake(0, 0);
-        }
-        
-        if (scrollView.contentOffset.x >= kWidth*2) {
-            scrollView.contentOffset = CGPointMake(kWidth*2, 0);
-        }
-        
-        // 1 移动线条
-        float x = scrollView.contentOffset.x/scrollView.frame.size.width * KMenuItemW;
-        [UIView animateWithDuration:0.3 animations:^{
-            _orangLin.frame = CGRectMake(x, KMenuH - 1, KMenuItemW, 1);
+    switch (scrollView.tag) {
+        case 9999:
+        {
+            // 1 移动线条
+            float x = scrollView.contentOffset.x/scrollView.frame.size.width * KMenuItemW;
+            [UIView animateWithDuration:0.3 animations:^{
+                _orangLin.frame = CGRectMake(x, KMenuH - 1, KMenuItemW, 1);
+                
+            }];
             
-        }];
-        
-        // 2 取到顶部菜单栏 点击按钮
-        if (scrollView.contentOffset.x == 0) {
-            for (UIView *subView in _menuBack.subviews){
-                if ([subView isKindOfClass:[UIButton class]]) {
-                    UIButton * btn = (UIButton *)subView;
-                    if (btn.tag + KMenuStart == Menu1) {
-                        _selectedBtn = btn;
-                        _selectedBtn.selected = YES;
-                        [UIView animateWithDuration:0.6 animations:^{
-                            [_selectedField resignFirstResponder];
-                            
-                        }];
-                    }else{
-                        btn.selected = NO;
+            // 2 取到顶部菜单栏 点击按钮
+            if (scrollView.contentOffset.x == 0) {
+                for (UIView *subView in _menuBack.subviews){
+                    if ([subView isKindOfClass:[UIButton class]]) {
+                        UIButton * btn = (UIButton *)subView;
+                        if (btn.tag + KMenuStart == Menu1) {
+                            _selectedBtn = btn;
+                            _selectedBtn.selected = YES;
+                            [UIView animateWithDuration:0.6 animations:^{
+                                [_selectedField resignFirstResponder];
+                                
+                            }];
+                        }else{
+                            btn.selected = NO;
+                        }
                     }
                 }
-            }
-            
-        }else if (scrollView.contentOffset.x == kWidth * 1)
-        {
-            for (UIView *subView in _menuBack.subviews) {
-                if ([subView isKindOfClass:[UIButton class]]) {
-                    UIButton * btn = (UIButton *)subView;
-                    if (btn.tag + KMenuStart == Menu2) {
-                        _selectedBtn = btn;
-                        _selectedBtn.selected = YES;
-                        [UIView animateWithDuration:0.6 animations:^{
-                            [_selectedField resignFirstResponder];
-                            
-                        }];
-                    }else{
-                        btn.selected = NO;
+                
+            }else if (scrollView.contentOffset.x == kWidth * 1)
+            {
+                for (UIView *subView in _menuBack.subviews) {
+                    if ([subView isKindOfClass:[UIButton class]]) {
+                        UIButton * btn = (UIButton *)subView;
+                        if (btn.tag + KMenuStart == Menu2) {
+                            _selectedBtn = btn;
+                            _selectedBtn.selected = YES;
+                            [UIView animateWithDuration:0.6 animations:^{
+                                [_selectedField resignFirstResponder];
+                                
+                            }];
+                        }else{
+                            btn.selected = NO;
+                        }
                     }
                 }
-            }
-        }else if (scrollView.contentOffset.x == kWidth * 2)
-        {
-            for (UIView *subView in _menuBack.subviews) {
-                if ([subView isKindOfClass:[UIButton class]]) {
-                    UIButton * btn = (UIButton *)subView;
-                    if (btn.tag + KMenuStart  == Menu3) {
-                        _selectedBtn = btn;
-                        _selectedBtn.selected = YES;
-                        [UIView animateWithDuration:0.6 animations:^{
-                            [_selectedField resignFirstResponder];
-                            
-                        }];
-                    }else{
-                        btn.selected = NO;
+            }else if (scrollView.contentOffset.x == kWidth * 2)
+            {
+                for (UIView *subView in _menuBack.subviews) {
+                    if ([subView isKindOfClass:[UIButton class]]) {
+                        UIButton * btn = (UIButton *)subView;
+                        if (btn.tag + KMenuStart  == Menu3) {
+                            _selectedBtn = btn;
+                            _selectedBtn.selected = YES;
+                            [UIView animateWithDuration:0.6 animations:^{
+                                [_selectedField resignFirstResponder];
+                                
+                            }];
+                        }else{
+                            btn.selected = NO;
+                        }
                     }
                 }
             }
         }
     }
 }
+
 @end
