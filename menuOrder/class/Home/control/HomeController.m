@@ -37,12 +37,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    CGFloat startY;
+    CGFloat scroolH;
     if (IsIos7) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
+        startY = KStartY;
+    }else
+    {
+        startY = 0;
     }
+    scroolH = kHeight - KStartY - 44;
     self.view.backgroundColor = HexRGB(0xeeeeee);
     
-    _scroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, KStartY, kWidth, kHeight - KStartY - 44)];
+    _scroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, startY, kWidth, scroolH)];
     [self.view addSubview:_scroll];
     _scroll.showsHorizontalScrollIndicator = NO;
     _scroll.showsVerticalScrollIndicator = NO;

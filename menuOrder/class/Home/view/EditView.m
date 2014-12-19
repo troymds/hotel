@@ -43,7 +43,7 @@
     CGFloat editH = 30;
     edit.frame = Rect(editX, editY, editW, editH);
     [self addSubview:edit];
-    edit.tag  = 200 + index;
+    edit.tag  = KEditStartTag + index;
     _edit = edit;
     edit.delegate = self;
     edit.clearButtonMode = UITextFieldViewModeWhileEditing;

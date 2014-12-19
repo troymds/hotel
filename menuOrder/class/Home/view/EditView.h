@@ -18,6 +18,8 @@
 #define KTimeEdit 204
 #define KOthersEdit 205
 
+#define KEditStartTag 200
+
 @protocol EditViewDelegate <NSObject>
 
 @optional
@@ -30,6 +32,7 @@
 @property (nonatomic, strong) UIView *line; //竖线
 @property (nonatomic, strong) UIImageView *cricle; //圆圈图片
 @property (nonatomic, strong) UITextField *edit;//编辑
+@property (nonatomic, assign) int editTag;//自己的tag
 
 @property (nonatomic, weak) id<EditViewDelegate> delegate;
 -(void)addEditView:(int )index placeHoldString:(NSString *)holdString editIcon:(NSString *)icon;
