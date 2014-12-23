@@ -40,6 +40,7 @@
     {
         
         NSArray *placeArray =@[@"联系人姓名",@"联系电话",@"详细地址"];
+        
         NSArray *updateArray =@[updateNameStr,updateTelStr,updateAddressStr];
         UILabel *placeHoderLabel =[[UILabel alloc]initWithFrame:CGRectMake(10, 30+i%3*50, kWidth-YYBORDERW*2-10, 18)];
         [backView addSubview:placeHoderLabel];
@@ -51,6 +52,8 @@
         _updateNameField =[[UITextField alloc]initWithFrame:CGRectMake(10, i%3*50, kWidth-YYBORDERW*2-50, 35)];
         [backView addSubview:_updateNameField];
         _updateNameField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+        _updateNameField.clearButtonMode = UITextFieldViewModeWhileEditing;
+
         _updateNameField.text=updateArray[i];
         _updateNameField.tag = TEXTFIDLDTAG+i;
 

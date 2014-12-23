@@ -39,7 +39,8 @@
         _nameField =[[UITextField alloc]initWithFrame:CGRectMake(10, i%3*50, kWidth-YYBORDERW*2-50, 50)];
         [backView addSubview:_nameField];
         _nameField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        
+        _nameField.clearButtonMode = UITextFieldViewModeWhileEditing;
+
         _nameField.tag = TEXTFIDLDTAG+i;
         _nameField.placeholder =placeHoderArray[i];
         
@@ -145,7 +146,7 @@
 }
 
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [_nameField resignFirstResponder];
 

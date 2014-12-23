@@ -33,8 +33,8 @@
     [self addTableView];
     [self addMBprogressView];
     [self addNoStatusImage];
-
-
+    
+    
 }
 #pragma  mark ------显示指示器
 -(void)addMBprogressView
@@ -58,9 +58,10 @@
 #pragma mark ---加载数据
 -(void)addLoadStatus
 {
-   
+    
     [addressListTool statusesWithSuccess:^(NSArray *statues) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        
         if (statues.count>0) {
             _tableView.hidden =NO;
             noStatusImg.hidden =YES;
@@ -69,7 +70,7 @@
             _tableView.hidden =YES;
             noStatusImg.hidden =NO;
         }
-
+        
         [_addressArray removeAllObjects];
         
         
@@ -78,7 +79,7 @@
     } uid_ID:@"uid" failure:^(NSError *error) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         [RemindView showViewWithTitle:@"网络错误！" location:MIDDLE];
-
+        
     }];
     
 }
@@ -132,53 +133,60 @@
     
     [self addMBprogressView];
     AddressCell *currentCell = (AddressCell *)[[[delete superview] superview] superview];
-//    NSLog(@"class For cell %@", [[[delete superview] superview] superview]);
+    NSLog(@"class For cell %@", [[[delete superview] superview] superview]);
     
     NSIndexPath *indexPath = [_tableView indexPathForCell:currentCell];
     addressListModel *addressModel =[_addressArray objectAtIndex:indexPath.row];
     
-    [addressListTool statusesWithSuccessDelete:^(NSArray *statues) {
-        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    [addressListTool statusesWithSuccessDelete:^(id statues) {
+        
+        [self addLoadStatus];
+        
     } address_Id:addressModel.addressId failure:^(NSError *error) {
+        
+        
+        
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         [RemindView showViewWithTitle:@"网络错误！" location:MIDDLE];
     }];
     
-    [_addressArray removeObjectAtIndex:indexPath.row];
+    
+    
+    
+    
+}
 
+- (void)stopHUD:(NSIndexPath *)indexPath
+{
+    [_addressArray removeObjectAtIndex:indexPath.row];
+    
     NSMutableArray *index = [NSMutableArray arrayWithObject:indexPath];
     [_tableView deleteRowsAtIndexPaths:index withRowAnimation:UITableViewRowAnimationLeft];
-    [self addLoadStatus];
-    
-    
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return 84;
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     addressListModel *addressModel =[_addressArray objectAtIndex:indexPath.row];
-
+    
     modificationAddress *modification =[[modificationAddress alloc]init];
     modification.updateIndex=addressModel.addressId;
     modification.updateAddressStr=addressModel.content;
     modification.updateNameStr =addressModel.contact;
     modification.updateTelStr=addressModel.tel;
     [self.navigationController pushViewController:modification animated:YES];
-   }
-- (void)didReceiveMemoryWarning {
+}
+
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

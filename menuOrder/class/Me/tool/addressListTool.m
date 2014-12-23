@@ -39,7 +39,7 @@
 + (void)statusesWithSuccessDelete:(StatusSuccessBlock)success address_Id:(NSString *)address_id failure:(StatusFailureBlock)failure{
     NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:address_id,@"address_id" ,nil];
     [HttpTool postWithPath:@"deleteAddress" params:dic success:^(id JSON) {
-        NSDictionary *dict =[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:nil];
+        success(JSON);
 
     } failure:^(NSError *error) {
         

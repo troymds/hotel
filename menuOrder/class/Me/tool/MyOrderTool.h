@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void (^StatusSuccessBlock)(NSArray *statues);
+typedef void (^StatusSuccessBlock)(NSMutableArray *statues);
 typedef void (^StatusFailureBlock)(NSError *error);
 @interface MyOrderTool : NSObject
 

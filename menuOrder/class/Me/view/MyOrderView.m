@@ -9,11 +9,13 @@
 #import "MyOrderView.h"
 #import "MyOrderCell.h"
 #import "MyOrderTool.h"
+#import "myOrderListModel.h"
 @interface MyOrderView ()<UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *_tableView;
     NSArray *_sectionTitleArray;
     UIImageView *noStatusImg;
+    NSMutableArray *_orderArray;
 }
 
 
@@ -56,6 +58,11 @@
     [MyOrderTool myOrderUid:@"uid" statusesWithSuccess:^(NSArray *statues) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         
+        for (NSDictionary *dict in statues) {
+        
+        }
+        
+
         if (statues.count>0) {
             _tableView.hidden =YES;
             noStatusImg.hidden =NO;
@@ -112,9 +119,10 @@
         }
     }
     
-    cell.MeOrderTitle.text=@"123333333";
+    myOrderListModel *orderModel =[_sectionTitleArray objectAtIndex:indexPath.row];
+//    cell.MeOrderTitle.text=orderModel.name;
     cell.MeOrderImage.image=[UIImage imageNamed:@"header"];
-//    [cell.MeOrderImage setImageWithURL:[NSURL URLWithString:nil] placeholderImage:[UIImage imageNamed:@"header"]];
+    [cell.MeOrderImage setImageWithURL:[NSURL URLWithString:nil] placeholderImage:[UIImage imageNamed:@"header"]];
     return cell;
 }
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{

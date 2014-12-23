@@ -45,6 +45,7 @@
 		55BA74B51A3EC5F200203DA2 /* addAdressTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BA74B41A3EC5F200203DA2 /* addAdressTool.m */; };
 		55BA74BB1A3EDDAE00203DA2 /* suggestTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BA74BA1A3EDDAE00203DA2 /* suggestTool.m */; };
 		55BA74BE1A3EDE2200203DA2 /* SuggestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BA74BD1A3EDE2200203DA2 /* SuggestView.m */; };
+		55C66ECF1A47ADE100E793D9 /* mapTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C66ECE1A47ADE100E793D9 /* mapTool.m */; };
 		F31869A11A39454A00259FA1 /* NiceFoodModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F31869A01A39454A00259FA1 /* NiceFoodModel.m */; };
 		F31869A41A398C0300259FA1 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = F31869A31A398C0300259FA1 /* MenuController.m */; };
 		F31869A71A39A3F300259FA1 /* MenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F31869A61A39A3F300259FA1 /* MenuItem.m */; };
@@ -261,6 +262,8 @@
 		55BA74BA1A3EDDAE00203DA2 /* suggestTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = suggestTool.m; sourceTree = "<group>"; };
 		55BA74BC1A3EDE2200203DA2 /* SuggestView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestView.h; sourceTree = "<group>"; };
 		55BA74BD1A3EDE2200203DA2 /* SuggestView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestView.m; sourceTree = "<group>"; };
+		55C66ECD1A47ADE100E793D9 /* mapTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mapTool.h; sourceTree = "<group>"; };
+		55C66ECE1A47ADE100E793D9 /* mapTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mapTool.m; sourceTree = "<group>"; };
 		F318699C1A3940B500259FA1 /* NiceFoodView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NiceFoodView.h; sourceTree = "<group>"; };
 		F318699D1A3940B500259FA1 /* NiceFoodView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NiceFoodView.m; sourceTree = "<group>"; };
 		F318699F1A39454A00259FA1 /* NiceFoodModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NiceFoodModel.h; sourceTree = "<group>"; };
@@ -628,6 +631,15 @@
 			path = adTool;
 			sourceTree = "<group>";
 		};
+		55C66ECC1A47ADB600E793D9 /* tool */ = {
+			isa = PBXGroup;
+			children = (
+				55C66ECD1A47ADE100E793D9 /* mapTool.h */,
+				55C66ECE1A47ADE100E793D9 /* mapTool.m */,
+			);
+			path = tool;
+			sourceTree = "<group>";
+		};
 		F33541D01A367D91005B21C8 = {
 			isa = PBXGroup;
 			children = (
@@ -838,6 +850,7 @@
 		F33542691A369D92005B21C8 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				55C66ECC1A47ADB600E793D9 /* tool */,
 				F335426B1A369D92005B21C8 /* control */,
 			);
 			path = Map;
@@ -1540,6 +1553,7 @@
 				55BA74BE1A3EDE2200203DA2 /* SuggestView.m in Sources */,
 				F335439F1A36A1EB005B21C8 /* DockItem.m in Sources */,
 				554ECD341A42A7D90091C020 /* myOrderDetailModel.m in Sources */,
+				55C66ECF1A47ADE100E793D9 /* mapTool.m in Sources */,
 				55B248A01A3938F600B3F5C7 /* MysubscribeView.m in Sources */,
 				F33543491A369ED1005B21C8 /* SDWebImageDownloaderOperation.m in Sources */,
 				55B600E51A427F730002808F /* aboutModel.m in Sources */,

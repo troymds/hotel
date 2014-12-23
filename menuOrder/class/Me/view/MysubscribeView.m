@@ -32,8 +32,7 @@
     self.title=@"我的预约";
     self.view.backgroundColor=HexRGB(0xeeeeee);
     _sectionTitleArray=[NSArray array];
-//    _normalArray=[NSMutableArray array];
-//    _overdueArray=[NSMutableArray array];
+
     _sectionTitleArray=@[@"   未到期预约",@"   已过期预约"];
     
     
