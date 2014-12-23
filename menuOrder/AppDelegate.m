@@ -20,8 +20,6 @@
 #import "WeiboSDK.h"
 #import "WXApi.h"
 #import "MeController.h"
-#import "AccountTool.h"
-#import "XWDataModelSingleton.h"
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -38,13 +36,7 @@
         [SSKeychain setPassword:retrieveuuid forService:@"cn.chinapromo.userinfo" account:@"uuid"];
     }
     [SystemConfig sharedInstance].uuidStr = retrieveuuid;
-    
-    XWDataModelSingleton *dm = [XWDataModelSingleton shareInstance];
-    if (dm.userItem) {
-        [SystemConfig sharedInstance].userItem =dm.userItem;
-        [SystemConfig sharedInstance].uid = dm.userItem.uid;
-        [SystemConfig sharedInstance].isUserLogin = YES;
-    }
+   
 
     //    NSString *key = (NSString *)kCFBundleVersionKey;
     NSString *key = @"CFBundleShortVersionString";

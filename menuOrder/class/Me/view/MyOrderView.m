@@ -13,7 +13,7 @@
 @interface MyOrderView ()<UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *_tableView;
-    NSArray *_sectionTitleArray;
+    NSMutableArray *_sectionTitleArray;
     UIImageView *noStatusImg;
     NSMutableArray *_orderArray;
 }
@@ -28,8 +28,8 @@
     [super viewDidLoad];
     self.title=@"我的点餐";
     self.view.backgroundColor=HexRGB(0xeeeeee);
-    _sectionTitleArray=[NSArray array];
-    _sectionTitleArray=@[@"   未到期预约",@"   未到期预约",@"   已过期预约"];
+    _sectionTitleArray=[NSMutableArray array];
+//    _sectionTitleArray=@[@"   未到期预约",@"   未到期预约",@"   已过期预约"];
     [self addTableView];
     [self addLoadStatus];
     [self addNoStatusImage];
@@ -56,6 +56,7 @@
 #pragma mark ---加载数据
 -(void)addLoadStatus{
     [MyOrderTool myOrderUid:@"uid" statusesWithSuccess:^(NSArray *statues) {
+        myOrderListTimeModel *ordeTimeModel =[[myOrderListTimeModel alloc]init];
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         
         for (NSDictionary *dict in statues) {

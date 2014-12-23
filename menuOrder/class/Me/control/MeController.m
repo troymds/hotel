@@ -9,7 +9,6 @@
 #import "MeController.h"
 #import "ShareView.h"
 #import "MysubscribeView.h"
-#import "LoginViewController.h"
 #import "MyOrderView.h"
 #import "AddressView.h"
 #import "aboutOurView.h"
@@ -72,7 +71,6 @@
     [_backScrollView addSubview:headerBtn];
     headerBtn.frame=CGRectMake((kWidth-HEADERWY)/2, (HearderImageH-HEADERWY)/2, HEADERWY, HEADERWY);
     [headerBtn setImage:[UIImage imageNamed:@"heaar_img"] forState:UIControlStateNormal];
-    [headerBtn addTarget:self action:@selector(headerBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     headerBtn.layer.cornerRadius=0;
     headerBtn.layer.borderWidth=2.0;
     headerBtn.layer.masksToBounds = YES;
@@ -206,10 +204,6 @@
     //版本更新
     openURL(_url);
     NSLog(@"%@",_url);
-}
--(void)headerBtnClick:(UIButton *)login{
-    LoginViewController *loginVC=[[LoginViewController alloc]init];
-    [self.navigationController pushViewController:loginVC animated:YES];
 }
 #pragma mark 控件将要显示
 - (void)viewWillAppear:(BOOL)animated

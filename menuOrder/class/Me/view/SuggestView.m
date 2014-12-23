@@ -87,7 +87,8 @@
         [RemindView showViewWithTitle:@"内容不能为空！" location:MIDDLE];
     }else{
         [RemindView showViewWithTitle:@"已收到您的宝贵意见，我们会尽快改善！" location:MIDDLE];
-
+        placeholderLabel.text=@"请输入您对我们的宝贵意见!";
+        suggestText.text =@"";
     }
 }
 -(void)textViewDidChange:(UITextView *)textView{

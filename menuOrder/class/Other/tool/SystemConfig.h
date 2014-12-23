@@ -7,14 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "UserItem.h"
 
 @interface SystemConfig : NSObject
 
 @property (nonatomic,copy) NSString *uuidStr;        //设备uuid
 @property (nonatomic,assign) BOOL isUserLogin;       //是否登录
 @property (nonatomic,assign) NSString * uid;       //用户uid
-@property (nonatomic,strong) UserItem *userItem;  //用户信息
 
 + (SystemConfig *)sharedInstance;
 

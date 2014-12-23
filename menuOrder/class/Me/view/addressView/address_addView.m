@@ -47,7 +47,11 @@
         UIImageView *writeView =[[UIImageView alloc]initWithFrame:CGRectMake(kWidth-YYBORDERW*4, 15+i%3*50, 20, 20)];
         [backView addSubview:writeView];
         writeView.image=[UIImage imageNamed:@"me_write_enter"];
-        
+        if (_nameField.tag ==TEXTFIDLDTAG+1) {
+            _nameField.keyboardType = UIKeyboardTypeNumberPad;
+
+        }
+
         UIView *lineView=[[UIView alloc]initWithFrame:CGRectMake(0, 50+i%2*50, kWidth-YYBORDERW*2, 1)];
         lineView.backgroundColor =HexRGB(0xcacaca);
         [backView addSubview:lineView];

@@ -57,6 +57,11 @@
         _updateNameField.text=updateArray[i];
         _updateNameField.tag = TEXTFIDLDTAG+i;
 
+        if (_updateNameField.tag ==TEXTFIDLDTAG+1) {
+            _updateNameField.keyboardType = UIKeyboardTypeNumberPad;
+            
+        }
+
         UIImageView *writeView =[[UIImageView alloc]initWithFrame:CGRectMake(kWidth-YYBORDERW*4, 15+i%3*50, 20, 20)];
         [backView addSubview:writeView];
         writeView.image=[UIImage imageNamed:@"me_write_enter"];

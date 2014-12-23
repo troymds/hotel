@@ -37,46 +37,33 @@
     self.title = @"地图";
     self.view.backgroundColor = [UIColor whiteColor];
    
-    [self addLoadStatus];
+//    [self addLoadStatus];
     [self addUIView];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
 
-- (void)drawLineWithLocationArray:(NSArray *)locationArray
-{
-    int pointCount = [locationArray count];
-    CLLocationCoordinate2D *coordinateArray = (CLLocationCoordinate2D *)malloc(pointCount * sizeof(CLLocationCoordinate2D));
-    
-    for (int i = 0; i < pointCount; ++i) {
-        CLLocation *location = [locationArray objectAtIndex:i];
-        coordinateArray[i] = [location coordinate];
-    }
-    
-    self.routeLine = [MKPolyline polylineWithCoordinates:coordinateArray count:pointCount];
-    [self.mapView setVisibleMapRect:[self.routeLine boundingMapRect]];
-    [self.mapView addOverlay:self.routeLine];
-    
-    free(coordinateArray);
-    coordinateArray = NULL;
-}
-
-#pragma mark - MKMapViewDelegate
-
-- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id<MKOverlay>)overlay
-{
-    if(overlay == self.routeLine) {
-        if(nil == self.routeLineView) {
-            self.routeLineView = [[MKPolylineView alloc] initWithPolyline:self.routeLine];
-            self.routeLineView.fillColor = [UIColor redColor];
-            self.routeLineView.strokeColor = [UIColor redColor];
-            self.routeLineView.lineWidth = 5;
-        }
-        return self.routeLineView;
-    }
-    return nil;
-}
-#pragma mark ----加载数据
+//- (void)drawLineWithLocationArray:(NSArray *)locationArray
+//{
+//    int pointCount = [locationArray count];
+//    CLLocationCoordinate2D *coordinateArray = (CLLocationCoordinate2D *)malloc(pointCount * sizeof(CLLocationCoordinate2D));
+//    
+//    for (int i = 0; i < pointCount; ++i) {
+//        CLLocation *location = [locationArray objectAtIndex:i];
+//        coordinateArray[i] = [location coordinate];
+//    }
+//    
+//    self.routeLine = [MKPolyline polylineWithCoordinates:coordinateArray count:pointCount];
+//    [self.mapView setVisibleMapRect:[self.routeLine boundingMapRect]];
+//    [self.mapView addOverlay:self.routeLine];
+//    
+//    free(coordinateArray);
+//    coordinateArray = NULL;
+//}
+//
+//#pragma mark - MKMapViewDelegate
+//
+//#pragma mark ----加载数据
 -(void)addLoadStatus{
     [mapTool mapStatusesWithSuccess:^(NSArray *statues) {
         
@@ -85,13 +72,13 @@
     }];
 }
 
-- (void)drawTestLine
-{
-    CLLocation *location0 = [[CLLocation alloc] initWithLatitude:39.954245 longitude:116.312455];
-    CLLocation *location1 = [[CLLocation alloc] initWithLatitude:30.247871 longitude:120.127683];
-    NSArray *array = [NSArray arrayWithObjects:location0, location1, nil];
-    [self drawLineWithLocationArray:array];
-}
+//- (void)drawTestLine
+//{
+//    CLLocation *location0 = [[CLLocation alloc] initWithLatitude:39.954245 longitude:116.312455];
+//    CLLocation *location1 = [[CLLocation alloc] initWithLatitude:30.247871 longitude:120.127683];
+//    NSArray *array = [NSArray arrayWithObjects:location0, location1, nil];
+//    [self drawLineWithLocationArray:array];
+//}
 #pragma mark 打电话
 -(void)phoneBtnClick{
     [phoneView callPhoneNumber:@"13913008373" call:^(NSTimeInterval duration) {
@@ -108,7 +95,7 @@
     _mapView.delegate =self;
     _mapView.showsUserLocation = YES;
     _mapView.userLocation.title = @"当前位置";
-    
+//    
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setTitle:@"定位" forState:UIControlStateNormal];
     [button setTitleColor:HexRGB(0x899c02) forState:UIControlStateNormal];
@@ -125,20 +112,7 @@
     phoneTel.frame = CGRectMake(kWidth-85, kHeight-210, 55, 73);
     [self.view addSubview:phoneTel];
     [self.view bringSubviewToFront:phoneTel];
-    
-//    for (int i=0; i<100; i++) {
-//        ZYAddress *address = [[ZYAddress alloc] init];
-//        address.latitude = 118.772698 + i*0.001;
-//        address.longitude = 32.074764 + i*0.001;
-//        address.name = [NSString stringWithFormat:@"紫金渔府%d", i];
-//        address.address = [NSString stringWithFormat:@"江苏南京鼓楼水佐岗鼓楼区水佐岗老菜市%d路", i];
-//        
-//        ZYAnnotation *annotation = [ZYAnnotation annotationWithAdress:address];
-//        [_mapView addAnnotation:annotation];
-//    }
-    
-    
-    
+//
     CLLocationManager *locationManager = [[CLLocationManager alloc] init];//创建位置管理器
     locationManager.delegate=self;//设置代理
     locationManager.desiredAccuracy=kCLLocationAccuracyBest;//指定需要的精度级别
