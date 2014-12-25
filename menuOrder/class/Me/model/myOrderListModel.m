@@ -13,7 +13,8 @@
 
 -(instancetype)initWithForOrderList:(NSDictionary *)dict;
 {
-    if ([super self]) {
+    if ([super self])
+    {
         self.cover =dict[@"cover"];
         self.create_time =dict[@"create_time"];
         self.name =dict[@"name"];
@@ -24,52 +25,24 @@
 }
 @end
 @implementation myOrderListTimeModel
-@synthesize time;
--(instancetype)initWithForOrderListTime:(NSDictionary *)dict{
-    if ([super self]) {
-        _timeArray =[[NSMutableArray alloc]init];
-        self.time =dict[@"time"];
-        for (NSDictionary *dict in self.time) {
+
+-(instancetype)initWithForOrderListTime:(NSArray *)array
+{
+    NSLog(@"array ---%@",array);
+    
+    if ([super self])
+    {
+        _timeArray =[[NSMutableArray alloc] initWithCapacity:0];
+        _timeTitle = [[(NSDictionary*)[array objectAtIndex:0] objectForKey:@"create_time"] stringByReplacingOccurrencesOfString:@"-" withString:@"."];
+        
+        for (NSDictionary *dict in array)
+        {
             myOrderListModel *orderModel =[[myOrderListModel alloc]initWithForOrderList:dict];
             [_timeArray addObject:orderModel];
         }
-        
+
     }
     return self;
 }
-
-//- (instancetype)initWithDictionaryForSubscribeList:(NSDictionary *)dict;
-//{
-//    if ([super self ])
-//    {
-//        _normalModelArray = [[NSMutableArray alloc] init];
-//        _overdueModelArray = [[NSMutableArray alloc] init];
-//        _allModelArray = [[NSMutableArray alloc] init];
-//        
-//        
-//        self.normal =dict[@"normal"];
-//        for (NSDictionary *dict in self.normal)
-//        {
-//            subscribeModel *subSModel = [[subscribeModel alloc] initWithDictionaryForSubscribe:dict];
-//            [_normalModelArray addObject:subSModel];
-//        }
-//        
-//        
-//        
-//        
-//        self.overdue =dict[@"overdue"];
-//        for (NSDictionary *dict in self.overdue)
-//        {
-//            subscribeModel *subSModel = [[subscribeModel alloc] initWithDictionaryForSubscribe:dict];
-//            [_overdueModelArray addObject:subSModel];
-//        }
-//        
-//        [_allModelArray addObject:_normalModelArray];
-//        [_allModelArray addObject:_overdueModelArray];
-//        
-//        
-//    }
-//    return self;
-//}
 
 @end

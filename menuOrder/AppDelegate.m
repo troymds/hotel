@@ -20,10 +20,22 @@
 #import "WeiboSDK.h"
 #import "WXApi.h"
 #import "MeController.h"
+#import "uidTool.h"
+
+
+#import "iflyMSC/IFlySpeechSynthesizer.h"
+#import "iflyMSC/IFlySpeechSynthesizerDelegate.h"
+#import "iflyMSC/IFlySpeechConstant.h"
+#import "iflyMSC/IFlySpeechUtility.h"
+#import "iflyMSC/IFlySetting.h"
+#import <AMapNaviKit/AMapNaviKit.h>
+#import "APIKey.h"
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [self configureAPIKey];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     //获取用户uuid
@@ -52,11 +64,6 @@
         // 显示状态栏
         application.statusBarHidden = NO;
          self.window.rootViewController = [[MainController alloc] init];
-//        if ([AccountTool sharedAccountTool].account) {
-//            self.window.rootViewController = [[MainController alloc] init];
-//        } else {
-//            self.window.rootViewController = [[MeController alloc] init];
-//        }
        } else { // 版本号不一样：第一次使用新版本
         // 将新版本号写入沙盒
         [[NSUserDefaults standardUserDefaults] setObject:version forKey:key];
@@ -69,10 +76,17 @@
     
     self.window.backgroundColor = [UIColor whiteColor];
      [self shareRegister];
+    [self addUID];
     [self.window makeKeyAndVisible];
     return YES;
 }
-
+-(void)addUID{
+  [uidTool statusesWithSuccessUid:^(NSArray *statues) {
+     
+  } failure:^(NSError *error) {
+      
+  }];
+}
 
 - (void)checkVersion
 {
@@ -128,6 +142,22 @@
     //短信分享
     [ShareSDK connectSMS];
 }
+
+
+- (void)configureAPIKey
+{
+    if ([APIKey length] == 0)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"apiKey为空，请检查key是否正确设置" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        
+        [alert show];
+    }
+    
+    [AMapNaviServices sharedServices].apiKey = (NSString *)APIKey;
+    [MAMapServices sharedServices].apiKey = (NSString *)APIKey;
+}
+
+
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {

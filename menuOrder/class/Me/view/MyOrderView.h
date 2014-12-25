@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface MyOrderView : UIViewController
+@property(nonatomic,copy)NSString *orderIndex1;
+@property(nonatomic,copy)NSString *orderIndex2;
 
 @end

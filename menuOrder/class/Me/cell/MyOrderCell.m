@@ -10,14 +10,15 @@
 #define YYBORDERW 11
 #define IMAGEWIDTH 141
 @implementation MyOrderCell
-@synthesize MeOrderImage,MeOrderTitle,backImage;
+@synthesize firMeOrderImage,firMeOrderTitle,secMeOrderImage,secMeOrderTitle,backImage;
 - (void)awakeFromNib {
     // Initialization code
 }
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
+    if (self)
+    {
         
         
         UIView *backCell=[[UIView alloc]initWithFrame:CGRectMake(YYBORDERW, 0, kWidth-YYBORDERW*2, 110)];
@@ -29,28 +30,44 @@
         backImage =[[UIImageView alloc]initWithFrame:CGRectMake(YYBORDERW, 0, kWidth-YYBORDERW*2, 110)];
         [self addSubview:backImage];
 
-        for (int i=0; i<2; i++) {
-            
-            
-            MeOrderImage = [[UIImageView alloc] initWithFrame:CGRectMake(2+YYBORDERW+i%2*(IMAGEWIDTH+11), 2, IMAGEWIDTH, 80)];
-            [self addSubview:MeOrderImage];
-            MeOrderImage.backgroundColor =[UIColor redColor];
-            MeOrderImage.layer.cornerRadius=CORNERrADIUS;
-            MeOrderImage.layer.masksToBounds=YES;
-//            MeOrderImage.image=[UIImage imageNamed:@"header"];
-            
-            MeOrderTitle = [[UILabel alloc] initWithFrame:CGRectMake(2+YYBORDERW+i%2*((kWidth-YYBORDERW*2)/2), 82,(kWidth-YYBORDERW*2)/2, 24)];
-            [self addSubview:MeOrderTitle];
-            MeOrderTitle.font =[UIFont systemFontOfSize:PxFont(20)];
-            MeOrderTitle.textAlignment=NSTextAlignmentCenter;
-            MeOrderTitle.textColor = HexRGB(0x666666);
-            MeOrderTitle.backgroundColor=[UIColor clearColor];
-            MeOrderTitle.text=@"魏紫薇";
 
-        }
-          }
+            firMeOrderImage = [[UIImageView alloc] initWithFrame:CGRectMake(2+YYBORDERW+0%2*(IMAGEWIDTH+11), 2, IMAGEWIDTH, 80)];
+            [self addSubview:firMeOrderImage];
+            firMeOrderImage.backgroundColor =[UIColor clearColor];
+            firMeOrderImage.layer.cornerRadius=CORNERrADIUS;
+            firMeOrderImage.layer.masksToBounds=YES;
+            firMeOrderImage.userInteractionEnabled =YES;
+            
+            firMeOrderTitle = [[UILabel alloc] initWithFrame:CGRectMake(2+YYBORDERW+0%2*((kWidth-YYBORDERW*2)/2), 82,(kWidth-YYBORDERW*2)/2, 24)];
+            [self addSubview:firMeOrderTitle];
+            firMeOrderTitle.font =[UIFont systemFontOfSize:PxFont(20)];
+            firMeOrderTitle.textAlignment=NSTextAlignmentCenter;
+            firMeOrderTitle.textColor = HexRGB(0x666666);
+            firMeOrderTitle.backgroundColor=[UIColor clearColor];
+
+            
+            secMeOrderImage = [[UIImageView alloc] initWithFrame:CGRectMake(2+YYBORDERW+1%2*(IMAGEWIDTH+11), 2, IMAGEWIDTH, 80)];
+            [self addSubview:secMeOrderImage];
+            secMeOrderImage.backgroundColor =[UIColor clearColor];
+            secMeOrderImage.layer.cornerRadius=CORNERrADIUS;
+            secMeOrderImage.layer.masksToBounds=YES;
+            secMeOrderImage.userInteractionEnabled =YES;
+
+        
+            secMeOrderTitle = [[UILabel alloc] initWithFrame:CGRectMake(2+YYBORDERW+1%2*((kWidth-YYBORDERW*2)/2), 82,(kWidth-YYBORDERW*2)/2, 24)];
+            [self addSubview:secMeOrderTitle];
+            secMeOrderTitle.font =[UIFont systemFontOfSize:PxFont(20)];
+            secMeOrderTitle.textAlignment=NSTextAlignmentCenter;
+            secMeOrderTitle.textColor = HexRGB(0x666666);
+            secMeOrderTitle.backgroundColor=[UIColor clearColor];
+
+        
+    }
     return self;
 }
+
+
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

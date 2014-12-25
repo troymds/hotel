@@ -16,15 +16,30 @@
         
         NSDictionary *dic =[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:nil];
         
-        NSDictionary *dict1 =dic[@"response"];
+        NSDictionary *dict1 =dic[@"response"][@"data"];
         
+        
+        NSLog(@"---->%@",dict1);
+        
+        NSMutableArray *timeModelArray = [[NSMutableArray alloc] initWithCapacity:0];
         
         if (![dict1 isKindOfClass:[NSNull class]])
         {
-            myOrderListTimeModel *mysubModel = [[myOrderListTimeModel alloc] initWithForOrderListTime:[dict1 objectForKey:@"data"]];
+            for (NSString *time in dict1)
+            {
+                NSArray *current = [dict1 objectForKey:time];
+                
+                NSLog(@"---->%@",current);
+                
+                myOrderListTimeModel *mysubModel = [[myOrderListTimeModel alloc] initWithForOrderListTime:current];
+                
+                [timeModelArray addObject:mysubModel];
+            }
             
-            success(mysubModel.timeArray);
+           
+            NSLog(@"%@",timeModelArray);
             
+            success(timeModelArray);
         }
         else
         {

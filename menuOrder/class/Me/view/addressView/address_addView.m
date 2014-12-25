@@ -40,7 +40,7 @@
         [backView addSubview:_nameField];
         _nameField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         _nameField.clearButtonMode = UITextFieldViewModeWhileEditing;
-
+        _nameField.delegate =self;
         _nameField.tag = TEXTFIDLDTAG+i;
         _nameField.placeholder =placeHoderArray[i];
         
@@ -150,10 +150,29 @@
 }
 
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [_nameField resignFirstResponder];
+//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    [_nameField resignFirstResponder];
+//
+//}
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+    for (UIView *subView in self.view.subviews) {
+        if ([subView isKindOfClass:[UITextField class]]) {
+            [subView resignFirstResponder];
+        }else{
+            for (UIView  *view in subView.subviews) {
+                if ([view isKindOfClass:[UITextField class]]) {
+                    [view resignFirstResponder];
+                }
+            }
+        }
+    }
+}
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
 }
 
 

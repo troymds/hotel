@@ -139,7 +139,7 @@
     cell.MeSubscribeTimeLabel.text=subModel.use_time;
     cell.MeSubscribeCategoryLabel.text=subModel.type;
     cell.MeSubscribeNumLabel.text=subModel.people_num;
-    [cell.MeSubscribeImage setImageWithURL:[NSURL URLWithString:subModel.cover] placeholderImage:[UIImage imageNamed:@"header"]];
+    [cell.MeSubscribeImage setImageWithURL:[NSURL URLWithString:subModel.cover] placeholderImage:placeHoderImage];
     
     return cell;
 }

@@ -9,8 +9,16 @@
 #import <UIKit/UIKit.h>
 
 @interface MyOrderCell : UITableViewCell
-@property (copy, nonatomic)  UIImageView *MeOrderImage;
-@property (copy, nonatomic)  UILabel *MeOrderTitle;
+
+
+@property (copy, nonatomic)  UIImageView *firMeOrderImage;
+@property (copy, nonatomic)  UILabel *firMeOrderTitle;
+
+@property (copy, nonatomic)  UIImageView *secMeOrderImage;
+@property (copy, nonatomic)  UILabel *secMeOrderTitle;
+
+
 @property (copy, nonatomic)   UIImageView *backImage;
+
 
 @end

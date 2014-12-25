@@ -36,6 +36,8 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
+    NSLog(@"-------%@----",_detailFoodIndex);
+    
     self.title = @"菜品详情";
     self.view.backgroundColor = HexRGB(0xeeeeee);
     
@@ -47,6 +49,7 @@
 {
      // 1.1 菜品展示图片背景view
     UIView *foodBackView = [[UIView alloc] init];
+    
     foodBackView.frame = Rect(KLeftXYDistence, KLeftXYDistence, kWidth - KLeftXYDistence * 2, KFoodImgH);
     foodBackView.backgroundColor = [UIColor whiteColor];
     foodBackView.layer.cornerRadius = 4;

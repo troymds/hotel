@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 @interface myOrderListTimeModel : NSObject
-@property(nonatomic,copy)NSArray *time;
+
+@property(nonatomic,copy)NSString *timeTitle;
 @property(nonatomic,copy)NSMutableArray *timeArray;
 
--(instancetype)initWithForOrderListTime:(NSDictionary *)dict;
+-(instancetype)initWithForOrderListTime:(NSArray *)array;
 
 @end
 @interface myOrderListModel : NSObject
@@ -21,4 +22,5 @@
 @property(nonatomic,copy)NSString *name;
 
 -(instancetype)initWithForOrderList:(NSDictionary *)dict;
+
 @end

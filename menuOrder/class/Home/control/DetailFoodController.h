@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface DetailFoodController : UIViewController
-
+@property(nonatomic,copy)NSString *detailFoodIndex;
 @end

@@ -53,7 +53,7 @@
         [backView addSubview:_updateNameField];
         _updateNameField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         _updateNameField.clearButtonMode = UITextFieldViewModeWhileEditing;
-
+        _updateNameField.delegate =self;
         _updateNameField.text=updateArray[i];
         _updateNameField.tag = TEXTFIDLDTAG+i;
 
@@ -157,9 +157,23 @@
 }
 
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+    for (UIView *subView in self.view.subviews) {
+        if ([subView isKindOfClass:[UITextField class]]) {
+            [subView resignFirstResponder];
+        }else{
+            for (UIView  *view in subView.subviews) {
+                if ([view isKindOfClass:[UITextField class]]) {
+                    [view resignFirstResponder];
+                }
+            }
+        }
+    }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [_updateNameField resignFirstResponder];
-    
+    [textField resignFirstResponder];
+    return YES;
 }
 @end

@@ -10,6 +10,7 @@
 #import "MyOrderCell.h"
 #import "MyOrderTool.h"
 #import "myOrderListModel.h"
+#import "DetailFoodController.h"
 @interface MyOrderView ()<UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *_tableView;
@@ -28,7 +29,7 @@
     [super viewDidLoad];
     self.title=@"我的点餐";
     self.view.backgroundColor=HexRGB(0xeeeeee);
-    _sectionTitleArray=[NSMutableArray array];
+    _sectionTitleArray=[[NSMutableArray alloc] initWithCapacity:0];
 //    _sectionTitleArray=@[@"   未到期预约",@"   未到期预约",@"   已过期预约"];
     [self addTableView];
     [self addLoadStatus];
@@ -54,31 +55,35 @@
     
 }
 #pragma mark ---加载数据
--(void)addLoadStatus{
-    [MyOrderTool myOrderUid:@"uid" statusesWithSuccess:^(NSArray *statues) {
-        myOrderListTimeModel *ordeTimeModel =[[myOrderListTimeModel alloc]init];
+-(void)addLoadStatus
+{
+    [MyOrderTool myOrderUid:@"uid" statusesWithSuccess:^(NSMutableArray *statues) {
+        
+        
+        [_sectionTitleArray addObjectsFromArray:statues];
+
+        
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         
-        for (NSDictionary *dict in statues) {
-        
+        if (_sectionTitleArray.count>0)
+        {
+            _tableView.hidden =NO;
+            noStatusImg.hidden =YES;
+        }
+        else
+        {
+            _tableView.hidden =NO;
+            noStatusImg.hidden =YES;
         }
         
-
-        if (statues.count>0) {
-            _tableView.hidden =YES;
-            noStatusImg.hidden =NO;
-        }
-        else{
-            _tableView.hidden =YES;
-            noStatusImg.hidden =NO;
-        }
         [_tableView reloadData];
     } failure:^(NSError *error) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         [RemindView showViewWithTitle:@"网络错误！" location:MIDDLE];
     }];
 }
--(void)addTableView{
+-(void)addTableView
+{
     _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight) style:UITableViewStylePlain];
     _tableView.delegate =self;
     _tableView.dataSource =self;
@@ -91,12 +96,23 @@
     [self.view addSubview:_tableView];
     
 }
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return _sectionTitleArray.count;
 }
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return _sectionTitleArray.count;
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    myOrderListTimeModel *timeModel =[_sectionTitleArray objectAtIndex:section];
+    
+    if (timeModel.timeArray.count % 2 == 1)
+    {
+        return timeModel.timeArray.count / 2 + 1;
+    }
+    
+    return timeModel.timeArray.count / 2;
 }
+
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     static NSString *cellIndexfider =@"cell";
@@ -106,12 +122,28 @@
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
         cell.backgroundColor=HexRGB(0xeeeeee);
     }
-    if (_sectionTitleArray.count==1) {
+    
+    if (_sectionTitleArray.count < 3)
+    {
         cell.backImage.image=[UIImage imageNamed:@""];
-    }else{
-        if (indexPath.row==0) {
+    }
+    else if(_sectionTitleArray.count == 4)
+    {
+        if (indexPath.row==0)
+        {
             cell.backImage.image =[UIImage imageNamed:@"up"];
-        }else if (indexPath.row ==_sectionTitleArray.count-1) {
+        }else
+        {
+            cell.backImage.image =[UIImage imageNamed:@"down"];
+            
+        }
+    }else
+    {
+        if (indexPath.row==0)
+        {
+            cell.backImage.image =[UIImage imageNamed:@"up"];
+        }else if (indexPath.row ==_sectionTitleArray.count-1)
+        {
             cell.backImage.image =[UIImage imageNamed:@"down"];
             
         }else{
@@ -120,36 +152,92 @@
         }
     }
     
-    myOrderListModel *orderModel =[_sectionTitleArray objectAtIndex:indexPath.row];
-//    cell.MeOrderTitle.text=orderModel.name;
-    cell.MeOrderImage.image=[UIImage imageNamed:@"header"];
-    [cell.MeOrderImage setImageWithURL:[NSURL URLWithString:nil] placeholderImage:[UIImage imageNamed:@"header"]];
+    if (_sectionTitleArray.count != 0)
+    {
+        myOrderListTimeModel *timeModel =[_sectionTitleArray objectAtIndex:indexPath.section];
+        myOrderListModel *orderListModel = nil;
+        
+        for (int i = 0; i<timeModel.timeArray.count; i++)
+        {
+            
+            orderListModel = [timeModel.timeArray objectAtIndex:i];
+            if (i%2==0)
+            {
+                [cell.firMeOrderImage setImageWithURL:[NSURL URLWithString:orderListModel.cover] placeholderImage:placeHoderImage];
+                cell.firMeOrderTitle.text = orderListModel.name;
+                UITapGestureRecognizer *firTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(firTapClick:)];
+                [cell.firMeOrderImage addGestureRecognizer:firTap];
+                cell.firMeOrderImage.tag =100;
+                self.orderIndex1 =orderListModel.orderId;
+            }
+            else
+            {
+                [cell.secMeOrderImage setImageWithURL:[NSURL URLWithString:orderListModel.cover] placeholderImage:placeHoderImage];
+                cell.secMeOrderTitle.text = orderListModel.name;
+                UITapGestureRecognizer *secTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(secTapClick:)];
+                [cell.secMeOrderImage addGestureRecognizer:secTap];
+                cell.firMeOrderImage.tag =101;
+
+                self.orderIndex2 =orderListModel.orderId;
+            }
+        }
+ 
+    }
+    
+    
+    
     return cell;
 }
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    return [_sectionTitleArray objectAtIndex:section];
+
+-(void)firTapClick:(UITapGestureRecognizer *)img{
+   
+    DetailFoodController *detailVC=[[DetailFoodController alloc]init];
+    detailVC.detailFoodIndex =self.orderIndex1;
+    [self.navigationController pushViewController:detailVC animated:YES];
+
+}
+-(void)secTapClick:(UITapGestureRecognizer *)img{
     
+    DetailFoodController *detailVC=[[DetailFoodController alloc]init];
+    detailVC.detailFoodIndex =self.orderIndex2;
+    [self.navigationController pushViewController:detailVC animated:YES];
     
 }
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//
+//}
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
     UIView *headerView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 40)];
     headerView.backgroundColor=HexRGB(0xeeeeee);
     
+    myOrderListTimeModel *timeModel = [_sectionTitleArray objectAtIndex:section];
+    
+    
     UIButton *sectionLabel =[UIButton buttonWithType:UIButtonTypeCustom];
-    [sectionLabel setTitle:[_sectionTitleArray objectAtIndex:section] forState:UIControlStateNormal];
+    [sectionLabel setTitle:timeModel.timeTitle forState:UIControlStateNormal];
     [headerView addSubview:sectionLabel];
     sectionLabel.titleLabel.font=[UIFont systemFontOfSize:PxFont(22)];
     [sectionLabel setTitleColor:HexRGB(0x808080) forState:UIControlStateNormal];
     [sectionLabel setImage:[UIImage imageNamed:@"MyOrder_image"] forState:UIControlStateNormal];
     
-    sectionLabel.frame=CGRectMake(30, -5, 150, 40);
+    sectionLabel.frame = CGRectMake(30, 0, 150, 40);
     return headerView;
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 40;
+}
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return 110;
 }
-- (void)didReceiveMemoryWarning {
+
+
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     
 }
