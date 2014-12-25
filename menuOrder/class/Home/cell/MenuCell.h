@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "CarClickedDelegate.h"
 @class MenuModel;
 
 @interface MenuCell : UITableViewCell
@@ -23,6 +23,8 @@
 @property (nonatomic, strong) UIImageView *dollarIcon;//星星
 @property (nonatomic, strong) UIView *line;//星星
 @property (nonatomic, assign) BOOL hasStar;
+@property (nonatomic, assign) int count;
+@property (nonatomic, weak)id<CarClickedDelegate> delegate;
 
 @property (nonatomic, assign)NSInteger indexPath; //哪一个cell
 @end

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 @class NiceFoodModel;
 
-typedef void(^NiceFoodViewClickedBlock)(NSInteger tag);
+typedef void(^NiceFoodViewClickedBlock)(NiceFoodModel* data);
 
 @interface NiceFoodView : UIView
 

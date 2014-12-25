@@ -10,8 +10,16 @@
 
 @implementation NiceFoodModel
 
-- (void) initWithDic:(NSDictionary *)dic
+- (instancetype) initWithDic:(NSDictionary *)dic
 {
-    
+    if (self == [super init]) {
+        self.star =dic[@"star"];
+        self.name =dic[@"name"];
+        self.price =dic[@"new_price"];
+        self.oldPrice =dic[@"old_price"];
+        self.cover = dic[@"cover"];
+        self.ID =dic[@"id"];
+    }
+    return self;
 }
 @end

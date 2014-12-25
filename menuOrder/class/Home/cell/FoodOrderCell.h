@@ -8,6 +8,7 @@
 @class MenuModel;
 
 #import <UIKit/UIKit.h>
+#import "CarClickedDelegate.h"
 
 @interface FoodOrderCell : UITableViewCell
 @property (nonatomic, strong) UIButton *selectedBtn;//选中按钮
@@ -19,7 +20,7 @@
 @property (nonatomic, strong) UIImageView *dollarIcon;//美元
 @property (nonatomic, strong) UIImageView *foodImg;//菜品图片
 @property (nonatomic, strong) MenuModel *data;
-
+@property (nonatomic, assign) int count;
 @property (nonatomic, assign)NSInteger indexPath; //哪一个cell
-
+@property (nonatomic, weak) id<CarClickedDelegate> delegate;
 @end

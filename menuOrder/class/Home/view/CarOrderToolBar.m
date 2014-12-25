@@ -7,6 +7,8 @@
 //
 
 #import "CarOrderToolBar.h"
+#import "CarTool.h"
+#import "MenuModel.h"
 
 #define KViewH  60
 #define KLeftX 10
@@ -29,7 +31,10 @@
         [allbtn setBackgroundImage:LOADPNGIMAGE(@"selected") forState:UIControlStateSelected];
         allbtn.backgroundColor = [UIColor clearColor];
         _allSelectedBtn = allbtn;
-        
+        CGFloat allBtnX = 10;
+        CGFloat allBtnY = (KViewH - KAllBtnW)/2;
+        _allSelectedBtn.frame = Rect(allBtnX,allBtnY, KAllBtnW, KAllBtnW);
+        _allSelectedBtn.selected = YES;//默认是全选的
         //2 全选文字
         UILabel *allName = [[UILabel alloc] init];
         allName.frame = CGRectZero;
@@ -39,6 +44,8 @@
         allName.text = @"全选";
         [self addSubview:allName];
         _allname = allName;
+        CGFloat allLabelX = CGRectGetMaxX(_allSelectedBtn.frame) + 10;
+        _allname.frame = Rect(allLabelX, allBtnY - 3, 40, 30);
         
         //3 总份数
         UILabel *allFoods = [[UILabel alloc] init];
@@ -48,7 +55,10 @@
         allFoods.backgroundColor = [UIColor clearColor];
         allFoods.text = [NSString stringWithFormat:@"合计：%d份",12];
         [self addSubview:allFoods];
+        CGFloat numX = CGRectGetMaxX(_allname.frame) + 50;
+        allFoods.frame = Rect(numX, KLeftX, 80, 20);        
         _numOfFood = allFoods;
+//        _numOfFood.frame = Rect(numX,KLeftX, 80, 20);
         
         //4 美国money的图标
         UIImageView *dollarIcon = [[UIImageView alloc] init];
@@ -56,6 +66,7 @@
         dollarIcon.image = LOADPNGIMAGE(@"star");
         dollarIcon.frame = CGRectZero;
         _dollar = dollarIcon;
+            _dollar.frame = Rect(numX - 10, CGRectGetMaxY(_numOfFood.frame), 20, 20);
         
         //5 总价
         UILabel *totalMoeny = [[UILabel alloc] init];
@@ -66,6 +77,7 @@
         totalMoeny.text = @"1212";
         [self addSubview:totalMoeny];
         _money = totalMoeny;
+        _money.frame = Rect(CGRectGetMaxX(_dollar.frame)+3, CGRectGetMaxY(_numOfFood.frame) - 5, 100, KAllNameW);
         
         //6 全选按钮
         UIButton * next = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -75,33 +87,33 @@
         [next setBackgroundImage:LOADPNGIMAGE(@"tab_next") forState:UIControlStateNormal];
         next.backgroundColor = [UIColor clearColor];
         _nextBtn = next;
-        
+        _nextBtn.frame = Rect(kWidth - KLeftX - KNextBtnW , 15, KNextBtnW, KNextBtnH);
     }
     return self;
 }
 
 - (void)setData:(NiceFoodModel *)data
 {
-    //1 全选按钮
-    CGFloat allBtnX = 10;
-    CGFloat allBtnY = (KViewH - KAllBtnW)/2;
-    _allSelectedBtn.frame = Rect(allBtnX,allBtnY, KAllBtnW, KAllBtnW);
-    
-    //2 全选
-    CGFloat allLabelX = CGRectGetMaxX(_allSelectedBtn.frame) + 10;
-    _allname.frame = Rect(allLabelX, allBtnY - 3, 40, 30);
-    
-    //3 总份数
-    CGFloat numX = CGRectGetMaxX(_allname.frame) + 50;
-    _numOfFood.frame = Rect(numX,KLeftX, 80, 20);
-    
-    //4   美元符号
-    _dollar.frame = Rect(numX - 10, CGRectGetMaxY(_numOfFood.frame), 20, 20);
-    
-    //5 总价
-    _money.frame = Rect(CGRectGetMaxX(_dollar.frame)+3, CGRectGetMaxY(_numOfFood.frame) - 5, 60, KAllNameW);
-    
-    //6 下一步按钮
-    _nextBtn.frame = Rect(kWidth - KLeftX - KNextBtnW , 15, KNextBtnW, KNextBtnH);
+//    //1 全选按钮
+//    CGFloat allBtnX = 10;
+//    CGFloat allBtnY = (KViewH - KAllBtnW)/2;
+//    _allSelectedBtn.frame = Rect(allBtnX,allBtnY, KAllBtnW, KAllBtnW);
+//    
+//    //2 全选
+//    CGFloat allLabelX = CGRectGetMaxX(_allSelectedBtn.frame) + 10;
+//    _allname.frame = Rect(allLabelX, allBtnY - 3, 40, 30);
+//    
+//    //3 总份数
+//    CGFloat numX = CGRectGetMaxX(_allname.frame) + 50;
+//    _numOfFood.frame = Rect(numX,KLeftX, 80, 20);
+//    
+//    //4   美元符号
+//    _dollar.frame = Rect(numX - 10, CGRectGetMaxY(_numOfFood.frame), 20, 20);
+//    
+//    //5 总价
+//    _money.frame = Rect(CGRectGetMaxX(_dollar.frame)+3, CGRectGetMaxY(_numOfFood.frame) - 5, 60, KAllNameW);
+//    
+//    //6 下一步按钮
+//    _nextBtn.frame = Rect(kWidth - KLeftX - KNextBtnW , 15, KNextBtnW, KNextBtnH);
 }
 @end

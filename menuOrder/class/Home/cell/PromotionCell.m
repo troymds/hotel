@@ -7,6 +7,7 @@
 //
 
 #import "PromotionCell.h"
+#import "ActivityModel.h"
 
 #define KLeftX    5
 #define KStartX   4
@@ -67,7 +68,7 @@
     return self;
 }
 
--(void)setData:(MenuModel *)data
+-(void)setData:(ActivityModel *)data
 {
     _data = data;
     
@@ -75,17 +76,19 @@
     CGFloat imgX = KStartX;
     CGFloat imgY = KStartX;
     _foodImg.frame = Rect(imgX, imgY, KImgW, KimgH);
+    [_foodImg setImageWithURL:[NSURL URLWithString:data.cover] placeholderImage:placeHoderloading];
     
    //2 标题名
     CGFloat titleX = CGRectGetMaxX(_foodImg.frame) + 10;
     CGFloat titleY = KLeftX;
     _title.frame = Rect(titleX, titleY, 100, 30);
-    
+    _title.text  = data.title;
     //3 细节
     CGFloat detailY = CGRectGetMaxY(_title.frame);
     CGFloat detailW = KBackViewW - titleX - KLeftX;
     _detail.frame = Rect(titleX, detailY, detailW, 60);
-    NSLog(@"view H %f",KCellHeight) ;
+    _detail.text = data.content;
+//    NSLog(@"view H %f",KCellHeight) ;
 }
 @end
 

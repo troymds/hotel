@@ -20,5 +20,6 @@
 @property (nonatomic, strong) UILabel *contentLabel;
 @property (nonatomic, assign) BOOL isSelected; //是否被选中
 @property (nonatomic, strong) UIView *line;
+@property (nonatomic, strong) NSString *categoryID;
 @property (nonatomic, weak) id<MenuItemDelegate> delegate;
 @end

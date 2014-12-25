@@ -19,8 +19,6 @@
         NSDictionary *dict1 =dic[@"response"][@"data"];
         
         
-        NSLog(@"---->%@",dict1);
-        
         NSMutableArray *timeModelArray = [[NSMutableArray alloc] initWithCapacity:0];
         
         if (![dict1 isKindOfClass:[NSNull class]])
@@ -29,15 +27,11 @@
             {
                 NSArray *current = [dict1 objectForKey:time];
                 
-                NSLog(@"---->%@",current);
-                
                 myOrderListTimeModel *mysubModel = [[myOrderListTimeModel alloc] initWithForOrderListTime:current];
                 
                 [timeModelArray addObject:mysubModel];
             }
             
-           
-            NSLog(@"%@",timeModelArray);
             
             success(timeModelArray);
         }
@@ -45,9 +39,6 @@
         {
             
         }
-        
-        
-        
     } failure:^(NSError *error) {
         
     }];

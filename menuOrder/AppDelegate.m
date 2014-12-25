@@ -63,7 +63,9 @@
     if ([version isEqualToString:saveVersion]) { // 不是第一次使用这个版本
         // 显示状态栏
         application.statusBarHidden = NO;
-         self.window.rootViewController = [[MainController alloc] init];
+        _mainCtl = [[MainController alloc] init];
+        self.window.rootViewController = _mainCtl;
+
        } else { // 版本号不一样：第一次使用新版本
         // 将新版本号写入沙盒
         [[NSUserDefaults standardUserDefaults] setObject:version forKey:key];

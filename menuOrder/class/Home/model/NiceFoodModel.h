@@ -9,11 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @interface NiceFoodModel : NSObject
+@property (nonatomic, strong) NSString *price; //今天价格
+@property (nonatomic, strong) NSString *oldPrice; //旧价格
+@property (nonatomic, strong) NSString *name; //食品名称
+@property (nonatomic, strong) NSString *star; //几颗星
+@property (nonatomic, strong) NSString *cover; //美食图片
+@property (nonatomic, strong) NSString *ID; //id
 
-@property (nonatomic, strong) UIImageView *foodImg;//美食图片
-@property (nonatomic, strong) NSString *price; //价格
-@property (nonatomic, strong) NSString *foodName; //食品名称
-@property (nonatomic, strong) NSString *starCount; //几颗星
-
-- (void) initWithDic:(NSDictionary *)dic;
+- (instancetype) initWithDic:(NSDictionary *)dic;
 @end

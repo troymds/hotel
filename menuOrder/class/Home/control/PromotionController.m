@@ -8,10 +8,15 @@
 
 #import "PromotionController.h"
 #import "PromotionCell.h"
-#import "MenuModel.h"
+#import "ActivityModel.h"
+#import "UIImageView+WebCache.h"
+#import "GetIndexHttpTool.h"
 
 @interface PromotionController ()<UITableViewDelegate,UITableViewDataSource>
-
+{
+    UITableView *_table;
+    NSArray *_dataList;
+}
 @end
 
 @implementation PromotionController
@@ -40,6 +45,34 @@
     table.showsVerticalScrollIndicator = NO;
     table.delegate =self;
     table.dataSource = self;
+    _table = table;
+    
+    [self loadActivityData];
+}
+
+#pragma mark 获取活动数据
+-(void)loadActivityData
+{
+    // 显示指示器
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"加载中...";
+    
+    [GetIndexHttpTool GetActivitiesWithSuccess:^(NSArray *data, int code, NSString *msg) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        if (data.count > 0) {
+            //成功得到数据
+            NSMutableArray *array = [NSMutableArray arrayWithArray:data];
+            _dataList = array;
+            [_table reloadData];
+        }else
+        {
+            [RemindView showViewWithTitle:msg location:MIDDLE];
+        }
+
+    } withFailure:^(NSError *error) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        [RemindView showViewWithTitle:offline location:MIDDLE];
+    }];
 }
 
 #pragma mark tableview cell
@@ -51,7 +84,7 @@
     {
         cell =[[PromotionCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
-    MenuModel *data = [[MenuModel alloc] init];
+    ActivityModel *data = _dataList[indexPath.row];
     cell.data = data;
     return cell;
 }
@@ -66,7 +99,7 @@
 #pragma mark tableview 行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return _dataList.count;
 }
 
 

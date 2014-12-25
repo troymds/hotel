@@ -9,17 +9,26 @@
 #import "DetailFoodController.h"
 #import "DetailFoodShowView.h"
 #import "NiceFoodModel.h"
-
+#import "UIImageView+WebCache.h"
+#import "ProductDetailModel.h"
+#import "GetIndexHttpTool.h"
+#import "FoodCarController.h"
+#import "BBBadgeBarButtonItem.h"
+#import "CarTool.h"
+#import "MenuModel.h"
+#import "CarClickedDelegate.h"
 
 #define KLeftXYDistence  10 //左上边距
 #define KFoodImgH        120 //菜品展示图片高度
 #define KFrameOffset     4
 #define KDetailH         120 //菜品详情高度
 
-@interface DetailFoodController ()<DetailFoodShowViewDelegate>
+@interface DetailFoodController ()<DetailFoodShowViewDelegate,CarClickedDelegate>
 {
     DetailFoodShowView * _detailView; //菜单展示详情
     UIView *_detailFoodBackView;//菜单详情展示背景
+    NSArray *_dataList;
+    int _totaNum;
 }
 @end
 
@@ -27,7 +36,15 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    //1 隐藏导航栏
     self.navigationController.navigationBarHidden = NO;
+    //2 计算购物车数量
+    if (self.navigationItem.rightBarButtonItem) {
+        BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.rightBarButtonItem;
+        barButton.badgeValue = [NSString stringWithFormat:@"%ld", (long)[self totalCarNum] ];
+    }
+    //3 刷新表数据
+
 }
 
 - (void)viewDidLoad {
@@ -36,12 +53,74 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
-    NSLog(@"-------%@----",_detailFoodIndex);
-    
     self.title = @"菜品详情";
     self.view.backgroundColor = HexRGB(0xeeeeee);
     
-    [self buildUI];
+    _totaNum = 0;
+    //先获取购物车总数量
+    [self totalCarNum];
+    UIButton *foodcar = [UIButton buttonWithType:UIButtonTypeCustom];
+    foodcar.frame = Rect(0, 0, 30, 30);
+    [foodcar addTarget:self action:@selector(orderFood) forControlEvents:UIControlEventTouchUpInside];
+    [foodcar setBackgroundImage:LOADPNGIMAGE(@"cart2") forState:UIControlStateNormal];
+    
+    BBBadgeBarButtonItem *barButton = [[BBBadgeBarButtonItem alloc] initWithCustomView:foodcar];
+    
+    barButton.badgeValue = [NSString stringWithFormat:@"%d",_totaNum];
+    barButton.badgeBGColor = [UIColor whiteColor];
+    barButton.badgeFont = [UIFont systemFontOfSize:11.5];
+    barButton.badgeOriginX = 20;
+    barButton.badgeOriginY = 0;
+    barButton.shouldAnimateBadge = YES;
+    self.navigationItem.rightBarButtonItem = barButton;
+
+    
+    [self loadDetailData];
+}
+
+-(void)orderFood
+{
+    FoodCarController *car = [[FoodCarController alloc] init];
+    
+    [self.navigationController pushViewController:car animated:YES];
+}
+
+#pragma mark 计算badgeNum
+-(int)totalCarNum
+{
+    NSUInteger count = [CarTool sharedCarTool].totalCarMenu.count;
+    int total = 0;
+    for (int i = 0; i < count; i++) {
+        MenuModel *data = [CarTool sharedCarTool].totalCarMenu[i];
+        total += data.foodCount;
+    }
+    _totaNum = total;
+    return _totaNum;
+}
+
+#pragma mark 获取产品详情
+- (void)loadDetailData
+{
+    // 显示指示器
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"加载中...";
+    
+    [GetIndexHttpTool GetProductDetailWithSuccess:^(NSArray *data, int code, NSString *msg) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        if (data.count > 0) {
+            //成功得到数据
+            NSMutableArray *array = [NSMutableArray arrayWithArray:data];
+            _dataList = array;
+            [self buildUI];
+        }else
+        {
+            [RemindView showViewWithTitle:msg location:MIDDLE];
+        }
+
+    } product_id:_data.ID withFailure:^(NSError *error) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        [RemindView showViewWithTitle:offline location:MIDDLE];
+    }];
 }
 
 #pragma mark 画UI
@@ -49,15 +128,16 @@
 {
      // 1.1 菜品展示图片背景view
     UIView *foodBackView = [[UIView alloc] init];
-    
     foodBackView.frame = Rect(KLeftXYDistence, KLeftXYDistence, kWidth - KLeftXYDistence * 2, KFoodImgH);
     foodBackView.backgroundColor = [UIColor whiteColor];
     foodBackView.layer.cornerRadius = 4;
     [self.view addSubview:foodBackView];
     // 1.2 菜品展示图片
     UIImageView *foodImg  = [[UIImageView alloc] init];
-    foodImg.image = LOADPNGIMAGE(@"home_banner");
-//    foodImg.contentMode = UIViewContentModeScaleAspectFit;
+
+    ProductDetailModel *model = _dataList[0];
+    [foodImg setImageWithURL:[NSURL URLWithString:model.cover] placeholderImage:placeHoderloading];
+//    foodImg.contentMode = UInViewContentModeScaleAspectFit;
     foodImg.layer.cornerRadius = 4;
     foodImg.layer.masksToBounds = YES;
     CGFloat imgW = foodBackView.frame.size.width - KFrameOffset * 2;
@@ -76,13 +156,11 @@
     
     //2.2 菜品详情
     DetailFoodShowView *detail = [[DetailFoodShowView alloc] initWithFrame:Rect(0, 0, kWidth - KLeftXYDistence * 2, KDetailH)];
-    [detail.addBun addTarget:self action:@selector(addBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-    [detail.plusBtn addTarget:self action:@selector(plusBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     detail.delegate = self;
+    detail.cardelegate = self;
     [detailFoodBackView addSubview:detail];
     _detailView = detail;
-    NiceFoodModel *data = [[NiceFoodModel alloc] init];
-    detail.data = data;
+    detail.data = model;
     
     // 3 分享美食
     UIButton *shareBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -94,31 +172,22 @@
     [shareBtn addTarget:self action:@selector(sharefood) forControlEvents:UIControlEventTouchUpInside];
 }
 
-#pragma mark 加餐
--(void)addBtnClicked
+#pragma mark 加减按钮点击
+- (void)CarClickedWithData:(MenuModel *)data buttonType:(ButtonType)type
 {
-    NSInteger count = [_detailView.foodConnt.text integerValue];
-    count++;
-    if (count > 0) {
-        //减号按钮显示
-        _detailView.plusBtn.hidden = NO;
-    }
-    _detailView.foodConnt.text = [NSString stringWithFormat:@"%ld",(long)count];
-}
-
-#pragma mark 减餐
--(void)plusBtnClicked
-{
-    NSInteger count = [_detailView.foodConnt.text integerValue];
-    count--;
-    if (count == 0) {
-        //隐藏减号按钮
-        _detailView.plusBtn.hidden = YES;
+    //1 carTool更新购物车数据
+    if (type == kButtonAdd) {
+        [[CarTool sharedCarTool] addMenu:data];
     }else
     {
-        _detailView.plusBtn.hidden = NO;
+        [[CarTool sharedCarTool] plusMenu:data];
     }
-    _detailView.foodConnt.text = [NSString stringWithFormat:@"%ld",(long)count];
+    //2 购物车动画效果
+    BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.rightBarButtonItem;
+    int num = [self totalCarNum];
+    //    NSLog(@"加减完后的购物车数量%d",num);
+    barButton.badgeValue = [NSString stringWithFormat:@"%ld", (long)num ];
+    //    NSLog(@"ID--%@, count--%@",data.ID,data.foodCount);
 }
 
 #pragma mark 分享

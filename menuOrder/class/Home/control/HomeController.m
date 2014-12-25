@@ -14,6 +14,9 @@
 #import "FoodRecommendController.h"
 #import "PromotionController.h"
 #import "ShowHotelController.h"
+#import "GetIndexHttpTool.h"
+#import "HomePageDataModel.h"
+#import "UIImageView+WebCache.h"
 
 #define KTopImgH  254 // 顶部展示图片高度
 #define KStartY   20 //起始Y坐标（状态栏高度）
@@ -30,6 +33,9 @@
     int niceFoodViewH ;//招牌美食的高度
 }
 
+//@property (nonatomic, strong) NSString *adsImg;//顶部展示图片
+@property (nonatomic, strong) NSArray *homeModelArray;//首页数据数组
+@property (nonatomic, strong) NSArray *niceFoodArray;//招牌美食数组
 @end
 
 @implementation HomeController
@@ -58,16 +64,44 @@
     _scroll.bounces = NO;
     _scroll.scrollEnabled = YES;
     _scroll.userInteractionEnabled = YES;
-    [self buildUI];
+    
+    _homeModelArray = [NSArray array];
+    [self loadData];
 }
 
+#pragma mark 加载数据
+- (void) loadData
+{
+    // 显示指示器
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"加载中...";
+    
+    [GetIndexHttpTool GetIndexDataWithSuccess:^(NSArray *data, int code, NSString *msg) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        if (data.count > 0) {
+            //成功得到数据
+            NSMutableArray *array = [NSMutableArray arrayWithArray:data];
+            _homeModelArray = array;
+          [self buildUI];
+        }else
+        {
+            [RemindView showViewWithTitle:msg location:MIDDLE];
+        }
+    } withFailure:^(NSError *error) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        [RemindView showViewWithTitle:offline location:MIDDLE];
+    }];
+}
 #pragma mark 画UI
 - (void)buildUI
 {
+    HomePageDataModel *data = [_homeModelArray objectAtIndex:0];
+
+    self.niceFoodArray = data.hotProductList;
     // 1 顶部展示图片
     UIImageView *topImg = [[UIImageView alloc] initWithFrame:Rect(0, 0, kWidth, KTopImgH)];
-    topImg.image = LOADPNGIMAGE(@"home_banner");
     [_scroll addSubview:topImg];
+    [topImg setImageWithURL:[NSURL URLWithString:data.adsImg] placeholderImage:placeHoderloading];
     
     // 2 添加4个菜单按钮
     int imgTag = 0;
@@ -109,27 +143,33 @@
     [_scroll addSubview:foodText];
     viewHight = CGRectGetMaxY(foodImgLogo.frame) + 5;
     
-    for (int i = 0; i < 3; i++) {//3行招牌美食
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:self.niceFoodArray.count];
+    for (NSDictionary *d in self.niceFoodArray) {
+        NiceFoodModel *data = [[NiceFoodModel alloc] initWithDic:d];
+        [array addObject:data];
+    }
+    NSUInteger count = array.count;
+    for (int i = 0; i < count; i++) {//count行招牌美食
         CGFloat y = viewHight + (niceFoodViewH + KNiceViewSpace) * i;
         CGFloat w = kWidth - KStartX * 2;
-        NiceFoodView *foodView = [[NiceFoodView alloc] initWithBlock:^(NSInteger tag) {
+        NiceFoodView *foodView = [[NiceFoodView alloc] initWithBlock:^(NiceFoodModel* data) {
             //进入菜品详情页面
             DetailFoodController * ctl = [[DetailFoodController alloc] init];
+            ctl.data = data;
             [self.navigationController pushViewController:ctl animated:YES];
         }];
         foodView.frame = Rect(KStartX - 2, y, w, niceFoodViewH);
         [_scroll addSubview:foodView];
-        if (i == 1) {
+        if (i % 2 != 0) {
             foodView.type = 1;
         }else
         {
             foodView.type = 0;
         }
-        NiceFoodModel *data = [[NiceFoodModel alloc] init];
-        foodView.data = data;
-        if (i == 2) {
+        if (i == count - 1) {
             viewHight = y + niceFoodViewH + 20;
         }
+        foodView.data = array[i];
     }
     //设置scrollview的内容高度
     _scroll.contentSize = CGSizeMake(kWidth, viewHight) ;

@@ -48,17 +48,8 @@
 
 - (void)changeItem
 {
-    _selectedItem.selected = NO;
-    for (UIView *subView in self.subviews) {
-        if ([subView isKindOfClass:[DockItem class]]) {
-            DockItem *item = (DockItem *)subView;
-            if (item.tag == 0) {
-                item.selected = YES;
-                _selectedItem = item;
-                _selectedIndex = _selectedItem.tag;
-            }
-        }
-    }
+    DockItem *item = self.subviews[1];
+    [self itemClick:item];
 }
 
 

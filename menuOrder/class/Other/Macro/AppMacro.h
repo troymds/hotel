@@ -23,7 +23,10 @@
 #define SIMULATOR 0
 #endif
 //占位图片
-#define placeHoderImage [UIImage imageNamed:@"load_big.png"]
+#define placeHoderImage [UIImage imageNamed:@"loading_img"]
+#define placeHoderloading [UIImage imageNamed:@"loading"]
+
+#define kFilePath [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"carMenu.data"]
 
 //加载图片
 //#define LOADIMAGE(file,type) [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:file ofType:type]]
@@ -41,10 +44,8 @@
 
 //color
 #define HexRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]//十六进制转换
-
-
-#define backGroundColor    [UIColor colorWithRed:(226.0/ 255.0) green:(226.0 / 255.0) blue:(226.0 / 255.0) alpha:1.0]//背景颜色
 #define RGBNAVbackGroundColor             [UIColor colorWithRed:(47.0 / 255.0) green:(138.0 / 255.0) blue:(201.0/ 255.0) alpha:1.0]//导航条的颜色
+
 #define PxFont(px) (((float) px/96)*72)//字体大小转换
 
 //设备屏幕尺寸

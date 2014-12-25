@@ -8,7 +8,9 @@
 
 #import "SubScribeController.h"
 #import "EditView.h"
-
+#import "subscribeHttpTool.h"
+#import "CarTool.h"
+#import "MenuModel.h"
 
 #define KEditViewOffMenuBar 10
 #define KRightOffset        20
@@ -36,6 +38,7 @@
     CGFloat _menu1ScrollViewContentH;//亲临渔府scroll的内容高度
     CGFloat _menu2ScrollViewContentH;//外带取餐scroll的内容高度
     CGFloat _menu3ScrollViewContentH;//外卖服务scroll的内容高度
+    NSMutableArray *_menu1array;//menu下的TextField数据
 }
 
 -(void)buileEditView:(NSArray *)placeHolds icons:(NSArray *)icons pageNum:(int)pageIndex scrollView:(UIScrollView *)scroll;
@@ -56,6 +59,7 @@
     // 利用通知中心监听键盘的变化（打开、关闭、中英文切换）
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
 
+    _menu1array = [NSMutableArray array];
     [self buildUI];
 }
 
@@ -164,7 +168,7 @@
         CGFloat lineFrameW = kWidth - lineFrameX - KRightOffset;
         CGFloat lineFrameY = editY + (editH + 10);
         UIImageView *lineFrame = [[UIImageView alloc] initWithFrame:Rect(0 + lineFrameX, lineFrameY, lineFrameW, 4)];
-        lineFrame.image = LOADPNGIMAGE(@"enter_pre");
+        lineFrame.image = LOADPNGIMAGE(@"enter");
         [scroll addSubview:lineFrame];
         if (i == (count - 1)) {
             h  = CGRectGetMaxY(lineFrame.frame);
@@ -194,7 +198,7 @@
 -(void)buildMenu1UI
 {
     NSArray *placeHolds = @[@"斯大林",@"联系电话",@"就餐人数",@"就餐时间",@"其他就餐要求(选填)"];
-    NSArray *icons = @[@"home_contacts_icon",@"home_phone_icon",@"home_address_icon",@"home_time_icom",@"home_remark_icon"];
+    NSArray *icons = @[@"home_contacts_icon",@"home_phone_icon",@"humans",@"home_time_icom",@"home_remark_icon"];
     
     [self buileEditView:placeHolds icons:icons pageNum:0 scrollView:_menu1Scrool];
     
@@ -213,7 +217,7 @@
 -(void)buildMenu3UI
 {
     NSArray *placeHolds = @[@"斯大林",@"联系电话",@"就餐人数",@"就餐时间",@"其他就餐要求(选填)"];
-    NSArray *icons = @[@"home_contacts_icon",@"home_phone_icon",@"home_address_icon",@"home_time_icom",@"home_remark_icon"];
+    NSArray *icons = @[@"home_contacts_icon",@"home_phone_icon",@"humans",@"home_time_icom",@"home_remark_icon"];
     [self buileEditView:placeHolds icons:icons pageNum:2 scrollView:_menu3Scrool];
 
 }
@@ -221,7 +225,102 @@
 #pragma mark提交预约
 -(void)summitDeal
 {
-    
+    //先拿到数据，然后提交
+    //先判断是在哪个scroll下
+    [_selectedField resignFirstResponder];
+    CGFloat backScroolViewX = _backScroll.contentOffset.x;
+    if (backScroolViewX == 0) {
+        //menu1下
+        _currentScroll = _menu1Scrool;
+        //取出每一个textField数据
+        [_menu1array removeAllObjects];
+        for (UIView *view in _currentScroll.subviews) {
+            if ([view isKindOfClass:[EditView class]]) {
+                EditView *editview = (EditView *)view;
+                UITextField * field = editview.edit;
+                switch (field.tag) {
+                    case KEditStartTag+1:
+                        [_menu1array addObject:field.text];
+                        break;
+                    case KEditStartTag+2:
+                        [_menu1array addObject:field.text];
+                        break;
+                    case KEditStartTag+3:
+                        [_menu1array addObject:field.text];
+                        break;
+                    case KEditStartTag+4:
+                        [_menu1array addObject:field.text];
+                        break;
+                    case KEditStartTag+5:
+                        [_menu1array addObject:field.text];
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        //得到数据，判断有没有没有填写的，提交
+        BOOL canSubmit = YES;
+        NSUInteger count = _menu1array.count;
+        if (count == 5) {
+            for (int i = 0; i < count; i++) {
+                NSString *vaule = _menu1array[i];
+                if (vaule.length != 0) {
+                    
+                    canSubmit = YES;
+                }else
+                {
+                    canSubmit = NO;
+                    [RemindView showViewWithTitle:@"请填写完整数据，亲" location:MIDDLE];
+                    break;
+                }
+            }
+        }else
+        {
+            canSubmit = NO;
+            [RemindView showViewWithTitle:@"请填写完整数据，亲" location:MIDDLE];
+        }
+        if (canSubmit) {
+            //掉接口，传递数据
+        //拼接products字符串 1*3,2*4,6*1
+            NSMutableArray *array = [CarTool sharedCarTool].totalCarMenu;
+            NSUInteger count = array.count;
+            NSMutableString *parm = [NSMutableString string];
+            for (int i = 0; i < count; i++) {
+                MenuModel *data = array[i];
+                NSString *ID = data.ID;
+                NSString *num  = [NSString stringWithFormat:@"%d",data.foodCount];
+                NSString *str = [NSMutableString stringWithFormat:@"%@*%@",ID,num];
+                if (i != count - 1) {
+                    [parm appendString:str];
+                    [parm appendString:@","];
+                }else
+                {
+                    [parm appendString:str];
+                }
+            }
+            // 显示指示器
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.labelText = @"加载中...";
+            
+           [subscribeHttpTool postOrderWithSuccess:^(NSArray *data, int code, NSString *msg) {
+               [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+               [RemindView showViewWithTitle:@"预约成功，欢迎光临啊啊啊啊啊啊啊" location:MIDDLE];
+
+           } uid:@"0" addressID:@"" addressContent:@"" contact:@"" tel:@"" type:@"0" usetime:@"" peopleNum:@"" remark:@"" price:@"" products:parm withFailure:^(NSError *error) {
+               
+               [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+               [RemindView showViewWithTitle:offline location:MIDDLE];
+           }];
+        }
+        
+    }else if (backScroolViewX == kWidth){
+        //menu2下
+        _currentScroll = _menu2Scrool;
+    }else{
+        //menu3下
+        _currentScroll = _menu3Scrool;
+    }
 }
 
 #pragma mark 菜单栏按钮点击事件
@@ -241,6 +340,13 @@
         _orangLin.frame = CGRectMake(lineX, btn.frame.size.height - 1, btn.frame.size.width, 1);
         [_backScroll setContentOffset:CGPointMake(_selectedBtn.tag * kWidth, 0)];
     }];
+}
+
+#pragma mark EditView 结束编辑
+- (void)textFieldEndEditting:(UITextField *)textField
+{
+    _selectedField = textField;
+    
 }
 
 #pragma mark EditView Delageta
@@ -301,11 +407,6 @@
     } else {
         // 键盘打开
     }
-}
-
-- (void)textFieldEndEditting:(UITextField *)textField
-{
-    
 }
 
 #pragma mark 收起键盘
@@ -383,5 +484,4 @@
         }
     }
 }
-
 @end

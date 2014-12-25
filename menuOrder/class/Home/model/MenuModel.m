@@ -10,8 +10,43 @@
 
 @implementation MenuModel
 
-- (void) initWithDic:(NSDictionary *)dic
+- (instancetype) initWithDic:(NSDictionary *)dic
 {
-    
+    if (self == [super init]) {
+        self.star =dic[@"star"];
+        self.name =dic[@"name"];
+        self.price =dic[@"new_price"];
+        self.oldPrice =dic[@"old_price"];
+        self.cover = dic[@"cover"];
+        self.ID =dic[@"id"];
+    }
+    return self;
 }
+
+
+- (void)encodeWithCoder:(NSCoder *)encoder
+{
+    [encoder encodeObject:_star forKey:@"_star"];
+    [encoder encodeObject:_name forKey:@"_name"];
+    [encoder encodeObject:_price forKey:@"_price"];
+    [encoder encodeObject:_oldPrice forKey:@"_oldPrice"];
+    [encoder encodeObject:_cover forKey:@"_cover"];
+    [encoder encodeObject:_ID forKey:@"_ID"];
+    [encoder encodeInt:_foodCount forKey:@"_foodCount"];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    if (self = [super init]) {
+        self.star = [decoder decodeObjectForKey:@"_star"];
+        self.name = [decoder decodeObjectForKey:@"_name"];
+        self.price = [decoder decodeObjectForKey:@"_price"];
+        self.oldPrice = [decoder decodeObjectForKey:@"_oldPrice"];
+        self.cover = [decoder decodeObjectForKey:@"_cover"];
+        self.ID = [decoder decodeObjectForKey:@"_ID"];
+        self.foodCount = [decoder decodeIntForKey:@"_foodCount"];
+    }
+    return self;
+}
+
 @end

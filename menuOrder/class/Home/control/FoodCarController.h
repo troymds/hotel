@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ChangeControllerDelegate.h"
 
-@interface FoodCarController : UIViewController
+@interface FoodCarController : UIViewController<ChangeControllerDelegate>
 
+@property (nonatomic,weak) id <ChangeControllerDelegate> delegate;
 @end

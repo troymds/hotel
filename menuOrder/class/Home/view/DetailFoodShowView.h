@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-@class NiceFoodModel;
+#import "CarClickedDelegate.h"
+
+@class ProductDetailModel;
 @class DetailFoodShowView;
+
 
 @protocol  DetailFoodShowViewDelegate <NSObject>
 
@@ -28,6 +31,8 @@
 @property (nonatomic, strong) UILabel *foodConnt;//数量
 @property (nonatomic, strong) UILabel *comment;//品论
 @property (nonatomic, strong) UILabel *todayPrice;//品论
-@property (nonatomic, strong) NiceFoodModel *data;
+@property (nonatomic, assign) int count;
+@property (nonatomic, strong) ProductDetailModel *data;
 @property (nonatomic, weak) id<DetailFoodShowViewDelegate> delegate;
+@property (nonatomic, weak)id<CarClickedDelegate> cardelegate;
 @end

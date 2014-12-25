@@ -7,6 +7,9 @@
 //
 
 #import "FoodOrderCell.h"
+#import "UIImageView+WebCache.h"
+#import "MenuModel.h"
+#import "CarTool.h"
 
 #define KLeftX    5
 #define KCellHeight  100
@@ -25,7 +28,7 @@
     if (self) {
         self.backgroundColor = HexRGB(0xe0e0e0);
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+        self.count = 0;
         // 1 白色背景
         UIView *whiteBackView = [[UIView alloc] init];
         whiteBackView.backgroundColor = [UIColor whiteColor];
@@ -83,6 +86,7 @@
         [plusbtn setBackgroundImage:LOADPNGIMAGE(@"reduce") forState:UIControlStateNormal];
         plusbtn.backgroundColor = [UIColor clearColor];
         _plusBtn = plusbtn;
+        [plusbtn addTarget:self action:@selector(reduceBtn:) forControlEvents:UIControlEventTouchUpInside];
         
         //8 数量
         UILabel *count =  [[UILabel alloc] init];
@@ -90,9 +94,18 @@
         count.font = [UIFont systemFontOfSize:PxFont(20)];
         count.textColor = HexRGB(0x3b7800);
         count.backgroundColor = [UIColor clearColor];
-        count.text = @"12";
+        [self foodCount];
+        
+        count.text = [NSString stringWithFormat:@"%d",self.count];
         [whiteBackView addSubview:count];
         _foodConnt = count;
+        if ([count.text intValue] == 0) {
+            plusbtn.hidden = YES;
+        }else
+        {
+            plusbtn.hidden = NO;
+        }
+
         
         //9 加号按钮
         UIButton *addbtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -101,7 +114,7 @@
         addbtn.backgroundColor = [UIColor clearColor];
         [addbtn setBackgroundImage:LOADPNGIMAGE(@"plus") forState:UIControlStateNormal];
         _addBun = addbtn;
-
+        [addbtn addTarget:self action:@selector(addBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
     return self;
 }
@@ -113,23 +126,25 @@
     CGFloat chosenX = KLeftX;
     CGFloat chonseY = (KCellHeight - KChosenBtnW)/2;
     _selectedBtn.frame = Rect(chosenX, chonseY, KChosenBtnW, KChosenBtnW);
-    
+    _selectedBtn.selected  = YES;//默认是选中的
     //3 菜品图片
     CGFloat foodImgX  = CGRectGetMaxX(_selectedBtn.frame) + 5;
     CGFloat foodImgY = KLeftX;
     _foodImg.frame = Rect(foodImgX, foodImgY, KImgW, KImgH);
+    [_foodImg setImageWithURL:[NSURL URLWithString:data.cover] placeholderImage:placeHoderloading];
     
     //4 菜名
     CGFloat foodNameX = CGRectGetMaxX(_foodImg.frame) + 15;
-    CGFloat foodNameY = foodImgY + 20;
+    CGFloat foodNameY = foodImgY + 10;
     _foodName.frame = Rect(foodNameX, foodNameY, 100, 25);
-    
+    _foodName.text = data.name;
     //5 美国money的图标
     CGFloat dollarIcomY = CGRectGetMaxY(_foodName.frame) + 10;
     _dollarIcon.frame = Rect(foodNameX, dollarIcomY, 15, 15);
     
     //6 价格
     _price.frame = Rect(CGRectGetMaxX(_dollarIcon.frame) +3 , dollarIcomY - 5, 80, 25);
+    _price.text = data.price;
     
     //7 减号按钮
     CGFloat buttonY = chonseY;
@@ -138,16 +153,94 @@
     
     //8 数量
     _foodConnt.frame = Rect(CGRectGetMaxX(_plusBtn.frame), buttonY, 18, 30);
-    
+    _foodConnt.text = [NSString stringWithFormat:@"%d",data.foodCount];
+    if ([_foodConnt.text intValue] == 0) {
+        _plusBtn.hidden = YES;
+    }else
+    {
+        _plusBtn.hidden = NO;
+    }
+
     //9 加号按钮
     _addBun.frame = Rect(CGRectGetMaxX(_foodConnt.frame), buttonY, KAddBtnW, KAddBtnW);
 }
+
+
+-(void)addBtn:(UIButton *)btn
+{
+    //1 更新数量,按钮的状态
+    NSInteger count = [_foodConnt.text integerValue];
+    count++;
+    if (count > 0) {
+        //减号按钮显示
+        _plusBtn.hidden = NO;
+    }else
+    {
+        _plusBtn.hidden = YES;
+    }
+    _foodConnt.text = [NSString stringWithFormat:@"%ld",(long)count];
+    
+    //2 传递数据
+    if ([_delegate respondsToSelector:@selector(CarClickedWithData:buttonType:)]) {
+        [_delegate CarClickedWithData:_data buttonType:kButtonAdd];
+    }
+}
+
+- (void)reduceBtn:(UIButton *)btn
+{
+    //1 更新数量,按钮的状态
+    NSInteger count = [_foodConnt.text integerValue];
+    count--;
+    if (count == 0) {
+        //隐藏减号按钮
+        _plusBtn.hidden = YES;
+    }else
+    {
+        _plusBtn.hidden = NO;
+    }
+    
+    //2 传递数据
+    
+    if ([_delegate respondsToSelector:@selector(CarClickedWithData:buttonType:)]) {
+        [_delegate CarClickedWithData:_data buttonType:kButtonReduce];
+    }
+    
+    _foodConnt.text = [NSString stringWithFormat:@"%ld",(long)count];
+}
+
 
 - (void)setIndexPath:(NSInteger)indexPath
 {
     _indexPath = indexPath;
     _addBun.tag = indexPath;
     _plusBtn.tag = indexPath;
+    _selectedBtn.tag = indexPath;
 }
+
+#pragma mark 计算数量
+- (void)foodCount
+{
+    NSMutableArray *array = [CarTool sharedCarTool].totalCarMenu;
+    MenuModel *data;
+    BOOL isExist;//是否有数据
+    if (array.count > 0) {
+        for (int i = 0; i < array.count; i++) {//有数据，赶紧break
+            data = array[i];
+            if ([data.ID isEqualToString:_data.ID]) {
+                self.count = data.foodCount;
+//                NSLog(@"我的菜品ID是%@",_data.ID);
+                isExist = YES;
+                break;
+            }
+        }
+        if (!isExist) { //没有数据，当然为0拉拉
+            self.count = 0;
+        }
+    }else//购物车空了 ，肯定为0拉拉
+    {
+        self.count = 0;
+    }
+}
+
 
 @end

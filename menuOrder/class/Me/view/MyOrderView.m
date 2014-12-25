@@ -30,7 +30,6 @@
     self.title=@"我的点餐";
     self.view.backgroundColor=HexRGB(0xeeeeee);
     _sectionTitleArray=[[NSMutableArray alloc] initWithCapacity:0];
-//    _sectionTitleArray=@[@"   未到期预约",@"   未到期预约",@"   已过期预约"];
     [self addTableView];
     [self addLoadStatus];
     [self addNoStatusImage];
@@ -45,14 +44,13 @@
     noStatusImg =[[UIImageView alloc]initWithFrame:CGRectMake((kWidth-230)/2, ((kHeight-100)/8)*5, 230, 100)];
     [self.view addSubview:noStatusImg];
     noStatusImg.image =[UIImage imageNamed:@"noOrder_img"];
+    
     noStatusImg.hidden =YES;
 }
 #pragma  mark ------显示指示器
 -(void)addMBprogressView{
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"加载中...";
-    
-    
 }
 #pragma mark ---加载数据
 -(void)addLoadStatus

@@ -7,6 +7,10 @@
 //
 
 #import "foodRecommendCell.h"
+#import "NiceFoodModel.h"
+#import "CarTool.h"
+#import "MenuModel.h"
+#import "UIImageView+WebCache.h"
 
 #define KLeftX    5
 #define KCellHeight  334
@@ -95,6 +99,7 @@
         [plusbtn setBackgroundImage:LOADPNGIMAGE(@"reduce") forState:UIControlStateNormal];
         plusbtn.backgroundColor = [UIColor clearColor];
         _plusBtn = plusbtn;
+        [plusbtn addTarget:self action:@selector(reducerBtn:) forControlEvents:UIControlEventTouchUpInside];
         
         //7 数量
         UILabel *count =  [[UILabel alloc] init];
@@ -102,9 +107,18 @@
         count.font = [UIFont systemFontOfSize:PxFont(20)];
         count.textColor = HexRGB(0x3b7800);
         count.backgroundColor = [UIColor clearColor];
-        count.text = @"12";
+        count.text = @"0";
         [whiteBackView addSubview:count];
         _foodConnt = count;
+        [self foodCount];
+        if ([count.text intValue] == 0) {
+            plusbtn.hidden = YES;
+        }else
+        {
+            plusbtn.hidden = NO;
+        }
+
+        count.text = [NSString stringWithFormat:@"%d",self.count];
         
         //8 加号按钮
         UIButton *addbtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -113,51 +127,108 @@
         addbtn.backgroundColor = [UIColor clearColor];
         [addbtn setBackgroundImage:LOADPNGIMAGE(@"plus") forState:UIControlStateNormal];
         _addBun = addbtn;
-        
-        _hasStar = YES;
-        
+        [addbtn addTarget:self action:@selector(adderBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
     return  self;
 }
 
+-(void)adderBtn:(UIButton *)btn
+{
+    //1 更新数量,按钮的状态
+    NSInteger count = [_foodConnt.text integerValue];
+    count++;
+    if (count > 0) {
+        //减号按钮显示
+        _plusBtn.hidden = NO;
+    }else
+    {
+        _plusBtn.hidden = YES;
+    }
+    _foodConnt.text = [NSString stringWithFormat:@"%ld",(long)count];
+    
+    //2 传递数据
+    if ([_delegate respondsToSelector:@selector(CarClickedWithData:buttonType:)]) {
+        [_delegate CarClickedWithData:_data buttonType:kButtonAdd];
+    }
+}
+
+- (void)reducerBtn:(UIButton *)btn
+{
+    //1 更新数量,按钮的状态
+    NSInteger count = [_foodConnt.text integerValue];
+    count--;
+    if (count == 0) {
+        //隐藏减号按钮
+        _plusBtn.hidden = YES;
+    }else
+    {
+        _plusBtn.hidden = NO;
+    }
+    
+    //2 传递数据
+    
+    if ([_delegate respondsToSelector:@selector(CarClickedWithData:buttonType:)]) {
+        [_delegate CarClickedWithData:_data buttonType:kButtonReduce];
+    }
+    
+    _foodConnt.text = [NSString stringWithFormat:@"%ld",(long)count];
+}
+
+
 #pragma mark 刷新数据和UI
 - (void)setData:(MenuModel *)data
 {
+    _data = data;
     //1 美食图片
     CGFloat foodImgX = KStartX;
     CGFloat foodImgY = KStartX;
     CGFloat foodImgW = KBackViewW - KStartX * 2;
     CGFloat foodImgH = foodImgW/KImgWHRace;
     _foodImg.frame = Rect(foodImgX, foodImgY, foodImgW, foodImgH);
-    
+    [_foodImg setImageWithURL:[NSURL URLWithString:data.cover] placeholderImage:placeHoderloading];
     //2 菜名
     CGFloat foodNameX = foodImgX + KLeftX;
     CGFloat foodNameY = CGRectGetMaxY(_foodImg.frame) + KStartX;
     _foodName.frame = Rect(foodNameX, foodNameY, KFooNameW, KFooNameH);
-    
+    _foodName.text = data.name;
     //判断是否有星级别
     //3 星级评价
     CGFloat starY;
     CGFloat todayY;
-    
-    if (_hasStar) {
-        starY = CGRectGetMaxY(_foodName.frame);
-        _starImg.frame = Rect(foodNameX, starY, KStarH, KStarH);
-        _starImg.hidden = NO;
-        
-        todayY = CGRectGetMaxY(_starImg.frame);
+    starY = CGRectGetMaxY(_foodName.frame);
+    int starCount = [[NSString stringWithFormat:@"%@",data.star] intValue];
+    if (starCount > 0) {
+        for (int i = 0; i < starCount; i ++) {
+            //画star
+            CGFloat x = foodNameX + 20 * i;
+            UIImageView *starimg = [[UIImageView alloc] initWithImage:LOADPNGIMAGE(@"star")];
+            starimg.frame = Rect(x, starY, 20, 20);
+            [self addSubview:starimg];
+        }
+        todayY = starY + 20;
     }else
     {
-        _starImg.hidden = YES;
-        todayY = CGRectGetMaxY(_foodName.frame);
+        todayY = starY;
     }
+    
+//    if (_hasStar) {
+//        starY = CGRectGetMaxY(_foodName.frame);
+//        _starImg.frame = Rect(foodNameX, starY, KStarH, KStarH);
+//        _starImg.hidden = NO;
+//        
+//        todayY = CGRectGetMaxY(_starImg.frame);
+//    }else
+//    {
+//        _starImg.hidden = YES;
+//        todayY = CGRectGetMaxY(_foodName.frame);
+//    }
     
     //4  今天价格
     _todayPrice.frame = Rect(foodNameX + KLeftX, todayY + KLeftX, 60, KStarH);
     
     //5 价格
     _price.frame = Rect(CGRectGetMaxX(_todayPrice.frame) - 15, _todayPrice.frame.origin.y - 8, 80, KPriceH);
-    
+    _price.text = data.price;
     //6 减号按钮
     CGFloat buttonY = foodNameY + KLeftX;
     CGFloat buttonX = KBackViewW - KLeftX - KAddbtnW * 2 - 18;
@@ -165,10 +236,24 @@
     
     //7 数量
     _foodConnt.frame = Rect(CGRectGetMaxX(_plusBtn.frame), buttonY, 18, KAddbtnW);
-    
+    [self foodCount];
+    _foodConnt.text = [NSString stringWithFormat:@"%d",self.count];
+    //     NSLog(@"ID为%@数量%d",_data.ID,self.count);
+    if ([_foodConnt.text intValue] == 0) {
+        _plusBtn.hidden = YES;
+    }else
+    {
+        _plusBtn.hidden = NO;
+    }
+
     //8 加号按钮
     _addBun.frame = Rect(CGRectGetMaxX(_foodConnt.frame), buttonY, KAddbtnW, KAddbtnW);
-    NSLog(@"cell h :%f",CGRectGetMaxY(_todayPrice.frame));
+    
+//    [_foodImg setImageWithURL:[NSURL URLWithString:data.cover] placeholderImage:placeHoderloading];
+//    _foodName.text = data.name;
+//    _price.text = data.price;
+    
+
 }
 
 - (void)setIndexPath:(NSInteger)indexPath
@@ -176,6 +261,31 @@
     _indexPath = indexPath;
     _addBun.tag = indexPath;
     _plusBtn.tag = indexPath;
+}
+
+#pragma mark 计算数量
+- (void)foodCount
+{
+    NSMutableArray *array = [CarTool sharedCarTool].totalCarMenu;
+    MenuModel *data;
+    BOOL isExist;//是否有数据
+    if (array.count > 0) {
+        for (int i = 0; i < array.count; i++) {//有数据，赶紧break
+            data = array[i];
+            if ([data.ID isEqualToString:_data.ID]) {
+                self.count = data.foodCount;
+                NSLog(@"我的菜品ID是%@",_data.ID);
+                isExist = YES;
+                break;
+            }
+        }
+        if (!isExist) { //没有数据，当然为0拉拉
+            self.count = 0;
+        }
+    }else//购物车空了 ，肯定为0拉拉
+    {
+        self.count = 0;
+    }
 }
 
 @end

@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+@class ProductDetailModel;
+
 @interface DetailFoodController : UIViewController
+@property (nonatomic, strong) ProductDetailModel *data;
 @property(nonatomic,copy)NSString *detailFoodIndex;
 @end

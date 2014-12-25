@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "ZYAnnotation.h"
-@interface MapController : UIViewController
+
+#import "BaseNaviViewController.h"
+
+@interface MapController : BaseNaviViewController
 
 @end

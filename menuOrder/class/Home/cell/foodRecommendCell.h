@@ -8,6 +8,7 @@
 @class MenuModel;
 
 #import <UIKit/UIKit.h>
+#import "CarClickedDelegate.h"
 
 @interface foodRecommendCell : UITableViewCell
 @property (nonatomic, strong) MenuModel *data;
@@ -22,6 +23,7 @@
 @property (nonatomic, strong) UIView *line;//星星
 @property (nonatomic, strong) UILabel *todayPrice;
 @property (nonatomic, assign) BOOL hasStar;
-
+@property (nonatomic, assign) int count;
+@property (nonatomic, weak)id<CarClickedDelegate> delegate;
 @property (nonatomic, assign)NSInteger indexPath; //哪一个cell
 @end

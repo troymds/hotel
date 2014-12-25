@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MainController.h"
+
 #define QQAPPID @"1103300585"
 #define QQAPPKEY @"0utta5zCiZfvGdDX"
 #define shareAppKey @"35fea059bde0"
@@ -25,4 +27,5 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic,strong) NSString *updateUrl;
+@property (nonatomic,strong) MainController *mainCtl;
 @end
