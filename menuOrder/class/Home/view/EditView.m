@@ -61,6 +61,13 @@
     return YES;
 }
 
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if ([self.delegate respondsToSelector:@selector(textshouleBeginEditting:)]) {
+        [self.delegate textshouleBeginEditting:textField];
+    }
+    return YES;
+}
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
     if ([self.delegate respondsToSelector:@selector(textFieldBeganEditting:)]) {
         [self.delegate textFieldBeganEditting:textField];

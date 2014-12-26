@@ -26,6 +26,8 @@
 - (void)textFieldBeganEditting:(UITextField *)textField;
 
 - (void)textFieldEndEditting:(UITextField *)textField;
+
+-(void) textshouleBeginEditting:(UITextField *)textField;
 @end
 
 @interface EditView : UIView<UITextFieldDelegate>
