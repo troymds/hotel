@@ -18,7 +18,7 @@
         NSDictionary *dic =[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:nil];
         
         NSDictionary *dict1 =dic[@"response"];
-       
+        NSLog(@"%@",dict1);
         
         if (![dict1 isKindOfClass:[NSNull class]])
         {

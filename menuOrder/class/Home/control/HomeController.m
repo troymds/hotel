@@ -82,7 +82,7 @@
             //成功得到数据
             NSMutableArray *array = [NSMutableArray arrayWithArray:data];
             _homeModelArray = array;
-          [self buildUI];
+//          [self buildUI];
         }else
         {
             [RemindView showViewWithTitle:msg location:MIDDLE];

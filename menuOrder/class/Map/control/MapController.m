@@ -33,7 +33,7 @@ typedef NS_ENUM(NSInteger, TravelTypes)
 @property (nonatomic, strong) AMapNaviPoint         *endPoint;
 
 @property (nonatomic,strong) AMapNaviPoint          *currentPoint;
-@property (strong,nonatomic) CLLocationManager *lm;
+@property (strong,nonatomic) CLLocationManager *locationManager;
 
 @property (nonatomic,assign) BOOL       locChange;
 @property(nonatomic,copy)NSString *fishLong;
@@ -77,7 +77,8 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     
     // 初始化travel方式为驾车方式
     self.travelType = TravelTypeCar;
-    
+    _locationManager =[[CLLocationManager alloc]init];
+
     
     [self configMapView];
 }
@@ -218,7 +219,9 @@ typedef NS_ENUM(NSInteger, TravelTypes)
         _locChange = YES;
     }
     
-    
+    [_locationManager requestAlwaysAuthorization];
+    [_locationManager startUpdatingLocation];
+
     
 }
 
