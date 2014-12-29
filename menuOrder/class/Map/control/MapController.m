@@ -10,7 +10,7 @@
 #import "mapTool.h"
 #import "phoneView.h"
 #import "NavPointAnnotation.h"
-
+#import "APIKey.h"
 #define kSetingViewHeight   0.f
 
 typedef NS_ENUM(NSInteger, NavigationTypes)
@@ -60,14 +60,26 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     self = [super init];
     if (self)
     {
-       
+        [self configureAPIKey];
         [self addLoadStatus];
-
+        
     }
     return self;
 }
 
 
+- (void)configureAPIKey
+{
+    if ([APIKey length] == 0)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"apiKey为空，请检查key是否正确设置" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        
+        [alert show];
+    }
+    
+    [AMapNaviServices sharedServices].apiKey = (NSString *)APIKey;
+    [MAMapServices sharedServices].apiKey = (NSString *)APIKey;
+}
 
 - (void)viewDidLoad
 {
@@ -79,7 +91,6 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     self.travelType = TravelTypeCar;
     _locationManager =[[CLLocationManager alloc]init];
 
-    
     [self configMapView];
 }
 - (void)viewDidAppear:(BOOL)animated;
@@ -88,7 +99,8 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     
 }
 //#pragma mark ----加载数据
--(void)addLoadStatus{
+-(void)addLoadStatus
+{
     [mapTool mapStatusesWithSuccess:^(NSArray *statues) {
         NSDictionary *dict =[statues objectAtIndex:0];
         _fishLat =[dict objectForKey:@"lat"];
@@ -102,7 +114,8 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     }];
 }
 
--(void)addUIView{
+-(void)addUIView
+{
     UIButton *phoneTel = [UIButton buttonWithType:UIButtonTypeCustom];
     phoneTel.backgroundColor =[UIColor clearColor];
     [phoneTel setImage:[UIImage imageNamed:@"Tel"] forState:UIControlStateNormal];
@@ -153,6 +166,10 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     mapLong =[_fishLong floatValue];
     
     _endPoint   = [AMapNaviPoint locationWithLatitude:mapLat   longitude:mapLong];
+    
+//    _startPoint =[AMapNaviPoint locationWithLatitude:32.035729   longitude:118.793396];;
+    
+    
 }
 
 
@@ -182,6 +199,7 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     
     
     _currentPoint = [AMapNaviPoint locationWithLatitude:mapView.userLocation.location.coordinate.latitude longitude:mapView.userLocation.location.coordinate.longitude];
+   
     
     if (_locChange == NO)
     {
@@ -197,30 +215,37 @@ typedef NS_ENUM(NSInteger, TravelTypes)
         {
             [self.myMapView addAnnotations:self.annotations];
         }
-        
-        
-        
+
         
         NSArray *startPoints = @[_startPoint];
         NSArray *endPoints   = @[_endPoint];
         
         if (self.travelType == TravelTypeCar)
         {
-            [self.naviManager calculateDriveRouteWithStartPoints:startPoints endPoints:endPoints wayPoints:nil drivingStrategy:0];
+            [self.naviManager calculateWalkRouteWithStartPoints:startPoints endPoints:endPoints];
+            
+//            [self.naviManager calculateDriveRouteWithStartPoints:startPoints endPoints:endPoints wayPoints:nil drivingStrategy:0];
         }
         else
         {
             [self.naviManager calculateWalkRouteWithStartPoints:startPoints endPoints:endPoints];
+            
         }
-        
-        
-        
+
+       
+       
         
         _locChange = YES;
+        
     }
-    
-    [_locationManager requestAlwaysAuthorization];
-    [_locationManager startUpdatingLocation];
+    if ([[[UIDevice currentDevice]systemVersion]floatValue]>=8)
+    {
+        [_locationManager requestAlwaysAuthorization];
+        [_locationManager startUpdatingLocation];
+
+    }else{
+        
+    }
 
     
 }

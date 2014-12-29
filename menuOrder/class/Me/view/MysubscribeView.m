@@ -39,6 +39,7 @@
     [self addTableView];
     [self addLoadStatus];
     [self addNoStatusImage];
+    [self addMBprogressView];
 
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -48,7 +49,7 @@
 
 //没有数据时的状态
 -(void)addNoStatusImage{
-    noStatusImg =[[UIImageView alloc]initWithFrame:CGRectMake((kWidth-230)/2, ((kHeight-100)/8)*5, 230, 100)];
+    noStatusImg =[[UIImageView alloc]initWithFrame:CGRectMake((kWidth-230)/2, (kHeight-100)/2, 230, 100)];
     [self.view addSubview:noStatusImg];
     noStatusImg.image =[UIImage imageNamed:@"noSubscribe_img"];
     noStatusImg.hidden =YES;
@@ -136,9 +137,9 @@
     }
     
     
-    cell.MeSubscribeTimeLabel.text=subModel.use_time;
-    cell.MeSubscribeCategoryLabel.text=subModel.type;
-    cell.MeSubscribeNumLabel.text=subModel.people_num;
+    cell.MeSubscribeTimeLabel.text=[NSString stringWithFormat:@"时间：%@",subModel.use_time] ;
+    cell.MeSubscribeCategoryLabel.text=[NSString stringWithFormat:@"类型：%@",subModel.type];
+    cell.MeSubscribeNumLabel.text=[NSString stringWithFormat:@"就餐人数：%@",subModel.people_num];
     [cell.MeSubscribeImage setImageWithURL:[NSURL URLWithString:subModel.cover] placeholderImage:placeHoderImage];
     
     return cell;
