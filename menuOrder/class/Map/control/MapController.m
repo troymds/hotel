@@ -60,7 +60,9 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     self = [super init];
     if (self)
     {
+        [self configureAPIKey];
         [self addLoadStatus];
+        
     }
     return self;
 }
@@ -165,7 +167,7 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     
     _endPoint   = [AMapNaviPoint locationWithLatitude:mapLat   longitude:mapLong];
     
-//    _startPoint =[AMapNaviPoint locationWithLatitude:32.035729   longitude:118.793396];;
+    _startPoint =[AMapNaviPoint locationWithLatitude:32.035729   longitude:118.793396];;
     
     
 }
@@ -233,6 +235,7 @@ typedef NS_ENUM(NSInteger, TravelTypes)
         }
 
         NSLog(@"55555555%@",_startPoint);
+       
        
         
         _locChange = YES;
@@ -371,9 +374,6 @@ typedef NS_ENUM(NSInteger, TravelTypes)
             pointAnnotationView = [[MAPinAnnotationView alloc] initWithAnnotation:annotation
                                                                   reuseIdentifier:annotationIdentifier];
         }
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-        imageView.image = [UIImage imageNamed:@"tab_index_pre@2x.png"];
-        pointAnnotationView.RightCalloutAccessoryView = imageView;
         pointAnnotationView.animatesDrop   = NO;
         pointAnnotationView.canShowCallout = YES;
         pointAnnotationView.draggable      = NO;
@@ -383,11 +383,19 @@ typedef NS_ENUM(NSInteger, TravelTypes)
         if (navAnnotation.navPointType == NavPointAnnotationStart)
         {
             [pointAnnotationView setPinColor:MAPinAnnotationColorGreen];
+            [pointAnnotationView setImage:[UIImage imageNamed:@"star_img.png"]];
+//            imageView.image = [UIImage imageNamed:@"heaar_img"];
+
         }
         else if (navAnnotation.navPointType == NavPointAnnotationEnd)
         {
             [pointAnnotationView setPinColor:MAPinAnnotationColorRed];
-//            [pointAnnotationView setImage:[UIImage imageNamed:@"tab_index_pre@2x.png"]];
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+            pointAnnotationView.RightCalloutAccessoryView = imageView;
+
+            [pointAnnotationView setImage:[UIImage imageNamed:@"end_img.png"]];
+            imageView.image = [UIImage imageNamed:@"heaar_img"];
+
             
         }
         return pointAnnotationView;

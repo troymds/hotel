@@ -19,7 +19,7 @@
     NSTimer *firTimer;
     NSTimer *secTimer;
     NSMutableArray *scrollImgArray;
-    
+     UIPageControl *_page;
     float x;
 }
 @end
@@ -51,7 +51,10 @@
     
     self.view.backgroundColor  = [UIColor blueColor];
     [self addScrollView];
+    [self addPageControl];
+
     [self addScrollImages];
+    // 3.添加UIPageControl
 }
 
 #pragma mark 添加滚动视图
@@ -68,6 +71,19 @@
     [self.view addSubview:scroll];
     _scroll = scroll;
 }
+#pragma mark 添加分页指示器
+- (void)addPageControl
+{
+    CGSize size = self.view.frame.size;
+    UIPageControl *page = [[UIPageControl alloc] init];
+    page.center = CGPointMake(size.width * 0.5, size.height * 0.95);
+    page.numberOfPages = kCount;
+    page.currentPageIndicatorTintColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"on.png"]];
+    page.pageIndicatorTintColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"off.png"]];
+    page.bounds = CGRectMake(0, 0, 150, 0);
+    [self.view addSubview:page];
+    _page = page;
+}
 
 - (void)firCreatTimer
 {
@@ -78,6 +94,11 @@
 {
     secTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(secChangeImgFrame) userInfo:nil repeats:YES];
     [secTimer fire];
+}
+#pragma mark - 滚动代理方法
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    _page.currentPage = scrollView.contentOffset.x / scrollView.frame.size.width;
 }
 
 #pragma mark 添加滚动显示的图片
@@ -136,6 +157,8 @@
             
             [start addTarget:self action:@selector(start) forControlEvents:UIControlEventTouchUpInside];
             [scrollView addSubview:start];
+           
+           
             
             //            scrollView.userInteractionEnabled = YES;
         }
