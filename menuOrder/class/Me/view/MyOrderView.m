@@ -161,7 +161,7 @@
             orderListModel = [timeModel.timeArray objectAtIndex:i];
             if (i%2==0)
             {
-                [cell.firMeOrderImage setImageWithURL:[NSURL URLWithString:orderListModel.cover] placeholderImage:placeHoderImage];
+                [cell.firMeOrderImage setImageWithURL:[NSURL URLWithString:orderListModel.cover] placeholderImage:placeHoderImage2];
                 cell.firMeOrderTitle.text = orderListModel.name;
                 UITapGestureRecognizer *firTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(firTapClick:)];
                 [cell.firMeOrderImage addGestureRecognizer:firTap];
@@ -170,7 +170,7 @@
             }
             else
             {
-                [cell.secMeOrderImage setImageWithURL:[NSURL URLWithString:orderListModel.cover] placeholderImage:placeHoderImage];
+                [cell.secMeOrderImage setImageWithURL:[NSURL URLWithString:orderListModel.cover] placeholderImage:placeHoderImage2];
                 cell.secMeOrderTitle.text = orderListModel.name;
                 UITapGestureRecognizer *secTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(secTapClick:)];
                 [cell.secMeOrderImage addGestureRecognizer:secTap];

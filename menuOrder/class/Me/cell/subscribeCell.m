@@ -8,7 +8,7 @@
 
 #import "subscribeCell.h"
 #define YYBORDERW 14
-#define IMAGEWIDTH 143
+#define IMAGEWIDTH 95
 @implementation subscribeCell
 @synthesize MeSubscribeCategoryLabel,MeSubscribeImage,MeSubscribeNumLabel,MeSubscribeTimeLabel;
 - (void)awakeFromNib {

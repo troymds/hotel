@@ -39,6 +39,7 @@
     [self addTableView];
     [self addLoadStatus];
     [self addNoStatusImage];
+    [self addMBprogressView];
 
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -87,7 +88,7 @@
 }
 -(void)addTableView
 {
-    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight) style:UITableViewStylePlain];
+    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight-64) style:UITableViewStylePlain];
     _tableView.delegate =self;
     _tableView.dataSource =self;
     _tableView.hidden = YES;
@@ -95,6 +96,12 @@
     _tableView.showsHorizontalScrollIndicator = NO;
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    if (_normalArray.count==0) {
+        _tableView.frame =CGRectMake(0, -20, kWidth, kHeight-44);
+    }else{
+        _tableView.frame =CGRectMake(0, 0, kWidth, kHeight);
+        
+    }
     
     [self.view addSubview:_tableView];
 
@@ -113,7 +120,7 @@
     {
         return _overdueArray.count;
     }
-//    return 3;
+
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -136,10 +143,10 @@
     }
     
     
-    cell.MeSubscribeTimeLabel.text=subModel.use_time;
-    cell.MeSubscribeCategoryLabel.text=subModel.type;
-    cell.MeSubscribeNumLabel.text=subModel.people_num;
-    [cell.MeSubscribeImage setImageWithURL:[NSURL URLWithString:subModel.cover] placeholderImage:placeHoderImage];
+    cell.MeSubscribeTimeLabel.text=[NSString stringWithFormat:@"时间：%@",subModel.use_time] ;
+    cell.MeSubscribeCategoryLabel.text=[NSString stringWithFormat:@"类型：%@",subModel.type];
+    cell.MeSubscribeNumLabel.text=[NSString stringWithFormat:@"就餐人数：%@",subModel.people_num];
+    [cell.MeSubscribeImage setImageWithURL:[NSURL URLWithString:subModel.cover] placeholderImage:placeHoderImage2];
     
     return cell;
 }

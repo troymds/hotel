@@ -142,7 +142,9 @@
     foodText.textAlignment = NSTextAlignmentLeft;
     [_scroll addSubview:foodText];
     viewHight = CGRectGetMaxY(foodImgLogo.frame) + 5;
-    
+    if ([self.niceFoodArray isKindOfClass:[NSNull class]]) {
+        
+    }else{
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:self.niceFoodArray.count];
     for (NSDictionary *d in self.niceFoodArray) {
         NiceFoodModel *data = [[NiceFoodModel alloc] initWithDic:d];
@@ -170,6 +172,7 @@
             viewHight = y + niceFoodViewH + 20;
         }
         foodView.data = array[i];
+    }
     }
     //设置scrollview的内容高度
     _scroll.contentSize = CGSizeMake(kWidth, viewHight) ;

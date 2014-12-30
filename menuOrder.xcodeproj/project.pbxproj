@@ -1557,7 +1557,7 @@
 				ORGANIZATIONNAME = promo;
 				TargetAttributes = {
 					F33541D81A367D91005B21C8 = {
-						DevelopmentTeam = 64Y2W23677;
+						DevelopmentTeam = 8XX9P5VNWY;
 					};
 					F33541F31A367D91005B21C8 = {
 						DevelopmentTeam = 64Y2W23677;
@@ -1874,8 +1874,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ma xundong (Q9AV45MB6G)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ma xundong (Q9AV45MB6G)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/menuOrder/class/Other/ShareSDK/Connection",
@@ -1888,7 +1888,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "menuOrder/menuOrder-Prefix.pch";
 				INFOPLIST_FILE = "menuOrder/menuOrder-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/menuOrder/class/Other/Lib/ZBarSDK",
@@ -1896,7 +1896,7 @@
 					"$(PROJECT_DIR)/menuOrder/class/Other/ShareSDK/Extend/WeChatSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ccb9e423-40e3-4ac6-91a7-9260990f9aef";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1906,8 +1906,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ma xundong (Q9AV45MB6G)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ma xundong (Q9AV45MB6G)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/menuOrder/class/Other/ShareSDK/Connection",
@@ -1920,7 +1920,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "menuOrder/menuOrder-Prefix.pch";
 				INFOPLIST_FILE = "menuOrder/menuOrder-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/menuOrder/class/Other/Lib/ZBarSDK",
@@ -1928,7 +1928,7 @@
 					"$(PROJECT_DIR)/menuOrder/class/Other/ShareSDK/Extend/WeChatSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ccb9e423-40e3-4ac6-91a7-9260990f9aef";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

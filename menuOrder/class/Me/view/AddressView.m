@@ -17,6 +17,7 @@
     UITableView *_tableView;
     NSMutableArray *_addressArray;
     UIImageView *noStatusImg;
+    addressListModel *addModel;
 }
 
 
@@ -27,6 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title=@"地址管理";
+    self.view.backgroundColor =HexRGB(0xeeeeee);
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithSearch:@"nav_add_pre" highlightedSearch:@"nav_add" target:(self) action:@selector(categoryBtnClick)];
     _addressArray=[NSMutableArray array];
     
@@ -49,7 +51,7 @@
 }
 //没有数据时的状态
 -(void)addNoStatusImage{
-    noStatusImg =[[UIImageView alloc]initWithFrame:CGRectMake((kWidth-230)/2, ((kHeight-100)/8)*5, 230, 100)];
+    noStatusImg =[[UIImageView alloc]initWithFrame:CGRectMake((kWidth-230)/2, (kHeight-100)/2, 230, 100)];
     [self.view addSubview:noStatusImg];
     noStatusImg.image =[UIImage imageNamed:@"subscib_img"];
     noStatusImg.hidden =YES;
@@ -129,33 +131,40 @@
 }
 -(void)delegateBtnClick:(UIButton *)delete
 {
-    // 根据cell的子视图 去找当前的cell , 在这里为了找到当前的cell 可以使用[[[[delegate superview] superview] ...] class]; 只到 class的类名为：CustomCell的名为止
-    
-    [self addMBprogressView];
     AddressCell *currentCell = (AddressCell *)[[[delete superview] superview] superview];
-    NSLog(@"class For cell %@", [[[delete superview] superview] superview]);
     
     NSIndexPath *indexPath = [_tableView indexPathForCell:currentCell];
-    addressListModel *addressModel =[_addressArray objectAtIndex:indexPath.row];
-    
-    [addressListTool statusesWithSuccessDelete:^(id statues) {
-        
-        [self addLoadStatus];
-        
-    } address_Id:addressModel.addressId failure:^(NSError *error) {
-        
-        
-        
-        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-        [RemindView showViewWithTitle:@"网络错误！" location:MIDDLE];
-    }];
+    addModel =[_addressArray objectAtIndex:indexPath.row];
     
     
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"是否删除地址" delegate:self cancelButtonTitle:@"是" otherButtonTitles:@"否", nil];
+    
+    [alert show];
     
     
     
 }
-
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        [self addMBprogressView];
+        [addressListTool statusesWithSuccessDelete:^(id statues) {
+            
+            [self addLoadStatus];
+            
+        } address_Id:addModel.addressId failure:^(NSError *error) {
+            
+            
+            
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            [RemindView showViewWithTitle:@"网络错误！" location:MIDDLE];
+        }];
+        
+        
+    }else{
+        
+    }
+    
+}
 - (void)stopHUD:(NSIndexPath *)indexPath
 {
     [_addressArray removeObjectAtIndex:indexPath.row];

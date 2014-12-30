@@ -22,7 +22,8 @@
     self.view.backgroundColor=HexRGB(0xeeeeee);
     [self addAdressUI];
     
-    
+   
+
 }
 
 -(void)addAdressUI

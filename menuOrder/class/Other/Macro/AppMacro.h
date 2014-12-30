@@ -6,6 +6,8 @@
 #define First_Launched @"firstLaunch"
 
 //系统版本
+#define IsIos8 [[[UIDevice currentDevice] systemVersion] floatValue] >=8.0 ? YES : NO
+
 #define IsIos7 [[[UIDevice currentDevice] systemVersion] floatValue] >=7.0 ? YES : NO
 #define IsIos6 [[[UIDevice currentDevice] systemVersion] floatValue] >=6.0 ? YES : NO
 
@@ -23,7 +25,10 @@
 #define SIMULATOR 0
 #endif
 //占位图片
-#define placeHoderImage [UIImage imageNamed:@"loading_img"]
+//占位图片
+#define placeHoderImage1 [UIImage imageNamed:@"loading_img1"]
+#define placeHoderImage2 [UIImage imageNamed:@"loading_img2"]
+#define placeHoderImage3 [UIImage imageNamed:@"loading_img3"]
 #define placeHoderloading [UIImage imageNamed:@"loading"]
 
 #define kFilePath [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"carMenu.data"]

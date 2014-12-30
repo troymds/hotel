@@ -53,9 +53,6 @@
 //        }
         orderModel.address =[dict objectForKey:@"address"];
 
-        
-        
-        
     } failure:^(NSError *error) {
         
     }];

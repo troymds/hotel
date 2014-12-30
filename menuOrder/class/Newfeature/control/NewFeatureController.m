@@ -10,11 +10,17 @@
 #import "UIImage+MJ.h"
 #import "MainController.h"
 
-#define kCount 4
+#define kCount 3
 
 @interface NewFeatureController ()<UIScrollViewDelegate>
 {
     UIScrollView *_scroll;
+    UIImageView *currentImgView;
+    NSTimer *firTimer;
+    NSTimer *secTimer;
+    NSMutableArray *scrollImgArray;
+    
+    float x;
 }
 @end
 
@@ -63,40 +69,159 @@
     _scroll = scroll;
 }
 
+- (void)firCreatTimer
+{
+    firTimer = [NSTimer scheduledTimerWithTimeInterval:0.005 target:self selector:@selector(firChangeImgFrame) userInfo:nil repeats:YES];
+    [firTimer fire];
+}
+- (void)secCreatTimer
+{
+    secTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(secChangeImgFrame) userInfo:nil repeats:YES];
+    [secTimer fire];
+}
+
 #pragma mark 添加滚动显示的图片
 - (void)addScrollImages
 {
+    scrollImgArray = [[NSMutableArray alloc] initWithCapacity:0];
     CGSize size = _scroll.frame.size;
     
-    for (int i = 0; i<kCount; i++) {
-        UIImageView *imageView = [[UIImageView alloc] init];
-        // 1.显示图片
-        NSString *name = [NSString stringWithFormat:@"new_tex%d.png", i+1 ];
-        imageView.image = [UIImage imageNamed:name];
-        // 2.设置frame
-        imageView.frame = CGRectMake(i * size.width, 0, size.width, size.height);
-        [_scroll addSubview:imageView];
+    for (int i = 0; i<kCount; i++)
+    {
+        UIScrollView *scrollView = [[UIScrollView alloc] init];
         
-        if (i == kCount - 1) { // 最后一页，添加2个按钮
+        scrollView.frame = CGRectMake(i * size.width, 0, size.width, size.height);
+        //        scrollView.contentSize = CGSizeMake(500, size.height);
+        scrollView.delegate = self;
+        [_scroll addSubview:scrollView];
+        
+        
+        
+        UIImageView *scrollImgView = [[UIImageView alloc] init];
+        // 1.显示图片
+        NSString *imgName = [NSString stringWithFormat:@"bg_%d.png", i+1 ];
+        scrollImgView.image = [UIImage imageNamed:imgName];
+        // 2.设置frame
+        scrollImgView.frame = CGRectMake(0, 0, 500, size.height);
+        [scrollView addSubview:scrollImgView];
+        
+        [scrollImgArray addObject:scrollImgView];
+        
+        if (i == 0)
+        {
+            currentImgView = scrollImgView;
+        }
+        
+        
+        UIImageView *textImgView = [[UIImageView alloc] init];
+        // 1.显示图片
+        NSString *name = [NSString stringWithFormat:@"text%d.png", i+1 ];
+        textImgView.image = [UIImage imageNamed:name];
+        // 2.设置frame
+        textImgView.frame = CGRectMake(i * size.width, size.height - 227, size.width, 113);
+        [_scroll addSubview:textImgView];
+        
+        
+        
+        if (i == kCount - 1)
+        { // 最后一页，添加2个按钮
             // 3.立即体验（开始）
             UIButton *start = [UIButton buttonWithType:UIButtonTypeCustom];
-            UIImage *startNormal = [UIImage resizedImage:@"new_enter.png"];
+            UIImage *startNormal = [UIImage resizedImage:@"ok"];
             [start setBackgroundImage:startNormal forState:UIControlStateNormal];
-            [start setBackgroundImage:[UIImage resizedImage:@"new_enter_pre.png"] forState:UIControlStateHighlighted];
-            start.frame =CGRectMake(45, size.height*0.8, 230, 40);
-            [start setTitle:@"立即进入" forState:UIControlStateNormal];
-            start.titleLabel.font =[UIFont systemFontOfSize:PxFont(30)];
+            [start setBackgroundImage:[UIImage resizedImage:@"ok_pre"] forState:UIControlStateHighlighted];
+            start.frame =CGRectMake(75, size.height - 56 - 21 , size.width - 150, 42);
+            //            [start setTitle:@"立即进入" forState:UIControlStateNormal];
+            //            start.titleLabel.font =[UIFont systemFontOfSize:PxFont(30)];
             
             [start addTarget:self action:@selector(start) forControlEvents:UIControlEventTouchUpInside];
-            [imageView addSubview:start];
+            [scrollView addSubview:start];
             
-            imageView.userInteractionEnabled = YES;
+            //            scrollView.userInteractionEnabled = YES;
         }
     }
+    
+    
+    [self firCreatTimer];
+}
+
+- (void)firChangeImgFrame
+{
+    CGRect frame = currentImgView.frame;
+    
+    frame.origin.x -= 0.1;
+    
+    if (frame.origin.x <= - 120.000000)
+    {
+        [firTimer invalidate];
+        [self secCreatTimer];
+    }
+    
+    
+    currentImgView.frame = frame;
+    
+    
+    //    NSLog(@"%@, -> %@",[NSThread mainThread],currentImgView);
+}
+
+- (void)secChangeImgFrame
+{
+    CGRect frame = currentImgView.frame;
+    frame.origin.x += 0.1;
+    
+    
+    if (frame.origin.x >= 0)
+    {
+        
+        [secTimer invalidate];
+        [self firCreatTimer];
+        
+    }
+    
+    
+    currentImgView.frame = frame;
+    
+    
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    x = scrollView.contentOffset.x;
+}
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    int index =  scrollView.contentOffset.x / 320;
+    
+    if (x != scrollView.contentOffset.x)
+    {
+        
+        if (firTimer)
+        {
+            [firTimer invalidate];
+        }
+        if (secTimer)
+        {
+            [secTimer invalidate];
+        }
+        
+        
+        currentImgView = [scrollImgArray objectAtIndex:index];
+        [self firCreatTimer];
+    }
+    
 }
 
 -(void)start
 {
+    if (firTimer)
+    {
+        [firTimer invalidate];
+    }
+    if (secTimer)
+    {
+        [secTimer invalidate];
+    }
+    
     [UIApplication sharedApplication].statusBarHidden = NO;
     self.view.window.rootViewController =[[MainController alloc]init];
 }

@@ -60,9 +60,7 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     self = [super init];
     if (self)
     {
-       
         [self addLoadStatus];
-
     }
     return self;
 }
@@ -79,7 +77,6 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     self.travelType = TravelTypeCar;
     _locationManager =[[CLLocationManager alloc]init];
 
-    
     [self configMapView];
 }
 - (void)viewDidAppear:(BOOL)animated;
@@ -88,7 +85,8 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     
 }
 //#pragma mark ----加载数据
--(void)addLoadStatus{
+-(void)addLoadStatus
+{
     [mapTool mapStatusesWithSuccess:^(NSArray *statues) {
         NSDictionary *dict =[statues objectAtIndex:0];
         _fishLat =[dict objectForKey:@"lat"];
@@ -102,7 +100,8 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     }];
 }
 
--(void)addUIView{
+-(void)addUIView
+{
     UIButton *phoneTel = [UIButton buttonWithType:UIButtonTypeCustom];
     phoneTel.backgroundColor =[UIColor clearColor];
     [phoneTel setImage:[UIImage imageNamed:@"Tel"] forState:UIControlStateNormal];
@@ -153,6 +152,10 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     mapLong =[_fishLong floatValue];
     
     _endPoint   = [AMapNaviPoint locationWithLatitude:mapLat   longitude:mapLong];
+    
+//    _startPoint =[AMapNaviPoint locationWithLatitude:32.035729   longitude:118.793396];;
+    
+    
 }
 
 
@@ -182,6 +185,7 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     
     
     _currentPoint = [AMapNaviPoint locationWithLatitude:mapView.userLocation.location.coordinate.latitude longitude:mapView.userLocation.location.coordinate.longitude];
+   
     
     if (_locChange == NO)
     {
@@ -197,30 +201,39 @@ typedef NS_ENUM(NSInteger, TravelTypes)
         {
             [self.myMapView addAnnotations:self.annotations];
         }
-        
-        
-        
+
+        NSLog(@"11111%@",_startPoint);
         
         NSArray *startPoints = @[_startPoint];
         NSArray *endPoints   = @[_endPoint];
         
         if (self.travelType == TravelTypeCar)
         {
-            [self.naviManager calculateDriveRouteWithStartPoints:startPoints endPoints:endPoints wayPoints:nil drivingStrategy:0];
+            NSLog(@"22222%@",_startPoint);
+            [self.naviManager calculateWalkRouteWithStartPoints:startPoints endPoints:endPoints];
+            NSLog(@"444444444");
+//            [self.naviManager calculateDriveRouteWithStartPoints:startPoints endPoints:endPoints wayPoints:nil drivingStrategy:0];
         }
         else
         {
             [self.naviManager calculateWalkRouteWithStartPoints:startPoints endPoints:endPoints];
+            NSLog(@"3333333%@",_startPoint);
         }
-        
-        
-        
+
+        NSLog(@"55555555%@",_startPoint);
+       
         
         _locChange = YES;
+        
     }
-    
-    [_locationManager requestAlwaysAuthorization];
-    [_locationManager startUpdatingLocation];
+    if ([[[UIDevice currentDevice]systemVersion]floatValue]>=8)
+    {
+        [_locationManager requestAlwaysAuthorization];
+        [_locationManager startUpdatingLocation];
+
+    }else{
+        
+    }
 
     
 }

@@ -22,6 +22,8 @@
     [super viewDidLoad];
     self.title =@"意见反馈";
     self.view.backgroundColor =HexRGB(0xeeeeee);
+    
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithSearch:@"nav_ok" highlightedSearch:@"nav_ok_pre" target:(self) action:@selector(navcommite)];
     [self addUIView];
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -38,7 +40,7 @@
 }
 -(void)addUIView
 {
-    UIImageView *headerImage =[[UIImageView alloc]initWithFrame:CGRectMake(YYBORDER, YYBORDER*2, kWidth-YYBORDER*2, 70)];
+    UIImageView *headerImage =[[UIImageView alloc]initWithFrame:CGRectMake(YYBORDER, YYBORDER*2, kWidth-YYBORDER*2, 65)];
     [self.view addSubview:headerImage];
     headerImage.image =[UIImage imageNamed:@"suggest_banner"];
     
@@ -82,6 +84,13 @@
 
 #pragma mark 意见反馈
 -(void)commitBtnClick{
+    [self commitStatus];
+    }
+-(void)navcommite{
+    [self commitStatus];
+
+}
+-(void)commitStatus{
     [self addLoadStatus];
     if (suggestText.text.length==0) {
         [RemindView showViewWithTitle:@"内容不能为空！" location:MIDDLE];
@@ -90,6 +99,7 @@
         placeholderLabel.text=@"请输入您对我们的宝贵意见!";
         suggestText.text =@"";
     }
+
 }
 -(void)textViewDidChange:(UITextView *)textView{
     if (textView.text.length==0) {
