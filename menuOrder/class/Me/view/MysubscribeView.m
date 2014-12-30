@@ -49,7 +49,7 @@
 
 //没有数据时的状态
 -(void)addNoStatusImage{
-    noStatusImg =[[UIImageView alloc]initWithFrame:CGRectMake((kWidth-230)/2, ((kHeight-100)/8)*5, 230, 100)];
+    noStatusImg =[[UIImageView alloc]initWithFrame:CGRectMake((kWidth-230)/2, (kHeight-100)/2, 230, 100)];
     [self.view addSubview:noStatusImg];
     noStatusImg.image =[UIImage imageNamed:@"noSubscribe_img"];
     noStatusImg.hidden =YES;

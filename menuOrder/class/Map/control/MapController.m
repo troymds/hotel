@@ -10,7 +10,7 @@
 #import "mapTool.h"
 #import "phoneView.h"
 #import "NavPointAnnotation.h"
-
+#import "APIKey.h"
 #define kSetingViewHeight   0.f
 
 typedef NS_ENUM(NSInteger, NavigationTypes)
@@ -66,6 +66,18 @@ typedef NS_ENUM(NSInteger, TravelTypes)
 }
 
 
+- (void)configureAPIKey
+{
+    if ([APIKey length] == 0)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"apiKey为空，请检查key是否正确设置" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        
+        [alert show];
+    }
+    
+    [AMapNaviServices sharedServices].apiKey = (NSString *)APIKey;
+    [MAMapServices sharedServices].apiKey = (NSString *)APIKey;
+}
 
 - (void)viewDidLoad
 {
