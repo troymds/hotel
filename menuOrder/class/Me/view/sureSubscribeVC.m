@@ -99,7 +99,9 @@
    
     if ([orderModel.contact isKindOfClass:[NSNull class]]) {
         orderModel.contact=@"联系人为空！";
-        NSLog(@"%@",orderModel.contact);
+    }
+    if ([orderModel.tel isKindOfClass:[NSNull class]]) {
+        orderModel.tel=@"联系电话为空！";
     }
     NSArray *orderArr =@[@"  订单金额:           ",[NSString stringWithFormat:@"  联系人:%@",orderModel.contact],[NSString stringWithFormat:@"  就餐人数:%@",orderModel.people_num],[NSString stringWithFormat:@"  就餐时间:%@",orderModel.use_time]];
     for (int p=0; p<4; p++) {
@@ -139,8 +141,9 @@
         orderCategory.textAlignment=NSTextAlignmentCenter;
         orderCategory.text=_orderCategoryArray[l];
     }
-    backView.frame =CGRectMake(YYBORDERW, YYBORDERW, kWidth-YYBORDERW*2, 280+(_orderCategoryArray.count/2)*20);
+    backView.frame =CGRectMake(YYBORDERW, YYBORDERW, kWidth-YYBORDERW*2, 280+(_orderCategoryArray.count/2)*30);
     if (_orderCategoryArray.count==0) {
+        
         UILabel *noOrder =[[UILabel alloc]initWithFrame:CGRectMake(0, YYBORDERWw+230, kWidth, 20 )];
         noOrder.text =@"没有已点菜品";
         [backView addSubview:noOrder];
@@ -151,7 +154,7 @@
         
 
     }
-    backScrollView.contentSize=CGSizeMake(kWidth, 290+(_orderCategoryArray.count/2)*20);
+    backScrollView.contentSize=CGSizeMake(kWidth, 290+(_orderCategoryArray.count/2)*30);
     
 }
 - (void)didReceiveMemoryWarning {
