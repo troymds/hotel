@@ -82,7 +82,7 @@
 }
 -(void)addTableView
 {
-    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight-64) style:UITableViewStylePlain];
+    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight-70) style:UITableViewStylePlain];
     _tableView.delegate =self;
     _tableView.dataSource =self;
     _tableView.hidden = NO;
@@ -221,7 +221,7 @@
     [sectionLabel setTitleColor:HexRGB(0x808080) forState:UIControlStateNormal];
     [sectionLabel setImage:[UIImage imageNamed:@"MyOrder_image"] forState:UIControlStateNormal];
     
-    sectionLabel.frame = CGRectMake(30, 0, 150, 30);
+    sectionLabel.frame = CGRectMake(15, 0, 150, 30);
     return headerView;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

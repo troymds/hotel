@@ -27,7 +27,7 @@
     }
     // 3.设置导航栏文字的主题
     [bar setTitleTextAttributes:@{
-      UITextAttributeTextColor : [UIColor blackColor],
+      UITextAttributeTextColor : [UIColor whiteColor],
       UITextAttributeTextShadowOffset : [NSValue valueWithUIOffset:UIOffsetZero] ,UITextAttributeFont:[UIFont systemFontOfSize:18]
      }];
     

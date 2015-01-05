@@ -40,7 +40,7 @@
 }
 -(void)addUIView
 {
-    UIImageView *headerImage =[[UIImageView alloc]initWithFrame:CGRectMake(YYBORDER, YYBORDER*2, kWidth-YYBORDER*2, 65)];
+    UIImageView *headerImage =[[UIImageView alloc]initWithFrame:CGRectMake(YYBORDER, YYBORDER*2, kWidth-YYBORDER*2, 62)];
     [self.view addSubview:headerImage];
     headerImage.image =[UIImage imageNamed:@"suggest_banner"];
     
@@ -71,6 +71,7 @@
     [commintBtn setImage:[UIImage imageNamed:@"suggest_ok_pre.png"] forState:UIControlStateHighlighted];
     commintBtn.frame =CGRectMake(YYBORDER, YYBORDER*4+70+225, kWidth-YYBORDER*2, 40) ;
     [commintBtn addTarget:self action:@selector(commitBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    commintBtn.hidden =YES;
 
     
 }
