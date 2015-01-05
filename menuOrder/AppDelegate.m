@@ -44,11 +44,12 @@
         CFUUIDRef uuid = CFUUIDCreate(NULL);
         assert(uuid!=NULL);
         CFStringRef uuidStr = CFUUIDCreateString(NULL, uuid);
-        retrieveuuid = [NSString stringWithFormat:@"%@",uuidStr];
+               retrieveuuid = [NSString stringWithFormat:@"%@",uuidStr];
         [SSKeychain setPassword:retrieveuuid forService:@"cn.chinapromo.userinfo" account:@"uuid"];
     }
-    [SystemConfig sharedInstance].uuidStr = retrieveuuid;
+   ;
    
+    NSLog(@"------%@", [SystemConfig sharedInstance].uuidStr = retrieveuuid);
 
     //    NSString *key = (NSString *)kCFBundleVersionKey;
     NSString *key = @"CFBundleShortVersionString";
@@ -83,11 +84,11 @@
     return YES;
 }
 -(void)addUID{
-  [uidTool statusesWithSuccessUid:^(NSArray *statues) {
-     
-  } failure:^(NSError *error) {
-      
-  }];
+    [uidTool statusesWithSuccessUid:^(NSString *ID) {
+        [SystemConfig sharedInstance].uid = ID;
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)checkVersion

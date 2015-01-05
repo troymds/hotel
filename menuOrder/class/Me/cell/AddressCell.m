@@ -11,7 +11,7 @@
 #define YYBORDERWw 13
 
 @implementation AddressCell
-@synthesize nameLabel,numberLabel,delegateBtn,addressLabel;
+@synthesize nameLabel,numberLabel,delegateBtn,addressLabel,lineView;
 - (void)awakeFromNib {
     // Initialization code
 }
@@ -47,7 +47,7 @@
         addressLabel.textColor=HexRGB(0x666666);
         addressLabel.backgroundColor=[UIColor clearColor];
         
-        UIView *lineView=[[UIView alloc]initWithFrame:CGRectMake(kWidth-YYBORDERW*2-YYBORDERWw-40, 16, 1, 52)];
+        lineView=[[UIView alloc]initWithFrame:CGRectMake(kWidth-YYBORDERW*2-YYBORDERWw-40, 16, 1, 52)];
         [backCell addSubview:lineView];
         lineView.backgroundColor=HexRGB(0xcacaca);
         

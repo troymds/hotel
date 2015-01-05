@@ -14,9 +14,9 @@
 {
     NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",addressID,@"address_id",addressContent,@"address_content",contact,@"contact",tel,@"tel",type,@"type",useTime,@"use_time",peopleNum,@"people_num",remark,@"remark",price,@"price",products,@"products", nil];
     
-    [HttpTool postWithPath:@"getProductList" params:dic success:^(id JSON) {
+    [HttpTool postWithPath:@"postOrder" params:dic success:^(id JSON) {
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:nil];
-        NSLog(@"%@",dict);
+        NSLog(@"%@",useTime);
         NSMutableArray *statuses =[NSMutableArray array];
         
         int code = [[[dict objectForKey:@"response"] objectForKey:@"code"] intValue];

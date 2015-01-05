@@ -14,6 +14,7 @@
 #import "FoodCarController.h"
 #import "CarTool.h"
 #import "BBBadgeBarButtonItem.h"
+#import "DetailFoodController.h"
 
 @interface FoodRecommendController ()<UITableViewDataSource,UITableViewDelegate,CarClickedDelegate>
 {
@@ -168,10 +169,20 @@
     return cell;
 }
 
+#pragma mark 点击cell
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+     MenuModel *data = _dataList[indexPath.row];
+    //进入菜品详情页面
+    DetailFoodController * ctl = [[DetailFoodController alloc] init];
+    ctl.detailFoodIndex = data.ID;
+    [self.navigationController pushViewController:ctl animated:YES];
+}
+
 #pragma mark tableview cell 高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 334;
+    return 240;
 }
 
 #pragma mark tableview 行数

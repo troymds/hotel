@@ -71,9 +71,9 @@
     [_backScrollView addSubview:headerBtn];
     headerBtn.frame=CGRectMake((kWidth-HEADERWY)/2, (HearderImageH-HEADERWY)/2, HEADERWY, HEADERWY);
     [headerBtn setImage:[UIImage imageNamed:@"heaar_img"] forState:UIControlStateNormal];
-    headerBtn.layer.cornerRadius=0;
-    headerBtn.layer.borderWidth=2.0;
-    headerBtn.layer.masksToBounds = YES;
+//    headerBtn.layer.cornerRadius=0;
+//    headerBtn.layer.borderWidth=1.0;
+//    headerBtn.layer.masksToBounds = YES;
     headerBtn.layer.borderColor=[UIColor colorWithRed:72.0/255.0 green:144.0/255.0 blue:5.0/255.0 alpha:1 ] .CGColor;
     
     NSArray *myTitle =@[@"   我的预约",@"   我的点餐",@"   地址管理",@"   分享渔府",@"   意见反馈",@"   关于我们",@"   检查更新"];

@@ -7,13 +7,13 @@
 //
 
 #import "uidTool.h"
-
+#import "SystemConfig.h"
 @implementation uidTool
 + (void)statusesWithSuccessUid:(StatusSuccessBlock)success failure:(StatusFailureBlock)failure{
     [HttpTool postWithPath:@"getId" params:nil success:^(id JSON) {
         NSDictionary *dict =[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:nil];
-        NSLog(@"%@",dict);
-        success(JSON);
+        NSString * data = dict[@"response"][@"data"];
+        success(data);
     } failure:^(NSError *error) {
         
     }];

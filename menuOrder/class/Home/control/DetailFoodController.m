@@ -17,7 +17,7 @@
 #import "CarTool.h"
 #import "MenuModel.h"
 #import "CarClickedDelegate.h"
-
+#import "ShareView.h"
 #define KLeftXYDistence  10 //左上边距
 #define KFoodImgH        120 //菜品展示图片高度
 #define KFrameOffset     4
@@ -29,6 +29,7 @@
     UIView *_detailFoodBackView;//菜单详情展示背景
     NSArray *_dataList;
     int _totaNum;
+    UIButton *_shareBtn;
 }
 @end
 
@@ -44,7 +45,10 @@
         barButton.badgeValue = [NSString stringWithFormat:@"%ld", (long)[self totalCarNum] ];
     }
     //3 刷新表数据
-
+    if (_dataList) {
+        ProductDetailModel *model = _dataList[0];
+        _detailView.data = model;
+    }
 }
 
 - (void)viewDidLoad {
@@ -117,7 +121,7 @@
             [RemindView showViewWithTitle:msg location:MIDDLE];
         }
 
-    } product_id:_data.ID withFailure:^(NSError *error) {
+    } product_id:self.detailFoodIndex withFailure:^(NSError *error) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         [RemindView showViewWithTitle:offline location:MIDDLE];
     }];
@@ -170,6 +174,7 @@
     [shareBtn setBackgroundImage:LOADPNGIMAGE(@"home_share") forState:UIControlStateNormal];
     [shareBtn setBackgroundImage:LOADPNGIMAGE(@"home_share_pre") forState:UIControlStateHighlighted];
     [shareBtn addTarget:self action:@selector(sharefood) forControlEvents:UIControlEventTouchUpInside];
+    _shareBtn = shareBtn;
 }
 
 #pragma mark 加减按钮点击
@@ -193,7 +198,8 @@
 #pragma mark 分享
 -(void)sharefood
 {
-    
+     ProductDetailModel *model = _dataList[0];
+    [ShareView showViewWithTitle:@"分享" content:model.cover description:model.cover url:model.cover delegate:self];
 }
 
 #pragma mark 动态变化的高度
@@ -209,5 +215,9 @@
     CGRect detailViewrect = _detailView.frame;
     detailViewrect.size.height = height;
     _detailView.frame = detailViewrect;
+    
+    CGRect shareBtnRect = _shareBtn.frame;
+    shareBtnRect.origin.y = CGRectGetMaxY(_detailFoodBackView.frame) + 40;
+    _detailFoodBackView.frame = detailbackViewrect;
 }
 @end

@@ -11,7 +11,7 @@
 
 #define QQAPPID @"1103300585"
 #define QQAPPKEY @"0utta5zCiZfvGdDX"
-#define shareAppKey @"35fea059bde0"
+#define shareAppKey @"49ea4296981e"
 #define SinaAppKey @"531851719"
 #define SinaAppSecret @"a3498ee96939375894170b4746f6d79b"
 #define TencentAppKey @"1103300585"

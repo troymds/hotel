@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void (^StatusSuccessBlock)(NSArray *statues);
+typedef void (^StatusSuccessBlock)(NSString *statues);
 typedef void (^StatusFailureBlock)(NSError *error);
 @interface uidTool : NSObject
 

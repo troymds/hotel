@@ -94,6 +94,7 @@
         count.font = [UIFont systemFontOfSize:PxFont(20)];
         count.textColor = HexRGB(0x3b7800);
         count.backgroundColor = [UIColor clearColor];
+        count.textAlignment = NSTextAlignmentCenter;
         [self foodCount];
         
         count.text = [NSString stringWithFormat:@"%d",self.count];
@@ -153,7 +154,12 @@
     
     //8 数量
     _foodConnt.frame = Rect(CGRectGetMaxX(_plusBtn.frame), buttonY, 18, 30);
-    _foodConnt.text = [NSString stringWithFormat:@"%d",data.foodCount];
+    [self foodCount];
+    if (self.count == 0) {
+        _foodConnt.text = [NSString stringWithFormat:@""];
+    }else{
+        _foodConnt.text = [NSString stringWithFormat:@"%d",self.count];
+    }
     if ([_foodConnt.text intValue] == 0) {
         _plusBtn.hidden = YES;
     }else
@@ -205,7 +211,11 @@
         [_delegate CarClickedWithData:_data buttonType:kButtonReduce];
     }
     
-    _foodConnt.text = [NSString stringWithFormat:@"%ld",(long)count];
+    if (count == 0) {
+        _foodConnt.text = [NSString stringWithFormat:@""];
+    }else{
+        _foodConnt.text = [NSString stringWithFormat:@"%d",count];
+    }
 }
 
 

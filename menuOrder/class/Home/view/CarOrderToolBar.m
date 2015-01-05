@@ -61,12 +61,16 @@
 //        _numOfFood.frame = Rect(numX,KLeftX, 80, 20);
         
         //4 美国money的图标
-        UIImageView *dollarIcon = [[UIImageView alloc] init];
+        UILabel *dollarIcon = [[UILabel alloc] init];
         [self addSubview:dollarIcon];
-        dollarIcon.image = LOADPNGIMAGE(@"star");
-        dollarIcon.frame = CGRectZero;
         _dollar = dollarIcon;
-            _dollar.frame = Rect(numX - 10, CGRectGetMaxY(_numOfFood.frame), 20, 20);
+        dollarIcon.font = [UIFont systemFontOfSize:PxFont(26)];
+        dollarIcon.textColor = HexRGB(0x605e5f);
+        dollarIcon.backgroundColor = [UIColor clearColor];
+        dollarIcon.text = @"￥";
+        dollarIcon.textAlignment = NSTextAlignmentCenter;
+        _dollar = dollarIcon;
+        _dollar.frame = Rect(numX - 10, CGRectGetMaxY(_numOfFood.frame) + 5, 20, 20);
         
         //5 总价
         UILabel *totalMoeny = [[UILabel alloc] init];
@@ -77,7 +81,7 @@
         totalMoeny.text = @"1212";
         [self addSubview:totalMoeny];
         _money = totalMoeny;
-        _money.frame = Rect(CGRectGetMaxX(_dollar.frame)+3, CGRectGetMaxY(_numOfFood.frame) - 5, 100, KAllNameW);
+        _money.frame = Rect(CGRectGetMaxX(_dollar.frame)+3, CGRectGetMaxY(_numOfFood.frame) - 2, 100, KAllNameW);
         
         //6 全选按钮
         UIButton * next = [UIButton buttonWithType:UIButtonTypeCustom];

@@ -125,8 +125,7 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     phoneTel.frame = CGRectMake(kWidth-85, kHeight-210, 55, 73);
     [self.view addSubview:phoneTel];
     [self.view bringSubviewToFront:phoneTel];
-    
-   
+  
 }
 
 
@@ -186,6 +185,7 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     [endAnnotation setCoordinate:CLLocationCoordinate2DMake(_endPoint.latitude, _endPoint.longitude)];
     
     endAnnotation.title        = @"紫金渔府";
+    endAnnotation.subtitle =@"地址：鼓楼区老菜市场";
     
     endAnnotation.navPointType = NavPointAnnotationEnd;
     
@@ -410,9 +410,13 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     if ([overlay isKindOfClass:[MAPolyline class]])
     {
         MAPolylineView *polylineView = [[MAPolylineView alloc] initWithPolyline:overlay];
-        
+        polylineView.strokeColor = HexRGB(0x7c9de4);
+
         polylineView.lineWidth   = 5.0f;
-        polylineView.strokeColor = [UIColor blueColor];
+        polylineView.layer.cornerRadius=0;
+        polylineView.layer.borderWidth=2.0;
+        polylineView.layer.masksToBounds = YES;
+        polylineView.layer.borderColor=[UIColor colorWithRed:85.0/255.0 green:113.0/255.0 blue:219.0/255.0 alpha:1 ] .CGColor;
         
         return polylineView;
     }

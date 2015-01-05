@@ -20,6 +20,7 @@
 #import "CarTool.h"
 #import "ChangeControllerDelegate.h"
 #import "MainController.h"
+#import "DetailFoodController.h"
 
 #define KMenuItemCount  9
 #define KLeftMenuW   80
@@ -187,6 +188,17 @@
 {
     return _productsList.count;
 }
+
+#pragma mark 点击cell
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    MenuModel *data = _productsList[indexPath.row];
+    //进入菜品详情页面
+    DetailFoodController * ctl = [[DetailFoodController alloc] init];
+    ctl.detailFoodIndex = data.ID;
+    [self.navigationController pushViewController:ctl animated:YES];
+}
+
 
 #pragma mark 添加左侧的menu bar
 - (void)addLeftMenuBar

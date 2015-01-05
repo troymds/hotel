@@ -19,7 +19,7 @@
 @property(nonatomic,copy)NSString *people_num;
 @property(nonatomic,copy)NSString *price;
 
-@property(nonatomic,copy)NSString *products;
+@property(nonatomic,copy)NSArray *products;
 @property(nonatomic,copy)NSString *name;
 
 @property(nonatomic,copy)NSString *type;

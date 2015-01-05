@@ -178,8 +178,11 @@
         menu.oldPrice = _data.price;
         [_cardelegate CarClickedWithData:menu buttonType:kButtonReduce];
     }
-    
-    _foodConnt.text = [NSString stringWithFormat:@"%ld",(long)count];
+    if (count == 0) {
+        _foodConnt.text = [NSString stringWithFormat:@""];
+    }else{
+        _foodConnt.text = [NSString stringWithFormat:@"%d",count];
+    }
 }
 
 
@@ -240,7 +243,12 @@
     //7 数量
     _foodConnt.frame = Rect(CGRectGetMaxX(_plusBtn.frame), buttonY, 25, KImgH);
     [self foodCount];
-    _foodConnt.text = [NSString stringWithFormat:@"%d",self.count];
+    
+    if (self.count == 0) {
+        _foodConnt.text = [NSString stringWithFormat:@""];
+    }else{
+        _foodConnt.text = [NSString stringWithFormat:@"%d",self.count];
+    }
     //     NSLog(@"ID为%@数量%d",_data.ID,self.count);
     if ([_foodConnt.text intValue] == 0) {
         _plusBtn.hidden = YES;

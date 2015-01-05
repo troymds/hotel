@@ -19,15 +19,22 @@
 #define KOthersEdit 205
 
 #define KEditStartTag 200
+typedef enum {
+    EditNum = 1,
+    EditText = 2,
+    EditTime = 3,
+    EditAddress
+} EditType;
 
+@class EditView;
 @protocol EditViewDelegate <NSObject>
 
 @optional
-- (void)textFieldBeganEditting:(UITextField *)textField;
+- (void)updateHilightStatus:(EditView *)view withTextfield:(UITextField *)field;//更新点亮状态
 
-- (void)textFieldEndEditting:(UITextField *)textField;
-
--(void) textshouleBeginEditting:(UITextField *)textField;
+- (void)textshouleBeginEditting:(EditView *)view :(UITextField *)textField withstring:(NSString *)str;
+- (void)textFieldBeganEditting:(EditView *)view :(UITextField *)textField;
+- (void)textFieldEndEditting:(EditView *)view :(UITextField *)textField;
 @end
 
 @interface EditView : UIView<UITextFieldDelegate>
@@ -35,7 +42,10 @@
 @property (nonatomic, strong) UIImageView *cricle; //圆圈图片
 @property (nonatomic, strong) UITextField *edit;//编辑
 @property (nonatomic, assign) int editTag;//自己的tag
-
+@property (nonatomic, assign) bool isTime;//是否是时间控件
 @property (nonatomic, weak) id<EditViewDelegate> delegate;
--(void)addEditView:(int )index placeHoldString:(NSString *)holdString editIcon:(NSString *)icon;
+@property (nonatomic, assign) EditType edtype;
+@property (nonatomic,strong) UITextField *selectedText;
+-(void)addEditView:(int )index placeHoldString:(NSString *)holdString editIcon:(NSString *)icon isTime:(BOOL )isTime;
+-(void)addEditView:(int )index placeHoldString:(NSString *)holdString editIcon:(NSString *)icon editType:(EditType )editType;
 @end

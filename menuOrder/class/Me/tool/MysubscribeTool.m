@@ -41,7 +41,7 @@
 #pragma mark ---获取预约详情
 + (void)getOrderDetailId:(NSString *)order_id statusesWithSuccess:(StatusSuccessBlock)success  failure:(StatusFailureBlock)failure{
     NSLog(@"=========%@",order_id);
-    NSDictionary *dict =[NSDictionary dictionaryWithObjectsAndKeys:order_id,@"order_id ", nil];
+    NSDictionary *dict =[NSDictionary dictionaryWithObjectsAndKeys:order_id,@"order_id", nil];
     [HttpTool postWithPath:@"getOrderDetail" params:dict success:^(id JSON) {
         NSDictionary *dic =[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:nil];
         NSMutableArray *statuses =[NSMutableArray array];

@@ -14,6 +14,8 @@
 #import "SubScribeController.h"
 #import "UIBarButtonItem+MJ.h"
 #import "WBNavigationController.h"
+#import "subscribeViewViewController.h"
+
 #define kDockHeight 44
 
 @interface MainController () <DockDelegate,UINavigationControllerDelegate>
@@ -41,7 +43,7 @@
     [self addChildViewController:nav1];
     
     //    // 2.预约
-    SubScribeController *subScribe = [[SubScribeController alloc] init];
+    subscribeViewViewController *subScribe = [[subscribeViewViewController alloc] init];
         WBNavigationController *nav2 = [[WBNavigationController alloc] initWithRootViewController:subScribe];
         nav2.delegate = self;
     [self addChildViewController:nav2];

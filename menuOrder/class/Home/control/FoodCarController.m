@@ -17,6 +17,7 @@
 #import "Dock.h"
 #import "MainController.h"
 #import "AppDelegate.h"
+#import "subscribeViewViewController.h"
 
 #define KDelX        5
 
@@ -116,10 +117,12 @@
             }
         }
         //到预约页面
-        if ([self.delegate respondsToSelector:@selector(changeController)]) {
-//            [self.navigationController popToRootViewControllerAnimated:YES];
-            [self.delegate changeController];
-        }
+        subscribeViewViewController *ctl = [[subscribeViewViewController alloc] init];
+        [self.navigationController pushViewController:ctl animated:YES];
+//        if ([self.delegate respondsToSelector:@selector(changeController)]) {
+////
+//            [self.delegate changeController];
+//        }
     }else
     {
         [RemindView showViewWithTitle:@"您还没有选择菜单，亲！" location:MIDDLE];

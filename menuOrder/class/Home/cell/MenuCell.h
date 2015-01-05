@@ -20,7 +20,7 @@
 @property (nonatomic, strong) UIButton *addBun;//加号按钮
 @property (nonatomic, strong) UIImageView *starImg;//星星
 @property (nonatomic, strong) UILabel *foodConnt;//数量
-@property (nonatomic, strong) UIImageView *dollarIcon;//星星
+@property (nonatomic, strong) UILabel *dollarIcon;//星星
 @property (nonatomic, strong) UIView *line;//星星
 @property (nonatomic, assign) BOOL hasStar;
 @property (nonatomic, assign) int count;

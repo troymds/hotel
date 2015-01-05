@@ -27,7 +27,7 @@
     self.title =@"预约详情";
     self.view.backgroundColor =HexRGB(0xcccccc);
     _orderCategoryArray =[NSMutableArray array];
-    [self addUIView];
+    
     [self addLoadStatus];
 
 }
@@ -45,14 +45,21 @@
         orderModel.people_num =[dict objectForKey:@"people_num"];
         orderModel.use_time =[dict objectForKey:@"create_time"];
         orderModel.type =[dict objectForKey:@"type"];
-//        if (![orderModel.products isEqualToString:@" "]) {
-//            orderModel.products =[[dict objectForKey:@"products"]objectForKey:@"name"];
-//
-//        }else{
-//
-//        }
-        orderModel.address =[dict objectForKey:@"address"];
+        
+        if (orderModel.products .count>0) {
+            orderModel.products =[dict objectForKey:@"products"];
+        for (NSDictionary *nameDic in orderModel.products) {
+            NSString * name =[nameDic objectForKey:@"name"];
+            [_orderCategoryArray addObject:name];
+           
+        }
 
+        }else{
+            
+
+        }
+        orderModel.address =[dict objectForKey:@"address"];
+    [self addUIView];
     } failure:^(NSError *error) {
         
     }];
@@ -76,7 +83,7 @@
         titleBtn.frame =CGRectMake(0, YYBORDERWw+i%2*185, 130, 30);
         
     }
-    NSArray *orderArr =@[@"  订单金额:           元",[NSString stringWithFormat:@"  联系人:%@",orderModel.contact],[NSString stringWithFormat:@"  就餐人数:%@",orderModel.people_num],[NSString stringWithFormat:@"  就餐时间:%@",orderModel.use_time]];
+    NSArray *orderArr =@[@"  订单金额:           ",[NSString stringWithFormat:@"  联系人:%@",orderModel.contact],[NSString stringWithFormat:@"  就餐人数:%@",orderModel.people_num],[NSString stringWithFormat:@"  就餐时间:%@",orderModel.use_time]];
     for (int p=0; p<4; p++) {
         UILabel *orderLabel =[[UILabel alloc]initWithFrame:CGRectMake(YYBORDERW, YYBORDERWw+40+p%4*(YYBORDERY+20), kWidth-YYBORDERWw*2-YYBORDERW*2, 20 )];
         [backView addSubview:orderLabel];
@@ -92,12 +99,10 @@
     orderLabel.backgroundColor =[UIColor clearColor];
     orderLabel.font =[UIFont systemFontOfSize:PxFont(26)];
     orderLabel.textColor=HexRGB(0x899c02);
-    orderLabel.text=@"450";
+    orderLabel.text=[NSString stringWithFormat:@"￥%@",orderModel.price];
     
-    [_orderCategoryArray addObject:@"dddd"];
-    [_orderCategoryArray addObject:@"sssssss"];
-    [_orderCategoryArray addObject:@"sssssss"];
-    [_orderCategoryArray addObject:@"sssssss"];
+//    [_orderCategoryArray addObjectsFromArray:_name];
+   
 
     for (int l=0; l<_orderCategoryArray.count; l++) {
     

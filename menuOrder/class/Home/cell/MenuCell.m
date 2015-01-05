@@ -14,7 +14,7 @@
 #define KBigImgStartY  10
 #define KBigImgW       75
 #define KBigImgH       75
-#define KSpaceBetweenBigImgAndFoodName  5
+#define KSpaceBetweenBigImgAndFoodName  10
 #define KFoodNameStartY (KBigImgStartY + 2)
 #define KFoodNameStartX (KBigImgStartX + KBigImgW + KSpaceBetweenBigImgAndFoodName)
 #define KFooNameW   120
@@ -53,10 +53,14 @@
         _foodName = foodName;
         
         //4 美国money的图标
-        UIImageView *dollarIcon = [[UIImageView alloc] init];
+        UILabel *dollarIcon = [[UILabel alloc] init];
         [self.contentView addSubview:dollarIcon];
         _dollarIcon = dollarIcon;
-        _dollarIcon.image = LOADPNGIMAGE(@"star");
+        dollarIcon.font = [UIFont systemFontOfSize:PxFont(22)];
+        dollarIcon.textColor = HexRGB(0x605e5f);
+        dollarIcon.backgroundColor = [UIColor clearColor];
+        dollarIcon.text = @"￥";
+        dollarIcon.textAlignment = NSTextAlignmentCenter;
         
         //5 价格
         UILabel *price =  [[UILabel alloc] init];
@@ -83,6 +87,7 @@
         count.font = [UIFont systemFontOfSize:PxFont(20)];
         count.textColor = HexRGB(0x3b7800);
         count.backgroundColor = [UIColor clearColor];
+        count.textAlignment = NSTextAlignmentCenter;
         [self foodCount];
 
         count.text = [NSString stringWithFormat:@"%d",self.count];
@@ -154,7 +159,11 @@
         [_delegate CarClickedWithData:_data buttonType:kButtonReduce];
     }
     
-    _foodConnt.text = [NSString stringWithFormat:@"%ld",(long)count];
+    if (count == 0) {
+        _foodConnt.text = [NSString stringWithFormat:@""];
+    }else{
+        _foodConnt.text = [NSString stringWithFormat:@"%d",count];
+    }
 }
 
 
@@ -195,7 +204,7 @@
     _dollarIcon.frame = Rect(KFoodNameStartX, dollarY + KSpaceBetweenBigImgAndFoodName, KStarH, KStarH);
     
     //5 价格
-    _price.frame = Rect(CGRectGetMaxX(_dollarIcon.frame) + 2, _dollarIcon.frame.origin.y, KPriceW, KFontSmallH);
+    _price.frame = Rect(CGRectGetMaxX(_dollarIcon.frame), _dollarIcon.frame.origin.y - 2, KPriceW, KFontSmallH);
     _price.text = data.price;
     //6 减号按钮
     CGFloat buttonY = CGRectGetMaxY(_foodName.frame) + KStarH;
@@ -205,7 +214,11 @@
     //7 数量
     _foodConnt.frame = Rect(CGRectGetMaxX(_plusBtn.frame), buttonY, 18, KBUttonW);
     [self foodCount];
-    _foodConnt.text = [NSString stringWithFormat:@"%d",self.count];
+    if (self.count == 0) {
+        _foodConnt.text = [NSString stringWithFormat:@""];
+    }else{
+        _foodConnt.text = [NSString stringWithFormat:@"%d",self.count];
+    }
 //     NSLog(@"ID为%@数量%d",_data.ID,self.count);
     if ([_foodConnt.text intValue] == 0) {
         _plusBtn.hidden = YES;

@@ -13,7 +13,7 @@
 #import "UIImageView+WebCache.h"
 
 #define KLeftX    5
-#define KCellHeight  334
+#define KCellHeight  240
 #define KbackViewH   (KCellHeight - KLeftX * 2)
 #define KBackViewW   (kWidth - KLeftX * 2)
 #define KImgW  105
@@ -26,7 +26,7 @@
 #define KStarH       20
 #define KPriceH     25
 #define KAddbtnW    30
-#define KImgWHRace   1.25
+#define KImgWHRace   2
 
 @implementation foodRecommendCell
 
@@ -108,6 +108,7 @@
         count.textColor = HexRGB(0x3b7800);
         count.backgroundColor = [UIColor clearColor];
         count.text = @"0";
+        count.textAlignment = NSTextAlignmentCenter;
         [whiteBackView addSubview:count];
         _foodConnt = count;
         [self foodCount];
@@ -171,7 +172,11 @@
         [_delegate CarClickedWithData:_data buttonType:kButtonReduce];
     }
     
-    _foodConnt.text = [NSString stringWithFormat:@"%ld",(long)count];
+    if (count == 0) {
+        _foodConnt.text = [NSString stringWithFormat:@""];
+    }else{
+        _foodConnt.text = [NSString stringWithFormat:@"%d",count];
+    }
 }
 
 
@@ -237,7 +242,11 @@
     //7 数量
     _foodConnt.frame = Rect(CGRectGetMaxX(_plusBtn.frame), buttonY, 18, KAddbtnW);
     [self foodCount];
-    _foodConnt.text = [NSString stringWithFormat:@"%d",self.count];
+    if (self.count == 0) {
+        _foodConnt.text = [NSString stringWithFormat:@""];
+    }else{
+        _foodConnt.text = [NSString stringWithFormat:@"%d",self.count];
+    }
     //     NSLog(@"ID为%@数量%d",_data.ID,self.count);
     if ([_foodConnt.text intValue] == 0) {
         _plusBtn.hidden = YES;
@@ -248,12 +257,6 @@
 
     //8 加号按钮
     _addBun.frame = Rect(CGRectGetMaxX(_foodConnt.frame), buttonY, KAddbtnW, KAddbtnW);
-    
-//    [_foodImg setImageWithURL:[NSURL URLWithString:data.cover] placeholderImage:placeHoderloading];
-//    _foodName.text = data.name;
-//    _price.text = data.price;
-    
-
 }
 
 - (void)setIndexPath:(NSInteger)indexPath

@@ -13,5 +13,7 @@
 @property (copy, nonatomic)  UILabel *numberLabel;
 @property (copy, nonatomic)  UILabel *addressLabel;
 @property (copy, nonatomic)  UIButton *delegateBtn;
+@property (copy, nonatomic)  UIView *lineView;
+
 
 @end

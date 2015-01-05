@@ -158,7 +158,7 @@
     
     [HttpTool postWithPath:@"getProductDetail" params:dic success:^(id JSON) {
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:nil];
-//        NSLog(@"%@",dict);
+        NSLog(@"%@",dict);
         NSMutableArray *statuses =[NSMutableArray array];
         
         int code = [[[dict objectForKey:@"response"] objectForKey:@"code"] intValue];
@@ -226,7 +226,7 @@
     
     [HttpTool postWithPath:@"getActivities" params:dic success:^(id JSON) {
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:nil];
-        NSLog(@"%@",dict);
+       
         NSMutableArray *statuses =[NSMutableArray array];
         
         int code = [[[dict objectForKey:@"response"] objectForKey:@"code"] intValue];
@@ -252,4 +252,36 @@
         }
     }];
 }
+
++(void)GetDetailID:(NSString *)detailid GetActivitiesDetailWithSuccess:(successBlock)success withFailure:(failureBlock)failure{
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:detailid,@"id", nil];
+    [HttpTool postWithPath:@"getActivityDetail" params:dic success:^(id JSON) {
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"%@",dict);
+        NSMutableArray *statuses =[NSMutableArray array];
+        
+        int code = [[[dict objectForKey:@"response"] objectForKey:@"code"] intValue];
+        NSString * message = nil;
+        if (code == 100) {
+            NSDictionary *array = [[dict objectForKey:@"response"]objectForKey:@"data"] ;
+            if (![array isKindOfClass:[NSNull class]]) {
+                [statuses addObject:array ];
+                
+
+        }else
+        {
+            message = [[dict objectForKey:@"response"] objectForKey:@"msg"];
+        }
+        }
+        success(statuses, code,message);
+
+    } failure:^(NSError *error) {
+        if (failure==nil)return ; {
+            failure(error);
+        }
+    }];
+    
+
+}
+
 @end

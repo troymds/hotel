@@ -96,12 +96,12 @@
     _tableView.showsHorizontalScrollIndicator = NO;
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    if (_normalArray.count==0) {
-        _tableView.frame =CGRectMake(0, -20, kWidth, kHeight-44);
-    }else{
-        _tableView.frame =CGRectMake(0, 0, kWidth, kHeight);
-        
-    }
+//    if (_normalArray.count==0) {
+//        _tableView.frame =CGRectMake(0, -20, kWidth, kHeight-44);
+//    }else{
+//        _tableView.frame =CGRectMake(0, 0, kWidth, kHeight);
+//        
+//    }
     
     [self.view addSubview:_tableView];
 
@@ -182,19 +182,19 @@
     [sectionLabel setTitleColor:HexRGB(0x808080) forState:UIControlStateNormal];
     [sectionLabel setImage:[UIImage imageNamed:[NSString stringWithFormat:@"meSubscribe_Image%ld",(long)section]] forState:UIControlStateNormal];
     
-    if (_normalArray.count>0) {
-        if (section==0) {
-            sectionLabel.hidden =NO;
-        }else{
-            sectionLabel.hidden = YES;
-        }
-    }if (_overdueArray.count>0) {
-        if (section==1) {
-            sectionLabel.hidden =NO;
-        }else{
-            sectionLabel.hidden = YES;
-        }
-    }
+//    if (_normalArray.count>0) {
+//        if (section==0) {
+//            sectionLabel.hidden =NO;
+//        }else{
+//            sectionLabel.hidden = YES;
+//        }
+//    }if (_overdueArray.count>0) {
+//        if (section==1) {
+//            sectionLabel.hidden =NO;
+//        }else{
+//            sectionLabel.hidden = YES;
+//        }
+//    }
 
     sectionLabel.frame=CGRectMake(30, -5, 150, 40);
     return headerView;

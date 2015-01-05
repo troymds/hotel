@@ -69,7 +69,7 @@
         foodName.font = [UIFont systemFontOfSize:PxFont(20)];
         foodName.textColor = HexRGB(0x605e5f);
         foodName.backgroundColor = [UIColor clearColor];
-        foodName.text = @"鸡汁煮干丝";
+        foodName.text = @"";
         [self addSubview:foodName];
         _foodName = foodName;
         
@@ -89,7 +89,7 @@
         price.font = [UIFont systemFontOfSize:PxFont(24)];
         price.textColor = HexRGB(0x3b7800);
         price.backgroundColor = [UIColor clearColor];
-        price.text = @"299元";
+        price.text = @"";
         [self addSubview:price];
         _price = price;
         
@@ -186,7 +186,9 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if (_data) {
     _clickedBlock(_data);
+    }
 }
 
 @end

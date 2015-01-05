@@ -11,6 +11,7 @@
 #import "ActivityModel.h"
 #import "UIImageView+WebCache.h"
 #import "GetIndexHttpTool.h"
+#import "DetailActivityController.h"
 
 @interface PromotionController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -102,5 +103,11 @@
     return _dataList.count;
 }
 
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ActivityModel *data = _dataList[indexPath.row];
+    DetailActivityController *ctl = [[DetailActivityController alloc] init];
+    ctl.ID = data.ID;
+    [self.navigationController pushViewController:ctl animated:YES];
+}
 @end

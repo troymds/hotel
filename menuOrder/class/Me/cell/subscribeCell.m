@@ -45,7 +45,7 @@
         MeSubscribeNumLabel.textColor=HexRGB(0x666666);
         MeSubscribeNumLabel.backgroundColor=[UIColor clearColor];
         
-        MeSubscribeTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(IMAGEWIDTH+YYBORDERW, YYBORDERW*4+3,kWidth-YYBORDERW*4-IMAGEWIDTH, 20)];
+        MeSubscribeTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(IMAGEWIDTH+YYBORDERW, YYBORDERW*4+3,kWidth-YYBORDERW*4-IMAGEWIDTH+15, 20)];
         [backCell addSubview:MeSubscribeTimeLabel];
         MeSubscribeTimeLabel.font =[UIFont systemFontOfSize:PxFont(20)];
         MeSubscribeTimeLabel.textColor = HexRGB(0x666666);

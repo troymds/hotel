@@ -15,6 +15,6 @@
 @property (nonatomic, strong) UIButton *allSelectedBtn;//全选按钮
 @property (nonatomic, strong) UIButton *nextBtn;//下一步
 @property (nonatomic, strong) UILabel *allname;//全选
-@property (nonatomic, strong) UIImageView *dollar;
+@property (nonatomic, strong) UILabel *dollar;
 @property (nonatomic, strong) NiceFoodModel *data;
 @end

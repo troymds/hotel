@@ -8,9 +8,13 @@
 
 #import "SubScribeController.h"
 #import "EditView.h"
+#import "menu1EditView.h"
+#import "menu2EditView.h"
+#import "menu3EditView.h"
 #import "subscribeHttpTool.h"
 #import "CarTool.h"
 #import "MenuModel.h"
+#import "ZHPickView.h"
 
 #define KEditViewOffMenuBar 10
 #define KRightOffset        20
@@ -19,15 +23,15 @@
 #define Menu2 101
 #define Menu3 102
 #define KMenuItemW  kWidth/3
-#define KMenuH      30
+#define KMenuH      60
 #define KBackScroolViewH KAppHeight - 44 - KMenuH
 
-@interface SubScribeController ()<EditViewDelegate,UIScrollViewDelegate>
+@interface SubScribeController ()<EditViewDelegate,UIScrollViewDelegate,ZHPickViewDelegate>
 {
     UIButton *_selectedBtn;//选中的菜单栏按钮
     UIView *_orangLin;
     UITextField *_selectedField;//当前被编辑的UITextField
-    EditView *_selectedEditView;//当前被点中的
+    menu1EditView *_selectedEditView;//当前被点中的
     UIScrollView *_backScroll; //最底层的ScrollView
     UIView *_menuBack;//菜单栏背景viewEditView
     UIScrollView *_menu1Scrool;//亲临渔府Scrool
@@ -40,8 +44,9 @@
     CGFloat _menu3ScrollViewContentH;//外卖服务scroll的内容高度
     NSMutableArray *_menu1array;//menu下的TextField数据
 }
+@property(nonatomic,strong)ZHPickView *pickview;
 
--(void)buileEditView:(NSArray *)placeHolds icons:(NSArray *)icons pageNum:(int)pageIndex scrollView:(UIScrollView *)scroll;
+-(void)buileEditView:(NSArray *)placeHolds icons:(NSArray *)icons pageNum:(int)pageIndex scrollView:(UIScrollView *)scroll timePage:(int)timeIndex;
 @end
 
 @implementation SubScribeController
@@ -67,10 +72,15 @@
 -(void)buildUI
 {
     //1 顶部菜单栏
-    UIView *menuBack = [[UIView alloc] initWithFrame:Rect(0, 0, kWidth, 30)];
+    UIView *menuBack = [[UIView alloc] initWithFrame:Rect(0, 0, kWidth, KMenuH)];
     menuBack.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:menuBack];
     _menuBack = menuBack;
+    UIView *line = [[UIView alloc]init];
+    [_menuBack addSubview:line];
+    line.frame =CGRectMake(0, menuBack.frame.size.height - 0.5 , kWidth, 0.5);
+    line.backgroundColor =HexRGB(0x488f05);
+    
     
     CGFloat btnX = 0;
     CGFloat btnH = KMenuH;
@@ -78,6 +88,7 @@
     for (int i = 0; i < 3; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         CGFloat btnW = KMenuItemW;
+        btn.titleLabel.font = [UIFont systemFontOfSize:60];
         btnX = btnW * i;
         btn.frame = Rect(btnX, 0, btnW, btnH);
         [btn setTitle:btnTitle[i] forState:UIControlStateNormal];
@@ -85,7 +96,6 @@
         btn.tag = i;
         btn.titleLabel.font = [UIFont systemFontOfSize:PxFont(22)];
         [btn setTitleColor:HexRGB(0x605e5f) forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
         [btn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
         if (i == 0) {
             btn.selected = YES;
@@ -142,13 +152,13 @@
         }
     }
     
-    [self buildMenu1UI];
-    [self buildMenu2UI];
-    [self buildMenu3UI];
+    [self buildMenu1UIwithTime:3];
+    [self buildMenu2UIwithTime:2];
+    [self buildMenu3UIwithTime:3];
 }
 
 #pragma mark 编辑页面代码重构
--(void)buileEditView:(NSArray *)placeHolds icons:(NSArray *)icons pageNum:(int)pageIndex scrollView:(UIScrollView *)scroll
+-(void)buileEditView:(NSArray *)placeHolds icons:(NSArray *)icons pageNum:(int)pageIndex scrollView:(UIScrollView *)scroll timePage:(int)timeIndex
 {
     CGFloat editW = kWidth - KRightOffset;
     CGFloat editH = 50;
@@ -159,7 +169,13 @@
         //1.1 编辑框
         CGFloat editY = (editH + 10)* i;
         EditView * edit = [[EditView alloc] initWithFrame:Rect(0, editY, editW, editH)];
-        [edit addEditView:i+1 placeHoldString:placeHolds[i] editIcon:icons[i]];
+        if (timeIndex == i) {
+            //时间选择器
+            [edit addEditView:i+1 placeHoldString:placeHolds[i] editIcon:icons[i] isTime:YES];
+        }else
+        {
+            [edit addEditView:i+1 placeHoldString:placeHolds[i] editIcon:icons[i] isTime:NO];
+        }
         edit.delegate = self;
         edit.editTag = KEditStartTag + i + 1;
         [scroll addSubview:edit];
@@ -169,7 +185,7 @@
         CGFloat lineFrameY = editY + (editH + 10);
         UIImageView *lineFrame = [[UIImageView alloc] initWithFrame:Rect(0 + lineFrameX, lineFrameY, lineFrameW, 4)];
         lineFrame.image = LOADPNGIMAGE(@"enter");
-        lineFrame.tag = i;
+        lineFrame.tag = KEditStartTag + i + 1;
         [scroll addSubview:lineFrame];
         if (i == (count - 1)) {
             h  = CGRectGetMaxY(lineFrame.frame);
@@ -183,7 +199,7 @@
     submit.frame = Rect(KRightOffset + 5, h + 30, kWidth - KRightOffset * 2, 40);
     [scroll addSubview:submit];
     [submit addTarget:self action:@selector(summitDeal) forControlEvents:UIControlEventTouchUpInside];
-    CGFloat backScroolH = CGRectGetMaxY(submit.frame) + 70;
+    CGFloat backScroolH = CGRectGetMaxY(submit.frame);// + 70;
     scroll.contentSize = CGSizeMake(kWidth, backScroolH);
     //记录下每个menu下的scrollview的content height
     if (pageIndex == 0) {
@@ -196,30 +212,30 @@
 }
 
 #pragma mark 亲临渔府
--(void)buildMenu1UI
+-(void)buildMenu1UIwithTime:(int)time
 {
-    NSArray *placeHolds = @[@"斯大林",@"联系电话",@"就餐人数",@"就餐时间",@"其他就餐要求(选填)"];
+    NSArray *placeHolds = @[@"姓名",@"联系电话",@"就餐人数",@"就餐时间",@"其他就餐要求(选填)"];
     NSArray *icons = @[@"home_contacts_icon",@"home_phone_icon",@"humans",@"home_time_icom",@"home_remark_icon"];
     
-    [self buileEditView:placeHolds icons:icons pageNum:0 scrollView:_menu1Scrool];
+    [self buileEditView:placeHolds icons:icons pageNum:0 scrollView:_menu1Scrool timePage:time];
     
 }
 
 #pragma mark 外带取餐
--(void)buildMenu2UI
+-(void)buildMenu2UIwithTime:(int)time
 {
-    NSArray *placeHolds = @[@"斯大林",@"联系电话",@"就餐时间",@"其他就餐要求(选填)"];
+    NSArray *placeHolds = @[@"姓名",@"联系电话",@"就餐时间",@"其他就餐要求(选填)"];
     NSArray *icons = @[@"home_contacts_icon",@"home_phone_icon",@"home_time_icom",@"home_remark_icon"];
-    [self buileEditView:placeHolds icons:icons pageNum:1 scrollView:_menu2Scrool];
+    [self buileEditView:placeHolds icons:icons pageNum:1 scrollView:_menu2Scrool timePage:time];
 
 }
 
 #pragma mark 外卖服务
--(void)buildMenu3UI
+-(void)buildMenu3UIwithTime:(int)time
 {
-    NSArray *placeHolds = @[@"斯大林",@"联系电话",@"就餐人数",@"就餐时间",@"其他就餐要求(选填)"];
+    NSArray *placeHolds = @[@"姓名",@"联系电话",@"就餐人数",@"就餐时间",@"其他就餐要求(选填)"];
     NSArray *icons = @[@"home_contacts_icon",@"home_phone_icon",@"humans",@"home_time_icom",@"home_remark_icon"];
-    [self buileEditView:placeHolds icons:icons pageNum:2 scrollView:_menu3Scrool];
+    [self buileEditView:placeHolds icons:icons pageNum:2 scrollView:_menu3Scrool timePage:time];
 
 }
 
@@ -487,17 +503,16 @@
         }
     }
 }
-
-
+/*
 #pragma mark 正在编辑中
-- (void)textshouleBeginEditting:(UITextField *)textField
+- (void)textshouleBeginEditting:(EditView *)view :(UITextField *)textField withstring:(NSString *)str
 {
     _selectedField = textField;
     
-    NSLog(@"_selectedField%lu _selectedFieldtext:%@",(unsigned long)textField.text.length,textField.text);
     //拿到选中的editview 计算 frame
     //1.1 找到当前menu下的scrollview
     //1.2 拿到editview,计算高度
+    //1.3 根据条件判断圆圈和线框的点亮与否,正在编辑中，只要判断当前选择的是否点亮
     CGFloat backScroolViewX = _backScroll.contentOffset.x;
     if (backScroolViewX == 0) {
         //menu1下
@@ -514,42 +529,39 @@
         if ([view isKindOfClass:[EditView class]]) {
             EditView *editview = (EditView *)view;
             //遍历textField的值，长度大于0，则点亮圆圈和线框
-            UITextField *field = editview.edit;
-            NSLog(@"%lu text:%@",(unsigned long)field.text.length,field.text);
-            if (field.text.length + 1 > 0) {
-                // 圆圈
-                NSString *lightImg = [NSString stringWithFormat:@"%d.pre",editview.editTag - KEditStartTag];
-                editview.cricle.image = LOADPNGIMAGE(lightImg);
-                //线框
-//                                for (UIView *view in _currentScroll.subviews) {
-//                                    if ([view isKindOfClass:[UIImageView class]]) {
-//                                        UIImageView *frame = (UIImageView *)view;
-//                                        if (frame.tag == editview.editTag - KEditStartTag - 1) {
-//                                            frame.image = LOADPNGIMAGE(@"enter.pre");
-//                                        }
-//                                    }
-//                                }
+            if (editview.editTag == _selectedField.tag) {
+                UITextField *field = editview.edit;
                 
-            }else
-            {
-                if (field.text.length - 1 == 0) {
-                    
+                //只要str 或者field有值，则点亮圆圈和线框
+                if (str.length > 0 || field.text.length > 0) {
+                    // 圆圈
+                    NSString *lightImg = [NSString stringWithFormat:@"%d.pre",editview.editTag - KEditStartTag];
+                    editview.cricle.image = LOADPNGIMAGE(lightImg);
+                    //线框
+                    for (UIView *view in _currentScroll.subviews) {
+                        if ([view isKindOfClass:[UIImageView class]]) {
+                            UIImageView *frame = (UIImageView *)view;
+                            if (frame.tag == editview.editTag) {
+                                frame.image = LOADPNGIMAGE(@"enter_pre");
+                            }
+                        }
+                    }
+                }else
+                {
                     NSString *darkImg = [NSString stringWithFormat:@"%d",editview.editTag - KEditStartTag];
                     editview.cricle.image = LOADPNGIMAGE(darkImg);
                     //线框
-                    //                for (UIView *view in _currentScroll.subviews) {
-                    //                    if ([view isKindOfClass:[UIImageView class]]) {
-                    //                        UIImageView *frame = (UIImageView *)view;
-                    //                        if (frame.tag == editview.editTag - KEditStartTag - 1) {
-                    //                            frame.image = LOADPNGIMAGE(@"enter");
-                    //                        }
-                    //                    }
-                    //                }
+                    for (UIView *view in _currentScroll.subviews) {
+                        if ([view isKindOfClass:[UIImageView class]]) {
+                            UIImageView *frame = (UIImageView *)view;
+                            if (frame.tag == editview.editTag) {
+                                frame.image = LOADPNGIMAGE(@"enter");
+                            }
+                        }
+                    }
                 }
 
             }
-            
-            
             //选择后，改变位置
             if (editview.editTag == textField.tag) {
                 CGFloat editViewY = editview.frame.origin.y;
@@ -560,233 +572,329 @@
                     }else{
                         [_currentScroll setContentOffset:CGPointMake(0, editViewY - 30) animated:YES];
                     }
-                    [_currentScroll setContentSize:CGSizeMake(kWidth, _menu1ScrollViewContentH + 253)];
+                    CGFloat currentH = 0;
+                    if (_currentScroll == _menu1Scrool) {
+                        currentH = _menu1ScrollViewContentH;
+                    }else if(_currentScroll == _menu2Scrool)
+                    {
+                        currentH = _menu2ScrollViewContentH;
+                    }else
+                    {
+                        currentH = _menu3ScrollViewContentH;
+                    }
+
+                    
+                    [_currentScroll setContentSize:CGSizeMake(kWidth, currentH + 253)];
                 } completion:^(BOOL finished) {
                 }];
                 break;
             }
         }
     }
-
 }
 
+#pragma mark 结束编辑
+- (void)textFieldEndEditting:(EditView *)view :(UITextField *)textField
+{
+    _selectedField = textField;
+    //拿到选中的editview 计算 frame
+    //1.1 找到当前menu下的scrollview
+    //1.2 拿到editview,计算高度
+    //1.3 循环判断是否点亮
+    CGFloat backScroolViewX = _backScroll.contentOffset.x;
+    if (backScroolViewX == 0) {
+        //menu1下
+        _currentScroll = _menu1Scrool;
+    }else if (backScroolViewX == kWidth){
+        //menu2下
+        _currentScroll = _menu2Scrool;
+    }else{
+        //menu3下
+        _currentScroll = _menu3Scrool;
+    }
+    //更新位置，和UI状态
+    for (UIView *view in _currentScroll.subviews) {
+        if ([view isKindOfClass:[EditView class]]) {
+            EditView *editview = (EditView *)view;
+            //遍历textField的值，长度大于0，则点亮圆圈和线框
+            UITextField *field = editview.edit;
+            if (field.text.length > 0) {
+                // 圆圈
+                NSString *lightImg = [NSString stringWithFormat:@"%d.pre",editview.editTag - KEditStartTag];
+                editview.cricle.image = LOADPNGIMAGE(lightImg);
+                //线框
+                    for (UIView *view in _currentScroll.subviews) {
+                        if ([view isKindOfClass:[UIImageView class]]) {
+                            UIImageView *frame = (UIImageView *)view;
+                            if (frame.tag == editview.editTag ) {
+                                frame.image = LOADPNGIMAGE(@"enter_pre");
+                            }
+                        }
+                }
+            }else
+            {
+                NSString *lightImg = [NSString stringWithFormat:@"%d",editview.editTag - KEditStartTag];
+                editview.cricle.image = LOADPNGIMAGE(lightImg);
+                
+                //线框
+                for (UIView *view in _currentScroll.subviews) {
+                    if ([view isKindOfClass:[UIImageView class]]) {
+                        UIImageView *frame = (UIImageView *)view;
+                        if (frame.tag == editview.editTag) {
+                            frame.image = LOADPNGIMAGE(@"enter");
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 
+#pragma mark 开始编辑
+- (void)textFieldBeganEditting:(EditView *)view :(UITextField *)textField
+{
+    _selectedField = textField;
+    
+    //拿到选中的editview 计算 frame
+    //1.0 选中的线框点亮
+    //1.1 找到当前menu下的scrollview
+    //1.2 拿到editview,计算高度
+    //1.3 根据条件判断圆圈和线框的点亮与否,正在编辑中，只要判断当前选择的是否点亮
+    CGFloat backScroolViewX = _backScroll.contentOffset.x;
+    if (backScroolViewX == 0) {
+        //menu1下
+        _currentScroll = _menu1Scrool;
+    }else if (backScroolViewX == kWidth){
+        //menu2下
+        _currentScroll = _menu2Scrool;
+    }else{
+        //menu3下
+        _currentScroll = _menu3Scrool;
+    }
+    
+    //更新位置，和UI状态
+    for (UIView *view in _currentScroll.subviews) {
+        if ([view isKindOfClass:[EditView class]]) {
+            EditView *editview = (EditView *)view;
+            
+            if (editview.isTime) {
+                //是时间控件，不显示键盘,显示时间控件
+                [_selectedField resignFirstResponder];
+                [_pickview remove];
+                 NSDate *date = [NSDate dateWithTimeIntervalSinceNow:9000000];
+                _pickview=[[ZHPickView alloc] initDatePickWithDate:date datePickerMode:UIDatePickerModeDateAndTime isHaveNavControler:NO];
+                _pickview.delegate = self;
+                [_pickview show];
+            }else
+            {
+                //遍历textField的值，长度大于0，则点亮圆圈和线框
+                UITextField *field = editview.edit;
+                
+                //只要str 或者field有值，则点亮圆圈和线框
+                if (field.text.length > 0) {
+                    // 圆圈
+                    NSString *lightImg = [NSString stringWithFormat:@"%d.pre",editview.editTag - KEditStartTag];
+                    editview.cricle.image = LOADPNGIMAGE(lightImg);
+                    //线框
+                    for (UIView *view in _currentScroll.subviews) {
+                        if ([view isKindOfClass:[UIImageView class]]) {
+                            UIImageView *frame = (UIImageView *)view;
+                            if (frame.tag == editview.editTag) {
+                                frame.image = LOADPNGIMAGE(@"enter_pre");
+                            }
+                        }
+                    }
+                }else
+                {
+                    NSString *darkImg = [NSString stringWithFormat:@"%d",editview.editTag - KEditStartTag];
+                    editview.cricle.image = LOADPNGIMAGE(darkImg);
+                    //线框
+                    for (UIView *view in _currentScroll.subviews) {
+                        if ([view isKindOfClass:[UIImageView class]]) {
+                            UIImageView *frame = (UIImageView *)view;
+                            if (frame.tag == editview.editTag) {
+                                frame.image = LOADPNGIMAGE(@"enter");
+                            }
+                        }
+                    }
+                }
+            }
+            
+            for (UIView *view in _currentScroll.subviews) {
+                if ([view isKindOfClass:[UIImageView class]]) {
+                    UIImageView *frame = (UIImageView *)view;
+                    if (frame.tag == _selectedField.tag) {
+                        frame.image = LOADPNGIMAGE(@"enter_pre");
+                    }
+                }
+            }
+            //选择后，改变位置
+            if (editview.editTag == textField.tag) {
+                CGFloat editViewY = editview.frame.origin.y;
+                
+                [UIView animateWithDuration:0.25 animations:^{
+                    if (textField.tag == 201) {
+                        [_currentScroll setContentOffset:CGPointMake(0, editViewY) animated:YES];
+                    }else{
+                        [_currentScroll setContentOffset:CGPointMake(0, editViewY - 30) animated:YES];
+                    }
+                    
+                    CGFloat currentH = 0;
+                    if (_currentScroll == _menu1Scrool) {
+                        currentH = _menu1ScrollViewContentH;
+                    }else if(_currentScroll == _menu2Scrool)
+                    {
+                        currentH = _menu2ScrollViewContentH;
+                    }else
+                    {
+                        currentH = _menu3ScrollViewContentH;
+                    }
+
+                    
+                    [_currentScroll setContentSize:CGSizeMake(kWidth, currentH + 253)];
+                } completion:^(BOOL finished) {
+                }];
+                break;
+            }
+        }
+    }
+}
+
+#pragma mark ZhpickVIewDelegate 时间选择器
+-(void)toobarDonBtnHaveClick:(ZHPickView *)pickView resultString:(NSString *)resultString{
+    //移除时间选择器，重新设置滚动页面内容长度，
+    [_pickview remove];
+    [_selectedField resignFirstResponder];
+    CGFloat currentH = 0;
+    if (_currentScroll == _menu1Scrool) {
+        currentH = _menu1ScrollViewContentH;
+    }else if(_currentScroll == _menu2Scrool)
+    {
+        currentH = _menu2ScrollViewContentH;
+    }else
+    {
+        currentH = _menu3ScrollViewContentH;
+    }
+    [UIView animateWithDuration:0.3 animations:^{
+        [_currentScroll setContentSize:CGSizeMake(kWidth, currentH)];
+        [_currentScroll setContentOffset:CGPointMake(0, 0) animated:YES];
+    }];
+   
+    _selectedField.text = resultString;
+        //点亮圆圈和线框
+    for (UIView *view in _currentScroll.subviews) {
+        if ([view isKindOfClass:[EditView class]]) {
+            EditView *editview = (EditView *)view;
+            if (editview.editTag == _selectedField.tag) {
+                
+                if (resultString.length > 0) {
+                    // 圆圈
+                    NSString *lightImg = [NSString stringWithFormat:@"%d.pre",editview.editTag - KEditStartTag];
+                    editview.cricle.image = LOADPNGIMAGE(lightImg);
+                    //线框
+                    for (UIView *view in _currentScroll.subviews) {
+                        if ([view isKindOfClass:[UIImageView class]]) {
+                            UIImageView *frame = (UIImageView *)view;
+                            if (frame.tag == editview.editTag) {
+                                frame.image = LOADPNGIMAGE(@"enter_pre");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    NSString *darkImg = [NSString stringWithFormat:@"%d",editview.editTag - KEditStartTag];
+                    editview.cricle.image = LOADPNGIMAGE(darkImg);
+                    //线框
+                    for (UIView *view in _currentScroll.subviews) {
+                        if ([view isKindOfClass:[UIImageView class]]) {
+                            UIImageView *frame = (UIImageView *)view;
+                            if (frame.tag == editview.editTag) {
+                                frame.image = LOADPNGIMAGE(@"enter");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+*/
 #pragma mark 菜单栏按钮点击事件
 -(void)btnClicked:(UIButton *)btn
 {
+    
     //1 如果键盘打开，关闭
     [_selectedField resignFirstResponder];
     
-    
+    //2 改变按钮状态
+    _selectedBtn.selected = NO;
+    btn.selected = YES;
+    _selectedBtn = btn;
     
     //3 改变底部划线位置,滑动页面
-    //判断购物车里有没有东西，没有就不让滑动到menu2  menu3
     CGFloat lineX = btn.frame.origin.x;
-    NSArray *array = [CarTool sharedCarTool].totalCarMenu;
-    
-    if (array.count > 0) {
-        
-        //2 改变按钮状态
-        _selectedBtn.selected = NO;
-        btn.selected = YES;
-        _selectedBtn = btn;
-        
-        [UIView animateWithDuration:0.3 animations:^{
-            _orangLin.frame = CGRectMake(lineX, btn.frame.size.height - 1, btn.frame.size.width, 1);
-            [_backScroll setContentOffset:CGPointMake(_selectedBtn.tag * kWidth, 0)];
-        }];
-    }else
-    {
-//        if (lineX == 0) {
-//            [UIView animateWithDuration:0.3 animations:^{
-//                _orangLin.frame = CGRectMake(lineX, btn.frame.size.height - 1, btn.frame.size.width, 1);
-//                [_backScroll setContentOffset:CGPointMake(_selectedBtn.tag * kWidth, 0)];
-//            }];
+    [UIView animateWithDuration:0.3 animations:^{
+        _orangLin.frame = CGRectMake(lineX, btn.frame.size.height - 1, btn.frame.size.width, 1);
+        [_backScroll setContentOffset:CGPointMake(_selectedBtn.tag * kWidth, 0)];
+    }];
+}
+
+//#pragma mark - 键盘边框大小变化
+//- (void)keyboardChangeFrame:(NSNotification *)notification
+//{
+//    
+//    // 1. 获取键盘的目标区域
+//    NSDictionary *info = notification.userInfo;
+//    CGRect rect = [info[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+//    CGFloat duration = [info[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+//    keyBoardH = rect.size.height;
+//    // 2. 根据rect的orgion.y可以判断键盘是开启还是关闭
+//    if (rect.origin.y == [UIScreen mainScreen].bounds.size.height) {
+//        // 键盘已经关闭
+//        CGFloat currentH = 0;
+//        if (_currentScroll == _menu1Scrool) {
+//            currentH = _menu1ScrollViewContentH;
+//        }else if(_currentScroll == _menu2Scrool)
+//        {
+//            currentH = _menu2ScrollViewContentH;
 //        }else
 //        {
-//            [RemindView showViewWithTitle:@"请先选取菜品先，亲" location:MIDDLE];
+//            currentH = _menu3ScrollViewContentH;
 //        }
-        [RemindView showViewWithTitle:@"请先选取菜品先，亲" location:MIDDLE];
-    }
-}
+//        
+//        [UIView animateWithDuration:duration animations:^{
+//            [_currentScroll setContentSize:CGSizeMake(kWidth, currentH)];
+//            [_currentScroll setContentOffset:CGPointMake(0, 0) animated:YES];
+//        }];
+//    } else {
+//        // 键盘打开
+//    }
+//}
 
-#pragma mark EditView 结束编辑
-- (void)textFieldEndEditting:(UITextField *)textField
-{
-    _selectedField = textField;
-    //拿到选中的editview 计算 frame
-    //1.1 找到当前menu下的scrollview
-    //1.2 拿到editview,计算高度
-    CGFloat backScroolViewX = _backScroll.contentOffset.x;
-    if (backScroolViewX == 0) {
-        //menu1下
-        _currentScroll = _menu1Scrool;
-    }else if (backScroolViewX == kWidth){
-        //menu2下
-        _currentScroll = _menu2Scrool;
-    }else{
-        //menu3下
-        _currentScroll = _menu3Scrool;
-    }
-    //更新位置，和UI状态
-    for (UIView *view in _currentScroll.subviews) {
-        if ([view isKindOfClass:[EditView class]]) {
-            EditView *editview = (EditView *)view;
-            //遍历textField的值，长度大于0，则点亮圆圈和线框
-            UITextField *field = editview.edit;
-            if (field.text.length > 0) {
-                // 圆圈
-                NSString *lightImg = [NSString stringWithFormat:@"%d.pre",editview.editTag - KEditStartTag];
-                editview.cricle.image = LOADPNGIMAGE(lightImg);
-                //线框
-                //                                for (UIView *view in _currentScroll.subviews) {
-                //                                    if ([view isKindOfClass:[UIImageView class]]) {
-                //                                        UIImageView *frame = (UIImageView *)view;
-                //                                        if (frame.tag == editview.editTag - KEditStartTag - 1) {
-                //                                            frame.image = LOADPNGIMAGE(@"enter.pre");
-                //                                        }
-                //                                    }
-                //                                }
-                
-            }else
-            {
-                NSString *lightImg = [NSString stringWithFormat:@"%d",editview.editTag - KEditStartTag];
-                editview.cricle.image = LOADPNGIMAGE(lightImg);
-                
-                //线框
-                //                for (UIView *view in _currentScroll.subviews) {
-                //                    if ([view isKindOfClass:[UIImageView class]]) {
-                //                        UIImageView *frame = (UIImageView *)view;
-                //                        if (frame.tag == editview.editTag - KEditStartTag - 1) {
-                //                            frame.image = LOADPNGIMAGE(@"enter");
-                //                        }
-                //                    }
-                //                }
-            }
-            
-            
-            //选择后，改变位置
-            if (editview.editTag == textField.tag) {
-                CGFloat editViewY = editview.frame.origin.y;
-                
-                [UIView animateWithDuration:0.25 animations:^{
-                    if (textField.tag == 201) {
-                        [_currentScroll setContentOffset:CGPointMake(0, editViewY) animated:YES];
-                    }else{
-                        [_currentScroll setContentOffset:CGPointMake(0, editViewY - 30) animated:YES];
-                    }
-                    [_currentScroll setContentSize:CGSizeMake(kWidth, _menu1ScrollViewContentH + 253)];
-                } completion:^(BOOL finished) {
-                }];
-                break;
-            }
-        }
-    }
-
-    
-}
-
-#pragma mark EditView Delageta
-- (void)textFieldBeganEditting:(UITextField *)textField
-{
-    _selectedField = textField;
-    //拿到选中的editview 计算 frame
-    //1.1 找到当前menu下的scrollview
-    //1.2 拿到editview,计算高度
-    CGFloat backScroolViewX = _backScroll.contentOffset.x;
-    if (backScroolViewX == 0) {
-        //menu1下
-        _currentScroll = _menu1Scrool;
-    }else if (backScroolViewX == kWidth){
-        //menu2下
-        _currentScroll = _menu2Scrool;
-    }else{
-        //menu3下
-        _currentScroll = _menu3Scrool;
-    }
-    //更新位置，和UI状态
-    for (UIView *view in _currentScroll.subviews) {
-        if ([view isKindOfClass:[EditView class]]) {
-            EditView *editview = (EditView *)view;
-            //遍历textField的值，长度大于0，则点亮圆圈和线框
-            UITextField *field = editview.edit;
-            if (field.text.length > 0) {
-                // 圆圈
-                NSString *lightImg = [NSString stringWithFormat:@"%d.pre",editview.editTag - KEditStartTag];
-                editview.cricle.image = LOADPNGIMAGE(lightImg);
-                //线框
-                //                                for (UIView *view in _currentScroll.subviews) {
-                //                                    if ([view isKindOfClass:[UIImageView class]]) {
-                //                                        UIImageView *frame = (UIImageView *)view;
-                //                                        if (frame.tag == editview.editTag - KEditStartTag - 1) {
-                //                                            frame.image = LOADPNGIMAGE(@"enter.pre");
-                //                                        }
-                //                                    }
-                //                                }
-                
-            }else
-            {
-                NSString *lightImg = [NSString stringWithFormat:@"%d",editview.editTag - KEditStartTag];
-                editview.cricle.image = LOADPNGIMAGE(lightImg);
-                
-                //线框
-                //                for (UIView *view in _currentScroll.subviews) {
-                //                    if ([view isKindOfClass:[UIImageView class]]) {
-                //                        UIImageView *frame = (UIImageView *)view;
-                //                        if (frame.tag == editview.editTag - KEditStartTag - 1) {
-                //                            frame.image = LOADPNGIMAGE(@"enter");
-                //                        }
-                //                    }
-                //                }
-            }
-            
-            
-            //选择后，改变位置
-            if (editview.editTag == textField.tag) {
-                CGFloat editViewY = editview.frame.origin.y;
-                
-                [UIView animateWithDuration:0.25 animations:^{
-                    if (textField.tag == 201) {
-                        [_currentScroll setContentOffset:CGPointMake(0, editViewY) animated:YES];
-                    }else{
-                        [_currentScroll setContentOffset:CGPointMake(0, editViewY - 30) animated:YES];
-                    }
-                    [_currentScroll setContentSize:CGSizeMake(kWidth, _menu1ScrollViewContentH + 253)];
-                } completion:^(BOOL finished) {
-                }];
-                break;
-            }
-        }
-    }
-
-}
-
-#pragma mark - 键盘边框大小变化
-- (void)keyboardChangeFrame:(NSNotification *)notification
-{
-    
-    // 1. 获取键盘的目标区域
-    NSDictionary *info = notification.userInfo;
-    CGRect rect = [info[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    CGFloat duration = [info[UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    keyBoardH = rect.size.height;
-    // 2. 根据rect的orgion.y可以判断键盘是开启还是关闭
-    if (rect.origin.y == [UIScreen mainScreen].bounds.size.height) {
-        // 键盘已经关闭
-        [UIView animateWithDuration:duration animations:^{
-            [_currentScroll setContentSize:CGSizeMake(kWidth, _menu1ScrollViewContentH - 253)];
-            [_currentScroll setContentOffset:CGPointMake(0, 0) animated:YES];
-        }];
-    } else {
-        // 键盘打开
-    }
-}
-
-#pragma mark 收起键盘
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [_selectedField resignFirstResponder];
-}
+//#pragma mark 收起键盘
+//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    [_selectedField resignFirstResponder];
+//    if (_pickview) {
+//        [_pickview remove];
+//    }
+//    CGFloat currentH = 0;
+//    if (_currentScroll == _menu1Scrool) {
+//        currentH = _menu1ScrollViewContentH;
+//    }else if(_currentScroll == _menu2Scrool)
+//    {
+//        currentH = _menu2ScrollViewContentH;
+//    }else
+//    {
+//        currentH = _menu3ScrollViewContentH;
+//    }
+//    
+//    [UIView animateWithDuration:0.6 animations:^{
+//        [_currentScroll setContentSize:CGSizeMake(kWidth, currentH)];
+//        [_currentScroll setContentOffset:CGPointMake(0, 0) animated:YES];
+//    }];
+//}
 
 #pragma mark scrollView  滚动
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -794,94 +902,67 @@
     switch (scrollView.tag) {
         case 9999:
         {
-            //只要在 array.count大于0的时候才能滚动
             // 1 移动线条
             float x = scrollView.contentOffset.x/scrollView.frame.size.width * KMenuItemW;
-            NSArray *array = [CarTool sharedCarTool].totalCarMenu;
-            if (array.count > 0) {
+            [UIView animateWithDuration:0.3 animations:^{
+                _orangLin.frame = CGRectMake(x, KMenuH - 1, KMenuItemW, 1);
                 
-                [UIView animateWithDuration:0.3 animations:^{
-                    _orangLin.frame = CGRectMake(x, KMenuH - 1, KMenuItemW, 1);
-                    [_backScroll setContentOffset:CGPointMake(_selectedBtn.tag * kWidth, 0)];
-                }];
-                
-                // 2 取到顶部菜单栏 点击按钮
-                if (scrollView.contentOffset.x == 0) {
-                    for (UIView *subView in _menuBack.subviews){
-                        if ([subView isKindOfClass:[UIButton class]]) {
-                            UIButton * btn = (UIButton *)subView;
-                            if (btn.tag + KMenuStart == Menu1) {
-                                _selectedBtn = btn;
-                                _selectedBtn.selected = YES;
-                                [UIView animateWithDuration:0.6 animations:^{
-                                    [_selectedField resignFirstResponder];
-                                    
-                                }];
-                            }else{
-                                btn.selected = NO;
-                            }
-                        }
-                    }
-                    
-                }else if (scrollView.contentOffset.x == kWidth * 1)
-                {
-                    for (UIView *subView in _menuBack.subviews) {
-                        if ([subView isKindOfClass:[UIButton class]]) {
-                            UIButton * btn = (UIButton *)subView;
-                            if (btn.tag + KMenuStart == Menu2) {
-                                _selectedBtn = btn;
-                                _selectedBtn.selected = YES;
-                                [UIView animateWithDuration:0.6 animations:^{
-                                    [_selectedField resignFirstResponder];
-                                    
-                                }];
-                            }else{
-                                btn.selected = NO;
-                            }
-                        }
-                    }
-                }else if (scrollView.contentOffset.x == kWidth * 2)
-                {
-                    NSArray *array = [CarTool sharedCarTool].totalCarMenu;
-                    
-                    if (array.count == 0) {
-                        [RemindView showViewWithTitle:@"请先选取菜品先，亲" location:MIDDLE];
-                        break;
-                    }
-                    
-                    for (UIView *subView in _menuBack.subviews) {
-                        if ([subView isKindOfClass:[UIButton class]]) {
-                            UIButton * btn = (UIButton *)subView;
-                            if (btn.tag + KMenuStart  == Menu3) {
-                                _selectedBtn = btn;
-                                _selectedBtn.selected = YES;
-                                [UIView animateWithDuration:0.6 animations:^{
-                                    [_selectedField resignFirstResponder];
-                                    
-                                }];
-                            }else{
-                                btn.selected = NO;
-                            }
+            }];
+            
+            // 2 取到顶部菜单栏 点击按钮
+            if (scrollView.contentOffset.x == 0) {
+                for (UIView *subView in _menuBack.subviews){
+                    if ([subView isKindOfClass:[UIButton class]]) {
+                        UIButton * btn = (UIButton *)subView;
+                        if (btn.tag + KMenuStart == Menu1) {
+                            _selectedBtn = btn;
+                            _selectedBtn.selected = YES;
+                            [UIView animateWithDuration:0.6 animations:^{
+                                [_selectedField resignFirstResponder];
+//                                [_pickview remove];
+                                
+                            }];
+                        }else{
+                            btn.selected = NO;
                         }
                     }
                 }
-
-            }else
+                
+            }else if (scrollView.contentOffset.x == kWidth * 1)
             {
-                [_backScroll setContentOffset:CGPointMake(0, 0)];
-                [RemindView showViewWithTitle:@"请先选取菜品先，亲" location:MIDDLE];
-//                if (x == 0) {
-//                    [UIView animateWithDuration:0.3 animations:^{
-//                        _orangLin.frame = CGRectMake(x, KMenuH - 1, KMenuItemW, 1);
-//                        [_backScroll setContentOffset:CGPointMake(_selectedBtn.tag * kWidth, 0)];
-//                    }];
-//                }else
-//                {
-//                    [RemindView showViewWithTitle:@"请先选取菜品先，亲" location:MIDDLE];
-//                    break;
-//                }
+                for (UIView *subView in _menuBack.subviews) {
+                    if ([subView isKindOfClass:[UIButton class]]) {
+                        UIButton * btn = (UIButton *)subView;
+                        if (btn.tag + KMenuStart == Menu2) {
+                            _selectedBtn = btn;
+                            _selectedBtn.selected = YES;
+                            [UIView animateWithDuration:0.6 animations:^{
+                                [_selectedField resignFirstResponder];
+//                                [_pickview remove];
+                            }];
+                        }else{
+                            btn.selected = NO;
+                        }
+                    }
+                }
+            }else if (scrollView.contentOffset.x == kWidth * 2)
+            {
+                for (UIView *subView in _menuBack.subviews) {
+                    if ([subView isKindOfClass:[UIButton class]]) {
+                        UIButton * btn = (UIButton *)subView;
+                        if (btn.tag + KMenuStart  == Menu3) {
+                            _selectedBtn = btn;
+                            _selectedBtn.selected = YES;
+                            [UIView animateWithDuration:0.6 animations:^{
+                                [_selectedField resignFirstResponder];
+//                                [_pickview remove];
+                            }];
+                        }else{
+                            btn.selected = NO;
+                        }
+                    }
+                }
             }
-            
         }
     }
 }

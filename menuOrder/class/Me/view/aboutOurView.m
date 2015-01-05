@@ -56,6 +56,17 @@
     [self.view addSubview:headerImage];
     headerImage.image=[UIImage imageNamed:@"header"];
     
+    //    头像
+    UIButton *headerBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+    [headerImage addSubview:headerBtn];
+    headerBtn.frame=CGRectMake((kWidth-85)/2, (HearderImageH-85)/2, 85, 85);
+    [headerBtn setImage:[UIImage imageNamed:@"heaar_img"] forState:UIControlStateNormal];
+//    headerBtn.layer.cornerRadius=0;
+//    headerBtn.layer.borderWidth=1.0;
+//    headerBtn.layer.masksToBounds = YES;
+    headerBtn.layer.borderColor=[UIColor colorWithRed:72.0/255.0 green:144.0/255.0 blue:5.0/255.0 alpha:1 ] .CGColor;
+
+    
     UIView *backView=[[UIView alloc]initWithFrame:CGRectMake(YYBODERY, YYBODERY+HearderImageH, kWidth-YYBODERY*2, 170)];
     backView.backgroundColor =[UIColor whiteColor];
     [self.view addSubview:backView];

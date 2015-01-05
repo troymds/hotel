@@ -33,5 +33,6 @@ typedef void(^failureBlock)(NSError *error);
 
 //获取优惠活动
 + (void) GetActivitiesWithSuccess:(successBlock)success withFailure:(failureBlock)failure;
-
+//获取活动详情
++(void)GetDetailID:(NSString *)detailid GetActivitiesDetailWithSuccess:(successBlock)success withFailure:(failureBlock)failure;
 @end

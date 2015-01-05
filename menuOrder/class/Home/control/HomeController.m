@@ -127,7 +127,6 @@
         }
     }
     // 3 招牌美食
-#warning 不能写死啊 啊啊啊啊
     niceFoodViewH = 100;
     UIImageView *foodImgLogo = [[UIImageView alloc] initWithFrame:Rect(KStartX, viewHight + 10, 30, 30)];
     foodImgLogo.image = LOADPNGIMAGE(@"招牌美食_icon");
@@ -142,39 +141,46 @@
     foodText.textAlignment = NSTextAlignmentLeft;
     [_scroll addSubview:foodText];
     viewHight = CGRectGetMaxY(foodImgLogo.frame) + 5;
-    if ([self.niceFoodArray isKindOfClass:[NSNull class]]) {
-        
-    }else{
-    NSMutableArray *array = [NSMutableArray arrayWithCapacity:self.niceFoodArray.count];
-    for (NSDictionary *d in self.niceFoodArray) {
-        NiceFoodModel *data = [[NiceFoodModel alloc] initWithDic:d];
-        [array addObject:data];
-    }
-    NSUInteger count = array.count;
-    for (int i = 0; i < count; i++) {//count行招牌美食
-        CGFloat y = viewHight + (niceFoodViewH + KNiceViewSpace) * i;
-        CGFloat w = kWidth - KStartX * 2;
-        NiceFoodView *foodView = [[NiceFoodView alloc] initWithBlock:^(NiceFoodModel* data) {
-            //进入菜品详情页面
-            DetailFoodController * ctl = [[DetailFoodController alloc] init];
-            ctl.data = data;
-            [self.navigationController pushViewController:ctl animated:YES];
-        }];
-        foodView.frame = Rect(KStartX - 2, y, w, niceFoodViewH);
-        [_scroll addSubview:foodView];
-        if (i % 2 != 0) {
-            foodView.type = 1;
-        }else
-        {
-            foodView.type = 0;
+    
+    //先判断NiceFoodView数据
+    if (![self.niceFoodArray isKindOfClass:[NSNull class]]) {
+        NSUInteger count = self.niceFoodArray.count;
+        NSMutableArray *array;
+        if (count > 0) {
+            array = [NSMutableArray arrayWithCapacity:count];
+            for (NSDictionary *d in self.niceFoodArray) {
+                NiceFoodModel *data = [[NiceFoodModel alloc] initWithDic:d];
+                [array addObject:data];
+            }
         }
-        if (i == count - 1) {
-            viewHight = y + niceFoodViewH + 20;
+        //画NiceFoodView
+        for (int i = 0; i < count; i++) {//count行招牌美食
+            CGFloat y = viewHight + (niceFoodViewH + KNiceViewSpace) * i;
+            CGFloat w = kWidth - KStartX * 2;
+            NiceFoodView *foodView = [[NiceFoodView alloc] initWithBlock:^(NiceFoodModel* data) {
+                //进入菜品详情页面
+                DetailFoodController * ctl = [[DetailFoodController alloc] init];
+                ctl.detailFoodIndex = data.ID;
+                [self.navigationController pushViewController:ctl animated:YES];
+            }];
+            foodView.frame = Rect(KStartX - 2, y, w, niceFoodViewH);
+            [_scroll addSubview:foodView];
+            if (i % 2 != 0) {
+                foodView.type = 1;
+            }else
+            {
+                foodView.type = 0;
+            }
+            if (i == count - 1) {
+                viewHight = y + niceFoodViewH + 20;
+            }
+            if (array.count > 0) {
+                foodView.data = array[i];
+            }
         }
-        foodView.data = array[i];
+
     }
-    }
-    //设置scrollview的内容高度
+           //设置scrollview的内容高度
     _scroll.contentSize = CGSizeMake(kWidth, viewHight) ;
 }
 

@@ -82,7 +82,7 @@
 }
 -(void)addTableView
 {
-    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight) style:UITableViewStylePlain];
+    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight-64) style:UITableViewStylePlain];
     _tableView.delegate =self;
     _tableView.dataSource =self;
     _tableView.hidden = NO;
@@ -207,7 +207,7 @@
 //}
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *headerView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 40)];
+    UIView *headerView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 30)];
     headerView.backgroundColor=HexRGB(0xeeeeee);
     
     myOrderListTimeModel *timeModel = [_sectionTitleArray objectAtIndex:section];
@@ -217,15 +217,16 @@
     [sectionLabel setTitle:timeModel.timeTitle forState:UIControlStateNormal];
     [headerView addSubview:sectionLabel];
     sectionLabel.titleLabel.font=[UIFont systemFontOfSize:PxFont(22)];
+    sectionLabel.imageEdgeInsets =UIEdgeInsetsMake(0, 0, 0, 25);
     [sectionLabel setTitleColor:HexRGB(0x808080) forState:UIControlStateNormal];
     [sectionLabel setImage:[UIImage imageNamed:@"MyOrder_image"] forState:UIControlStateNormal];
     
-    sectionLabel.frame = CGRectMake(30, 0, 150, 40);
+    sectionLabel.frame = CGRectMake(30, 0, 150, 30);
     return headerView;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 40;
+    return 30;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
