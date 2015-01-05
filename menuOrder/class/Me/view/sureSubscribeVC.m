@@ -45,9 +45,9 @@
         orderModel.people_num =[dict objectForKey:@"people_num"];
         orderModel.use_time =[dict objectForKey:@"create_time"];
         orderModel.type =[dict objectForKey:@"type"];
-        
-        if (orderModel.products .count>0) {
-            orderModel.products =[dict objectForKey:@"products"];
+        orderModel.products =[dict objectForKey:@"products"];
+        if (![orderModel.products isKindOfClass:[NSNull class]]) {
+
         for (NSDictionary *nameDic in orderModel.products) {
             NSString * name =[nameDic objectForKey:@"name"];
             [_orderCategoryArray addObject:name];
