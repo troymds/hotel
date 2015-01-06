@@ -29,6 +29,7 @@
         self.backgroundColor = HexRGB(0xe0e0e0);
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.count = 0;
+        _isSelected = YES;
         // 1 白色背景
         UIView *whiteBackView = [[UIView alloc] init];
         whiteBackView.backgroundColor = [UIColor whiteColor];
@@ -42,6 +43,8 @@
         selectedBtn.frame = CGRectZero;
         [selectedBtn setBackgroundImage:LOADPNGIMAGE(@"home_notselected") forState:UIControlStateNormal];
         [selectedBtn setBackgroundImage:LOADPNGIMAGE(@"selected") forState:UIControlStateSelected];
+        [selectedBtn addTarget:self action:@selector(selectedBtnClieked) forControlEvents:UIControlEventTouchUpInside];
+        selectedBtn.selected  = YES;
         _selectedBtn = selectedBtn;
         
         // 3 菜品图片
@@ -120,6 +123,15 @@
     return self;
 }
 
+-(void)selectedBtnClieked
+{
+    _selectedBtn.selected  = !_selectedBtn.selected;
+    _isSelected = _selectedBtn.selected;
+    if ([_delegate respondsToSelector:@selector(FoodOrderCell:)]) {
+        [_delegate FoodOrderCell:self];
+    }
+}
+
 -(void)setData:(MenuModel *)data
 {
     _data = data;
@@ -127,7 +139,7 @@
     CGFloat chosenX = KLeftX;
     CGFloat chonseY = (KCellHeight - KChosenBtnW)/2;
     _selectedBtn.frame = Rect(chosenX, chonseY, KChosenBtnW, KChosenBtnW);
-    _selectedBtn.selected  = YES;//默认是选中的
+//    _selectedBtn.selected  = YES;//默认是选中的
     //3 菜品图片
     CGFloat foodImgX  = CGRectGetMaxX(_selectedBtn.frame) + 5;
     CGFloat foodImgY = KLeftX;
@@ -214,7 +226,7 @@
     if (count == 0) {
         _foodConnt.text = [NSString stringWithFormat:@""];
     }else{
-        _foodConnt.text = [NSString stringWithFormat:@"%d",count];
+        _foodConnt.text = [NSString stringWithFormat:@"%ld",(long)count];
     }
 }
 

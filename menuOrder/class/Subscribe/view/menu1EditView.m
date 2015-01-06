@@ -113,12 +113,15 @@
         if ([view isKindOfClass:[EditView class]]) {
             EditView *vi = (EditView *)view;
             UITextField *text = vi.edit;
+            if (text.text == nil) {
+                text.text = @"";
+            }
             [data addObject:text.text];
         }
     }
     // 判断是否可以提交
     BOOL canSubmit = YES;
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 1; i++) {
         NSString *str = data[i];
         if (str.length == 0) {
             //不能提交

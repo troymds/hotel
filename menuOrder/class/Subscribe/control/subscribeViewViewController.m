@@ -54,7 +54,11 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    
+    //2 计算购物车数量
+    if (self.navigationItem.rightBarButtonItem) {
+        BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.rightBarButtonItem;
+        barButton.badgeValue = [NSString stringWithFormat:@"%ld", (long)[self totalCarNum] ];
+    }
 }
 
 - (void)viewDidLoad

@@ -20,10 +20,11 @@
 #define YYBORDERY 15
 #define YYBOURERyy 25
 
-@interface ConformAppointmentController (){
+@interface ConformAppointmentController ()<UIScrollViewDelegate>{
     NSMutableArray * _orderCategoryArray;
     CGFloat viewH;
     NSString *_totalPrice;
+    UIScrollView *_backScroll;
 }
 
 @end
@@ -42,9 +43,23 @@
 -(void)addUIView
 {
     
+    UIScrollView *backScroll = [[UIScrollView alloc] initWithFrame:Rect(0, 0, kWidth, KAppHeight - 44)];
+    [self.view addSubview:backScroll];
+    _backScroll = backScroll;
+    backScroll.showsHorizontalScrollIndicator = NO;
+    backScroll.showsVerticalScrollIndicator = NO;
+    backScroll.pagingEnabled = NO;
+    backScroll.bounces = NO;
+    backScroll.scrollEnabled = YES;
+    backScroll.userInteractionEnabled = YES;
+    backScroll.delegate = self;
+    //        backScroll.tag = 9999;
+    backScroll.contentSize = CGSizeMake(kWidth, [UIScreen mainScreen].applicationFrame.size.height);
+
+    
     UIView *backView=[[UIView alloc]initWithFrame:CGRectMake(YYBORDERW, YYBORDERW, kWidth-YYBORDERW*2, 350)];
     backView.backgroundColor =[UIColor whiteColor];
-    [self.view addSubview:backView];
+    [backScroll addSubview:backView];
     backView.layer.cornerRadius=8;
     backView.layer.masksToBounds=YES;
     
@@ -143,7 +158,11 @@
     conform.frame = Rect(YYBORDERW, conformY, backView.frame.size.width, 30);
     [conform setBackgroundImage:LOADPNGIMAGE(@"home_ok") forState:UIControlStateNormal];
     [conform addTarget:self action:@selector(conform) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:conform];
+    [backScroll addSubview:conform];
+    
+    //重新设置backScroll内容高度
+    CGFloat scroH = CGRectGetMaxY(conform.frame) + 30;
+    backScroll.contentSize = CGSizeMake(kWidth, scroH);
 }
 
 -(void)conform
@@ -151,7 +170,7 @@
     // 显示指示器
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"加载中...";
-    NSString *uid = [SystemConfig sharedInstance].uid;
+    NSString *uid = [[NSUserDefaults standardUserDefaults] objectForKey:@"uid"];
     
     //时间转时间戳
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

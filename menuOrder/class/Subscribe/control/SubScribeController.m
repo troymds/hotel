@@ -60,9 +60,6 @@
     
     self.title = @"预约";
     self.view.backgroundColor = HexRGB(0xeeeeee);
-    
-    // 利用通知中心监听键盘的变化（打开、关闭、中英文切换）
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
 
     _menu1array = [NSMutableArray array];
     [self buildUI];
@@ -169,13 +166,13 @@
         //1.1 编辑框
         CGFloat editY = (editH + 10)* i;
         EditView * edit = [[EditView alloc] initWithFrame:Rect(0, editY, editW, editH)];
-        if (timeIndex == i) {
-            //时间选择器
-            [edit addEditView:i+1 placeHoldString:placeHolds[i] editIcon:icons[i] isTime:YES];
-        }else
-        {
-            [edit addEditView:i+1 placeHoldString:placeHolds[i] editIcon:icons[i] isTime:NO];
-        }
+//        if (timeIndex == i) {
+//            //时间选择器
+//            [edit addEditView:i+1 placeHoldString:placeHolds[i] editIcon:icons[i] isTime:YES];
+//        }else
+//        {
+//            [edit addEditView:i+1 placeHoldString:placeHolds[i] editIcon:icons[i] isTime:NO];
+//        }
         edit.delegate = self;
         edit.editTag = KEditStartTag + i + 1;
         [scroll addSubview:edit];

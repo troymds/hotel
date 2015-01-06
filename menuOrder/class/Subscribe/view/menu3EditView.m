@@ -19,6 +19,7 @@
     EditType editType;
     CGFloat keyBoardH;//键盘高度
     UITextField *_selectedField;
+    BOOL isSelectedAddress;//是否已经选取了地址
 }
 @property(nonatomic,strong)ZHPickView *pickview;
 -(void)buileEditView:(NSArray *)placeHolds icons:(NSArray *)icons;
@@ -106,6 +107,7 @@
 
 -(void)builEditView:(NSArray *)placeHolds icons:(NSArray *)icons withaddressData:(addressListModel *)address
 {
+    isSelectedAddress = YES;
     CGFloat editW = kWidth - KRightOffset;
     CGFloat editH = 50;
     CGFloat h = 0.0;
@@ -465,21 +467,30 @@
         if ([view isKindOfClass:[EditView class]]) {
             EditView *vi = (EditView *)view;
             UITextField *text = vi.edit;
+            if (text.text == nil) {
+                text.text = @"";
+            }
             [data addObject:text.text];
         }
     }
     // 判断是否可以提交
     BOOL canSubmit = YES;
-    for (int i = 0; i < 4; i++) {
-        NSString *str = data[i];
-        if (str.length == 0) {
-            //不能提交
-            canSubmit = NO;
-            break;
+    if (isSelectedAddress) {
+        
+        for (int i = 0; i < 4; i++) {
+            NSString *str = data[i];
+            if (str.length == 0) {
+                //不能提交
+                canSubmit = NO;
+                break;
+            }
         }
-    }
-    if (canSubmit) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"submit" object:data];
+        if (canSubmit) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"submit" object:data];
+        }else
+        {
+            [RemindView showViewWithTitle:@"请填写完信息，亲！" location:MIDDLE];
+        }
     }else
     {
         [RemindView showViewWithTitle:@"请填写完信息，亲！" location:MIDDLE];

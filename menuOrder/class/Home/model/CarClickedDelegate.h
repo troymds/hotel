@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 @class MenuModel;
 @class ProductDetailModel;
-
+@class FoodOrderCell;
 typedef enum {
     kButtonAdd = 1,
     kButtonReduce
@@ -19,5 +19,6 @@ typedef enum {
 //传递菜品的ID和count
 @optional
 - (void)CarClickedWithData:(MenuModel *)data buttonType:(ButtonType )type;
+- (void)FoodOrderCell:(FoodOrderCell *)cell;
 //- (void)CarClickedWithDetailData:(ProductDetailModel *)data buttonType:(ButtonType )type;
 @end

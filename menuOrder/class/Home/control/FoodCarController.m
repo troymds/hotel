@@ -81,7 +81,7 @@
     for (int i = 0; i < count; i++) {
         NSIndexPath *path =  [NSIndexPath indexPathForRow:i inSection:0];
         FoodOrderCell *cell = (FoodOrderCell *)[_table cellForRowAtIndexPath:path];
-        if (cell.selectedBtn.selected) {
+        if (cell.isSelected) {
             MenuModel *data = _dataList[i];
             totalPrice += (data.foodCount * [data.price intValue]);
             totalNum += data.foodCount;
@@ -166,20 +166,24 @@
         cell =[[FoodOrderCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
     cell.delegate = self;
-    [cell.selectedBtn addTarget:self action:@selector(cellSelected:) forControlEvents:UIControlEventTouchUpInside];
+//    [cell.selectedBtn addTarget:self action:@selector(cellSelected:) forControlEvents:UIControlEventTouchUpInside];
     MenuModel *data = _dataList[indexPath.row];
     cell.data = data;
     cell.indexPath = indexPath.row;
     return cell;
 }
 
-#pragma mark 点击cell选中按钮
--(void)cellSelected:(UIButton *)btn
+- (void)FoodOrderCell:(FoodOrderCell *)cell
 {
-    //取消选中时，
-    btn.selected = !btn.selected;
     [self caculate];
 }
+//#pragma mark 点击cell选中按钮
+//-(void)cellSelected:(UIButton *)btn
+//{
+//    //取消选中时，
+//    btn.selected = !btn.selected;
+//    [self caculate];
+//}
 
 #pragma mark 加减按钮点击
 - (void)CarClickedWithData:(MenuModel *)data buttonType:(ButtonType)type

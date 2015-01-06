@@ -377,6 +377,9 @@
         if ([view isKindOfClass:[EditView class]]) {
             EditView *vi = (EditView *)view;
             UITextField *text = vi.edit;
+            if (text.text == nil) {
+                text.text = @"";
+            }
             [data addObject:text.text];
         }
     }

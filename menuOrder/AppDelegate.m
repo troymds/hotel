@@ -47,7 +47,6 @@
                retrieveuuid = [NSString stringWithFormat:@"%@",uuidStr];
         [SSKeychain setPassword:retrieveuuid forService:@"cn.chinapromo.userinfo" account:@"uuid"];
     }
-   ;
    
     NSLog(@"------%@", [SystemConfig sharedInstance].uuidStr = retrieveuuid);
 
@@ -71,7 +70,8 @@
         // 将新版本号写入沙盒
         [[NSUserDefaults standardUserDefaults] setObject:version forKey:key];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        
+        //获得UID
+        [self addUID];
         // 显示版本新特性界面
         application.statusBarHidden = YES;
         self.window.rootViewController = [[NewFeatureController alloc] init];
@@ -79,13 +79,15 @@
     
     self.window.backgroundColor = [UIColor whiteColor];
      [self shareRegister];
-    [self addUID];
+
     [self.window makeKeyAndVisible];
     return YES;
 }
 -(void)addUID{
     [uidTool statusesWithSuccessUid:^(NSString *ID) {
-        [SystemConfig sharedInstance].uid = ID;
+        //把UID写入沙盒
+        [[NSUserDefaults standardUserDefaults] setObject:ID forKey:@"uid"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     } failure:^(NSError *error) {
         
     }];

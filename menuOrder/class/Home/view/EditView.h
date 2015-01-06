@@ -46,6 +46,6 @@ typedef enum {
 @property (nonatomic, weak) id<EditViewDelegate> delegate;
 @property (nonatomic, assign) EditType edtype;
 @property (nonatomic,strong) UITextField *selectedText;
--(void)addEditView:(int )index placeHoldString:(NSString *)holdString editIcon:(NSString *)icon isTime:(BOOL )isTime;
+
 -(void)addEditView:(int )index placeHoldString:(NSString *)holdString editIcon:(NSString *)icon editType:(EditType )editType;
 @end

@@ -22,5 +22,6 @@
 @property (nonatomic, strong) MenuModel *data;
 @property (nonatomic, assign) int count;
 @property (nonatomic, assign)NSInteger indexPath; //哪一个cell
+@property (nonatomic, assign)BOOL isSelected; //是否被选中
 @property (nonatomic, weak) id<CarClickedDelegate> delegate;
 @end
