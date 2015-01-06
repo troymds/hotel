@@ -84,6 +84,7 @@
     return YES;
 }
 -(void)addUID{
+   
     [uidTool statusesWithSuccessUid:^(NSString *ID) {
         [SystemConfig sharedInstance].uid = ID;
     } failure:^(NSError *error) {

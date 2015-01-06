@@ -126,11 +126,17 @@
     orderLabel.backgroundColor =[UIColor clearColor];
     orderLabel.font =[UIFont systemFontOfSize:PxFont(26)];
     orderLabel.textColor=HexRGB(0x899c02);
-    orderLabel.text=[NSString stringWithFormat:@"￥%@",orderModel.price];
+    orderLabel.text=[NSString stringWithFormat:@"%@",orderModel.price];
+    CGFloat  priceWidth =[orderModel.price sizeWithFont:[UIFont systemFontOfSize:PxFont(26)] constrainedToSize:CGSizeMake(MAXFLOAT, 30)].width;
     
-//    [_orderCategoryArray addObjectsFromArray:_name];
-   
-
+    
+    
+    UILabel *priceLabel =[[UILabel alloc]initWithFrame:CGRectMake(YYBORDERW+85+priceWidth, YYBORDERWw+40, 30, 20 )];
+    [backView addSubview:priceLabel];
+    priceLabel.backgroundColor =[UIColor clearColor];
+    priceLabel.font =[UIFont systemFontOfSize:PxFont(20)];
+    priceLabel.textColor=HexRGB(0x605e5f);
+    priceLabel.text=@"元";
     for (int l=0; l<_orderCategoryArray.count; l++) {
     
         UILabel *orderCategory =[[UILabel alloc]initWithFrame:CGRectMake(YYBORDERW+l%2*(kWidth-YYBORDERWw*6-YYBORDERW*6), YYBORDERWw+230+l/2*(YYBORDERY+20), (kWidth-YYBORDERWw*2-YYBORDERW*2)/2, 20 )];
