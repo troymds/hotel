@@ -7,8 +7,9 @@
 //
 
 #import "subscribeCell.h"
-#define YYBORDERW 14
-#define IMAGEWIDTH 95
+#define YYBORDERW 10
+#define YYBORDERY 14
+#define IMAGEWIDTH 130
 @implementation subscribeCell
 @synthesize MeSubscribeCategoryLabel,MeSubscribeImage,MeSubscribeNumLabel,MeSubscribeTimeLabel;
 - (void)awakeFromNib {
@@ -27,8 +28,9 @@
         
         MeSubscribeImage = [[UIImageView alloc] initWithFrame:CGRectMake(2, 2, IMAGEWIDTH, 80)];
         [backCell addSubview:MeSubscribeImage];
-        MeSubscribeCategoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(IMAGEWIDTH+YYBORDERW, 5, kWidth-YYBORDERW*4-IMAGEWIDTH, 20)];
-        MeSubscribeCategoryLabel.font =[UIFont systemFontOfSize:PxFont(20)];
+        
+        MeSubscribeCategoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(IMAGEWIDTH+10, 5, kWidth-YYBORDERY*4-IMAGEWIDTH, 20)];
+        MeSubscribeCategoryLabel.font =[UIFont systemFontOfSize:PxFont(18)];
         [backCell addSubview:MeSubscribeCategoryLabel];
         MeSubscribeCategoryLabel.backgroundColor=[UIColor clearColor];
         MeSubscribeCategoryLabel.textColor=HexRGB(0x666666);
@@ -38,16 +40,16 @@
         
         
         
-        MeSubscribeNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(IMAGEWIDTH+YYBORDERW, YYBORDERW*2+3, kWidth-YYBORDERW*4-IMAGEWIDTH, 20)];
+        MeSubscribeNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(IMAGEWIDTH+10, YYBORDERY*2+3, kWidth-YYBORDERY*4-IMAGEWIDTH+20, 20)];
         [backCell addSubview:MeSubscribeNumLabel];
         MeSubscribeNumLabel.numberOfLines = 0;
-        MeSubscribeNumLabel.font =[UIFont systemFontOfSize:PxFont(20)];
+        MeSubscribeNumLabel.font =[UIFont systemFontOfSize:PxFont(18)];
         MeSubscribeNumLabel.textColor=HexRGB(0x666666);
         MeSubscribeNumLabel.backgroundColor=[UIColor clearColor];
         
-        MeSubscribeTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(IMAGEWIDTH+YYBORDERW, YYBORDERW*4+3,kWidth-YYBORDERW*4-IMAGEWIDTH+15, 20)];
+        MeSubscribeTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(IMAGEWIDTH+10, YYBORDERY*4+3,kWidth-YYBORDERY*4-IMAGEWIDTH+20, 20)];
         [backCell addSubview:MeSubscribeTimeLabel];
-        MeSubscribeTimeLabel.font =[UIFont systemFontOfSize:PxFont(20)];
+        MeSubscribeTimeLabel.font =[UIFont systemFontOfSize:PxFont(18)];
         MeSubscribeTimeLabel.textColor = HexRGB(0x666666);
         MeSubscribeTimeLabel.backgroundColor=[UIColor clearColor];
     }

@@ -15,7 +15,7 @@
 @property(nonatomic,copy)NSString *address_id;
 @property(nonatomic,copy)NSString *contact;
 @property(nonatomic,copy)NSString *create_time;
-@property(nonatomic,copy)NSString *is_delete;
+@property(nonatomic,copy)NSString *tel;
 @property(nonatomic,copy)NSString *people_num;
 @property(nonatomic,copy)NSString *price;
 

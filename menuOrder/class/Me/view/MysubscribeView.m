@@ -33,7 +33,7 @@
     self.view.backgroundColor=HexRGB(0xeeeeee);
     _sectionTitleArray=[NSArray array];
 
-    _sectionTitleArray=@[@"   未到期预约",@"   已过期预约"];
+    _sectionTitleArray=@[@"  未过期预约",@"  已过期预约"];
     
     
     [self addTableView];
@@ -88,7 +88,7 @@
 }
 -(void)addTableView
 {
-    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight-64) style:UITableViewStylePlain];
+    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight-70) style:UITableViewStylePlain];
     _tableView.delegate =self;
     _tableView.dataSource =self;
     _tableView.hidden = YES;
@@ -142,11 +142,23 @@
         subModel = [_overdueArray objectAtIndex:indexPath.row];
     }
     
-    
-    cell.MeSubscribeTimeLabel.text=[NSString stringWithFormat:@"时间：%@",subModel.use_time] ;
-    cell.MeSubscribeCategoryLabel.text=[NSString stringWithFormat:@"类型：%@",subModel.type];
     cell.MeSubscribeNumLabel.text=[NSString stringWithFormat:@"就餐人数：%@",subModel.people_num];
-    [cell.MeSubscribeImage setImageWithURL:[NSURL URLWithString:subModel.cover] placeholderImage:placeHoderImage3];
+    [cell.MeSubscribeImage setImageWithURL:[NSURL URLWithString:subModel.cover] placeholderImage:placeHoderImage2];
+    cell.MeSubscribeTimeLabel.text=[NSString stringWithFormat:@"时间：%@",subModel.use_time] ;
+    if ([subModel.type isEqualToString:@"0"]) {
+        cell.MeSubscribeCategoryLabel.text=@"亲临渔府";
+    }else  if ([subModel.type isEqualToString:@"1"]){
+        cell.MeSubscribeCategoryLabel.text=@"外带取餐";
+        cell.MeSubscribeNumLabel.hidden =YES;
+        cell.MeSubscribeTimeLabel.frame =cell.MeSubscribeNumLabel.frame;
+    }else{
+        cell.MeSubscribeCategoryLabel.text=@"外卖服务";
+        cell.MeSubscribeNumLabel.hidden =YES;
+        cell.MeSubscribeTimeLabel.frame =cell.MeSubscribeNumLabel.frame;
+
+
+    }
+    
     
     return cell;
 }
@@ -196,7 +208,7 @@
 //        }
 //    }
 
-    sectionLabel.frame=CGRectMake(30, -5, 150, 40);
+    sectionLabel.frame=CGRectMake(15, -5, 150, 40);
     return headerView;
 }
 

@@ -84,6 +84,7 @@
     return YES;
 }
 -(void)addUID{
+   
     [uidTool statusesWithSuccessUid:^(NSString *ID) {
         //把UID写入沙盒
         [[NSUserDefaults standardUserDefaults] setObject:ID forKey:@"uid"];

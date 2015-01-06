@@ -40,7 +40,7 @@
 }
 -(void)addUIView
 {
-    UIImageView *headerImage =[[UIImageView alloc]initWithFrame:CGRectMake(YYBORDER, YYBORDER*2, kWidth-YYBORDER*2, 65)];
+    UIImageView *headerImage =[[UIImageView alloc]initWithFrame:CGRectMake(YYBORDER, YYBORDER*2, kWidth-YYBORDER*2, 62)];
     [self.view addSubview:headerImage];
     headerImage.image =[UIImage imageNamed:@"suggest_banner"];
     
@@ -71,6 +71,7 @@
     [commintBtn setImage:[UIImage imageNamed:@"suggest_ok_pre.png"] forState:UIControlStateHighlighted];
     commintBtn.frame =CGRectMake(YYBORDER, YYBORDER*4+70+225, kWidth-YYBORDER*2, 40) ;
     [commintBtn addTarget:self action:@selector(commitBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    commintBtn.hidden =YES;
 
     
 }
@@ -80,8 +81,18 @@
     [suggestText resignFirstResponder];
     
 }
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    if ([text isEqualToString:@"\n"]){ //判断输入的字是否是回车，即按下return
+        //在这里做你响应return键的代码
+        [textView resignFirstResponder];
+        
+//        [suggestText resignFirstResponder];
 
-
+        return NO; //这里返回NO，就代表return键值失效，即页面上按下return，不会出现换行，如果为yes，则输入页面会换行
+    }
+    
+    return YES;
+}
 #pragma mark 意见反馈
 -(void)commitBtnClick{
     [self commitStatus];

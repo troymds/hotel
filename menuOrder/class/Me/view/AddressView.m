@@ -94,7 +94,7 @@
 
 -(void)addTableView
 {
-    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight-64) style:UITableViewStylePlain];
+    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight-70) style:UITableViewStylePlain];
     _tableView.delegate =self;
     _tableView.dataSource =self;
     _tableView.hidden = NO;
@@ -137,7 +137,7 @@
     addModel =[_addressArray objectAtIndex:indexPath.row];
     
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"是否删除地址" delegate:self cancelButtonTitle:@"是" otherButtonTitles:@"否", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"是否删除地址?" delegate:self cancelButtonTitle:@"是" otherButtonTitles:@"否", nil];
     
     [alert show];
     
