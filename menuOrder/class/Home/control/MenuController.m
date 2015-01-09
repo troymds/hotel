@@ -80,6 +80,7 @@
     barButton.badgeFont = [UIFont systemFontOfSize:11.5];
     barButton.badgeOriginX = 20;
     barButton.badgeOriginY = 0;
+    barButton.badgeTextColor = HexRGB(0x899c02);
     barButton.shouldAnimateBadge = YES;
     self.navigationItem.rightBarButtonItem = barButton;
     
@@ -141,9 +142,29 @@
 
 -(void)orderFood
 {
-    FoodCarController *car = [[FoodCarController alloc] init];
-
-    [self.navigationController pushViewController:car animated:YES];
+    BOOL isMenu = NO;
+    BOOL isCar = NO;
+    
+    //判断下，如果导航控制器中已经有飘香菜单且有购物车了，就不进入购物车，而是返回上一个
+    for (UIViewController *ctl in self.navigationController.viewControllers) {
+        if ([ctl isKindOfClass:[MenuController class]]) {
+            isMenu = YES;
+            break;
+        }
+    }
+    for (UIViewController *ctl in self.navigationController.viewControllers) {
+        if ([ctl isKindOfClass:[FoodCarController class]]) {
+            isCar = YES;
+            break;
+        }
+    }
+    if (isMenu && isCar) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else
+    {
+        FoodCarController *car = [[FoodCarController alloc] init];
+        [self.navigationController pushViewController:car animated:YES];
+    }
 }
 
 #pragma mark 加减按钮点击

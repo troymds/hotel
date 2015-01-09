@@ -11,6 +11,7 @@
 #import "AddressView.h"
 #import "subscribeViewViewController.h"
 #import "addressListModel.h"
+#import "SystemConfig.h"
 
 #define KRightOffset        20
 
@@ -62,9 +63,9 @@
     for (int i = 0; i < count; i++) {
         
         //1.1 编辑框
-        CGFloat editY = (editH + 10)* i;
+        CGFloat editY = (editH + 10)* i - 15;
         EditView * edit = [[EditView alloc] initWithFrame:Rect(0, editY, editW, editH)];
-        [_backScroll addSubview:edit];
+        
         
         if (i == 0) {
             edit.edtype = EditAddress;
@@ -79,7 +80,7 @@
 
         edit.delegate = self;
         edit.editTag = KEditStartTag + i + 1;
-        
+        [_backScroll addSubview:edit];
         //1.2 线框
         CGFloat lineFrameX = KEditLeftX * 2 + KEditCircleW;
         CGFloat lineFrameW = kWidth - lineFrameX - KRightOffset;
@@ -308,7 +309,7 @@
                 
                 [UIView animateWithDuration:0.25 animations:^{
                     if (textField.tag == 201) {
-                        [_backScroll setContentOffset:CGPointMake(0, editViewY) animated:YES];
+                        [_backScroll setContentOffset:CGPointMake(0, editViewY + 15) animated:YES];
                     }else{
                         [_backScroll setContentOffset:CGPointMake(0, editViewY - 30) animated:YES];
                     }
@@ -460,6 +461,12 @@
     }
 }
 
+- (BOOL)isValidPhoneNum:(NSString *)phoneNum{
+    NSString *phoneRegex  =  @"((0\\d{2,3}-\\d{7,8})|(^((13[0-9])|(15[^4,\\D])|(18[0,0-9])|(17[0-9]))\\d{8}))$";
+    NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",phoneRegex];
+    return [phoneTest evaluateWithObject:phoneNum];
+}
+
 -(void)summitDeal
 {
     NSMutableArray *data = [NSMutableArray arrayWithCapacity:5];
@@ -474,26 +481,34 @@
         }
     }
     // 判断是否可以提交
-    BOOL canSubmit = YES;
-    if (isSelectedAddress) {
+    BOOL isnull = NO;// 是否为空
+    BOOL isValidPhone = YES;//是否是正确的手机号
+    for (int i = 0; i < 4; i++) {
+        NSString *str = data[i];
         
-        for (int i = 0; i < 4; i++) {
-            NSString *str = data[i];
-            if (str.length == 0) {
-                //不能提交
-                canSubmit = NO;
+        if (i == 1) {
+            if (![self isValidPhoneNum:str]) {//错误的手机号
+                isValidPhone = NO;
                 break;
             }
         }
-        if (canSubmit) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"submit" object:data];
+        if (str.length == 0) {
+            //不能提交
+            isnull = YES;
+            break;
+        }
+    }
+    if (!isnull && isValidPhone) {
+        [SystemConfig sharedInstance].menuType = 0;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"submit" object:data];
+    }else
+    {
+        if (!isValidPhone) {
+            [RemindView showViewWithTitle:@"请输入正确的手机号！" location:MIDDLE];
         }else
         {
             [RemindView showViewWithTitle:@"请填写完信息，亲！" location:MIDDLE];
         }
-    }else
-    {
-        [RemindView showViewWithTitle:@"请填写完信息，亲！" location:MIDDLE];
     }
 }
 

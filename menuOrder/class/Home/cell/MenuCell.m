@@ -162,7 +162,7 @@
     if (count == 0) {
         _foodConnt.text = [NSString stringWithFormat:@""];
     }else{
-        _foodConnt.text = [NSString stringWithFormat:@"%d",count];
+        _foodConnt.text = [NSString stringWithFormat:@"%ld",(long)count];
     }
 }
 

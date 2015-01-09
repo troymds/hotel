@@ -26,11 +26,20 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
     self.edtype = editType;
     //1 竖线
+    //当第一个线，减半
+    CGFloat lineY ;
+    CGFloat lineH ;
+    if (index == 1) {
+       lineY = KLineH / 2 - 5;
+        lineH = KLineH / 2 + 5;
+    }else
+    {
+        lineY = 0;
+        lineH = KLineH;
+    }
     UIView *line = [[UIView alloc] init];
     CGFloat lineX = KEditLeftX + KEditCircleW/2;
-    CGFloat lineY = 0;
     CGFloat lineW = 1;
-    CGFloat lineH = KLineH;
     line.frame = Rect(lineX, lineY, lineW, lineH);
     line.backgroundColor = HexRGB(0xd8d8d8);
     [self addSubview:line];
@@ -39,7 +48,7 @@
     //2 圆圈
     UIImageView *circle = [[UIImageView alloc] init];
     CGFloat circleX = KEditLeftX;
-    CGFloat circleY = CGRectGetMaxY(line.frame) + 5;
+    CGFloat circleY = KLineH + 5;
     circle.frame = Rect(circleX, circleY, KEditCircleW, KEditCircleW);
     NSString *circleName = [NSString stringWithFormat:@"%d",index];
     circle.image = LOADPNGIMAGE(circleName);
@@ -50,7 +59,7 @@
     UITextField *edit = [[UITextField alloc] init];
 
     CGFloat editX = CGRectGetMaxX(circle.frame) + KEditLeftX * 2;
-    CGFloat editY = lineH;
+    CGFloat editY = KLineH;
     CGFloat editW = kWidth - editX - KEditLeftX;
     CGFloat editH = 30;
     edit.frame = Rect(editX, editY, editW, editH);

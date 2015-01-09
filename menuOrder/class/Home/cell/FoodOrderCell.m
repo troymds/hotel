@@ -127,6 +127,20 @@
 {
     _selectedBtn.selected  = !_selectedBtn.selected;
     _isSelected = _selectedBtn.selected;
+    _data.isChosen = _isSelected;
+     // 1 改变购物车数据
+    if (_data.isChosen) {
+        if ([_delegate respondsToSelector:@selector(CarClickedWithData:buttonType:)]) {
+            [_delegate CarClickedWithData:_data buttonType:kButtonAdd];
+        }
+    }else
+    {
+        if ([_delegate respondsToSelector:@selector(CarClickedWithData:buttonType:)]) {
+            [_delegate CarClickedWithData:_data buttonType:kButtonReduce];
+        }
+    }
+    
+    // 2选中点击事件，计算数据
     if ([_delegate respondsToSelector:@selector(FoodOrderCell:)]) {
         [_delegate FoodOrderCell:self];
     }
@@ -139,7 +153,8 @@
     CGFloat chosenX = KLeftX;
     CGFloat chonseY = (KCellHeight - KChosenBtnW)/2;
     _selectedBtn.frame = Rect(chosenX, chonseY, KChosenBtnW, KChosenBtnW);
-//    _selectedBtn.selected  = YES;//默认是选中的
+    _isSelected = data.isChosen;
+    _selectedBtn.selected = data.isChosen;
     //3 菜品图片
     CGFloat foodImgX  = CGRectGetMaxX(_selectedBtn.frame) + 5;
     CGFloat foodImgY = KLeftX;
@@ -212,6 +227,7 @@
     if (count == 0) {
         //隐藏减号按钮
         _plusBtn.hidden = YES;
+        _data.isChosen = NO;
     }else
     {
         _plusBtn.hidden = NO;

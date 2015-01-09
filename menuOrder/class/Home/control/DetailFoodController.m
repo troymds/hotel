@@ -18,18 +18,21 @@
 #import "MenuModel.h"
 #import "CarClickedDelegate.h"
 #import "ShareView.h"
+#import "MenuController.h"
+
 #define KLeftXYDistence  10 //左上边距
 #define KFoodImgH        120 //菜品展示图片高度
 #define KFrameOffset     4
 #define KDetailH         120 //菜品详情高度
 
-@interface DetailFoodController ()<DetailFoodShowViewDelegate,CarClickedDelegate>
+@interface DetailFoodController ()<DetailFoodShowViewDelegate,CarClickedDelegate,UIScrollViewDelegate>
 {
     DetailFoodShowView * _detailView; //菜单展示详情
     UIView *_detailFoodBackView;//菜单详情展示背景
     NSArray *_dataList;
     int _totaNum;
     UIButton *_shareBtn;
+    UIScrollView *_backScroll;
 }
 @end
 
@@ -72,6 +75,7 @@
     
     barButton.badgeValue = [NSString stringWithFormat:@"%d",_totaNum];
     barButton.badgeBGColor = [UIColor whiteColor];
+    barButton.badgeTextColor = HexRGB(0x899c02);
     barButton.badgeFont = [UIFont systemFontOfSize:11.5];
     barButton.badgeOriginX = 20;
     barButton.badgeOriginY = 0;
@@ -85,7 +89,6 @@
 -(void)orderFood
 {
     FoodCarController *car = [[FoodCarController alloc] init];
-    
     [self.navigationController pushViewController:car animated:YES];
 }
 
@@ -130,18 +133,30 @@
 #pragma mark 画UI
 -(void)buildUI
 {
+    UIScrollView *backScroll = [[UIScrollView alloc] initWithFrame:Rect(0, 0, kWidth, KAppHeight - 44)];
+    [self.view addSubview:backScroll];
+    _backScroll = backScroll;
+    backScroll.showsHorizontalScrollIndicator = NO;
+    backScroll.showsVerticalScrollIndicator = NO;
+    backScroll.pagingEnabled = NO;
+    backScroll.bounces = NO;
+    backScroll.scrollEnabled = YES;
+    backScroll.userInteractionEnabled = YES;
+    backScroll.delegate = self;
+    
+    backScroll.contentSize = CGSizeMake(kWidth, KAppHeight - 44);
+    
      // 1.1 菜品展示图片背景view
     UIView *foodBackView = [[UIView alloc] init];
     foodBackView.frame = Rect(KLeftXYDistence, KLeftXYDistence, kWidth - KLeftXYDistence * 2, KFoodImgH);
     foodBackView.backgroundColor = [UIColor whiteColor];
     foodBackView.layer.cornerRadius = 4;
-    [self.view addSubview:foodBackView];
+    [backScroll addSubview:foodBackView];
+    
     // 1.2 菜品展示图片
     UIImageView *foodImg  = [[UIImageView alloc] init];
-
     ProductDetailModel *model = _dataList[0];
     [foodImg setImageWithURL:[NSURL URLWithString:model.cover] placeholderImage:placeHoderloading];
-//    foodImg.contentMode = UInViewContentModeScaleAspectFit;
     foodImg.layer.cornerRadius = 4;
     foodImg.layer.masksToBounds = YES;
     CGFloat imgW = foodBackView.frame.size.width - KFrameOffset * 2;
@@ -155,10 +170,11 @@
     detailFoodBackView.frame = Rect(KLeftXYDistence, detailY, kWidth - KLeftXYDistence * 2, KDetailH);
     detailFoodBackView.backgroundColor = [UIColor whiteColor];
     detailFoodBackView.layer.cornerRadius = 4;
-    [self.view addSubview:detailFoodBackView];
+    [backScroll addSubview:detailFoodBackView];
     _detailFoodBackView = detailFoodBackView;
     
     //2.2 菜品详情
+    UIButton *shareBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
     DetailFoodShowView *detail = [[DetailFoodShowView alloc] initWithFrame:Rect(0, 0, kWidth - KLeftXYDistence * 2, KDetailH)];
     detail.delegate = self;
     detail.cardelegate = self;
@@ -167,14 +183,15 @@
     detail.data = model;
     
     // 3 分享美食
-    UIButton *shareBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
-    CGFloat sharreBtnY = CGRectGetMaxY(detailFoodBackView.frame) + 40;
+    CGFloat sharreBtnY = CGRectGetMaxY(_detailFoodBackView.frame) + 20;
     shareBtn.frame = Rect(KLeftXYDistence, sharreBtnY, kWidth - KLeftXYDistence * 2, 40);
-    [self.view addSubview:shareBtn];
+    [backScroll addSubview:shareBtn];
     [shareBtn setBackgroundImage:LOADPNGIMAGE(@"home_share") forState:UIControlStateNormal];
     [shareBtn setBackgroundImage:LOADPNGIMAGE(@"home_share_pre") forState:UIControlStateHighlighted];
     [shareBtn addTarget:self action:@selector(sharefood) forControlEvents:UIControlEventTouchUpInside];
     _shareBtn = shareBtn;
+    
+    backScroll.contentSize = CGSizeMake(kWidth, CGRectGetMaxY(shareBtn.frame) + 20);
 }
 
 #pragma mark 加减按钮点击
@@ -216,8 +233,12 @@
     detailViewrect.size.height = height;
     _detailView.frame = detailViewrect;
     
-    CGRect shareBtnRect = _shareBtn.frame;
-    shareBtnRect.origin.y = CGRectGetMaxY(_detailFoodBackView.frame) + 40;
-    _detailFoodBackView.frame = detailbackViewrect;
+    
+//    CGRect shareBtnRect = _shareBtn.frame;
+//    shareBtnRect.origin.y = CGRectGetMaxY(_detailFoodBackView.frame) + 40;
+//    _shareBtn.frame = shareBtnRect;
+//    
+//    CGFloat contentH = CGRectGetMaxY(_shareBtn.frame) + 100;
+//    [_backScroll setContentSize:CGSizeMake(kWidth, contentH) ];
 }
 @end

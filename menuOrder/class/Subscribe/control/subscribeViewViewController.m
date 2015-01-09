@@ -54,7 +54,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    //2 计算购物车数量
+    //1 计算购物车数量
     if (self.navigationItem.rightBarButtonItem) {
         BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.rightBarButtonItem;
         barButton.badgeValue = [NSString stringWithFormat:@"%ld", (long)[self totalCarNum] ];
@@ -87,6 +87,7 @@
     
     barButton.badgeValue = [NSString stringWithFormat:@"%d",_totaNum];
     barButton.badgeBGColor = [UIColor whiteColor];
+    barButton.badgeTextColor = HexRGB(0x899c02);
     barButton.badgeFont = [UIFont systemFontOfSize:11.5];
     barButton.badgeOriginX = 20;
     barButton.badgeOriginY = 0;
@@ -200,8 +201,7 @@
     menu3EditView *menu3= [[menu3EditView alloc] initWithFrame:Rect(kWidth * 2, 0, kWidth, KBackScroolViewH)];
     [_backScroll addSubview:menu3];
     _menu3 = menu3;
-    
-    [self.view endEditing:YES];
+
 }
 
 //开始提交
@@ -327,106 +327,111 @@
 #pragma mark scrollView  滚动
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    switch (scrollView.tag) {
-        case 9999:
+    //当用户没有点餐 而点击“外带取餐”“外卖服务”时
+    if ([self totalCarNum] == 0) {
+        [RemindView showViewWithTitle:@"请点击右上角的点餐车点菜哦,亲!"
+                                 location:MIDDLE];
+        CGPoint p = scrollView.contentOffset;
+        p.x = 0;
+        [scrollView setContentOffset:p];
+    }else
+    {
+        // 1 移动线条
+        float x = scrollView.contentOffset.x/scrollView.frame.size.width * KMenuItemW;
+        [UIView animateWithDuration:0.3 animations:^{
+            _orangLin.frame = CGRectMake(x, KMenuH - 1, KMenuItemW, 1);
+            
+        }];
+        
+        // 2 取到顶部菜单栏 点击按钮
+        if (scrollView.contentOffset.x == 0) {
+            UITextField *selected;
+            for (UIView *view in _backScroll.subviews) {
+                if ([view isKindOfClass:[UIScrollView class]]) {
+                    UIScrollView *scroll = (UIScrollView *)view;
+                    for (UIView *vi in scroll.subviews) {
+                        if ([vi isKindOfClass:[EditView class]]) {
+                            EditView *edview  = (EditView *)vi;
+                            selected = edview.selectedText;
+                        }
+                    }
+                }
+            }
+            for (UIView *subView in _menuBack.subviews){
+                if ([subView isKindOfClass:[UIButton class]]) {
+                    UIButton * btn = (UIButton *)subView;
+                    if (btn.tag + KMenuStart == Menu1) {
+                        _selectedBtn = btn;
+                        _selectedBtn.selected = YES;
+                        [UIView animateWithDuration:0.6 animations:^{
+                            [selected resignFirstResponder];
+                            [_pickview remove];
+                            
+                        }];
+                    }else{
+                        btn.selected = NO;
+                    }
+                }
+            }
+            
+        }else if (scrollView.contentOffset.x == kWidth * 1)
         {
-            // 1 移动线条
-            float x = scrollView.contentOffset.x/scrollView.frame.size.width * KMenuItemW;
-            [UIView animateWithDuration:0.3 animations:^{
-                _orangLin.frame = CGRectMake(x, KMenuH - 1, KMenuItemW, 1);
-                
-            }];
-
-            // 2 取到顶部菜单栏 点击按钮
-            if (scrollView.contentOffset.x == 0) {
-                UITextField *selected;
-                for (UIView *view in _backScroll.subviews) {
-                    if ([view isKindOfClass:[UIScrollView class]]) {
-                        UIScrollView *scroll = (UIScrollView *)view;
-                        for (UIView *vi in scroll.subviews) {
-                            if ([vi isKindOfClass:[EditView class]]) {
-                                EditView *edview  = (EditView *)vi;
-                                selected = edview.selectedText;
-                            }
+            UITextField *selected;
+            for (UIView *view in _backScroll.subviews) {
+                if ([view isKindOfClass:[UIScrollView class]]) {
+                    UIScrollView *scroll = (UIScrollView *)view;
+                    for (UIView *vi in scroll.subviews) {
+                        if ([vi isKindOfClass:[EditView class]]) {
+                            EditView *edview  = (EditView *)vi;
+                            selected = edview.selectedText;
                         }
                     }
                 }
-                for (UIView *subView in _menuBack.subviews){
-                    if ([subView isKindOfClass:[UIButton class]]) {
-                        UIButton * btn = (UIButton *)subView;
-                        if (btn.tag + KMenuStart == Menu1) {
-                            _selectedBtn = btn;
-                            _selectedBtn.selected = YES;
-                            [UIView animateWithDuration:0.6 animations:^{
-                                [selected resignFirstResponder];
-                                [_pickview remove];
-                                
-                            }];
-                        }else{
-                            btn.selected = NO;
+            }
+            
+            
+            for (UIView *subView in _menuBack.subviews) {
+                if ([subView isKindOfClass:[UIButton class]]) {
+                    UIButton * btn = (UIButton *)subView;
+                    if (btn.tag + KMenuStart == Menu2) {
+                        _selectedBtn = btn;
+                        _selectedBtn.selected = YES;
+                        [UIView animateWithDuration:0.6 animations:^{
+                            [selected resignFirstResponder];
+                            [_pickview remove];
+                        }];
+                    }else{
+                        btn.selected = NO;
+                    }
+                }
+            }
+        }else if (scrollView.contentOffset.x == kWidth * 2)
+        {
+            UITextField *selected;
+            for (UIView *view in _backScroll.subviews) {
+                if ([view isKindOfClass:[UIScrollView class]]) {
+                    UIScrollView *scroll = (UIScrollView *)view;
+                    for (UIView *vi in scroll.subviews) {
+                        if ([vi isKindOfClass:[EditView class]]) {
+                            EditView *edview  = (EditView *)vi;
+                            selected = edview.selectedText;
                         }
                     }
                 }
-                
-            }else if (scrollView.contentOffset.x == kWidth * 1)
-            {
-                UITextField *selected;
-                for (UIView *view in _backScroll.subviews) {
-                    if ([view isKindOfClass:[UIScrollView class]]) {
-                        UIScrollView *scroll = (UIScrollView *)view;
-                        for (UIView *vi in scroll.subviews) {
-                            if ([vi isKindOfClass:[EditView class]]) {
-                                EditView *edview  = (EditView *)vi;
-                                selected = edview.selectedText;
-                            }
-                        }
-                    }
-                }
-
-                
-                for (UIView *subView in _menuBack.subviews) {
-                    if ([subView isKindOfClass:[UIButton class]]) {
-                        UIButton * btn = (UIButton *)subView;
-                        if (btn.tag + KMenuStart == Menu2) {
-                            _selectedBtn = btn;
-                            _selectedBtn.selected = YES;
-                            [UIView animateWithDuration:0.6 animations:^{
-                                [selected resignFirstResponder];
-                                [_pickview remove];
-                            }];
-                        }else{
-                            btn.selected = NO;
-                        }
-                    }
-                }
-            }else if (scrollView.contentOffset.x == kWidth * 2)
-            {
-                UITextField *selected;
-                for (UIView *view in _backScroll.subviews) {
-                    if ([view isKindOfClass:[UIScrollView class]]) {
-                        UIScrollView *scroll = (UIScrollView *)view;
-                        for (UIView *vi in scroll.subviews) {
-                            if ([vi isKindOfClass:[EditView class]]) {
-                                EditView *edview  = (EditView *)vi;
-                                selected = edview.selectedText;
-                            }
-                        }
-                    }
-                }
-                
-                for (UIView *subView in _menuBack.subviews) {
-                    if ([subView isKindOfClass:[UIButton class]]) {
-                        UIButton * btn = (UIButton *)subView;
-                        if (btn.tag + KMenuStart  == Menu3) {
-                            _selectedBtn = btn;
-                            _selectedBtn.selected = YES;
-                            [UIView animateWithDuration:0.6 animations:^{
-                                [selected resignFirstResponder];
-                                [_pickview remove];
-                            }];
-                        }else{
-                            btn.selected = NO;
-                        }
+            }
+            
+            for (UIView *subView in _menuBack.subviews) {
+                if ([subView isKindOfClass:[UIButton class]]) {
+                    UIButton * btn = (UIButton *)subView;
+                    if (btn.tag + KMenuStart  == Menu3) {
+                        _selectedBtn = btn;
+                        _selectedBtn.selected = YES;
+                        [UIView animateWithDuration:0.6 animations:^{
+                            [selected resignFirstResponder];
+                            [_pickview remove];
+                        }];
+                    }else{
+                        btn.selected = NO;
                     }
                 }
             }

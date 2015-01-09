@@ -136,7 +136,7 @@
         
         UIImageView *textImgView = [[UIImageView alloc] init];
         // 1.显示图片
-        NSString *name = [NSString stringWithFormat:@"text%d.png", i+1 ];
+        NSString *name = [NSString stringWithFormat:@"%dtext.png", i+1 ];
         textImgView.image = [UIImage imageNamed:name];
         // 2.设置frame
         textImgView.frame = CGRectMake(i * size.width, size.height - 227, size.width, 113);

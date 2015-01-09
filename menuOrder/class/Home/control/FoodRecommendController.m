@@ -73,6 +73,7 @@
     
     barButton.badgeValue = [NSString stringWithFormat:@"%d",_totaNum];
     barButton.badgeBGColor = [UIColor whiteColor];
+    barButton.badgeTextColor = HexRGB(0x899c02);
     barButton.badgeFont = [UIFont systemFontOfSize:11.5];
     barButton.badgeOriginX = 20;
     barButton.badgeOriginY = 0;

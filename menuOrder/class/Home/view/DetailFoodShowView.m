@@ -181,7 +181,7 @@
     if (count == 0) {
         _foodConnt.text = [NSString stringWithFormat:@""];
     }else{
-        _foodConnt.text = [NSString stringWithFormat:@"%d",count];
+        _foodConnt.text = [NSString stringWithFormat:@"%ld",(long)count];
     }
 }
 
@@ -195,21 +195,7 @@
     _foodName.frame = Rect(KLeftX, KLeftX, 100, KFoodNameH);
     _foodName.text = data.name;
     //判断是否有星级别
-    //2 星级评价
-//    CGFloat starY;
-//    CGFloat todayPriceY;
-    
-//    if (_hasStar) {
-//        starY = CGRectGetMaxY(_foodName.frame);
-//        _starImg.frame = Rect(KLeftX, starY, KStarH, KStarH);
-//        _starImg.hidden = NO;
-//        
-//        todayPriceY = CGRectGetMaxY(_starImg.frame);
-//    }else
-//    {
-//        _starImg.hidden = YES;
-//        todayPriceY = CGRectGetMaxY(_foodName.frame);
-//    }
+
     //3 星级评价
     CGFloat starY;
     CGFloat todayPriceY;
@@ -262,7 +248,7 @@
     
     //9 评论
     CGFloat commentW = self.frame.size.width - KLeftX;
-    CGFloat commentH = [AdaptationSize getSizeFromString:_comment.text Font:[UIFont systemFontOfSize:PxFont(20)] withHight: CGFLOAT_MAX withWidth:commentW].height;
+    CGFloat commentH = [AdaptationSize getSizeFromString:data.Description Font:[UIFont systemFontOfSize:PxFont(20)] withHight: CGFLOAT_MAX withWidth:commentW].height;
     _comment.text = data.Description;
     _comment.frame = Rect(KLeftX, CGRectGetMaxY(_todayPrice.frame)+5, commentW, commentH);
     //动态得到view的高度

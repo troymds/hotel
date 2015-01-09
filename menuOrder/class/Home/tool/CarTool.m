@@ -49,6 +49,7 @@ singleton_implementation(CarTool)
         }
         if (!alreadyExist) {
             menu.foodCount++;
+            menu.isChosen = YES;
 //            NSLog(@"第一次增加的ID为%@的数量%d",menu.ID,menu.foodCount);
             [_totalCarMenu addObject:menu];
         }

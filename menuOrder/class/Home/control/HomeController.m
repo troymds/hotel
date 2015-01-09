@@ -118,7 +118,7 @@
             NSString *imgNomralName = [NSString stringWithFormat:@"menu%d",imgTag];
             NSString *imgClickedName = [NSString stringWithFormat:@"menu%d_pre",imgTag];
             [menu setBackgroundImage:LOADPNGIMAGE(imgNomralName) forState:UIControlStateNormal];
-            [menu setBackgroundImage:LOADPNGIMAGE(imgClickedName) forState:UIControlStateHighlighted];
+            [menu setBackgroundImage:LOADPNGIMAGE(imgClickedName) forState:UIControlStateSelected];
             [menu addTarget:self action:@selector(buttonclicked:) forControlEvents:UIControlEventTouchUpInside];
             [_scroll addSubview:menu];
             if (i == 1) {
@@ -187,6 +187,17 @@
 #pragma mark 菜单按钮点击事件
 - (void) buttonclicked:(UIButton *)btn
 {
+    btn.selected = !btn.selected;
+
+    [self performSelector:@selector(cancleBtnSelected:) withObject:btn afterDelay:0.1];
+}
+
+#pragma mark 取消按钮按下的效果
+- (void)cancleBtnSelected:(id)parm
+{
+    UIButton *btn = (UIButton *)parm;
+    btn.selected = !btn.selected;
+    
     switch (btn.tag) {
         case kHotrecommended:
         {
@@ -205,7 +216,7 @@
             MenuController * ctl = [[MenuController alloc] init];
             [self.navigationController pushViewController:ctl animated:YES];
         }
-        break;
+            break;
         case KView:
         {
             ShowHotelController * ctl = [[ShowHotelController alloc] init];

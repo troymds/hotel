@@ -18,6 +18,7 @@
 #import "MainController.h"
 #import "AppDelegate.h"
 #import "subscribeViewViewController.h"
+#import "MenuController.h"
 
 #define KDelX        5
 
@@ -40,9 +41,19 @@
     
     self.title = @"点餐车";
     self.view.backgroundColor = HexRGB(0xe0e0e0);
-//    self.delegate = self;
+
+    
+    
     MainController *main = ((AppDelegate *)[UIApplication sharedApplication].delegate).mainCtl;
     self.delegate = main;
+    
+    UIButton *rightBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
+    [rightBtn setBackgroundImage:LOADPNGIMAGE(@"nav_menu") forState:UIControlStateNormal];
+    [rightBtn setBackgroundImage:LOADPNGIMAGE(@"nav_menu_pre") forState:UIControlStateHighlighted];
+    [rightBtn addTarget:self action:@selector(goMenu) forControlEvents:UIControlEventTouchUpInside];
+    rightBtn.frame = Rect(0, 0, 30, 30);
+    UIBarButtonItem *rehtnItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
+    self.navigationItem.rightBarButtonItem = rehtnItem;
     
     _dataList = [CarTool sharedCarTool].totalCarMenu;
     //1 tableview
@@ -72,23 +83,40 @@
     [self caculate];
 }
 
+#pragma mark 进入飘香菜单
+- (void)goMenu
+{
+    MenuController *ctl = [[MenuController alloc] init];
+    [self.navigationController pushViewController:ctl animated:YES];
+}
+
 #pragma mark 计算总份数和总价
 -(void)caculate
 {
     int totalPrice = 0;
     int totalNum = 0;
+    bool isAllSelected = YES;
     NSUInteger count = _dataList.count;
-    for (int i = 0; i < count; i++) {
-        NSIndexPath *path =  [NSIndexPath indexPathForRow:i inSection:0];
-        FoodOrderCell *cell = (FoodOrderCell *)[_table cellForRowAtIndexPath:path];
-        if (cell.isSelected) {
+    if (count > 0) {
+        for (int i = 0; i < count; i++) {
+            //因为不能得到除可视范围内的cell ,所以要根据cell里面的  data来计算数据
             MenuModel *data = _dataList[i];
-            totalPrice += (data.foodCount * [data.price intValue]);
-            totalNum += data.foodCount;
+            if (data.isChosen) {// 被选中的
+                totalPrice += (data.foodCount * [data.price intValue]);
+                totalNum += data.foodCount;
+            }
+            else
+            {
+                isAllSelected = NO;//只要有一个没有选中，则不能全选
+            }
         }
+    }else
+    {
+        isAllSelected = NO;//购物车里没有数据，肯定没有全选
     }
     _tooBar.money.text = [NSString stringWithFormat:@"%d",totalPrice];
     _tooBar.numOfFood.text = [NSString stringWithFormat:@"合计：%d份",totalNum];
+    _tooBar.allSelectedBtn.selected = isAllSelected?YES: NO;
 }
 
 #pragma mark 下一步
@@ -99,10 +127,8 @@
         //重新整理购物车中的数据
         NSUInteger count = _dataList.count;
         for (int i = 0; i < count; i++) {
-            NSIndexPath *path =  [NSIndexPath indexPathForRow:i inSection:0];
-            FoodOrderCell *cell = (FoodOrderCell *)[_table cellForRowAtIndexPath:path];
-            if (!cell.selectedBtn.selected) {
-                MenuModel *data = _dataList[i];
+            MenuModel *data = _dataList[i];
+            if (!data.isChosen){
                 //直接在购物车中删除此数据
                 NSMutableArray *car = [CarTool sharedCarTool].totalCarMenu;
                 for (int i = 0; i < car.count; i++) {
@@ -119,10 +145,7 @@
         //到预约页面
         subscribeViewViewController *ctl = [[subscribeViewViewController alloc] init];
         [self.navigationController pushViewController:ctl animated:YES];
-//        if ([self.delegate respondsToSelector:@selector(changeController)]) {
-////
-//            [self.delegate changeController];
-//        }
+
     }else
     {
         [RemindView showViewWithTitle:@"您还没有选择菜单，亲！" location:MIDDLE];
@@ -138,21 +161,23 @@
         //全选,遍历所有cell，cell都是选中状态，计算价格
         NSUInteger count = _dataList.count;
         for (int i = 0; i < count; i++) {
-            NSIndexPath *path =  [NSIndexPath indexPathForRow:i inSection:0];
-            FoodOrderCell *cell = (FoodOrderCell *)[_table cellForRowAtIndexPath:path];
-            cell.selectedBtn.selected = YES;
+            MenuModel *data = _dataList[i];
+            data.isChosen = YES;
         }
+        [_table reloadData];
         [self caculate];
+        
     }else
     {//全部不选，数据清0
         NSUInteger count = _dataList.count;
         for (int i = 0; i < count; i++) {
-            NSIndexPath *path =  [NSIndexPath indexPathForRow:i inSection:0];
-            FoodOrderCell *cell = (FoodOrderCell *)[_table cellForRowAtIndexPath:path];
-            cell.selectedBtn.selected = NO;
+            MenuModel *data = _dataList[i];
+            data.isChosen = NO;
         }
+        [_table reloadData];
         _tooBar.money.text = @"0";
         _tooBar.numOfFood.text = [NSString stringWithFormat:@"合计：%d份",0];
+        
     }
 }
 
@@ -173,17 +198,11 @@
     return cell;
 }
 
+#pragma mark cell选中按钮点击事件
 - (void)FoodOrderCell:(FoodOrderCell *)cell
 {
     [self caculate];
 }
-//#pragma mark 点击cell选中按钮
-//-(void)cellSelected:(UIButton *)btn
-//{
-//    //取消选中时，
-//    btn.selected = !btn.selected;
-//    [self caculate];
-//}
 
 #pragma mark 加减按钮点击
 - (void)CarClickedWithData:(MenuModel *)data buttonType:(ButtonType)type
@@ -211,4 +230,9 @@
     return _dataList.count;
 }
 
+// 1
+//
+//
+//
+//
 @end

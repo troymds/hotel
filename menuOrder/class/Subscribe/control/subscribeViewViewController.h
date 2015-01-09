@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#define KMenuH      60
+#define KMenuH      40
 #define KBackScroolViewH KAppHeight - 44 - KMenuH
 
 @interface subscribeViewViewController : UIViewController

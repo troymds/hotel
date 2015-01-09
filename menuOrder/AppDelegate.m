@@ -104,7 +104,8 @@
                 if (dic) {
             NSString *key = @"CFBundleShortVersionString";
             NSString *version = [NSBundle mainBundle].infoDictionary[key];
-            NSString *current = [dic objectForKey:@"version"];
+//            NSString *current = [dic objectForKey:@"version"];
+                    NSString *current = @"1.0";
             if (![current isEqualToString:version]) {
                 weakSelf.updateUrl = [dic objectForKey:@"url"];
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"检测到新版本" message:nil delegate:weakSelf cancelButtonTitle:@"取消" otherButtonTitles:@"立即升级", nil];

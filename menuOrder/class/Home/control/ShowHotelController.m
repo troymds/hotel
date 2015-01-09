@@ -44,10 +44,33 @@
     self.title = @"渔府风采";
     self.view.backgroundColor = HexRGB(0xe0e0e0);
     
+    //加左右滑动
+    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+    [swipeLeft setNumberOfTouchesRequired:1];
+    [swipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
+    [swipeRight setNumberOfTouchesRequired:1];
+    [swipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
+    
+    [self.view addGestureRecognizer:swipeLeft];
+    [self.view addGestureRecognizer:swipeRight];
+
+    
     _imgArray = [NSMutableArray array];
     currentTag = KStartImgTag;
-//    _photoList = [NSArray array];
+
     [self loadData];
+}
+
+
+//识别侧滑
+- (void)handleSwipe:(UISwipeGestureRecognizer *)gestureRecognizer {
+    if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
+        [self add];
+    }
+    else if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
+        [self plus];
+    }
 }
 
 #pragma mark 加载数据
@@ -58,30 +81,29 @@
     hud.labelText = @"加载中...";
     
     [GetIndexHttpTool GetgetPhotoListWithSuccess:^(NSArray *data, int code, NSString *msg) {
-//        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         if (data.count > 0) {
             //成功得到数据
             _photoList = [NSMutableArray arrayWithArray:data];
-//            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-            UIImageView *tmp = [[UIImageView alloc] init];
-            [self.view addSubview:tmp];
+            //拿到所有的图片
             NSUInteger count = _photoList.count;
-            int i ;
-            for (i = 0; i < count; i++) {
-                NSLog(@"--------%d",i);
-//                __weak UIImageView *imageview = img;
+            __block int num = 0;
+            for (int i = 0; i < count; i++) {
+                UIImageView *tmp = [[UIImageView alloc] init];
+                [self.view addSubview:tmp];
+        
                 [tmp setImageWithURL:[NSURL URLWithString:_photoList[i]] placeholderImage:placeHoderloading completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-                    
+                    num++;
                     UIImage *_img = image;
+                    if (_img == nil) {
+                        _img = LOADPNGIMAGE(@"home_banner");
+                    }
                     [_imgArray addObject:_img];
-                    NSLog(@"%d",i);
-                    if (i == count - 1) {
+                    if (num == count) {
                         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
                         [self buildUI];
                     }
                 }];
             }
-        
         }else
         {
             [RemindView showViewWithTitle:msg location:MIDDLE];
@@ -93,18 +115,16 @@
     }];
 }
 
-//- (void)addsub:(UIImageView *)img
-//{
-//    [_contentView addSubview:img];
-//}
-
 #pragma mark 画UI
 - (void)buildUI
 {
-    
     UIView *contentView  = [[UIView alloc] init];
     [self.view addSubview:contentView];
+    
     contentView.frame = Rect(0, 0, kWidth, kWidth/2);
+    CGFloat x = kWidth / 2;
+    CGFloat y = (KAppHeight - 44) / 2;
+    contentView.center = CGPointMake(x, y);
     _contentView = contentView;
     
     //1 拿到所有图片view
@@ -114,77 +134,41 @@
         img.frame = Rect(0, 0, kWidth, kWidth/2);
         img.tag = KStartImgTag + i;
         img.image = _imgArray[i];
-//        [img setImageWithURL:[NSURL URLWithString:_photoList[i]] placeholderImage:placeHoderloading];
-//        [self performSelector:@selector(addsub:) withObject:img afterDelay:0.6];
         [contentView addSubview:img];
-
     }
     
     //2 把第一张图片放在最上层
     UIImageView *firstView = (UIImageView *)[contentView viewWithTag:KStartImgTag];
     [_contentView bringSubviewToFront:firstView];
-    
-    CGFloat btnY = CGRectGetMaxY(contentView.frame) + 20;
-    UIButton *add = [UIButton buttonWithType:UIButtonTypeContactAdd];
-    add.frame = Rect(180, btnY, 30, 30);
-    [self.view addSubview:add];
-    [add addTarget:self action:@selector(add) forControlEvents:UIControlEventTouchUpInside];
-    _addBtn = add;
-    
-    UIButton *plus = [UIButton buttonWithType:UIButtonTypeInfoDark];
-    plus.frame = Rect(120, btnY, 30, 30);
-    [self.view addSubview:plus];
-    [plus addTarget:self action:@selector(plus) forControlEvents:UIControlEventTouchUpInside];
-    _plusBtn = plus;
-    plus.hidden = YES;
+
 }
 
+#pragma mark 下一页
 -(void)add
 {
-    currentTag += 1;
-    if (currentTag > KStartImgTag) {
-        _plusBtn.hidden = NO;
+    //判断，如果当前页面大于最后一张图片，则把当前页面设置成第一张显示。
+    currentTag++;
+    _type = KNext;
+    if (currentTag >= KStartImgTag + _imgArray.count) {
+        currentTag = KStartImgTag;
     }
-    NSInteger maxTag = KStartImgTag + _photoList.count;
+    [self showCurrentImg:_type];
     
-    [UIView transitionWithView:_contentView
-                      duration:KSuration
-                       options:UIViewAnimationOptionTransitionCurlUp
-                    animations:^{
-                        //根据tag得到需要显示的当前图片
-                        UIImageView *imgView = nil;
-                        for (UIView *view in _contentView.subviews) {
-                            if ([view isKindOfClass:[UIImageView class]]) {
-                                imgView = (UIImageView *)view;
-                                if (imgView.tag == currentTag) {
-                                    [_contentView bringSubviewToFront:imgView];
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    completion:NULL
-     ];
-    
-    if (currentTag == maxTag) {
-        //没有下一张图片了
-        _addBtn.hidden = YES;
-    }
 }
 
--(void)plus
+#pragma mark 翻页显示当前图片
+-(void)showCurrentImg:(annimoType)type
 {
-    NSInteger smallestTag = KStartImgTag;
-    currentTag--;
-    if (currentTag == KStartImgTag) {
-        _plusBtn.hidden = YES;
-    }
-    if (currentTag < KStartImgTag + _photoList.count) {
-        _addBtn.hidden = NO;
+    UIViewAnimationOptions op;
+    if (type == KNext) {
+        op = UIViewAnimationOptionTransitionCurlUp;
+    }else
+    {
+        op = UIViewAnimationOptionTransitionCurlDown;
     }
     [UIView transitionWithView:_contentView
                       duration:KSuration
-                       options:UIViewAnimationOptionTransitionCurlDown
+                       options:op
                     animations:^{
                         //根据tag得到需要显示的当前图片
                         UIImageView *imgView = nil;
@@ -200,8 +184,19 @@
                     }
                     completion:NULL
      ];
-    
-    if (smallestTag == currentTag) {
-        //没有上一张图片了
-    }}
+}
+
+#pragma mark 上一页
+-(void)plus
+{
+    currentTag--;
+    //判断，如果当前页面小于首张图片，则把当前页面设置成最后一张显示。
+    _type = KForward;
+    if (currentTag < KStartImgTag) {
+        currentTag = KStartImgTag + _imgArray.count - 1;
+    }
+    [self showCurrentImg:_type];
+}
+
+
 @end

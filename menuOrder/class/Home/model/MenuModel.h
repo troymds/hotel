@@ -18,5 +18,6 @@
 @property (nonatomic, strong) NSString *cover; //美食图片
 @property (nonatomic, strong) NSString *ID; //id
 @property (nonatomic, assign) int foodCount;//几份菜
+@property (nonatomic, assign) bool isChosen;//是否被选中
 - (instancetype) initWithDic:(NSDictionary *)dic;
 @end

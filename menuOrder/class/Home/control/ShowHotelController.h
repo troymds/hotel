@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ShowHotelController : UIViewController
+typedef enum
+{
+    KNext,
+    KForward
+} annimoType;
 
+@interface ShowHotelController : UIViewController
+@property (nonatomic, assign) annimoType type;
 @end

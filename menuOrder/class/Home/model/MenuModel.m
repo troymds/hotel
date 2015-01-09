@@ -19,6 +19,7 @@
         self.oldPrice =dic[@"old_price"];
         self.cover = dic[@"cover"];
         self.ID =dic[@"id"];
+        self.isChosen = YES;
     }
     return self;
 }
