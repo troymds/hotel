@@ -67,10 +67,14 @@
         _foodName = foodName;
         
         //5 美国money的图标
-        UIImageView *dollarIcon = [[UIImageView alloc] init];
+        UILabel *dollarIcon = [[UILabel alloc] init];
         [whiteBackView addSubview:dollarIcon];
         _dollarIcon = dollarIcon;
-        _dollarIcon.image = LOADPNGIMAGE(@"star");
+        dollarIcon.font = [UIFont systemFontOfSize:PxFont(22)];
+        dollarIcon.textColor = HexRGB(0x605e5f);
+        dollarIcon.backgroundColor = [UIColor clearColor];
+        dollarIcon.text = @"￥";
+        dollarIcon.textAlignment = NSTextAlignmentCenter;
         
         //6 价格
         UILabel *price =  [[UILabel alloc] init];
@@ -128,17 +132,17 @@
     _selectedBtn.selected  = !_selectedBtn.selected;
     _isSelected = _selectedBtn.selected;
     _data.isChosen = _isSelected;
-     // 1 改变购物车数据
-    if (_data.isChosen) {
-        if ([_delegate respondsToSelector:@selector(CarClickedWithData:buttonType:)]) {
-            [_delegate CarClickedWithData:_data buttonType:kButtonAdd];
-        }
-    }else
-    {
-        if ([_delegate respondsToSelector:@selector(CarClickedWithData:buttonType:)]) {
-            [_delegate CarClickedWithData:_data buttonType:kButtonReduce];
-        }
-    }
+     // 1 不能改变购物车数据，只能改变选中与否的状态
+//    if (_data.isChosen) {
+//        if ([_delegate respondsToSelector:@selector(CarClickedWithData:buttonType:)]) {
+//            [_delegate CarClickedWithData:_data buttonType:kButtonAdd];
+//        }
+//    }else
+//    {
+//        if ([_delegate respondsToSelector:@selector(CarClickedWithData:buttonType:)]) {
+//            [_delegate CarClickedWithData:_data buttonType:kButtonReduce];
+//        }
+//    }
     
     // 2选中点击事件，计算数据
     if ([_delegate respondsToSelector:@selector(FoodOrderCell:)]) {

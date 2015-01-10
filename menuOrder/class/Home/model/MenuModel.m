@@ -34,6 +34,7 @@
     [encoder encodeObject:_cover forKey:@"_cover"];
     [encoder encodeObject:_ID forKey:@"_ID"];
     [encoder encodeInt:_foodCount forKey:@"_foodCount"];
+    [encoder encodeBool:_isChosen forKey:@"_isChosen"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder
@@ -46,6 +47,7 @@
         self.cover = [decoder decodeObjectForKey:@"_cover"];
         self.ID = [decoder decodeObjectForKey:@"_ID"];
         self.foodCount = [decoder decodeIntForKey:@"_foodCount"];
+        self.isChosen = [decoder decodeBoolForKey:@"_isChosen"];
     }
     return self;
 }

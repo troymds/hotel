@@ -121,7 +121,7 @@
     UIView *contentView  = [[UIView alloc] init];
     [self.view addSubview:contentView];
     
-    contentView.frame = Rect(0, 0, kWidth, kWidth/2);
+    contentView.frame = Rect(0, 0, kWidth, kWidth);
     CGFloat x = kWidth / 2;
     CGFloat y = (KAppHeight - 44) / 2;
     contentView.center = CGPointMake(x, y);
@@ -131,7 +131,7 @@
     NSUInteger count = _imgArray.count;
     for (int i = 0; i < count; i++) {
         UIImageView *img = [[UIImageView alloc] init];
-        img.frame = Rect(0, 0, kWidth, kWidth/2);
+        img.frame = Rect(0, 0, kWidth, kWidth);
         img.tag = KStartImgTag + i;
         img.image = _imgArray[i];
         [contentView addSubview:img];

@@ -65,7 +65,6 @@
         //1.1 编辑框
         CGFloat editY = (editH + 10)* i - 15;
         EditView * edit = [[EditView alloc] initWithFrame:Rect(0, editY, editW, editH)];
-        
         if (i == 1 || i == 2) {
             edit.edtype = EditNum;
         }else if(i == 3)
@@ -208,7 +207,7 @@
                 
                 [UIView animateWithDuration:0.25 animations:^{
                     if (textField.tag == 201) {
-                        [_backScroll setContentOffset:CGPointMake(0, editViewY) animated:YES];
+                        [_backScroll setContentOffset:CGPointMake(0, editViewY + 15) animated:YES];
                     }else{
                         [_backScroll setContentOffset:CGPointMake(0, editViewY - 30) animated:YES];
                     }
@@ -421,5 +420,9 @@
             }
         }
     }
+    [UIView animateWithDuration:0.6 animations:^{
+        [_backScroll setContentSize:CGSizeMake(kWidth, _contentHeight)];
+        [_backScroll setContentOffset:CGPointMake(0, 0) animated:YES];
+    }];
 }
 @end
