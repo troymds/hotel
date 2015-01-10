@@ -80,11 +80,11 @@
     }else if(editType == EditTime)
     {
         ////        [_pickview remove];
-        NSDate *date = [NSDate dateWithTimeIntervalSinceNow:9000000];
+        NSDate *date = [NSDate date];
         _pickview=[[ZHPickView alloc] initDatePickWithDate:date datePickerMode:UIDatePickerModeDateAndTime isHaveNavControler:NO];
         _pickview.delegate = self;
         _pickview.translatesAutoresizingMaskIntoConstraints = NO;
-
+        
         edit.inputView = _pickview;
         [self addSubview:edit];
     }else
@@ -137,7 +137,7 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
     _selectedText = textField;
-    
+    _pickview.hidden = NO;
     if ([self.delegate respondsToSelector:@selector(textFieldBeganEditting::)]) {
         [self.delegate textFieldBeganEditting:self :_selectedText];
     }
@@ -153,8 +153,8 @@
 #pragma mark ZhpickVIewDelegate 时间选择器
 -(void)toobarDonBtnHaveClick:(ZHPickView *)pickView resultString:(NSString *)resultString timestamp:(NSString *)timestamp{
     _selectedText.text = resultString;
-    
-//    [pickView remove];
+    [_selectedText resignFirstResponder];
+//    pickView.hidden = YES;
     if ([_delegate respondsToSelector:@selector(updateHilightStatus:withTextfield:)]) {
         [_delegate updateHilightStatus:self withTextfield:_selectedText];
     }

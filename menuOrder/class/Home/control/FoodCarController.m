@@ -33,6 +33,14 @@
 
 @implementation FoodCarController
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    //重新计算
+    if (_table) {
+        [self caculate];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (IsIos7) {

@@ -332,7 +332,7 @@
     if ([self.delegate respondsToSelector:@selector(toobarDonBtnHaveClick:resultString:timestamp:)]) {
         [self.delegate toobarDonBtnHaveClick:self resultString:_resultString timestamp:_timeStamp];
     }
-    [self removeFromSuperview];
+//    [self removeFromSuperview];
 }
 /**
  *  设置PickView的颜色

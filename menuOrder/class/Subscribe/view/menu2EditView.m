@@ -152,7 +152,7 @@
                 
                 [UIView animateWithDuration:0.25 animations:^{
                     if (textField.tag == 201) {
-                        [_backScroll setContentOffset:CGPointMake(0, editViewY) animated:YES];
+                        [_backScroll setContentOffset:CGPointMake(0, editViewY + 15) animated:YES];
                     }else{
                         [_backScroll setContentOffset:CGPointMake(0, editViewY - 30) animated:YES];
                     }
@@ -369,6 +369,10 @@
             }
         }
     }
+    [UIView animateWithDuration:0.6 animations:^{
+        [_backScroll setContentSize:CGSizeMake(kWidth, _contentHeight)];
+        [_backScroll setContentOffset:CGPointMake(0, 0) animated:YES];
+    }];
 }
 
 - (BOOL)isValidPhoneNum:(NSString *)phoneNum{
@@ -409,7 +413,7 @@
         }
     }
     if (!isnull && isValidPhone) {
-        [SystemConfig sharedInstance].menuType = 0;
+        [SystemConfig sharedInstance].menuType = 1;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"submit" object:data];
     }else
     {
