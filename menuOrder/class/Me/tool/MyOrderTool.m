@@ -18,7 +18,7 @@
         
         NSDictionary *dict1 =dic[@"response"][@"data"];
         
-        
+        NSLog(@"%@",dic);
         NSMutableArray *timeModelArray = [[NSMutableArray alloc] initWithCapacity:0];
         
         if (![dict1 isKindOfClass:[NSNull class]])
@@ -37,7 +37,7 @@
         }
         else
         {
-            
+            success(nil);
         }
     } failure:^(NSError *error) {
         

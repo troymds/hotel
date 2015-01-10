@@ -147,7 +147,7 @@
         orderCategory.textAlignment=NSTextAlignmentCenter;
         orderCategory.text=_orderCategoryArray[l];
     }
-    backView.frame =CGRectMake(YYBORDERW, YYBORDERW, kWidth-YYBORDERW*2, 280+(_orderCategoryArray.count/2)*30);
+    backView.frame =CGRectMake(YYBORDERW, YYBORDERW, kWidth-YYBORDERW*2, 280+(_orderCategoryArray.count/2)*40);
     if (_orderCategoryArray.count==0) {
         
         UILabel *noOrder =[[UILabel alloc]initWithFrame:CGRectMake(0, YYBORDERWw+230, kWidth, 20 )];
@@ -160,7 +160,7 @@
         
 
     }
-    backScrollView.contentSize=CGSizeMake(kWidth, 290+(_orderCategoryArray.count/2)*30);
+    backScrollView.contentSize=CGSizeMake(kWidth, 290+(_orderCategoryArray.count/2)*40);
     
 }
 - (void)didReceiveMemoryWarning {

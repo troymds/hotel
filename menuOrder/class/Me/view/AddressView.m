@@ -60,7 +60,8 @@
 #pragma mark ---加载数据
 -(void)addLoadStatus
 {
-    
+    NSString *uid = [[NSUserDefaults standardUserDefaults] objectForKey:@"uid"];
+
     [addressListTool statusesWithSuccess:^(NSArray *statues) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         
@@ -78,7 +79,7 @@
         
         [_addressArray addObjectsFromArray:statues];
         [_tableView reloadData];
-    } uid_ID:@"uid" failure:^(NSError *error) {
+    } uid_ID:uid failure:^(NSError *error) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         [RemindView showViewWithTitle:@"网络错误！" location:MIDDLE];
         

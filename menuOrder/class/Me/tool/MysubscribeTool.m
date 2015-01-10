@@ -17,19 +17,19 @@
         
         NSDictionary *dic =[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:nil];
         
-        NSDictionary *dict1 =dic[@"response"];
-        NSLog(@"%@",dict1);
+        NSDictionary *dict1 =[dic[@"response"] objectForKey:@"data"];
+        NSLog(@"%@",dic);
         
         if (![dict1 isKindOfClass:[NSNull class]])
         {
-            MysubscribeModel *mysubModel = [[MysubscribeModel alloc] initWithDictionaryForSubscribeList:[dict1 objectForKey:@"data"]];
+            MysubscribeModel *mysubModel = [[MysubscribeModel alloc] initWithDictionaryForSubscribeList:dict1];
             
              success(mysubModel.allModelArray);
             
         }
         else
         {
-            
+            success(nil);
         }
        
 

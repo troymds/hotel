@@ -33,7 +33,6 @@
     [self addTableView];
     [self addLoadStatus];
     [self addNoStatusImage];
-    [self addMBprogressView];
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -41,27 +40,28 @@
 }
 //没有数据时的状态
 -(void)addNoStatusImage{
-    noStatusImg =[[UIImageView alloc]initWithFrame:CGRectMake((kWidth-230)/2, ((kHeight-100)/8)*5, 230, 100)];
+    noStatusImg =[[UIImageView alloc]initWithFrame:CGRectMake((kWidth-230)/2, (kHeight-100)/2, 230, 100)];
     [self.view addSubview:noStatusImg];
     noStatusImg.image =[UIImage imageNamed:@"noOrder_img"];
     
     noStatusImg.hidden =YES;
 }
 #pragma  mark ------显示指示器
--(void)addMBprogressView{
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"加载中...";
-}
+
 #pragma mark ---加载数据
 -(void)addLoadStatus
 {
-    [MyOrderTool myOrderUid:@"uid" statusesWithSuccess:^(NSMutableArray *statues) {
-        
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"加载中...";
+    NSString *uid = [[NSUserDefaults standardUserDefaults] objectForKey:@"uid"];
+
+    [MyOrderTool myOrderUid:uid statusesWithSuccess:^(NSMutableArray *statues) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+
         
         [_sectionTitleArray addObjectsFromArray:statues];
 
         
-        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         
         if (_sectionTitleArray.count>0)
         {
@@ -70,8 +70,8 @@
         }
         else
         {
-            _tableView.hidden =NO;
-            noStatusImg.hidden =YES;
+            _tableView.hidden =YES;
+            noStatusImg.hidden =NO;
         }
         
         [_tableView reloadData];
@@ -90,7 +90,8 @@
     _tableView.showsHorizontalScrollIndicator = NO;
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
+//    _tableView.backgroundColor =[UIColor redColor];
+
     [self.view addSubview:_tableView];
     
 }

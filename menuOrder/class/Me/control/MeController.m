@@ -100,16 +100,25 @@
         }if (i==5) {
             myBtn.frame =CGRectMake(0, HearderImageH+YYBODERY*2+i%7*BUTTONH, kWidth, BUTTONH);
         }if (i==6) {
+            
+            UILabel *version=[[UILabel alloc]initWithFrame:CGRectMake(kWidth-110, 0, 110, BUTTONH)];
+            [myBtn addSubview:version];
+            version.text=@"当前版本1.0";
+            version.font =[UIFont systemFontOfSize:PxFont(16)];
+            version.textColor=HexRGB(0x605e5f);
+            version.backgroundColor =[UIColor clearColor];
             myBtn.frame =CGRectMake(0, HearderImageH+YYBODERY*2+i%7*BUTTONH, kWidth, BUTTONH);
         }
         myBtn.backgroundColor =[UIColor whiteColor];
         [myBtn addTarget:self action:@selector(myBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         myBtn.tag =MYBTNTAG+i;
 //        返回图片
-        UIImageView *returnImage =[[UIImageView alloc]initWithFrame:CGRectMake(kWidth-BUTTONH-YYBODERY+10, 10, 20, 20)];
+        UIImageView *returnImage =[[UIImageView alloc]initWithFrame:CGRectMake(kWidth-BUTTONH-YYBODERY+20, 10, 20, 20)];
         [myBtn addSubview:returnImage];
         returnImage.userInteractionEnabled=YES;
         returnImage.image=[UIImage imageNamed:@"reture_img"];
+        
+        
         
     }
     for (int l=0; l<9; l++) {
@@ -167,12 +176,12 @@
         NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:@"version",@"version", nil];
         [HttpTool postWithPath:@"getNewestVersion" params:param success:^(id JSON) {
             NSDictionary *result = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:nil];
-            NSDictionary *dic = [result objectForKey:@"response"];
+            NSDictionary *dic = [[result objectForKey:@"response"]objectForKey:@"data"];
             if (dic) {
                 NSString *key = (NSString *)kCFBundleVersionKey;
                 NSString *version = [NSBundle mainBundle].infoDictionary[key];
                 NSString *current = [dic objectForKey:@"version"];
-                NSLog(@"---%@",current);
+               
                 if ([current isEqualToString:version]) {
                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"版本更新" message:@"您当前已是最新版本" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles:nil, nil];
                     alertView.tag = 1000;

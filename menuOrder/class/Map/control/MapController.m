@@ -27,7 +27,7 @@ typedef NS_ENUM(NSInteger, TravelTypes)
 };
 
 
-@interface MapController ()<AMapNaviViewControllerDelegate>
+@interface MapController ()<AMapNaviViewControllerDelegate,CLLocationManagerDelegate>
 
 @property (nonatomic, strong) AMapNaviPoint         *startPoint;
 @property (nonatomic, strong) AMapNaviPoint         *endPoint;
@@ -90,6 +90,10 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     // 初始化travel方式为驾车方式
     self.travelType = TravelTypeCar;
     _locationManager =[[CLLocationManager alloc]init];
+    _locationManager.delegate =self;
+    _locationManager.desiredAccuracy =kCLLocationAccuracyBest;
+    _locationManager.distanceFilter=10;
+    [_locationManager startUpdatingLocation];
 
     [self configMapView];
 }
@@ -113,7 +117,29 @@ typedef NS_ENUM(NSInteger, TravelTypes)
         
     }];
 }
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    CLLocation *currLocation = [locations lastObject];
+//    NSLog(@"经度=%f 纬度=%f 高度=%f", currLocation.coordinate.latitude, currLocation.coordinate.longitude, currLocation.altitude);
+    _startPoint =[AMapNaviPoint locationWithLatitude:currLocation.coordinate.latitude  longitude:currLocation.coordinate.longitude];;
+ 
+}
 
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    if ([error code] == kCLErrorDenied)
+    {
+        //访问被拒绝
+    }
+    if ([error code] == kCLErrorLocationUnknown) {
+        //无法获取位置信息
+    }
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [_locationManager stopUpdatingLocation];
+}
 -(void)addUIView
 {
     UIButton *phoneTel = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -166,9 +192,9 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     
     _endPoint   = [AMapNaviPoint locationWithLatitude:mapLat   longitude:mapLong];
     
-    _startPoint =[AMapNaviPoint locationWithLatitude:32.035729   longitude:118.793396];;
+    _startPoint =[AMapNaviPoint locationWithLatitude:32.035729   longitude:118.793396];
     
-    
+   
 }
 
 
@@ -197,7 +223,7 @@ typedef NS_ENUM(NSInteger, TravelTypes)
 - (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation
 {
     
-    
+   
     _currentPoint = [AMapNaviPoint locationWithLatitude:mapView.userLocation.location.coordinate.latitude longitude:mapView.userLocation.location.coordinate.longitude];
    
     
@@ -216,33 +242,34 @@ typedef NS_ENUM(NSInteger, TravelTypes)
             [self.myMapView addAnnotations:self.annotations];
         }
 
-        NSLog(@"11111%@",_startPoint);
         
         NSArray *startPoints = @[_startPoint];
         NSArray *endPoints   = @[_endPoint];
         
         if (self.travelType == TravelTypeCar)
         {
-            NSLog(@"22222%@",_startPoint);
+//            NSLog(@"22222%@",_startPoint);
             [self.naviManager calculateWalkRouteWithStartPoints:startPoints endPoints:endPoints];
-            NSLog(@"444444444");
+//            NSLog(@"444444444");
 //            [self.naviManager calculateDriveRouteWithStartPoints:startPoints endPoints:endPoints wayPoints:nil drivingStrategy:0];
         }
         else
         {
             [self.naviManager calculateWalkRouteWithStartPoints:startPoints endPoints:endPoints];
-            NSLog(@"3333333%@",_startPoint);
+//            NSLog(@"3333333%@",_startPoint);
         }
 
-        NSLog(@"55555555%@",_startPoint);
+//        NSLog(@"55555555%@",_startPoint);
        
+
        
-        
+       NSLog(@"%@",_startPoint);
         _locChange = YES;
         
     }
     if ([[[UIDevice currentDevice]systemVersion]floatValue]>=8)
     {
+         
         [_locationManager requestAlwaysAuthorization];
         [_locationManager startUpdatingLocation];
 

@@ -28,11 +28,12 @@
 
 -(instancetype)initWithForOrderListTime:(NSArray *)array
 {
-    NSLog(@"array ---%@",array);
+   
     
     if ([super self])
     {
         _timeArray =[[NSMutableArray alloc] initWithCapacity:0];
+        
         _timeTitle = [[(NSDictionary*)[array objectAtIndex:0] objectForKey:@"create_time"] stringByReplacingOccurrencesOfString:@"-" withString:@"."];
         
         for (NSDictionary *dict in array)

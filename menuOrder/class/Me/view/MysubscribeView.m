@@ -39,7 +39,6 @@
     [self addTableView];
     [self addLoadStatus];
     [self addNoStatusImage];
-    [self addMBprogressView];
 
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -55,19 +54,23 @@
     noStatusImg.hidden =YES;
 }
 #pragma  mark ------显示指示器
--(void)addMBprogressView{
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"加载中...";
+
+
     
-    
-}
+
 
 #pragma mark ---加载数据
 -(void)addLoadStatus
 {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"加载中...";
+
+     NSString *uid = [[NSUserDefaults standardUserDefaults] objectForKey:@"uid"];
+    
+    NSLog(@"----------%@",uid);
   [MysubscribeTool statusesWithSuccess:^(NSMutableArray *statues) {
       [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-
+   
       if (statues.count>0) {
           _tableView.hidden =NO;
           noStatusImg.hidden =YES;
@@ -80,7 +83,7 @@
       _overdueArray = [statues objectAtIndex:1];
       
       [_tableView reloadData];
-  } orderListUid_ID:@"uid" failure:^(NSError *error) {
+  } orderListUid_ID:uid failure:^(NSError *error) {
       [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
       [RemindView showViewWithTitle:@"网络错误！" location:MIDDLE];
 
@@ -208,7 +211,7 @@
 //        }
 //    }
 
-    sectionLabel.frame=CGRectMake(15, -5, 150, 40);
+    sectionLabel.frame=CGRectMake(8, -5, 150, 40);
     return headerView;
 }
 

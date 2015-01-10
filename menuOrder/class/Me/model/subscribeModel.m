@@ -17,7 +17,8 @@
         self.cover =dict[@"cover"];
         self.type =dict[@"type"];
         self.subscribeID =dict[@"id"];
-        self.use_time =dict[@"use_time"];
+        self.use_time =[dict[@"use_time"]stringByReplacingOccurrencesOfString:@"-" withString:@"."];
+
         self.people_num =dict[@"people_num"];
     }
     return self;
