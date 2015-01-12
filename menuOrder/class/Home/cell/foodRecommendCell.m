@@ -85,12 +85,22 @@
         //5 价格
         UILabel *price =  [[UILabel alloc] init];
         price.frame = CGRectZero;
-        price.font = [UIFont systemFontOfSize:PxFont(18)];
-        price.textColor = HexRGB(0x605e5f);
+        price.font = [UIFont systemFontOfSize:PxFont(20)];
+        price.textColor = HexRGB(0x3b7800);
         price.backgroundColor = [UIColor clearColor];
         price.text = @"299/例";
         [whiteBackView addSubview:price];
         _price = price;
+        
+        //5 元
+        UILabel *yuan =  [[UILabel alloc] init];
+        yuan.frame = CGRectZero;
+        yuan.font = [UIFont systemFontOfSize:PxFont(14)];
+        yuan.textColor = HexRGB(0x605e5f);
+        yuan.backgroundColor = [UIColor clearColor];
+        yuan.text = @"元";
+        [whiteBackView addSubview:yuan];
+        _yuan = yuan;
         
         //6 减号按钮
         UIButton * plusbtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -175,7 +185,7 @@
     if (count == 0) {
         _foodConnt.text = [NSString stringWithFormat:@""];
     }else{
-        _foodConnt.text = [NSString stringWithFormat:@"%d",count];
+        _foodConnt.text = [NSString stringWithFormat:@"%ld",(long)count];
     }
 }
 
@@ -234,6 +244,17 @@
     //5 价格
     _price.frame = Rect(CGRectGetMaxX(_todayPrice.frame) - 15, _todayPrice.frame.origin.y - 8, 80, KPriceH);
     _price.text = data.price;
+    
+    CGFloat yuanW ;
+    CGFloat w = [_price.text intValue];
+    if (w > 99 && w <1000) {
+        yuanW = 30;
+    }else
+    {
+        yuanW = 20;
+    }
+    _yuan.frame = Rect(_price.frame.origin.x + yuanW, _price.frame.origin.y + 1, 40, KPriceH);
+    
     //6 减号按钮
     CGFloat buttonY = foodNameY + KLeftX;
     CGFloat buttonX = KBackViewW - KLeftX - KAddbtnW * 2 - 18;

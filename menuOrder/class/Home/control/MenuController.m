@@ -129,9 +129,9 @@
     if (!cell)
     {
         cell =[[MenuCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(8,94, 222, 1)];
-        lineView.backgroundColor = HexRGB(0xd5d5d5);
-        [cell.contentView addSubview:lineView];
+//        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(8,87, 222, 1)];
+//        lineView.backgroundColor = HexRGB(0xd5d5d5);
+//        [cell.contentView addSubview:lineView];
     }
     MenuModel *data = _productsList[indexPath.row];
     cell.data = data;
@@ -201,7 +201,7 @@
 #pragma mark tableview cell 高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 95;
+    return 87;
 }
 
 #pragma mark tableview 行数

@@ -153,6 +153,7 @@
     datePicker.datePickerMode = datePickerMode;
     datePicker.backgroundColor=[UIColor lightGrayColor];
     if (_defaulDate) {
+        datePicker.minimumDate = _defaulDate;
         [datePicker setDate:_defaulDate];
     }
     _datePicker=datePicker;

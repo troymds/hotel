@@ -62,12 +62,23 @@
         //4 价格
         UILabel *price =  [[UILabel alloc] init];
         price.frame = CGRectZero;
-        price.font = [UIFont systemFontOfSize:PxFont(18)];
-        price.textColor = HexRGB(0x605e5f);
+        price.font = [UIFont systemFontOfSize:PxFont(20)];
+        price.textColor = HexRGB(0x3b7800);
         price.backgroundColor = [UIColor clearColor];
         price.text = @"299/元";
         [self addSubview:price];
         _price = price;
+        
+        
+        //5 元
+        UILabel *yuan =  [[UILabel alloc] init];
+        yuan.frame = CGRectZero;
+        yuan.font = [UIFont systemFontOfSize:PxFont(14)];
+        yuan.textColor = HexRGB(0x605e5f);
+        yuan.backgroundColor = [UIColor clearColor];
+        yuan.text = @"元";
+        [self addSubview:yuan];
+        _yuan = yuan;
         
         //5 减号按钮
         UIButton * plusbtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -221,6 +232,17 @@
     //4 价格
     _price.frame = Rect(CGRectGetMaxX(_todayPrice.frame) - 20, _todayPrice.frame.origin.y-3, 100, KPriceH);
     _price.text = data.price;
+    
+    CGFloat yuanW ;
+    CGFloat w = [_price.text intValue];
+    if (w > 99 && w <1000) {
+        yuanW = 28;
+    }else
+    {
+        yuanW = 18;
+    }
+    _yuan.frame = Rect(_price.frame.origin.x + yuanW, _price.frame.origin.y + 1, 40, KPriceH);
+    
     //6 减号按钮
     CGFloat buttonY = KLeftX + 5;
     CGFloat buttonX = self.frame.size.width - KImgH * 3 + 1;

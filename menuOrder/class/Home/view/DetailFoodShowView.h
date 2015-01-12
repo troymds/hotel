@@ -31,6 +31,7 @@
 @property (nonatomic, strong) UILabel *foodConnt;//数量
 @property (nonatomic, strong) UILabel *comment;//品论
 @property (nonatomic, strong) UILabel *todayPrice;//品论
+@property (nonatomic, strong) UILabel *yuan;//元
 @property (nonatomic, assign) int count;
 @property (nonatomic, strong) ProductDetailModel *data;
 @property (nonatomic, weak) id<DetailFoodShowViewDelegate> delegate;
