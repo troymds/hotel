@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "ZYAnnotation.h"
+#import <AMapNaviKit/MAMapKit.h>
+#import <AMapNaviKit/AMapNaviKit.h>
 
-#import "BaseNaviViewController.h"
+@interface MapController : UIViewController<MAMapViewDelegate,AMapNaviManagerDelegate>
 
-@interface MapController : BaseNaviViewController
+@property (nonatomic, strong) MAMapView *myMapView;
+
+@property (nonatomic, strong) AMapNaviManager *naviManager;
 
 @end

@@ -23,11 +23,11 @@
 #import "uidTool.h"
 
 
-#import "iflyMSC/IFlySpeechSynthesizer.h"
-#import "iflyMSC/IFlySpeechSynthesizerDelegate.h"
-#import "iflyMSC/IFlySpeechConstant.h"
-#import "iflyMSC/IFlySpeechUtility.h"
-#import "iflyMSC/IFlySetting.h"
+//#import "iflyMSC/IFlySpeechSynthesizer.h"
+//#import "iflyMSC/IFlySpeechSynthesizerDelegate.h"
+//#import "iflyMSC/IFlySpeechConstant.h"
+//#import "iflyMSC/IFlySpeechUtility.h"
+//#import "iflyMSC/IFlySetting.h"
 #import <AMapNaviKit/AMapNaviKit.h>
 #import "APIKey.h"
 
@@ -56,7 +56,8 @@
     NSString *version = [NSBundle mainBundle].infoDictionary[key];
     // 2.从沙盒中取出上次存储的版本号
     NSString *saveVersion = [[NSUserDefaults standardUserDefaults] objectForKey:key];
-    if (saveVersion) {
+    if (saveVersion)
+    {
         [self checkVersion];
     }
     
@@ -132,13 +133,13 @@
                               weiboSDKCls:[WeiboSDK class]];
     
     //添加QQ空间应用  注册网址  http://connect.qq.com/intro/login/
-    [ShareSDK connectQZoneWithAppKey:@"100371282"
-                           appSecret:@"aed9b0303e3ed1e27bae87c33761161d"
+    [ShareSDK connectQZoneWithAppKey:@"1104005075"
+                           appSecret:@"QFkbo0F8bS2OPaIP"
                    qqApiInterfaceCls:[QQApiInterface class]
                      tencentOAuthCls:[TencentOAuth class]];
     
     //添加QQ应用  注册网址  http://open.qq.com/
-    [ShareSDK connectQQWithQZoneAppKey:@"100371282"
+    [ShareSDK connectQQWithQZoneAppKey:@"1104005075"
                      qqApiInterfaceCls:[QQApiInterface class]
                        tencentOAuthCls:[TencentOAuth class]];
     

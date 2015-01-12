@@ -97,7 +97,7 @@
         [RemindView showViewWithTitle:@"联系人详细地址不能为空" location:MIDDLE];
         
     }else if(![self isValidateMobile:telStr]){
-        [RemindView showViewWithTitle:@"手机号不合法" location:TOP];
+        [RemindView showViewWithTitle:@"请输入正确的手机号码" location:MIDDLE];
 
     }
     else{

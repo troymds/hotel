@@ -18,19 +18,47 @@
         
         NSDictionary *dict1 =dic[@"response"][@"data"];
         
-        NSLog(@"%@",dic);
+        NSLog(@"%@",dict1);
         NSMutableArray *timeModelArray = [[NSMutableArray alloc] initWithCapacity:0];
         
         if (![dict1 isKindOfClass:[NSNull class]])
         {
-            for (NSString *time in dict1)
+            NSArray *current = dict1[@"time"];
+            
+            NSString *_timeTitle = nil;
+            NSMutableArray *_currentArray;
+            
+            
+            for (NSDictionary *dict in current)
             {
-                NSArray *current = [dict1 objectForKey:time];
                 
-                myOrderListTimeModel *mysubModel = [[myOrderListTimeModel alloc] initWithForOrderListTime:current];
+                if (![_timeTitle isEqualToString:[dict objectForKey:@"create_time"]])
+                {
+//                    _timeArray =[[NSMutableArray alloc] initWithCapacity:0];
+                    NSMutableArray *currentArr =[[NSMutableArray alloc] initWithCapacity:0];
+                    myOrderListModel *orderModel =[[myOrderListModel alloc]initWithForOrderList:dict];
+ 
+                    orderModel.createTime = [[dict objectForKey:@"create_time"] stringByReplacingOccurrencesOfString:@"-" withString:@"."];
+                    
+                    [currentArr addObject:orderModel];
+                    [timeModelArray addObject:currentArr];
+                    
+                    _timeTitle = [dict objectForKey:@"create_time"];
+                    _currentArray = currentArr;
+    
+                }
+                else
+                {
+                    myOrderListModel *orderModel =[[myOrderListModel alloc]initWithForOrderList:dict];
+                    orderModel.createTime = [[dict objectForKey:@"create_time"] stringByReplacingOccurrencesOfString:@"-" withString:@"."];
+                    [_currentArray addObject:orderModel];
+                }
+
                 
-                [timeModelArray addObject:mysubModel];
             }
+            
+//            myOrderListTimeModel *mysubModel = [[myOrderListTimeModel alloc] initWithForOrderListTime:current];
+            
             
             
             success(timeModelArray);

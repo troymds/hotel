@@ -90,12 +90,12 @@
     }else if (_type == 1)
     {
         //外带取餐
-        NSArray *titles = @[ [NSString stringWithFormat:@"订单金额:  %@ 元",_totalPrice], [NSString stringWithFormat:@"联系人：%@",_data.contact], [NSString stringWithFormat:@"电话：%@",_data.tel],[NSString stringWithFormat:@"就餐时间：%@",_data.use_time] ];
+        NSArray *titles = @[ [NSString stringWithFormat:@"订单金额:  %@ 元",_totalPrice], [NSString stringWithFormat:@"联系人：%@",_data.contact], [NSString stringWithFormat:@"电话：%@",_data.tel],[NSString stringWithFormat:@"取餐时间：%@",_data.use_time] ];
         [self buildWithData:titles];
     }else
     {
         //外卖服务
-        NSArray *titles = @[ [NSString stringWithFormat:@"订单金额:  %@ 元",_totalPrice], [NSString stringWithFormat:@"联系人：%@",_data.contact], [NSString stringWithFormat:@"电话：%@",_data.tel],[NSString stringWithFormat:@"地址：%@",_data.address_content],[NSString stringWithFormat:@"就餐时间：%@",_data.use_time] ];
+        NSArray *titles = @[ [NSString stringWithFormat:@"订单金额:  %@ 元",_totalPrice], [NSString stringWithFormat:@"联系人：%@",_data.contact], [NSString stringWithFormat:@"电话：%@",_data.tel],[NSString stringWithFormat:@"地址：%@",_data.address_content],[NSString stringWithFormat:@"送达时间：%@",_data.use_time] ];
         [self buildWithData:titles];
     }
 }
@@ -168,8 +168,8 @@
         
         UIButton *conform = [UIButton buttonWithType:UIButtonTypeCustom];
         CGFloat conformY = CGRectGetMaxY(_backView.frame) + 20;
-        conform.frame = Rect(YYBORDERW, conformY, _backView.frame.size.width, 30);
-        [conform setBackgroundImage:LOADPNGIMAGE(@"home_ok") forState:UIControlStateNormal];
+        conform.frame = Rect(YYBORDERW, conformY, _backView.frame.size.width, 40);
+        [conform setBackgroundImage:LOADPNGIMAGE(@"submit_ok") forState:UIControlStateNormal];
         [conform addTarget:self action:@selector(conform) forControlEvents:UIControlEventTouchUpInside];
         [_backScroll addSubview:conform];
         
@@ -194,8 +194,8 @@
         
         UIButton *conform = [UIButton buttonWithType:UIButtonTypeCustom];
         CGFloat conformY = CGRectGetMaxY(_backView.frame) + 20;
-        conform.frame = Rect(YYBORDERW, conformY, _backView.frame.size.width, 30);
-        [conform setBackgroundImage:LOADPNGIMAGE(@"home_ok") forState:UIControlStateNormal];
+        conform.frame = Rect(YYBORDERW, conformY, _backView.frame.size.width, 40);
+        [conform setBackgroundImage:LOADPNGIMAGE(@"submit_ok") forState:UIControlStateNormal];
         [conform addTarget:self action:@selector(conform) forControlEvents:UIControlEventTouchUpInside];
         [_backScroll addSubview:conform];
     }

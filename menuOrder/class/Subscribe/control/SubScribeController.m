@@ -221,7 +221,7 @@
 #pragma mark 外带取餐
 -(void)buildMenu2UIwithTime:(int)time
 {
-    NSArray *placeHolds = @[@"姓名",@"联系电话",@"就餐时间",@"其他就餐要求(选填)"];
+    NSArray *placeHolds = @[@"姓名",@"联系电话",@"取餐时间",@"其他就餐要求(选填)"];
     NSArray *icons = @[@"home_contacts_icon",@"home_phone_icon",@"home_time_icom",@"home_remark_icon"];
     [self buileEditView:placeHolds icons:icons pageNum:1 scrollView:_menu2Scrool timePage:time];
 
@@ -230,7 +230,7 @@
 #pragma mark 外卖服务
 -(void)buildMenu3UIwithTime:(int)time
 {
-    NSArray *placeHolds = @[@"姓名",@"联系电话",@"就餐人数",@"就餐时间",@"其他就餐要求(选填)"];
+    NSArray *placeHolds = @[@"姓名",@"联系电话",@"就餐人数",@"送达时间",@"其他就餐要求(选填)"];
     NSArray *icons = @[@"home_contacts_icon",@"home_phone_icon",@"humans",@"home_time_icom",@"home_remark_icon"];
     [self buileEditView:placeHolds icons:icons pageNum:2 scrollView:_menu3Scrool timePage:time];
 

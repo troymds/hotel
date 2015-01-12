@@ -47,7 +47,7 @@
         backScroll.delegate = self;
         backScroll.contentSize = CGSizeMake(kWidth, frame.size.height);
         
-        NSArray *placeHolds = @[@"地址",@"就餐时间",@"其他就餐要求(选填)"];
+        NSArray *placeHolds = @[@"地址",@"送达时间",@"其他就餐要求(选填)"];
         NSArray *icons = @[@"home_address_icon",@"home_time_icom",@"home_remark_icon"];
         [self buileEditView:placeHolds icons:icons];
     }
@@ -188,7 +188,7 @@
     backScroll.userInteractionEnabled = YES;
     backScroll.delegate = self;
     backScroll.contentSize = CGSizeMake(kWidth, KBackScroolViewH);
-    NSArray *placeHolds = @[@"姓名",@"联系电话",@"地址",@"就餐时间",@"其他就餐要求(选填)"];
+    NSArray *placeHolds = @[@"姓名",@"联系电话",@"地址",@"送达时间",@"其他就餐要求(选填)"];
     NSArray *icons = @[@"home_contacts_icon",@"home_phone_icon",@"home_address_icon",@"home_time_icom",@"home_remark_icon"];
     
     [self builEditView:placeHolds icons:icons withaddressData:data];

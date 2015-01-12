@@ -11,7 +11,6 @@
 		18F0FA761A4B2C1C004E85A7 /* UIView+Geometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0FA5D1A4B2C1C004E85A7 /* UIView+Geometry.m */; };
 		18F0FA771A4B2C1C004E85A7 /* BaseNaviViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0FA621A4B2C1C004E85A7 /* BaseNaviViewController.m */; };
 		18F0FA781A4B2C1C004E85A7 /* AMapNaviKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F0FA641A4B2C1C004E85A7 /* AMapNaviKit.framework */; };
-		18F0FA791A4B2C1C004E85A7 /* iflyMSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F0FA651A4B2C1C004E85A7 /* iflyMSC.framework */; };
 		18F0FA7A1A4B2C1C004E85A7 /* dropdown.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F0FA681A4B2C1C004E85A7 /* dropdown.png */; };
 		18F0FA7B1A4B2C1C004E85A7 /* dropup.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F0FA691A4B2C1C004E85A7 /* dropup.png */; };
 		18F0FA7C1A4B2C1C004E85A7 /* MACombox.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0FA6B1A4B2C1C004E85A7 /* MACombox.m */; };
@@ -224,7 +223,6 @@
 		18F0FA611A4B2C1C004E85A7 /* BaseNaviViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNaviViewController.h; sourceTree = "<group>"; };
 		18F0FA621A4B2C1C004E85A7 /* BaseNaviViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNaviViewController.m; sourceTree = "<group>"; };
 		18F0FA641A4B2C1C004E85A7 /* AMapNaviKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapNaviKit.framework; sourceTree = "<group>"; };
-		18F0FA651A4B2C1C004E85A7 /* iflyMSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = iflyMSC.framework; sourceTree = "<group>"; };
 		18F0FA681A4B2C1C004E85A7 /* dropdown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dropdown.png; sourceTree = "<group>"; };
 		18F0FA691A4B2C1C004E85A7 /* dropup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dropup.png; sourceTree = "<group>"; };
 		18F0FA6A1A4B2C1C004E85A7 /* MACombox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MACombox.h; sourceTree = "<group>"; };
@@ -600,7 +598,6 @@
 				F33543B51A36A70D005B21C8 /* Security.framework in Frameworks */,
 				F33543B91A36A73F005B21C8 /* libz.1.2.5.dylib in Frameworks */,
 				F33543C71A36A917005B21C8 /* libicucore.dylib in Frameworks */,
-				18F0FA791A4B2C1C004E85A7 /* iflyMSC.framework in Frameworks */,
 				F33543C51A36A898005B21C8 /* CoreTelephony.framework in Frameworks */,
 				F33543BD1A36A7A3005B21C8 /* QuartzCore.framework in Frameworks */,
 				F33543C11A36A81D005B21C8 /* SystemConfiguration.framework in Frameworks */,
@@ -698,7 +695,6 @@
 			isa = PBXGroup;
 			children = (
 				18F0FA641A4B2C1C004E85A7 /* AMapNaviKit.framework */,
-				18F0FA651A4B2C1C004E85A7 /* iflyMSC.framework */,
 			);
 			path = Extern;
 			sourceTree = "<group>";
@@ -1645,7 +1641,7 @@
 				ORGANIZATIONNAME = promo;
 				TargetAttributes = {
 					F33541D81A367D91005B21C8 = {
-						DevelopmentTeam = QE24QR2JRW;
+						DevelopmentTeam = 8XX9P5VNWY;
 					};
 					F33541F31A367D91005B21C8 = {
 						DevelopmentTeam = 64Y2W23677;
@@ -1919,7 +1915,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: guanghui Wu (6M5F7M295T)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: guanghui Wu (6M5F7M295T)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1937,6 +1934,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "6b191c94-b418-4914-a1a6-99596fb2d818";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1957,7 +1955,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: guanghui Wu (6M5F7M295T)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: guanghui Wu (6M5F7M295T)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1968,6 +1967,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PROVISIONING_PROFILE = "6b191c94-b418-4914-a1a6-99596fb2d818";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

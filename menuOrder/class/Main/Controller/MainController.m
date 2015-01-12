@@ -49,10 +49,10 @@
     [self addChildViewController:nav2];
  
     // 3.地图
-    BaseNaviViewController *subViewController = [[NSClassFromString(@"MapController") alloc] init];
+    MapController *subViewController = [[MapController alloc] init];
     subViewController.title = @"地图";
     
-    WBNavigationController *nav3 = [[WBNavigationController alloc] initWithRootViewController:(UIViewController*)subViewController];
+    WBNavigationController *nav3 = [[WBNavigationController alloc] initWithRootViewController:subViewController];
     
     nav3.delegate = self;
     [self addChildViewController:nav3];

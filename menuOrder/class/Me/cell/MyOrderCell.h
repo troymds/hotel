@@ -17,7 +17,6 @@
 @property (copy, nonatomic)  UIImageView *secMeOrderImage;
 @property (copy, nonatomic)  UILabel *secMeOrderTitle;
 
-
 @property (copy, nonatomic)   UIImageView *backImage;
 
 

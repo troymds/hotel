@@ -12,25 +12,25 @@
 
 #pragma mark - Utility
 
-- (void)clearMapView
-{
-    self.myMapView.showsUserLocation = NO;
-    
-    [self.myMapView removeAnnotations:self.myMapView.annotations];
-    
-    [self.myMapView removeOverlays:self.myMapView.overlays];
-    
-    self.myMapView.delegate = nil;
-}
-
-#pragma mark - Handle Action
-
-- (void)returnAction
-{
-    [self.navigationController popViewControllerAnimated:YES];
-    
-    [self clearMapView];
-}
+//- (void)clearMapView
+//{
+//    self.myMapView.showsUserLocation = NO;
+//    
+//    [self.myMapView removeAnnotations:self.myMapView.annotations];
+//    
+//    [self.myMapView removeOverlays:self.myMapView.overlays];
+//    
+//    self.myMapView.delegate = nil;
+//}
+//
+//#pragma mark - Handle Action
+//
+//- (void)returnAction
+//{
+//    [self.navigationController popViewControllerAnimated:YES];
+//    
+//    [self clearMapView];
+//}
 
 #pragma mark - Initialization
 
@@ -42,18 +42,16 @@
     }
     
     self.myMapView.frame = self.view.bounds;
-    
-    self.myMapView.delegate = self;
-    
+
 }
 
-- (void)initBaseNavigationBar
-{
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back"
-                                                                             style:UIBarButtonItemStyleBordered
-                                                                            target:self
-                                                                            action:@selector(returnAction)];
-}
+//- (void)initBaseNavigationBar
+//{
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back"
+//                                                                             style:UIBarButtonItemStyleBordered
+//                                                                            target:self
+//                                                                            action:@selector(returnAction)];
+//}
 
 - (void)initTitle:(NSString *)title
 {
@@ -66,13 +64,6 @@
     
     self.navigationItem.titleView = titleLabel;
 }
-
-- (void)initIFlySpeech
-{
-    _iFlySpeechSynthesizer = [IFlySpeechSynthesizer sharedInstance];
-    _iFlySpeechSynthesizer.delegate = self;
-}
-
 
 - (void)initNaviManager
 {
@@ -90,110 +81,23 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
-    
+    self.myMapView.delegate = self;
     [self initTitle:self.title];
-    
-//    [self initBaseNavigationBar];
-    
     [self createMapView];
-    
     [self initNaviManager];
-}
-
-
-#pragma mark - AMapNaviManager Delegate
-
-- (void)AMapNaviManager:(AMapNaviManager *)naviManager error:(NSError *)error
-{
-    NSLog(@"error:%@",error);
-}
-
-- (void)AMapNaviManager:(AMapNaviManager *)naviManager didPresentNaviViewController:(UIViewController *)naviViewController
-{
-    NSLog(@"didPresentNaviViewController");
-}
-
-- (void)AMapNaviManager:(AMapNaviManager *)naviManager didDismissNaviViewController:(UIViewController *)naviViewController
-{
-    NSLog(@"didDismissNaviViewController");
-}
-
-- (void)AMapNaviManagerOnCalculateRouteSuccess:(AMapNaviManager *)naviManager
-{
-    NSLog(@"OnCalculateRouteSuccess");
-}
-
-- (void)AMapNaviManager:(AMapNaviManager *)naviManager onCalculateRouteFailure:(NSError *)error
-{
-    [self.view makeToast:@"算路失败"
-                duration:2.0
-                position:[NSValue valueWithCGPoint:CGPointMake(160, 240)]];
-    NSLog(@"onCalculateRouteFailure");
-}
-
-- (void)AMapNaviManagerNeedRecalculateRouteForTrafficJam:(AMapNaviManager *)naviManager
-{
-    NSLog(@"NeedReCalculateRouteForTrafficJam");
-}
-
-- (void)AMapNaviManagerNeedRecalculateRouteForYaw:(AMapNaviManager *)naviManager
-{
-    NSLog(@"NeedReCalculateRouteForYaw");
-}
-
-- (void)AMapNaviManager:(AMapNaviManager *)naviManager didStartNavi:(AMapNaviMode)naviMode
-{
-    NSLog(@"didStartNavi");
-}
-
-- (void)AMapNaviManagerDidEndEmulatorNavi:(AMapNaviManager *)naviManager
-{
-    NSLog(@"DidEndEmulatorNavi");
-}
-
-- (void)AMapNaviManagerOnArrivedDestination:(AMapNaviManager *)naviManager
-{
-    NSLog(@"OnArrivedDestination");
-}
-
-- (void)AMapNaviManager:(AMapNaviManager *)naviManager onArrivedWayPoint:(int)wayPointIndex
-{
-    NSLog(@"onArrivedWayPoint");
-}
-
-- (void)AMapNaviManager:(AMapNaviManager *)naviManager didUpdateNaviLocation:(AMapNaviLocation *)naviLocation
-{
-    //    NSLog(@"didUpdateNaviLocation");
-}
-
-- (BOOL)AMapNaviManagerGetSoundPlayState:(AMapNaviManager *)naviManager
-{
-    //    NSLog(@"GetSoundPlayState");
     
-    return 0;
 }
 
-- (void)AMapNaviManager:(AMapNaviManager *)naviManager playNaviSoundString:(NSString *)soundString soundStringType:(AMapNaviSoundType)soundStringType
+- (void)viewWillAppear:(BOOL)animated
 {
-    NSLog(@"playNaviSoundString:{%d:%@}", soundStringType, soundString);
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        [_iFlySpeechSynthesizer startSpeaking:soundString];
-        NSLog(@"start speak");
-    });
+    [super viewWillAppear:animated];
 }
-
-- (void)AMapNaviManagerDidUpdateTrafficStatuses:(AMapNaviManager *)naviManager
+- (void)viewDidDisappear:(BOOL)animated
 {
-    NSLog(@"DidUpdateTrafficStatuses");
+    [super viewDidDisappear:animated];
 }
 
 
-#pragma mark - iFlySpeechDelegate
 
-- (void)onCompleted:(IFlySpeechError*) error
-{
-    NSLog(@"Speak Error:{%d:%@}", error.errorCode, error.errorDesc);
-}
 
 @end
