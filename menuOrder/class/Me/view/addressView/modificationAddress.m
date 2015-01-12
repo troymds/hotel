@@ -109,8 +109,8 @@
     }else if ([updateAddressStr isEqualToString:@""]) {
         [RemindView showViewWithTitle:@"联系人详细地址不能为空" location:MIDDLE];
         
-    }else if ([updateTelStr isEqualToString:@""]) {
-        [RemindView showViewWithTitle:@"联系人姓名不能为空" location:MIDDLE];
+    }else if(![self isValidateMobile:updateTelStr]){
+        [RemindView showViewWithTitle:@"请输入正确的手机号码" location:MIDDLE];
         
     }else{
         [self addLoadStatus];

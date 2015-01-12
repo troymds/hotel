@@ -139,12 +139,12 @@
     priceLabel.text=@"元";
     for (int l=0; l<_orderCategoryArray.count; l++) {
     
-        UILabel *orderCategory =[[UILabel alloc]initWithFrame:CGRectMake(YYBORDERW+l%2*(kWidth-YYBORDERWw*6-YYBORDERW*6), YYBORDERWw+230+l/2*(YYBORDERY+20), (kWidth-YYBORDERWw*2-YYBORDERW*2)/2, 20 )];
+        UILabel *orderCategory =[[UILabel alloc]initWithFrame:CGRectMake(YYBORDERW*2+l%2*(kWidth-YYBORDERWw*6-YYBORDERW*6), YYBORDERWw+230+l/2*(YYBORDERY+20), (kWidth-YYBORDERWw*2-YYBORDERW*2)/2, 20 )];
         [backView addSubview:orderCategory];
         orderCategory.backgroundColor =[UIColor clearColor];
         orderCategory.font =[UIFont systemFontOfSize:PxFont(20)];
         orderCategory.textColor=HexRGB(0x605e5f);
-        orderCategory.textAlignment=NSTextAlignmentCenter;
+        orderCategory.textAlignment=NSTextAlignmentLeft;
         orderCategory.text=_orderCategoryArray[l];
     }
     backView.frame =CGRectMake(YYBORDERW, YYBORDERW, kWidth-YYBORDERW*2, 280+(_orderCategoryArray.count/2)*40);

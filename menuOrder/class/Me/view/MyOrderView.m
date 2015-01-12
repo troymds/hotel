@@ -17,6 +17,9 @@
     NSMutableArray *_sectionTitleArray;
     UIImageView *noStatusImg;
     NSMutableArray *_orderArray;
+    
+    NSMutableArray *_firArray;
+    NSMutableArray *_secArray;
 }
 
 
@@ -29,7 +32,11 @@
     [super viewDidLoad];
     self.title=@"我的点餐";
     self.view.backgroundColor=HexRGB(0xeeeeee);
-    _sectionTitleArray=[[NSMutableArray alloc] initWithCapacity:0];
+    _sectionTitleArray = [[NSMutableArray alloc] initWithCapacity:0];
+    
+    _firArray = [[NSMutableArray alloc] initWithCapacity:0];
+    _secArray = [[NSMutableArray alloc] initWithCapacity:0];
+    
     [self addTableView];
     [self addLoadStatus];
     [self addNoStatusImage];
@@ -61,7 +68,6 @@
         
         [_sectionTitleArray addObjectsFromArray:statues];
 
-        
         
         if (_sectionTitleArray.count>0)
         {
@@ -101,14 +107,14 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    myOrderListTimeModel *timeModel =[_sectionTitleArray objectAtIndex:section];
-    
-    if (timeModel.timeArray.count % 2 == 1)
+    NSArray *timeModelArray =[_sectionTitleArray objectAtIndex:section];
+
+    if (timeModelArray.count % 2 == 1)
     {
-        return timeModel.timeArray.count / 2 + 1;
+        return timeModelArray.count / 2 + 1;
     }
     
-    return timeModel.timeArray.count / 2;
+    return timeModelArray.count / 2;
 }
 
 
@@ -122,100 +128,141 @@
         cell.backgroundColor=HexRGB(0xeeeeee);
     }
     
-    if (_sectionTitleArray.count < 3)
-    {
-        cell.backImage.image=[UIImage imageNamed:@""];
-    }
-    else if(_sectionTitleArray.count == 4)
-    {
-        if (indexPath.row==0)
-        {
-            cell.backImage.image =[UIImage imageNamed:@"up"];
-        }else
-        {
-            cell.backImage.image =[UIImage imageNamed:@"down"];
-            
-        }
-    }else
-    {
-        if (indexPath.row==0)
-        {
-            cell.backImage.image =[UIImage imageNamed:@"up"];
-        }else if (indexPath.row ==_sectionTitleArray.count-1)
-        {
-            cell.backImage.image =[UIImage imageNamed:@"down"];
-            
-        }else{
-            cell.backImage.image =[UIImage imageNamed:@"center"];
-            
-        }
-    }
+    NSArray *timeModelArray =[_sectionTitleArray objectAtIndex:indexPath.section];
+    
     
     if (_sectionTitleArray.count != 0)
     {
-        myOrderListTimeModel *timeModel =[_sectionTitleArray objectAtIndex:indexPath.section];
+        
+        [_firArray removeAllObjects];
+        [_secArray removeAllObjects];
+        
+        
         myOrderListModel *orderListModel = nil;
         
-        for (int i = 0; i<timeModel.timeArray.count; i++)
+        for (int i = 0; i<timeModelArray.count; i++)
         {
             
-            orderListModel = [timeModel.timeArray objectAtIndex:i];
+            orderListModel = [timeModelArray objectAtIndex:i];
             if (i%2==0)
             {
-                [cell.firMeOrderImage setImageWithURL:[NSURL URLWithString:orderListModel.cover] placeholderImage:placeHoderImage2];
-                cell.firMeOrderTitle.text = orderListModel.name;
-                UITapGestureRecognizer *firTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(firTapClick:)];
-                [cell.firMeOrderImage addGestureRecognizer:firTap];
-                cell.firMeOrderImage.tag =100;
-                self.orderIndex1 =orderListModel.orderId;
+                [_firArray addObject:orderListModel];
             }
             else
             {
-                [cell.secMeOrderImage setImageWithURL:[NSURL URLWithString:orderListModel.cover] placeholderImage:placeHoderImage2];
-                cell.secMeOrderTitle.text = orderListModel.name;
-                UITapGestureRecognizer *secTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(secTapClick:)];
-                [cell.secMeOrderImage addGestureRecognizer:secTap];
-                cell.firMeOrderImage.tag =101;
-
-                self.orderIndex2 =orderListModel.orderId;
+                [_secArray addObject:orderListModel];
+            }
+            
+        }
+        
+        if (_firArray.count < 2)
+        {
+            cell.backImage.image=[UIImage imageNamed:@""];
+        }
+        else if(_firArray.count == 2)
+        {
+            if (indexPath.row==0)
+            {
+                cell.backImage.image =[UIImage imageNamed:@"up"];
+            }else
+            {
+                cell.backImage.image =[UIImage imageNamed:@"down"];
+            }
+        }else
+        {
+            if (indexPath.row==0)
+            {
+                cell.backImage.image =[UIImage imageNamed:@"up"];
+            }else if (indexPath.row < _firArray.count-1)
+            {
+                cell.backImage.image =[UIImage imageNamed:@"center"];
+                
+            }else{
+                cell.backImage.image =[UIImage imageNamed:@"down"];
             }
         }
+
+        
+        myOrderListModel *firOrderModel = [_firArray objectAtIndex:indexPath.row];
+        [cell.firMeOrderImage setImageWithURL:[NSURL URLWithString:firOrderModel.cover] placeholderImage:placeHoderImage2];
+        cell.firMeOrderTitle.text = firOrderModel.name;
+        UITapGestureRecognizer *firTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(firTapClick:)];
+        [cell.firMeOrderImage addGestureRecognizer:firTap];
+        cell.firMeOrderImage.tag =100;
+        
+        if(_firArray.count == _secArray.count)
+        {
+            myOrderListModel *secOrderModel = [_secArray objectAtIndex:indexPath.row];
+            [cell.secMeOrderImage setImageWithURL:[NSURL URLWithString:secOrderModel.cover] placeholderImage:placeHoderImage2];
+            cell.secMeOrderTitle.text = secOrderModel.name;
+            UITapGestureRecognizer *secTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(firTapClick:)];
+            [cell.secMeOrderImage addGestureRecognizer:secTap];
+            cell.secMeOrderImage.tag =101;
+
+        }
+        else
+        {
+            if (indexPath.row < _secArray.count)
+            {
+                myOrderListModel *secOrderModel = [_secArray objectAtIndex:indexPath.row];
+                [cell.secMeOrderImage setImageWithURL:[NSURL URLWithString:secOrderModel.cover] placeholderImage:placeHoderImage2];
+                cell.secMeOrderTitle.text = secOrderModel.name;
+                UITapGestureRecognizer *secTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(firTapClick:)];
+                [cell.secMeOrderImage addGestureRecognizer:secTap];
+                cell.secMeOrderImage.tag =101;
+            }
+        }
+        
+        
  
     }
-    
-    
     
     return cell;
 }
 
--(void)firTapClick:(UITapGestureRecognizer *)img{
-   
+-(void)firTapClick:(UITapGestureRecognizer *)img
+{
+    
+    MyOrderCell *cell =nil;
+    
+    if ([[img.view superview] isKindOfClass:[MyOrderCell class]])
+    {
+        cell = (MyOrderCell *)  [img.view superview];
+    }else
+    {
+        cell = (MyOrderCell *)  [[img.view superview] superview];
+    }
+    
+    NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
+    
+    myOrderListModel *orderModel =nil;
+    
+    if (img.view.tag ==100)
+    {
+        orderModel =[_firArray objectAtIndex:indexPath.row];
+    }else
+    {
+        orderModel =[_secArray objectAtIndex:indexPath.row];
+    }
+    
     DetailFoodController *detailVC=[[DetailFoodController alloc]init];
-    detailVC.detailFoodIndex =self.orderIndex1;
+    detailVC.detailFoodIndex = orderModel.orderId;
     [self.navigationController pushViewController:detailVC animated:YES];
 
 }
--(void)secTapClick:(UITapGestureRecognizer *)img{
-    
-    DetailFoodController *detailVC=[[DetailFoodController alloc]init];
-    detailVC.detailFoodIndex =self.orderIndex2;
-    [self.navigationController pushViewController:detailVC animated:YES];
-    
-}
-//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//
-//}
+
+
+
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headerView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 30)];
     headerView.backgroundColor=HexRGB(0xeeeeee);
     
-    myOrderListTimeModel *timeModel = [_sectionTitleArray objectAtIndex:section];
-    
+    NSArray *timeModelArray = [_sectionTitleArray objectAtIndex:section];
+    myOrderListModel *orderModel = [timeModelArray objectAtIndex:0];
     
     UIButton *sectionLabel =[UIButton buttonWithType:UIButtonTypeCustom];
-    [sectionLabel setTitle:timeModel.timeTitle forState:UIControlStateNormal];
+    [sectionLabel setTitle:orderModel.createTime forState:UIControlStateNormal];
     [headerView addSubview:sectionLabel];
     sectionLabel.titleLabel.font=[UIFont systemFontOfSize:PxFont(22)];
     sectionLabel.imageEdgeInsets =UIEdgeInsetsMake(0, 0, 0, 25);

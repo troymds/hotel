@@ -23,11 +23,11 @@
 #import "uidTool.h"
 
 
-#import "iflyMSC/IFlySpeechSynthesizer.h"
-#import "iflyMSC/IFlySpeechSynthesizerDelegate.h"
-#import "iflyMSC/IFlySpeechConstant.h"
-#import "iflyMSC/IFlySpeechUtility.h"
-#import "iflyMSC/IFlySetting.h"
+//#import "iflyMSC/IFlySpeechSynthesizer.h"
+//#import "iflyMSC/IFlySpeechSynthesizerDelegate.h"
+//#import "iflyMSC/IFlySpeechConstant.h"
+//#import "iflyMSC/IFlySpeechUtility.h"
+//#import "iflyMSC/IFlySetting.h"
 #import <AMapNaviKit/AMapNaviKit.h>
 #import "APIKey.h"
 
@@ -56,7 +56,8 @@
     NSString *version = [NSBundle mainBundle].infoDictionary[key];
     // 2.从沙盒中取出上次存储的版本号
     NSString *saveVersion = [[NSUserDefaults standardUserDefaults] objectForKey:key];
-    if (saveVersion) {
+    if (saveVersion)
+    {
         [self checkVersion];
     }
     

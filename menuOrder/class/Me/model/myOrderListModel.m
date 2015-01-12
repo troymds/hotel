@@ -23,27 +23,44 @@
     }
     return self;
 }
-@end
-@implementation myOrderListTimeModel
-
--(instancetype)initWithForOrderListTime:(NSArray *)array
-{
-   
-    
-    if ([super self])
-    {
-        _timeArray =[[NSMutableArray alloc] initWithCapacity:0];
-        
-        _timeTitle = [[(NSDictionary*)[array objectAtIndex:0] objectForKey:@"create_time"] stringByReplacingOccurrencesOfString:@"-" withString:@"."];
-        
-        for (NSDictionary *dict in array)
-        {
-            myOrderListModel *orderModel =[[myOrderListModel alloc]initWithForOrderList:dict];
-            [_timeArray addObject:orderModel];
-        }
-
-    }
-    return self;
-}
 
 @end
+//@implementation myOrderListTimeModel
+//
+//-(instancetype)initWithForOrderListTime:(NSArray *)array
+//{
+//    if ([super self])
+//    {
+//        
+//        for (NSDictionary *dict in array)
+//        {
+//            
+//            if (![_timeTitle isEqualToString:[dict objectForKey:@"create_time"]])
+//            {
+//                _timeArray =[[NSMutableArray alloc] initWithCapacity:0];
+//                NSMutableArray *currentArr =[[NSMutableArray alloc] initWithCapacity:0];
+//                myOrderListModel *orderModel =[[myOrderListModel alloc]initWithForOrderList:dict];
+//                [currentArr addObject:orderModel];
+//                [_timeArray addObject:currentArr];
+//                
+//                _timeTitle = [[dict objectForKey:@"create_time"] stringByReplacingOccurrencesOfString:@"-" withString:@"."];
+//                _currentArray = currentArr;
+//            }
+//            else
+//            {
+//                myOrderListModel *orderModel =[[myOrderListModel alloc]initWithForOrderList:dict];
+//                [_currentArray addObject:orderModel];
+//            }
+//            
+//            
+//            
+//        }
+//        
+//        
+//        
+//
+//    }
+//    return self;
+//}
+//
+//@end

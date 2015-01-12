@@ -7,19 +7,28 @@
 //
 
 #import <Foundation/Foundation.h>
-@interface myOrderListTimeModel : NSObject
+//@interface myOrderListTimeModel : NSObject
+//
+////@property(nonatomic,copy)NSString *timeTitle;
+////@property(nonatomic,copy)NSMutableArray *timeArray;
+////@property (nonatomic,copy)NSMutableArray *currentArray;
+////
+//
+//
+//-(instancetype)initWithForOrderListTime:(NSArray *)array;
+//
+//@end
 
-@property(nonatomic,copy)NSString *timeTitle;
-@property(nonatomic,copy)NSMutableArray *timeArray;
 
--(instancetype)initWithForOrderListTime:(NSArray *)array;
-
-@end
 @interface myOrderListModel : NSObject
 @property(nonatomic,copy)NSString *cover;
 @property(nonatomic,copy)NSString *create_time;
 @property(nonatomic,copy)NSString *orderId;
 @property(nonatomic,copy)NSString *name;
+
+@property (nonatomic,retain) NSString       *createTime;
+
+
 
 -(instancetype)initWithForOrderList:(NSDictionary *)dict;
 

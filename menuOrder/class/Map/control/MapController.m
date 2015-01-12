@@ -39,7 +39,8 @@ typedef NS_ENUM(NSInteger, TravelTypes)
 @property(nonatomic,copy)NSString *fishLong;
 @property(nonatomic,copy)NSString *fishLat;
 @property(nonatomic,copy)NSString *fishTel;
-
+@property(nonatomic,copy)NSString *fishshop_name;
+@property(nonatomic,copy)NSString *fishaddress;
 
 
 @property (nonatomic, strong) NSArray *annotations;
@@ -101,6 +102,7 @@ typedef NS_ENUM(NSInteger, TravelTypes)
 {
     [super viewDidAppear:YES];
     
+    
 }
 //#pragma mark ----加载数据
 -(void)addLoadStatus
@@ -110,6 +112,8 @@ typedef NS_ENUM(NSInteger, TravelTypes)
         _fishLat =[dict objectForKey:@"lat"];
         _fishLong =[dict objectForKey:@"long"];
         _fishTel=[dict objectForKey:@"tel"];
+        _fishaddress=[dict objectForKey:@"address"];
+        _fishshop_name=[dict objectForKey:@"shop_name"];
         
         [self addUIView];
         
@@ -158,6 +162,11 @@ typedef NS_ENUM(NSInteger, TravelTypes)
 
 - (void)configMapView
 {
+    if (self.myMapView == nil)
+    {
+        self.myMapView = [[MAMapView alloc] initWithFrame:self.view.bounds];
+    }
+    
     self.myMapView.showsScale = NO;
     [self.myMapView setDelegate:self];
     [self.myMapView setFrame:CGRectMake(0, kSetingViewHeight,
@@ -169,6 +178,11 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     self.myMapView.showsUserLocation = YES;
     
     
+    if (self.naviManager == nil)
+    {
+        _naviManager = [[AMapNaviManager alloc] init];
+        [_naviManager setDelegate:self];
+    }
 }
 
 #pragma mark 打电话
@@ -210,9 +224,17 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     
     [endAnnotation setCoordinate:CLLocationCoordinate2DMake(_endPoint.latitude, _endPoint.longitude)];
     
-    endAnnotation.title        = @"紫金渔府";
-    endAnnotation.subtitle =@"地址：鼓楼区老菜市场";
+    endAnnotation.title        = _fishshop_name;
     
+    UILabel *subtitleLabel =[[UILabel alloc ]initWithFrame:CGRectMake(0, 0, 10, 40)];
+    subtitleLabel.text=[NSString stringWithFormat:@"地址：%@电话：%@",_fishaddress,_fishTel ];
+    subtitleLabel.textColor =[UIColor redColor];
+    subtitleLabel.numberOfLines =2;
+    
+    
+    endAnnotation.subtitle =subtitleLabel.text;
+//    endAnnotation.subtitle =[NSString stringWithFormat:@"电话：%@",_fishTel ];
+
     endAnnotation.navPointType = NavPointAnnotationEnd;
     
     
@@ -222,8 +244,6 @@ typedef NS_ENUM(NSInteger, TravelTypes)
 
 - (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation
 {
-    
-   
     _currentPoint = [AMapNaviPoint locationWithLatitude:mapView.userLocation.location.coordinate.latitude longitude:mapView.userLocation.location.coordinate.longitude];
    
     
@@ -248,22 +268,14 @@ typedef NS_ENUM(NSInteger, TravelTypes)
         
         if (self.travelType == TravelTypeCar)
         {
-//            NSLog(@"22222%@",_startPoint);
             [self.naviManager calculateWalkRouteWithStartPoints:startPoints endPoints:endPoints];
-//            NSLog(@"444444444");
-//            [self.naviManager calculateDriveRouteWithStartPoints:startPoints endPoints:endPoints wayPoints:nil drivingStrategy:0];
+
         }
         else
         {
             [self.naviManager calculateWalkRouteWithStartPoints:startPoints endPoints:endPoints];
-//            NSLog(@"3333333%@",_startPoint);
         }
 
-//        NSLog(@"55555555%@",_startPoint);
-       
-
-       
-       NSLog(@"%@",_startPoint);
         _locChange = YES;
         
     }
@@ -286,13 +298,13 @@ typedef NS_ENUM(NSInteger, TravelTypes)
 
 - (void)AMapNaviManager:(AMapNaviManager *)naviManager onCalculateRouteFailure:(NSError *)error
 {
-    [super AMapNaviManager:naviManager onCalculateRouteFailure:error];
+    [self AMapNaviManager:naviManager onCalculateRouteFailure:error];
 }
 
 
 - (void)AMapNaviManagerOnCalculateRouteSuccess:(AMapNaviManager *)naviManager
 {
-    [super AMapNaviManagerOnCalculateRouteSuccess:naviManager];
+//    [super AMapNaviManagerOnCalculateRouteSuccess:naviManager];
     
     
     if (naviManager.naviRoute == nil)
@@ -320,73 +332,6 @@ typedef NS_ENUM(NSInteger, TravelTypes)
 }
 
 
-- (void)AMapNaviManager:(AMapNaviManager *)naviManager didPresentNaviViewController:(UIViewController *)naviViewController
-{
-    [super AMapNaviManager:naviManager didPresentNaviViewController:naviViewController];
-    
-    // 初始化语音引擎
-    [self initIFlySpeech];
-    
-    if (self.naviType == NavigationTypeGPS)
-    {
-        [self.naviManager startGPSNavi];
-    }
-    else if (self.naviType == NavigationTypeSimulator)
-    {
-        [self.naviManager startEmulatorNavi];
-    }
-}
-
-
-#pragma mark - AManNaviViewController Delegate
-
-- (void)AMapNaviViewControllerCloseButtonClicked:(AMapNaviViewController *)naviViewController
-{
-    if (self.naviType == NavigationTypeGPS)
-    {
-        [self.iFlySpeechSynthesizer stopSpeaking];
-        
-        self.iFlySpeechSynthesizer.delegate = nil;
-        self.iFlySpeechSynthesizer          = nil;
-        
-        [self.naviManager stopNavi];
-    }
-    else if (self.naviType == NavigationTypeSimulator)
-    {
-        [self.iFlySpeechSynthesizer stopSpeaking];
-        
-        self.iFlySpeechSynthesizer.delegate = nil;
-        self.iFlySpeechSynthesizer          = nil;
-        
-        [self.naviManager stopNavi];
-    }
-    
-    [self.naviManager dismissNaviViewControllerAnimated:YES];
-    
-    // 退出导航界面后恢复地图的状态
-    [self configMapView];
-}
-
-
-- (void)AMapNaviViewControllerMoreButtonClicked:(AMapNaviViewController *)naviViewController
-{
-    if (naviViewController.viewShowMode == AMapNaviViewShowModeCarNorthDirection)
-    {
-        naviViewController.viewShowMode = AMapNaviViewShowModeMapNorthDirection;
-    }
-    else
-    {
-        naviViewController.viewShowMode = AMapNaviViewShowModeCarNorthDirection;
-    }
-}
-
-
-- (void)AMapNaviViewControllerTrunIndicatorViewTapped:(AMapNaviViewController *)naviViewController
-{
-    [self.naviManager readNaviInfoManual];
-}
-
-
 #pragma mark - MAMapView Delegate
 
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation
@@ -411,8 +356,6 @@ typedef NS_ENUM(NSInteger, TravelTypes)
         {
             [pointAnnotationView setPinColor:MAPinAnnotationColorGreen];
             [pointAnnotationView setImage:[UIImage imageNamed:@"star_img.png"]];
-//            imageView.image = [UIImage imageNamed:@"heaar_img"];
-
         }
         else if (navAnnotation.navPointType == NavPointAnnotationEnd)
         {

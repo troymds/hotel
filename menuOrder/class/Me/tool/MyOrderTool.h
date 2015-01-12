@@ -10,7 +10,10 @@
 
 typedef void (^StatusSuccessBlock)(NSMutableArray *statues);
 typedef void (^StatusFailureBlock)(NSError *error);
+
 @interface MyOrderTool : NSObject
+
+
 
 + (void)myOrderUid:(NSString *)uid statusesWithSuccess:(StatusSuccessBlock)success failure:(StatusFailureBlock)failure;
 

@@ -33,7 +33,7 @@
     self.view.backgroundColor=HexRGB(0xeeeeee);
     _sectionTitleArray=[NSArray array];
 
-    _sectionTitleArray=@[@"  未过期预约",@"  已过期预约"];
+    _sectionTitleArray=@[@"  未到期预约",@"  已过期预约"];
     
     
     [self addTableView];
@@ -47,7 +47,8 @@
 }
 
 //没有数据时的状态
--(void)addNoStatusImage{
+-(void)addNoStatusImage
+{
     noStatusImg =[[UIImageView alloc]initWithFrame:CGRectMake((kWidth-230)/2, (kHeight-100)/2, 230, 100)];
     [self.view addSubview:noStatusImg];
     noStatusImg.image =[UIImage imageNamed:@"noSubscribe_img"];
@@ -109,22 +110,61 @@
     [self.view addSubview:_tableView];
 
 }
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return _sectionTitleArray.count;
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    if (_normalArray.count == 0)
+    {
+        if (_overdueArray.count == 0)
+        {
+            return 0;
+        }
+
+        return 1;
+    }else
+    {
+        if (_overdueArray.count == 0)
+        {
+            return 1;
+        }
+        
+        return 2;
+    }
+    
     
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    if (section==0)
+    if (_normalArray.count == 0)
     {
-        return _normalArray.count;
+        if (_overdueArray.count == 0)
+        {
+            return 0;
+        }
+        
+        return _overdueArray.count;
     }
     else
     {
-        return _overdueArray.count;
+        if (_overdueArray.count == 0)
+        {
+            return _normalArray.count;
+        }
+        else
+        {
+            if (section==0)
+            {
+                return _normalArray.count;
+            }
+            else
+            {
+                return _overdueArray.count;
+            }
+        }
+        
     }
-
+    
 }
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     static NSString *cellIndexfider =@"cell";
@@ -136,19 +176,39 @@
     }
    
     subscribeModel *subModel;
-    if (indexPath.section == 0)
+    
+    
+    if (_normalArray.count == 0)
     {
-        subModel = [_normalArray objectAtIndex:indexPath.row];
-    }
-    else
+        if (_overdueArray.count != 0)
+        {
+            subModel = [_overdueArray objectAtIndex:indexPath.row];
+        }
+    }else
     {
-        subModel = [_overdueArray objectAtIndex:indexPath.row];
+        if (_overdueArray.count == 0)
+        {
+            subModel = [_normalArray objectAtIndex:indexPath.row];
+        }else
+        {
+            if (indexPath.section == 0)
+            {
+                subModel = [_normalArray objectAtIndex:indexPath.row];
+            }
+            else
+            {
+                subModel = [_overdueArray objectAtIndex:indexPath.row];
+            }
+        }
     }
+    
+    
     
     cell.MeSubscribeNumLabel.text=[NSString stringWithFormat:@"就餐人数：%@",subModel.people_num];
     [cell.MeSubscribeImage setImageWithURL:[NSURL URLWithString:subModel.cover] placeholderImage:placeHoderImage2];
     cell.MeSubscribeTimeLabel.text=[NSString stringWithFormat:@"时间：%@",subModel.use_time] ;
-    if ([subModel.type isEqualToString:@"0"]) {
+    if ([subModel.type isEqualToString:@"0"])
+    {
         cell.MeSubscribeCategoryLabel.text=@"亲临渔府";
     }else  if ([subModel.type isEqualToString:@"1"]){
         cell.MeSubscribeCategoryLabel.text=@"外带取餐";
@@ -158,40 +218,85 @@
         cell.MeSubscribeCategoryLabel.text=@"外卖服务";
         cell.MeSubscribeNumLabel.hidden =YES;
         cell.MeSubscribeTimeLabel.frame =cell.MeSubscribeNumLabel.frame;
-
-
+        
+        
     }
     
     
     return cell;
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     subscribeModel *subModel;
-    if (indexPath.section == 0)
+    
+    
+    if (_normalArray.count==0)
     {
-        subModel = [_normalArray objectAtIndex:indexPath.row];
-    }
-    else
+        if (_overdueArray.count!=0)
+        {
+            subModel = [_overdueArray objectAtIndex:indexPath.row];
+        }
+        
+    }else
     {
-        subModel = [_overdueArray objectAtIndex:indexPath.row];
+        if (_overdueArray.count == 0)
+        {
+            subModel = [_normalArray objectAtIndex:indexPath.row];
+        }else
+        {
+            if (indexPath.section == 0)
+            {
+                subModel = [_normalArray objectAtIndex:indexPath.row];
+            }
+            else
+            {
+                subModel = [_overdueArray objectAtIndex:indexPath.row];
+            }
+        }
     }
+    
+    
+    
+    
     sureSubscribeVC *sureVc=[[sureSubscribeVC alloc]init];
     sureVc.subcribeIndex =subModel.subscribeID;
     
     [self.navigationController pushViewController:sureVc animated:YES];
 }
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    return [_sectionTitleArray objectAtIndex:section];
-    
-    
-}
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+//-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//{
+//    return [_sectionTitleArray objectAtIndex:section];
+//}
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
     UIView *headerView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 40)];
     headerView.backgroundColor=HexRGB(0xeeeeee);
     
     UIButton *sectionLabel =[UIButton buttonWithType:UIButtonTypeCustom];
-    [sectionLabel setTitle:[_sectionTitleArray objectAtIndex:section] forState:UIControlStateNormal];
+    
+    
+    if (_normalArray.count != 0)
+    {
+        if (_overdueArray.count!=0)
+        {
+            [sectionLabel setTitle:[_sectionTitleArray objectAtIndex:section] forState:UIControlStateNormal];
+        }
+        else
+        {
+            [sectionLabel setTitle:[_sectionTitleArray objectAtIndex:0] forState:UIControlStateNormal];
+        }
+        
+    }else
+    {
+        if (_overdueArray.count!=0)
+        {
+            [sectionLabel setTitle:[_sectionTitleArray objectAtIndex:1] forState:UIControlStateNormal];
+        }
+
+    }
+    
+    
     [headerView addSubview:sectionLabel];
     sectionLabel.titleLabel.font=[UIFont systemFontOfSize:PxFont(22)];
     [sectionLabel setTitleColor:HexRGB(0x808080) forState:UIControlStateNormal];
