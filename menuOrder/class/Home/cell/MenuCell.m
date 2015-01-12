@@ -11,9 +11,10 @@
 #import "CarTool.h"
 
 #define KBigImgStartX   8
-#define KBigImgStartY  10
-#define KBigImgW       75
-#define KBigImgH       75
+#define KBigImgStartY  6
+#define KBigImgW       85
+#define KRataio         1.3
+#define KBigImgH       KBigImgW/KRataio
 #define KSpaceBetweenBigImgAndFoodName  10
 #define KFoodNameStartY (KBigImgStartY + 2)
 #define KFoodNameStartX (KBigImgStartX + KBigImgW + KSpaceBetweenBigImgAndFoodName)
@@ -111,10 +112,10 @@
         
         //9 线条
         UIView *line = [[UIView alloc] init];
-        line.frame = CGRectZero;
+//        line.frame = CGRectZero;
         line.backgroundColor = HexRGB(0xd5d5d5);
         [self.contentView addSubview:line];
-        line.frame = Rect(KBigImgStartX, 95 - 1, 222, 1);
+        line.frame = Rect(KBigImgStartX, 87 - 1, 222, 1);
         _line = line;
     }
     return  self;
@@ -173,7 +174,13 @@
     _data = data;
     //1 美食图片
     _foodImg.frame = Rect(KBigImgStartX, KBigImgStartY, KBigImgW, KBigImgH);
-    [_foodImg setImageWithURL:[NSURL URLWithString:data.cover] placeholderImage:placeHoderloading];
+    __weak UIImageView *foodImg = _foodImg;
+    [_foodImg setImageWithURL:[NSURL URLWithString:data.cover] placeholderImage:placeHoderloading completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+        CGRect rect =  CGRectMake(90, 90, 300, 300/1.3);
+        CGImageRef cgimg = CGImageCreateWithImageInRect([image CGImage], rect);
+        foodImg.image = [UIImage imageWithCGImage:cgimg];
+        CGImageRelease(cgimg);
+    }];
     //2 菜名
     _foodName.frame = Rect(KFoodNameStartX, KFoodNameStartY, KFooNameW, KFontBigH);
     _foodName.text = data.name;
@@ -201,14 +208,16 @@
     }
 
     //4 美国money的图标
-    _dollarIcon.frame = Rect(KFoodNameStartX, dollarY + KSpaceBetweenBigImgAndFoodName, KStarH, KStarH);
+    _dollarIcon.frame = Rect(KFoodNameStartX, dollarY + KSpaceBetweenBigImgAndFoodName - 5, KStarH, KStarH);
     
     //5 价格
     _price.frame = Rect(CGRectGetMaxX(_dollarIcon.frame), _dollarIcon.frame.origin.y - 2, KPriceW, KFontSmallH);
     _price.text = data.price;
     //6 减号按钮
     CGFloat buttonY = CGRectGetMaxY(_foodName.frame) + KStarH;
-    CGFloat buttonX = CGRectGetMaxX(_price.frame) - KDefaultSpace;
+    CGFloat buttonX = CGRectGetMaxX(_price.frame) - KDefaultSpace * 1.5;
+//    CGFloat buttonY = CGRectGetMaxY(_foodName.frame) + KStarH;;
+//    CGFloat buttonX = self.frame.size.width - KBigImgStartX - KBUttonW *2 - 18;
     _plusBtn.frame = Rect(buttonX, buttonY, KBUttonW, KBUttonW);
     
     //7 数量

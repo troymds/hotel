@@ -35,10 +35,28 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    //重新计算
+    //重新计算,全部全选
     if (_table) {
-        [self caculate];
+        [self reCaculate];
     }
+}
+
+-(void)reCaculate
+{
+    int totalPrice = 0;
+    int totalNum = 0;
+    NSUInteger count = _dataList.count;
+    if (count > 0) {
+        for (int i = 0; i < count; i++) {
+            MenuModel *data = _dataList[i];
+            data.isChosen = YES;
+            totalPrice += (data.foodCount * [data.price intValue]);
+            totalNum += data.foodCount;
+        }
+    }
+    _tooBar.money.text = [NSString stringWithFormat:@"%d",totalPrice];
+    _tooBar.numOfFood.text = [NSString stringWithFormat:@"合计：%d份",totalNum];
+    _tooBar.allSelectedBtn.selected = YES;
 }
 
 - (void)viewDidLoad {
@@ -49,8 +67,6 @@
     
     self.title = @"点餐车";
     self.view.backgroundColor = HexRGB(0xe0e0e0);
-
-    
     
     MainController *main = ((AppDelegate *)[UIApplication sharedApplication].delegate).mainCtl;
     self.delegate = main;
@@ -134,22 +150,15 @@
     if ([_tooBar.money.text intValue] > 0) {
         //重新整理购物车中的数据
         NSUInteger count = _dataList.count;
+        NSMutableArray *temDeleteArray = [NSMutableArray array];
         for (int i = 0; i < count; i++) {
             MenuModel *data = _dataList[i];
             if (!data.isChosen){
                 //直接在购物车中删除此数据
-                NSMutableArray *car = [CarTool sharedCarTool].totalCarMenu;
-                for (int i = 0; i < car.count; i++) {
-                    MenuModel *carData = car[i];
-                    if ([data.ID isEqualToString:carData.ID]) {
-                        [car removeObject:carData];
-                        NSLog(@"删除的data id 是%@",carData.ID);
-                        break;
-                    }
-                }
-                [NSKeyedArchiver archiveRootObject:[CarTool sharedCarTool].totalCarMenu toFile:kFilePath];
+                [temDeleteArray addObject:data];
             }
         }
+        [[CarTool sharedCarTool] deleteDataWithArray:temDeleteArray];
         //到预约页面
         subscribeViewViewController *ctl = [[subscribeViewViewController alloc] init];
         [self.navigationController pushViewController:ctl animated:YES];
@@ -199,7 +208,6 @@
         cell =[[FoodOrderCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
     cell.delegate = self;
-//    [cell.selectedBtn addTarget:self action:@selector(cellSelected:) forControlEvents:UIControlEventTouchUpInside];
     MenuModel *data = _dataList[indexPath.row];
     cell.data = data;
     cell.indexPath = indexPath.row;
@@ -238,9 +246,4 @@
     return _dataList.count;
 }
 
-// 1
-//
-//
-//
-//
 @end

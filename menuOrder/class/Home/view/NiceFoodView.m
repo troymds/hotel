@@ -33,6 +33,7 @@
 @property (nonatomic, strong) UIImageView *foodImg;
 @property (nonatomic, strong) UILabel *foodName;
 @property (nonatomic, strong) UILabel *price;
+@property (nonatomic, strong) UILabel *yuan;
 @property (nonatomic, strong) UILabel *todayprice;
 @property (nonatomic, strong) UIImageView *smallImg;
 @end
@@ -93,6 +94,16 @@
         [self addSubview:price];
         _price = price;
         
+        //5 元
+        UILabel *yuan =  [[UILabel alloc] init];
+        yuan.frame = CGRectZero;
+        yuan.font = [UIFont systemFontOfSize:PxFont(14)];
+        yuan.textColor = HexRGB(0x605e5f);
+        yuan.backgroundColor = [UIColor clearColor];
+        yuan.text = @"元";
+        [self addSubview:yuan];
+        _yuan = yuan;
+        
         //5 小图标
         UIImageView * icon = [[UIImageView alloc] init];
         icon.frame = CGRectZero;
@@ -133,6 +144,15 @@
         //4 价格
         _price.frame = Rect(CGRectGetMaxX(_todayprice.frame) - 15, todayPriceY, KTodayPriceBigW, KFontH);
         
+        CGFloat yuanW ;
+        CGFloat w = [data.price intValue];
+        if (w > 99 && w <1000) {
+            yuanW = 32;
+        }else
+        {
+            yuanW = 22;
+        }
+        _yuan.frame = Rect(_price.frame.origin.x + yuanW, _price.frame.origin.y + 2, 40, KFontH);
         //5 小图标
         _smallImg.frame = Rect(self.frame.size.width - 30 , KIconY, 30, 30);
         _smallImg.image = LOADPNGIMAGE(@"招牌美食");
@@ -160,6 +180,16 @@
         //4 价格
         _price.frame = Rect(CGRectGetMaxX(_todayprice.frame) - 15, todayPriceY, KTodayPriceBigW, KFontH);
         
+        CGFloat yuanW ;
+        CGFloat w = [_price.text intValue];
+        if (w > 99 && w <1000) {
+            yuanW = 32;
+        }else
+        {
+            yuanW = 22;
+        }
+        
+        _yuan.frame = Rect(_price.frame.origin.x + yuanW, _price.frame.origin.y + 2, 40, KFontH);
         //5 小图标
 //        CGFloat smallX = CGRectGetMaxX(_foodName.frame);
         _smallImg.frame = Rect(self.frame.size.width - 30 - KFoodImgW , KIconY, 30, 30);

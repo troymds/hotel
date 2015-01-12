@@ -16,4 +16,6 @@ singleton_interface(CarTool)
 
 -(void)addMenu:(MenuModel *) menu;
 -(void)plusMenu:(MenuModel *) menu;
+-(void)clear;
+-(void)deleteDataWithArray:(NSArray *)array;
 @end

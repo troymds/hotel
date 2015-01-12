@@ -33,8 +33,9 @@
         // 1 白色背景
         UIView *whiteBackView = [[UIView alloc] init];
         whiteBackView.backgroundColor = [UIColor whiteColor];
-        whiteBackView.layer.cornerRadius = 6;
-        whiteBackView.frame = Rect(KLeftX, KLeftX, KBackViewW, KbackViewH);
+        whiteBackView.layer.cornerRadius = 4;
+        whiteBackView.layer.masksToBounds = YES;
+        whiteBackView.frame = Rect(0, KLeftX, KBackViewW, KbackViewH);
         [self.contentView addSubview:whiteBackView];
         
         // 2 选中按钮

@@ -80,6 +80,32 @@ singleton_implementation(CarTool)
     }
 }
 
+#pragma mark 点击next时，删除购物车没有选中的数据
+-(void)deleteDataWithArray:(NSArray *)array
+{
+    NSUInteger count = array.count;
+    for (int i = 0; i < count; i++) {
+        MenuModel *deleteData = array[i];
+        for (int j = 0; j < _totalCarMenu.count; j++) {
+            MenuModel *carData = _totalCarMenu[j];
+            if (deleteData.ID == carData.ID) {
+                [_totalCarMenu removeObject:carData];
+                break;
+            }
+        }
+    }
+    [NSKeyedArchiver archiveRootObject:_totalCarMenu toFile:kFilePath];
+}
+
+#pragma mark 清除购物车
+-(void)clear
+{
+    if (_totalCarMenu) {
+        [_totalCarMenu removeAllObjects];
+        [NSKeyedArchiver archiveRootObject:_totalCarMenu toFile:kFilePath];
+    }
+}
+
 #pragma mark 计算
 - (NSMutableArray *)totalCarMenu
 {

@@ -22,6 +22,7 @@
 @property (nonatomic, strong) UIImageView *dollarIcon;//星星
 @property (nonatomic, strong) UIView *line;//星星
 @property (nonatomic, strong) UILabel *todayPrice;
+@property (nonatomic, strong) UILabel *yuan;
 @property (nonatomic, assign) BOOL hasStar;
 @property (nonatomic, assign) int count;
 @property (nonatomic, weak)id<CarClickedDelegate> delegate;

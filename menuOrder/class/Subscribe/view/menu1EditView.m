@@ -128,9 +128,17 @@
     // 判断是否可以提交
     BOOL isnull = NO;// 是否为空
     BOOL isValidPhone = YES;//是否是正确的手机号
+    BOOL isNameLengthEnough = YES;//名称长度要>=2
     for (int i = 0; i < 4; i++) {
         NSString *str = data[i];
 
+        if (i == 0) {
+            if(str.length < 2)
+            {
+                isNameLengthEnough = NO;
+            }
+        }
+        
         if (i == 1) {
             if (![self isValidPhoneNum:str]) {//错误的手机号
                 isValidPhone = NO;
@@ -143,13 +151,16 @@
             break;
         }
     }
-    if (!isnull && isValidPhone) {
+    if (!isnull && isValidPhone && isNameLengthEnough) {
         [SystemConfig sharedInstance].menuType = 0;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"submit" object:data];
     }else
     {
-        if (!isValidPhone) {
-            [RemindView showViewWithTitle:@"请输入正确的手机号！" location:MIDDLE];
+        if (!isNameLengthEnough) {
+            [RemindView showViewWithTitle:@"请检查姓名！" location:MIDDLE];
+        }
+        else if (!isValidPhone) {
+            [RemindView showViewWithTitle:@"请输入正确的手机号码！" location:MIDDLE];
         }else
         {
             [RemindView showViewWithTitle:@"请填写完信息，亲！" location:MIDDLE];

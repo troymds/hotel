@@ -70,7 +70,7 @@
         dollarIcon.text = @"￥";
         dollarIcon.textAlignment = NSTextAlignmentCenter;
         _dollar = dollarIcon;
-        _dollar.frame = Rect(numX - 10, CGRectGetMaxY(_numOfFood.frame) + 5, 20, 20);
+        _dollar.frame = Rect(numX - 2, CGRectGetMaxY(_numOfFood.frame) + 5, 20, 20);
         
         //5 总价
         UILabel *totalMoeny = [[UILabel alloc] init];

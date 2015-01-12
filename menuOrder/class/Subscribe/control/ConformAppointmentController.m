@@ -13,6 +13,7 @@
 #import "AdaptationSize.h"
 #import "subscribeHttpTool.h"
 #import "SystemConfig.h"
+#import "MysubscribeView.h"
 
 #define  YYBORDERW 9
 
@@ -213,12 +214,13 @@
         NSString * name = menu.name;
         int num = menu.foodCount;
         NSString *total;
-        if (num == 1) {
-            total   = [NSString stringWithFormat:@""];
-        }else
-        {
-            total  = [NSString stringWithFormat:@" *%d",num];
-        }
+//        if (num == 1) {
+//            total   = [NSString stringWithFormat:@""];
+//        }else
+//        {
+//            total  = [NSString stringWithFormat:@" *%d",num];
+//        }
+        total  = [NSString stringWithFormat:@" *%d",num];
         price += num * [menu.price intValue];
         show = [NSString stringWithFormat:@"%@%@",name,total];
         [_orderCategoryArray addObject:show];
@@ -228,27 +230,38 @@
 
 -(void)conform
 {
-    // 显示指示器
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"加载中...";
-    NSString *uid = [[NSUserDefaults standardUserDefaults] objectForKey:@"uid"];
-    
-    //时间转时间戳
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-    NSDate *date = [dateFormatter dateFromString:_data.use_time];
-    
-    _data.use_time = [NSString stringWithFormat:@"%lld", (long long)[date timeIntervalSince1970]];
-    
-    [subscribeHttpTool postOrderWithSuccess:^(NSArray *data, int code, NSString *msg) {
-        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-        [RemindView showViewWithTitle:@"预约成功，欢迎光临啊啊啊啊啊啊啊" location:MIDDLE];
-        [self.navigationController popToRootViewControllerAnimated:YES];
+    NSMutableArray *array = [CarTool sharedCarTool].totalCarMenu;
+    NSUInteger count = array.count;
+    if (count > 0) {
+        // 显示指示器
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"加载中...";
+        NSString *uid = [[NSUserDefaults standardUserDefaults] objectForKey:@"uid"];
         
-    } uid:uid addressID:_data.address_id addressContent:_data.address_content contact:_data.contact tel:_data.tel type:_data.type usetime:_data.use_time peopleNum:_data.people_num remark:_data.remark price:_totalPrice products:_data.products withFailure:^(NSError *error) {
+        //时间转时间戳
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+        NSDate *date = [dateFormatter dateFromString:_data.use_time];
         
-        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-        [RemindView showViewWithTitle:offline location:MIDDLE];
-    }];
+        _data.use_time = [NSString stringWithFormat:@"%lld", (long long)[date timeIntervalSince1970]];
+        
+        [subscribeHttpTool postOrderWithSuccess:^(NSArray *data, int code, NSString *msg) {
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            //删除购物车里的所有数据
+            [[CarTool sharedCarTool] clear];
+            
+            //到预约页面
+            MysubscribeView *ctl = [[MysubscribeView alloc] init];
+            [self.navigationController pushViewController:ctl animated:YES];
+            
+        } uid:uid addressID:_data.address_id addressContent:_data.address_content contact:_data.contact tel:_data.tel type:_data.type usetime:_data.use_time peopleNum:_data.people_num remark:_data.remark price:_totalPrice products:_data.products withFailure:^(NSError *error) {
+            
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            [RemindView showViewWithTitle:offline location:MIDDLE];
+        }];
+    }else
+    {
+        [RemindView showViewWithTitle:@"请重新订餐，亲！" location:MIDDLE];
+    }
 }
 @end
