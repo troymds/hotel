@@ -10,6 +10,7 @@
 #import "MysubscribeModel.h"
 
 @implementation MysubscribeTool
+#pragma mark ---我的预约
 + (void)statusesWithSuccess:(StatusSuccessBlock)success orderListUid_ID:(NSString *)uid_id failure:(StatusFailureBlock)failure{
    
     NSDictionary *dict =[NSDictionary dictionaryWithObjectsAndKeys:uid_id,@"uid", nil];
@@ -51,7 +52,7 @@
             [statuses addObject:[array objectForKey:@"data"]];
         }
         else{
-            
+            success(nil);
         }
         success(statuses);
         
