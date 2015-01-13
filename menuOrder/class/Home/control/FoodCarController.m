@@ -53,10 +53,16 @@
             totalPrice += (data.foodCount * [data.price intValue]);
             totalNum += data.foodCount;
         }
+        _tooBar.money.text = [NSString stringWithFormat:@"%d",totalPrice];
+        _tooBar.numOfFood.text = [NSString stringWithFormat:@"合计：%d份",totalNum];
+        _tooBar.allSelectedBtn.selected = YES;
+    }else
+    {
+        _tooBar.money.text = [NSString stringWithFormat:@"%d",totalPrice];
+        _tooBar.numOfFood.text = [NSString stringWithFormat:@"合计：%d份",totalNum];
+        _tooBar.allSelectedBtn.selected = NO;
     }
-    _tooBar.money.text = [NSString stringWithFormat:@"%d",totalPrice];
-    _tooBar.numOfFood.text = [NSString stringWithFormat:@"合计：%d份",totalNum];
-    _tooBar.allSelectedBtn.selected = YES;
+
 }
 
 - (void)viewDidLoad {

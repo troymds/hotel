@@ -23,7 +23,8 @@
 #define KFontSmallH   20
 #define KStarH       20
 #define KPriceW      80
-#define KBUttonW     27
+#define KBUttonW     30
+#define KBUttonH     30
 #define KDefaultSpace   30
 
 @implementation MenuCell
@@ -218,10 +219,10 @@
     CGFloat buttonX = CGRectGetMaxX(_price.frame) - KDefaultSpace * 1.5;
 //    CGFloat buttonY = CGRectGetMaxY(_foodName.frame) + KStarH;;
 //    CGFloat buttonX = self.frame.size.width - KBigImgStartX - KBUttonW *2 - 18;
-    _plusBtn.frame = Rect(buttonX, buttonY, KBUttonW, KBUttonW);
+    _plusBtn.frame = Rect(buttonX, buttonY, KBUttonW, KBUttonH);
     
     //7 数量
-    _foodConnt.frame = Rect(CGRectGetMaxX(_plusBtn.frame), buttonY, 18, KBUttonW);
+    _foodConnt.frame = Rect(CGRectGetMaxX(_plusBtn.frame), buttonY, 18, KBUttonH);
     [self foodCount];
     if (self.count == 0) {
         _foodConnt.text = [NSString stringWithFormat:@""];
@@ -236,7 +237,7 @@
         _plusBtn.hidden = NO;
     }
     //8 加号按钮
-    _addBun.frame = Rect(CGRectGetMaxX(_foodConnt.frame), buttonY, KBUttonW, KBUttonW);
+    _addBun.frame = Rect(CGRectGetMaxX(_foodConnt.frame), buttonY, KBUttonW, KBUttonH);
 
 }
 

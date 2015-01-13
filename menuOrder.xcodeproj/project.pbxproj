@@ -198,11 +198,6 @@
 		F3BF878D1A5A345100E0A49A /* menu2EditView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3BF87811A5A345100E0A49A /* menu2EditView.m */; };
 		F3BF878E1A5A345100E0A49A /* menu3EditView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3BF87831A5A345100E0A49A /* menu3EditView.m */; };
 		F3BF878F1A5A345100E0A49A /* ZHPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3BF87861A5A345100E0A49A /* ZHPickView.m */; };
-		F3BF87951A5A726600E0A49A /* 1.pre@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3BF87901A5A726600E0A49A /* 1.pre@2x.png */; };
-		F3BF87961A5A726600E0A49A /* 2.pre@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3BF87911A5A726600E0A49A /* 2.pre@2x.png */; };
-		F3BF87971A5A726600E0A49A /* 3.pre@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3BF87921A5A726600E0A49A /* 3.pre@2x.png */; };
-		F3BF87981A5A726600E0A49A /* 4.pre@2.png in Resources */ = {isa = PBXBuildFile; fileRef = F3BF87931A5A726600E0A49A /* 4.pre@2.png */; };
-		F3BF87991A5A726600E0A49A /* 5.pre@2.png in Resources */ = {isa = PBXBuildFile; fileRef = F3BF87941A5A726600E0A49A /* 5.pre@2.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -583,11 +578,6 @@
 		F3BF87831A5A345100E0A49A /* menu3EditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = menu3EditView.m; sourceTree = "<group>"; };
 		F3BF87851A5A345100E0A49A /* ZHPickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHPickView.h; sourceTree = "<group>"; };
 		F3BF87861A5A345100E0A49A /* ZHPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHPickView.m; sourceTree = "<group>"; };
-		F3BF87901A5A726600E0A49A /* 1.pre@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1.pre@2x.png"; sourceTree = "<group>"; };
-		F3BF87911A5A726600E0A49A /* 2.pre@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "2.pre@2x.png"; sourceTree = "<group>"; };
-		F3BF87921A5A726600E0A49A /* 3.pre@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "3.pre@2x.png"; sourceTree = "<group>"; };
-		F3BF87931A5A726600E0A49A /* 4.pre@2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "4.pre@2.png"; sourceTree = "<group>"; };
-		F3BF87941A5A726600E0A49A /* 5.pre@2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "5.pre@2.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -828,11 +818,6 @@
 		F33541E31A367D91005B21C8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				F3BF87901A5A726600E0A49A /* 1.pre@2x.png */,
-				F3BF87911A5A726600E0A49A /* 2.pre@2x.png */,
-				F3BF87921A5A726600E0A49A /* 3.pre@2x.png */,
-				F3BF87931A5A726600E0A49A /* 4.pre@2.png */,
-				F3BF87941A5A726600E0A49A /* 5.pre@2.png */,
 				F33541E41A367D91005B21C8 /* menuOrder-Info.plist */,
 				F33541E51A367D91005B21C8 /* InfoPlist.strings */,
 				F33541E81A367D91005B21C8 /* main.m */,
@@ -1682,23 +1667,18 @@
 				18F0FA891A4B30DD004E85A7 /* AMap.bundle in Resources */,
 				F335433B1A369ED1005B21C8 /* MJRefresh.bundle in Resources */,
 				F33543511A369ED1005B21C8 /* SVProgressHUD.bundle in Resources */,
-				F3BF87961A5A726600E0A49A /* 2.pre@2x.png in Resources */,
 				18F0FA7A1A4B2C1C004E85A7 /* dropdown.png in Resources */,
 				18F0FA8A1A4B30DD004E85A7 /* AMapNavi.bundle in Resources */,
 				18F0FA7B1A4B2C1C004E85A7 /* dropup.png in Resources */,
-				F3BF87981A5A726600E0A49A /* 4.pre@2.png in Resources */,
 				F335435A1A369ED1005B21C8 /* zbar-samples.png in Resources */,
 				F335436B1A369ED1005B21C8 /* ShareSDKFlatShareViewUI.bundle in Resources */,
 				F33543581A369ED1005B21C8 /* zbar-help.html in Resources */,
 				F33543621A369ED1005B21C8 /* ShareSDKLocalizable.strings in Resources */,
 				F33543661A369ED1005B21C8 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				F33543571A369ED1005B21C8 /* zbar-back.png in Resources */,
-				F3BF87991A5A726600E0A49A /* 5.pre@2.png in Resources */,
 				F33543591A369ED1005B21C8 /* zbar-helpicons.png in Resources */,
 				F33543631A369ED1005B21C8 /* Resource.bundle in Resources */,
-				F3BF87971A5A726600E0A49A /* 3.pre@2x.png in Resources */,
 				F33543681A369ED1005B21C8 /* WeiboSDK.bundle in Resources */,
-				F3BF87951A5A726600E0A49A /* 1.pre@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
