@@ -21,7 +21,7 @@
 #import "addressListModel.h"
 #import "ConformAppointmentController.h"
 #import "orderModel.h"
-
+#import "SystemConfig.h"
 #define KEditViewOffMenuBar 10
 #define KRightOffset        20
 #define KMenuStart 100
@@ -58,6 +58,14 @@
     if (self.navigationItem.rightBarButtonItem) {
         BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.rightBarButtonItem;
         barButton.badgeValue = [NSString stringWithFormat:@"%ld", (long)[self totalCarNum] ];
+    }
+    //2 如果是已经提交订单成功后返回，如果当前不是亲临鱼府，要滚动到亲临鱼府
+    if (_backScroll) {
+        if ([SystemConfig sharedInstance].menuType != 0) {
+            CGPoint p = _backScroll.contentOffset;
+            p.x = 0;
+            [_backScroll setContentOffset:p];
+        }
     }
 }
 

@@ -20,7 +20,7 @@
 #define YYBORDERWw 20
 #define YYBORDERY 15
 #define YYBOURERyy 25
-
+#define KSpace 8
 @interface ConformAppointmentController ()<UIScrollViewDelegate>{
     NSMutableArray * _orderCategoryArray;
     CGFloat viewH;
@@ -80,23 +80,23 @@
         //亲临鱼府
        //判断有没有点餐，控制订单金额label显示与否
         if ([_totalPrice intValue] != 0) {
-            NSArray *titles = @[ [NSString stringWithFormat:@"订单金额:  %@ 元",_totalPrice], [NSString stringWithFormat:@"联系人：%@",_data.contact], [NSString stringWithFormat:@"电话：%@",_data.tel],[NSString stringWithFormat:@"就餐人数：%@",_data.people_num],[NSString stringWithFormat:@"就餐时间：%@",_data.use_time] ];
+            NSArray *titles = @[ [NSString stringWithFormat:@"订单金额:  %@ 元",_totalPrice], [NSString stringWithFormat:@"联系人：%@",_data.contact], [NSString stringWithFormat:@"电话：%@",_data.tel],[NSString stringWithFormat:@"就餐人数：%@",_data.people_num],[NSString stringWithFormat:@"就餐时间：%@",_data.use_time],[NSString stringWithFormat:@"其他就餐要求：%@",_data.remark] ];
             [self buildWithData:titles];
         }else
         {
-            NSArray *titles = @[[NSString stringWithFormat:@"联系人：%@",_data.contact], [NSString stringWithFormat:@"电话：%@",_data.tel],[NSString stringWithFormat:@"就餐人数：%@",_data.people_num],[NSString stringWithFormat:@"就餐时间：%@",_data.use_time] ];
+            NSArray *titles = @[[NSString stringWithFormat:@"联系人：%@",_data.contact], [NSString stringWithFormat:@"电话：%@",_data.tel],[NSString stringWithFormat:@"就餐人数：%@",_data.people_num],[NSString stringWithFormat:@"就餐时间：%@",_data.use_time],[NSString stringWithFormat:@"其他就餐要求：%@",_data.remark] ];
             [self buildWithData:titles];
         }
         
     }else if (_type == 1)
     {
         //外带取餐
-        NSArray *titles = @[ [NSString stringWithFormat:@"订单金额:  %@ 元",_totalPrice], [NSString stringWithFormat:@"联系人：%@",_data.contact], [NSString stringWithFormat:@"电话：%@",_data.tel],[NSString stringWithFormat:@"取餐时间：%@",_data.use_time] ];
+        NSArray *titles = @[ [NSString stringWithFormat:@"订单金额:  %@ 元",_totalPrice], [NSString stringWithFormat:@"联系人：%@",_data.contact], [NSString stringWithFormat:@"电话：%@",_data.tel],[NSString stringWithFormat:@"取餐时间：%@",_data.use_time],[NSString stringWithFormat:@"其他就餐要求：%@",_data.remark] ];
         [self buildWithData:titles];
     }else
     {
         //外卖服务
-        NSArray *titles = @[ [NSString stringWithFormat:@"订单金额:  %@ 元",_totalPrice], [NSString stringWithFormat:@"联系人：%@",_data.contact], [NSString stringWithFormat:@"电话：%@",_data.tel],[NSString stringWithFormat:@"地址：%@",_data.address_content],[NSString stringWithFormat:@"送达时间：%@",_data.use_time] ];
+        NSArray *titles = @[ [NSString stringWithFormat:@"订单金额:  %@ 元",_totalPrice], [NSString stringWithFormat:@"联系人：%@",_data.contact], [NSString stringWithFormat:@"电话：%@",_data.tel],[NSString stringWithFormat:@"地址：%@",_data.address_content],[NSString stringWithFormat:@"送达时间：%@",_data.use_time],[NSString stringWithFormat:@"其他就餐要求：%@",_data.remark] ];
         [self buildWithData:titles];
     }
 }
@@ -107,15 +107,39 @@
     //订单详情
     NSUInteger count = array.count;
     for (int p = 0; p < count; p++) {
-        UILabel *orderLabel =[[UILabel alloc]initWithFrame:CGRectMake(YYBORDERW, YYBORDERWw+40+p%count*(YYBORDERY+20), kWidth-YYBORDERWw*2-YYBORDERW*2, 20 )];
-        [_backView addSubview:orderLabel];
-        orderLabel.backgroundColor =[UIColor clearColor];
-        orderLabel.font =[UIFont systemFontOfSize:PxFont(20)];
-        orderLabel.textColor=HexRGB(0x605e5f);
-        orderLabel.textAlignment = NSTextAlignmentLeft;
-        orderLabel.text=array[p];
+        
+        BOOL hasOther  = YES;
+        NSString *other = _data.remark;
+        if (other.length == 0) {
+            hasOther = NO;
+        }
+        UILabel *orderLabel;
+        if (p < count - 1) {
+             orderLabel =[[UILabel alloc]initWithFrame:CGRectMake(YYBORDERW + KSpace, YYBORDERWw+40+p%count*(YYBORDERY+20), kWidth-YYBORDERWw*2-YYBORDERW*2, 20 )];
+            [_backView addSubview:orderLabel];
+            orderLabel.backgroundColor =[UIColor clearColor];
+            orderLabel.font =[UIFont systemFontOfSize:PxFont(20)];
+            orderLabel.textColor=HexRGB(0x605e5f);
+            orderLabel.textAlignment = NSTextAlignmentLeft;
+            orderLabel.text=array[p];
+        }
+        
+        if (p == count - 2) {//判断有没有其他就餐要求
+            if (!hasOther) {
+               viewH = CGRectGetMaxY(orderLabel.frame)  + 15;
+            }
+        }
         if (p == count - 1) {
-            viewH = CGRectGetMaxY(orderLabel.frame)  + 15;
+            if (hasOther) {
+                UILabel *orderLabel =[[UILabel alloc]initWithFrame:CGRectMake(YYBORDERW + KSpace, YYBORDERWw+40+p%count*(YYBORDERY+20), kWidth-YYBORDERWw*2-YYBORDERW*2, 20 )];
+                [_backView addSubview:orderLabel];
+                orderLabel.backgroundColor =[UIColor clearColor];
+                orderLabel.font =[UIFont systemFontOfSize:PxFont(20)];
+                orderLabel.textColor=HexRGB(0x605e5f);
+                orderLabel.textAlignment = NSTextAlignmentLeft;
+                orderLabel.text=array[p];
+                viewH = CGRectGetMaxY(orderLabel.frame)  + 15;
+            }
         }
     }
     
@@ -137,7 +161,7 @@
         CGFloat startY = CGRectGetMaxY(foodBtn.frame);
         for (int l=0; l<number;l++) {
             
-            UILabel *orderCategory =[[UILabel alloc]initWithFrame:CGRectMake(YYBORDERW+l%2*(kWidth-YYBORDERWw*6-YYBORDERW*6), startY + l/2*(YYBORDERY+20), (kWidth-YYBORDERWw*2-YYBORDERW*2)/2, 20 )];
+            UILabel *orderCategory =[[UILabel alloc]initWithFrame:CGRectMake(YYBORDERW+l%2*(kWidth-YYBORDERWw*6-YYBORDERW*6) + KSpace, startY + l/2*(YYBORDERY+20), (kWidth-YYBORDERWw*2-YYBORDERW*2)/2, 20 )];
             [_backView addSubview:orderCategory];
             orderCategory.backgroundColor =[UIColor clearColor];
             orderCategory.font =[UIFont systemFontOfSize:PxFont(20)];
@@ -156,7 +180,7 @@
         [_backView addSubview:warning];
         warning.text = @"温馨提示：为了您的方便，请在预定的时间内到达，若超过10分钟未到达，我们将另行安排";
         CGFloat detailH = [AdaptationSize getSizeFromString:warning.text Font:[UIFont systemFontOfSize:PxFont(20)] withHight: CGFLOAT_MAX withWidth:kWidth-YYBORDERWw*2-YYBORDERW*2].height;
-        warning.frame  = Rect(YYBORDERW, viewH, kWidth - YYBORDERW*4, detailH);
+        warning.frame  = Rect(YYBORDERW + KSpace, viewH, kWidth - YYBORDERW*4, detailH);
         warning.numberOfLines = 0;
         warning.backgroundColor =[UIColor clearColor];
         warning.textColor=HexRGB(0x605e5f);
@@ -173,6 +197,9 @@
         [conform setBackgroundImage:LOADPNGIMAGE(@"submit_ok") forState:UIControlStateNormal];
         [conform addTarget:self action:@selector(conform) forControlEvents:UIControlEventTouchUpInside];
         [_backScroll addSubview:conform];
+        
+        viewH = CGRectGetMaxY(conform.frame) + 10;
+        _backScroll.contentSize = CGSizeMake(kWidth, viewH);
         
     }else
     {
@@ -182,7 +209,7 @@
         [_backView addSubview:warning];
         warning.text = @"温馨提示：为了您的方便，请在预定的时间内到达，若超过10分钟未到达，我们将另行安排";
         CGFloat detailH = [AdaptationSize getSizeFromString:warning.text Font:[UIFont systemFontOfSize:PxFont(20)] withHight: CGFLOAT_MAX withWidth:kWidth-YYBORDERWw*2-YYBORDERW*2].height;
-        warning.frame  = Rect(YYBORDERW, viewH, kWidth - YYBORDERW*4, detailH);
+        warning.frame  = Rect(YYBORDERW + KSpace, viewH, kWidth - YYBORDERW*4, detailH);
         warning.numberOfLines = 0;
         warning.backgroundColor =[UIColor clearColor];
         warning.textColor=HexRGB(0x605e5f);
@@ -199,6 +226,8 @@
         [conform setBackgroundImage:LOADPNGIMAGE(@"submit_ok") forState:UIControlStateNormal];
         [conform addTarget:self action:@selector(conform) forControlEvents:UIControlEventTouchUpInside];
         [_backScroll addSubview:conform];
+        viewH = CGRectGetMaxY(conform.frame) + 10;
+        _backScroll.contentSize = CGSizeMake(kWidth, viewH);
     }
 }
 
@@ -232,36 +261,49 @@
 {
     NSMutableArray *array = [CarTool sharedCarTool].totalCarMenu;
     NSUInteger count = array.count;
-    if (count > 0) {
-        // 显示指示器
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.labelText = @"加载中...";
-        NSString *uid = [[NSUserDefaults standardUserDefaults] objectForKey:@"uid"];
-        
-        //时间转时间戳
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-        NSDate *date = [dateFormatter dateFromString:_data.use_time];
-        
-        _data.use_time = [NSString stringWithFormat:@"%lld", (long long)[date timeIntervalSince1970]];
-        
-        [subscribeHttpTool postOrderWithSuccess:^(NSArray *data, int code, NSString *msg) {
-            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-            //删除购物车里的所有数据
-            [[CarTool sharedCarTool] clear];
-            
-            //到预约页面
-            MysubscribeView *ctl = [[MysubscribeView alloc] init];
-            [self.navigationController pushViewController:ctl animated:YES];
-            
-        } uid:uid addressID:_data.address_id addressContent:_data.address_content contact:_data.contact tel:_data.tel type:_data.type usetime:_data.use_time peopleNum:_data.people_num remark:_data.remark price:_totalPrice products:_data.products withFailure:^(NSError *error) {
-            
-            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-            [RemindView showViewWithTitle:offline location:MIDDLE];
-        }];
+    //当是从亲临鱼府提交的时候，就算count为0，也是可以提交的
+    if (_type != 0) {
+        if (count > 0) {
+            [self submit];
+        }else
+        {
+            [RemindView showViewWithTitle:@"请重新订餐，亲！" location:MIDDLE];
+        }
     }else
     {
-        [RemindView showViewWithTitle:@"请重新订餐，亲！" location:MIDDLE];
+        [self submit];
     }
 }
+
+#pragma mark提交
+-(void)submit
+{
+    // 显示指示器
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"加载中...";
+    NSString *uid = [[NSUserDefaults standardUserDefaults] objectForKey:@"uid"];
+    
+    //时间转时间戳
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSDate *date = [dateFormatter dateFromString:_data.use_time];
+    
+    _data.use_time = [NSString stringWithFormat:@"%lld", (long long)[date timeIntervalSince1970]];
+    
+    [subscribeHttpTool postOrderWithSuccess:^(NSArray *data, int code, NSString *msg) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        //删除购物车里的所有数据
+        [[CarTool sharedCarTool] clear];
+        
+        //到预约页面
+        MysubscribeView *ctl = [[MysubscribeView alloc] init];
+        [self.navigationController pushViewController:ctl animated:YES];
+        
+    } uid:uid addressID:_data.address_id addressContent:_data.address_content contact:_data.contact tel:_data.tel type:_data.type usetime:_data.use_time peopleNum:_data.people_num remark:_data.remark price:_totalPrice products:_data.products withFailure:^(NSError *error) {
+        
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        [RemindView showViewWithTitle:offline location:MIDDLE];
+    }];
+}
+
 @end

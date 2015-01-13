@@ -122,7 +122,7 @@
                 //只要str 或者field有值，则点亮圆圈和线框
                 if (str.length > 0 || textField.text.length > 0) {
                     // 圆圈
-                    NSString *lightImg = [NSString stringWithFormat:@"%d.pre",editView.editTag - KEditStartTag];
+                    NSString *lightImg = [NSString stringWithFormat:@"%d_pre",editView.editTag - KEditStartTag];
                     editView.cricle.image = LOADPNGIMAGE(lightImg);
                     //线框
                     for (UIView *view in _backScroll.subviews) {
@@ -179,7 +179,7 @@
             UITextField *field = editview.edit;
             if (field.text.length > 0) {
                 // 圆圈
-                NSString *lightImg = [NSString stringWithFormat:@"%d.pre",editview.editTag - KEditStartTag];
+                NSString *lightImg = [NSString stringWithFormat:@"%d_pre",editview.editTag - KEditStartTag];
                 editview.cricle.image = LOADPNGIMAGE(lightImg);
                 //线框
                 for (UIView *view in _backScroll.subviews) {
@@ -248,7 +248,7 @@
                 UITextField *field = editview.edit;
                 if (field.text.length > 0) {
                     // 圆圈
-                    NSString *lightImg = [NSString stringWithFormat:@"%d.pre",editview.editTag - KEditStartTag];
+                    NSString *lightImg = [NSString stringWithFormat:@"%d_pre",editview.editTag - KEditStartTag];
                     editview.cricle.image = LOADPNGIMAGE(lightImg);
                     //线框
                     for (UIView *view in _backScroll.subviews) {
@@ -340,7 +340,7 @@
                 
                 if (field.text.length > 0) {
                     // 圆圈
-                    NSString *lightImg = [NSString stringWithFormat:@"%d.pre",editview.editTag - KEditStartTag];
+                    NSString *lightImg = [NSString stringWithFormat:@"%d_pre",editview.editTag - KEditStartTag];
                     editview.cricle.image = LOADPNGIMAGE(lightImg);
                     //线框
                     for (UIView *view in _backScroll.subviews) {

@@ -213,7 +213,7 @@
                 //只要str 或者field有值，则点亮圆圈和线框
                 if (str.length > 0 || textField.text.length > 0) {
                     // 圆圈
-                    NSString *lightImg = [NSString stringWithFormat:@"%d.pre",editView.editTag - KEditStartTag];
+                    NSString *lightImg = [NSString stringWithFormat:@"%d_pre",editView.editTag - KEditStartTag];
                     editView.cricle.image = LOADPNGIMAGE(lightImg);
                     //线框
                     for (UIView *view in _backScroll.subviews) {
@@ -268,7 +268,7 @@
             UITextField *field = editview.edit;
             if (field.text.length > 0) {
                 // 圆圈
-                NSString *lightImg = [NSString stringWithFormat:@"%d.pre",editview.editTag - KEditStartTag];
+                NSString *lightImg = [NSString stringWithFormat:@"%d_pre",editview.editTag - KEditStartTag];
                 editview.cricle.image = LOADPNGIMAGE(lightImg);
                 //线框
                 for (UIView *view in _backScroll.subviews) {
@@ -337,7 +337,7 @@
                 UITextField *field = editview.edit;
                 if (field.text.length > 0) {
                     // 圆圈
-                    NSString *lightImg = [NSString stringWithFormat:@"%d.pre",editview.editTag - KEditStartTag];
+                    NSString *lightImg = [NSString stringWithFormat:@"%d_pre",editview.editTag - KEditStartTag];
                     editview.cricle.image = LOADPNGIMAGE(lightImg);
                     //线框
                     for (UIView *view in _backScroll.subviews) {
@@ -430,7 +430,7 @@
                 
                 if (field.text.length > 0) {
                     // 圆圈
-                    NSString *lightImg = [NSString stringWithFormat:@"%d.pre",editview.editTag - KEditStartTag];
+                    NSString *lightImg = [NSString stringWithFormat:@"%d_pre",editview.editTag - KEditStartTag];
                     editview.cricle.image = LOADPNGIMAGE(lightImg);
                     //线框
                     for (UIView *view in _backScroll.subviews) {
@@ -473,7 +473,7 @@
 
 -(void)summitDeal
 {
-    NSMutableArray *data = [NSMutableArray arrayWithCapacity:5];
+    NSMutableArray *data = [NSMutableArray array];
     for (UIView *view in _backScroll.subviews) {
         if ([view isKindOfClass:[EditView class]]) {
             EditView *vi = (EditView *)view;
@@ -484,46 +484,51 @@
             [data addObject:text.text];
         }
     }
-    // 判断是否可以提交
-    BOOL isnull = NO;// 是否为空
-    BOOL isValidPhone = YES;//是否是正确的手机号
-    BOOL isNameLengthEnough = YES;//名称长度要>=2
-    for (int i = 0; i < 4; i++) {
-        NSString *str = data[i];
-        
-        if (i == 0) {
-            if(str.length < 2)
-            {
-                isNameLengthEnough = NO;
+    // 判断是否可以提交,只有至少填了4项
+    if (data.count >= 4) {
+        BOOL isnull = NO;// 是否为空
+        BOOL isValidPhone = YES;//是否是正确的手机号
+        BOOL isNameLengthEnough = YES;//名称长度要>=2
+        for (int i = 0; i < 4; i++) {
+            NSString *str = data[i];
+            
+            if (i == 0) {
+                if(str.length < 2)
+                {
+                    isNameLengthEnough = NO;
+                }
             }
-        }
-        
-        if (i == 1) {
-            if (![self isValidPhoneNum:str]) {//错误的手机号
-                isValidPhone = NO;
+            
+            if (i == 1) {
+                if (![self isValidPhoneNum:str]) {//错误的手机号
+                    isValidPhone = NO;
+                    break;
+                }
+            }
+            if (str.length == 0) {
+                //不能提交
+                isnull = YES;
                 break;
             }
         }
-        if (str.length == 0) {
-            //不能提交
-            isnull = YES;
-            break;
-        }
-    }
-    if (!isnull && isValidPhone && isNameLengthEnough) {
-        [SystemConfig sharedInstance].menuType = 2;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"submit" object:data];
-    }else
-    {
-        if (!isNameLengthEnough) {
-            [RemindView showViewWithTitle:@"请检查姓名长度！" location:MIDDLE];
-        }
-        else if (!isValidPhone) {
-            [RemindView showViewWithTitle:@"请输入正确的手机号！" location:MIDDLE];
+        if (!isnull && isValidPhone && isNameLengthEnough) {
+            [SystemConfig sharedInstance].menuType = 2;
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"submit" object:data];
         }else
         {
-            [RemindView showViewWithTitle:@"请填写完信息，亲！" location:MIDDLE];
+            if (!isNameLengthEnough) {
+                [RemindView showViewWithTitle:@"请检查姓名长度！" location:MIDDLE];
+            }
+            else if (!isValidPhone) {
+                [RemindView showViewWithTitle:@"请输入正确的手机号！" location:MIDDLE];
+            }else
+            {
+                [RemindView showViewWithTitle:@"请填写完信息，亲！" location:MIDDLE];
+            }
         }
+    }else
+    {
+        [RemindView showViewWithTitle:@"请填写完信息，亲！" location:MIDDLE];
     }
 }
 

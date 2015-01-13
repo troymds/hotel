@@ -12,8 +12,8 @@
 #import "PhotoListModel.h"
 
 #define KStartImgTag 200
-#define KSuration 0.6
-
+#define KSuration 1.1
+#define KWHRatiao 0.8
 @interface ShowHotelController ()
 {
     UIImageView *_view1;
@@ -30,9 +30,9 @@
 
 @implementation ShowHotelController
 
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    self.navigationController.navigationBarHidden = NO;
+    self.navigationController.navigationBar.hidden = YES;
 }
 
 - (void)viewDidLoad {
@@ -42,7 +42,7 @@
     }
     
     self.title = @"渔府风采";
-    self.view.backgroundColor = HexRGB(0xe0e0e0);
+    self.view.backgroundColor = HexRGB(0x141414);
     
     //加左右滑动
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
@@ -120,18 +120,21 @@
 {
     UIView *contentView  = [[UIView alloc] init];
     [self.view addSubview:contentView];
-    
-    contentView.frame = Rect(0, 0, kWidth, kWidth);
+    CGFloat viewH = kWidth / KWHRatiao;
+    contentView.frame = Rect(0, 0, kWidth, viewH);
     CGFloat x = kWidth / 2;
-    CGFloat y = (KAppHeight - 44) / 2;
+    CGFloat y = KAppHeight / 2;
     contentView.center = CGPointMake(x, y);
     _contentView = contentView;
     
     //1 拿到所有图片view
     NSUInteger count = _imgArray.count;
     for (int i = 0; i < count; i++) {
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)];
         UIImageView *img = [[UIImageView alloc] init];
-        img.frame = Rect(0, 0, kWidth, kWidth);
+        [img addGestureRecognizer:tap];
+        [img setUserInteractionEnabled:YES];
+        img.frame = Rect(0, 0, kWidth, viewH);
         img.tag = KStartImgTag + i;
         img.image = _imgArray[i];
         [contentView addSubview:img];
@@ -141,6 +144,12 @@
     UIImageView *firstView = (UIImageView *)[contentView viewWithTag:KStartImgTag];
     [_contentView bringSubviewToFront:firstView];
 
+}
+
+#pragma mark 点击图片返回上页
+-(void)handleTap:(UITapGestureRecognizer *)tap
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark 下一页
