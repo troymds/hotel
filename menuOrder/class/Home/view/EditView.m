@@ -108,7 +108,10 @@
 
 -(void)addaddress
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"address" object:nil];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"address" object:nil];
+    if ([_delegate respondsToSelector:@selector(choseArddress)]) {
+        [_delegate choseArddress];
+    }
 }
 
 #pragma mark textField delegate

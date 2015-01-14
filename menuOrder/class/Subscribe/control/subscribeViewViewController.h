@@ -9,7 +9,14 @@
 #import <UIKit/UIKit.h>
 #define KMenuH      40
 #define KBackScroolViewH KAppHeight - 44 - KMenuH
+@class addressListModel;
 
-@interface subscribeViewViewController : UIViewController
+@protocol subscribeDelefgate <NSObject>
 
+@optional
+-(void) upDateAddress:(addressListModel *)address;
+@end
+
+@interface subscribeViewViewController : UIViewController<subscribeDelefgate>
+@property (nonatomic, weak) id<subscribeDelefgate> delegate;
 @end

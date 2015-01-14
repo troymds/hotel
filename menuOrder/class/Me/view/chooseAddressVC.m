@@ -179,7 +179,7 @@
     addressListModel *addressModel =[_addressArray objectAtIndex:indexPath.row];
     if ([_delegate respondsToSelector:@selector(passAddress:)]) {
         [_delegate passAddress:addressModel];
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 

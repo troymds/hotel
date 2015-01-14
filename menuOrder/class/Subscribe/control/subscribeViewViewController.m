@@ -93,7 +93,7 @@
     self.title = @"预约";
     self.view.backgroundColor = HexRGB(0xeeeeee);
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(submit:) name:@"submit" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addsdress) name:@"address" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addsdress) name:@"address" object:nil];
     // 利用通知中心监听键盘的变化（打开、关闭、中英文切换）
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
     
@@ -226,7 +226,7 @@
     [_backScroll addSubview:menu3];
     menu3.delegate2 = self;
     _menu3 = menu3;
-
+    
 }
 
 #pragma mark menu1提交数据
@@ -277,7 +277,7 @@
     //判断参数的传值
     NSString *contact;
     NSString *tel;
-    NSString *peopleNum;
+    NSString *peopleNum = @"";
     NSString *useTime;
     NSString *remark;
     NSString *type;
@@ -327,19 +327,23 @@
     [self.navigationController pushViewController:ctl animated:YES];
 }
 
--(void)addsdress
+#pragma mark 开始选择地址
+-(void)startChoseAddress
 {
     chooseAddressVC *choose = [[chooseAddressVC alloc] init];
     choose.delegate = self;
     [self.navigationController pushViewController:choose animated:YES];
-    
 }
 
 #pragma mark 选择地址
 - (void)passAddress:(addressListModel *)address
 {
     //menu3下更新UI
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"update" object:address];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"update" object:address];
+   _delegate = _menu3;
+    if ([_delegate respondsToSelector:@selector(upDateAddress:)]) {
+        [_delegate upDateAddress:address];
+    }
 }
 
 #pragma mark 菜单栏按钮点击事件
@@ -488,7 +492,7 @@
 - (void)dealloc
 {
 //    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"submit" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"address" object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"address" object:nil];
 //    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 @end
