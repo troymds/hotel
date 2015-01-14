@@ -298,7 +298,7 @@
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             //删除购物车里的所有数据
             [[CarTool sharedCarTool] clear];
-            
+            [SystemConfig sharedInstance].isSubmit = YES;
             //到预约页面
             MysubscribeView *ctl = [[MysubscribeView alloc] init];
             [self.navigationController pushViewController:ctl animated:YES];

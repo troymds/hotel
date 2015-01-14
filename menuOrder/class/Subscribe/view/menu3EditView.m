@@ -39,7 +39,7 @@
 {
     if (self = [super initWithFrame:frame]) {
         //底部UIScrollView
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:@"update" object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:@"update" object:nil];
         UIScrollView *backScroll = [[UIScrollView alloc] initWithFrame:Rect(0, 0, kWidth, frame.size.height)];
         [self addSubview:backScroll];
         _backScroll = backScroll;

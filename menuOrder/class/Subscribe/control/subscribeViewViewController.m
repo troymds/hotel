@@ -22,6 +22,8 @@
 #import "ConformAppointmentController.h"
 #import "orderModel.h"
 #import "SystemConfig.h"
+#import "addressListModel.h"
+
 #define KEditViewOffMenuBar 10
 #define KRightOffset        20
 #define KMenuStart 100
@@ -45,6 +47,7 @@
     UIScrollView *_currentScroll;//当前的Scrool；
     CGFloat keyBoardH;//键盘高度
     int _totaNum;
+    addressListModel *_address;
 }
 @property(nonatomic,strong)ZHPickView *pickview;
 
@@ -60,7 +63,7 @@
         barButton.badgeValue = [NSString stringWithFormat:@"%ld", (long)[self totalCarNum] ];
     }
     //2 如果是已经提交订单成功后返回，如果当前不是亲临鱼府，要滚动到亲临鱼府
-    if (_backScroll) {
+    if (_backScroll && [SystemConfig sharedInstance].isSubmit) {
         if ([SystemConfig sharedInstance].menuType != 0) {
             CGPoint p = _backScroll.contentOffset;
             p.x = 0;
@@ -282,6 +285,10 @@
     NSString *remark;
     NSString *type;
     NSString *address = @"";
+    NSString *addressID = @"";
+    if (_address) {
+        addressID = _address.addressId;
+    }
     if (x == 0) {
         //menu1
         type = @"0";
@@ -320,7 +327,7 @@
     order.remark = remark;
     order.price = [NSString stringWithFormat:@"%d",price];
     order.products = parm;
-    order.address_id = @"";
+    order.address_id = addressID;
     ConformAppointmentController *ctl = [[ConformAppointmentController alloc] init];
     ctl.data = order;
     ctl.oldTime = useTime;
@@ -332,6 +339,7 @@
 {
     chooseAddressVC *choose = [[chooseAddressVC alloc] init];
     choose.delegate = self;
+    [SystemConfig sharedInstance].isSubmit = NO;
     [self.navigationController pushViewController:choose animated:YES];
 }
 
@@ -341,6 +349,7 @@
     //menu3下更新UI
 //        [[NSNotificationCenter defaultCenter] postNotificationName:@"update" object:address];
    _delegate = _menu3;
+    _address = address;
     if ([_delegate respondsToSelector:@selector(upDateAddress:)]) {
         [_delegate upDateAddress:address];
     }
