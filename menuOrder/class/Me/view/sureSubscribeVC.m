@@ -131,14 +131,18 @@
                 orderLabel.text = [NSString stringWithFormat:@"  联系电话:%@",orderModel.tel];
                 
             }
-        }if ([orderModel.type isEqualToString:@"1"]) {
+        }
+        
+         if (p==3) {
+        if ([orderModel.type isEqualToString:@"1"]) {
+            
             orderLabel.text = [NSString stringWithFormat:@"  取餐时间:%@",orderModel.use_time];
 
         }if ([orderModel.type isEqualToString:@"2"]) {
             orderLabel.text = [NSString stringWithFormat:@"  送达时间:%@",orderModel.use_time];
             
-        }
-       
+         }
+         }
     }
     
     UILabel *orderLabel =[[UILabel alloc]initWithFrame:CGRectMake(YYBORDERW+80, YYBORDERWw+36, kWidth-YYBORDERWw*2-YYBORDERW*2, 30 )];
