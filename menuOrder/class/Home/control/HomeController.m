@@ -119,6 +119,7 @@
             NSString *imgClickedName = [NSString stringWithFormat:@"menu%d_pre",imgTag];
             [menu setBackgroundImage:LOADPNGIMAGE(imgNomralName) forState:UIControlStateNormal];
             [menu setBackgroundImage:LOADPNGIMAGE(imgClickedName) forState:UIControlStateSelected];
+            [menu setBackgroundImage:LOADPNGIMAGE(imgClickedName) forState:UIControlStateHighlighted];
             [menu addTarget:self action:@selector(buttonclicked:) forControlEvents:UIControlEventTouchUpInside];
             [_scroll addSubview:menu];
             if (i == 1) {

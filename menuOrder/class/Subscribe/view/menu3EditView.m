@@ -30,6 +30,11 @@
 
 @implementation menu3EditView
 
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
+}
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
@@ -513,7 +518,10 @@
         }
         if (!isnull && isValidPhone && isNameLengthEnough) {
             [SystemConfig sharedInstance].menuType = 2;
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"submit" object:data];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:@"submit" object:data];
+            if ([_delegate2 respondsToSelector:@selector(menu3EditView:withArray:)]) {
+                [_delegate2 menu3EditView:self withArray:data];
+            }
         }else
         {
             if (!isNameLengthEnough) {
@@ -530,10 +538,5 @@
     {
         [RemindView showViewWithTitle:@"请填写完信息，亲！" location:MIDDLE];
     }
-}
-
--(void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 @end

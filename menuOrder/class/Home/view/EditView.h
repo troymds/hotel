@@ -35,6 +35,7 @@ typedef enum {
 - (void)textshouleBeginEditting:(EditView *)view :(UITextField *)textField withstring:(NSString *)str;
 - (void)textFieldBeganEditting:(EditView *)view :(UITextField *)textField;
 - (void)textFieldEndEditting:(EditView *)view :(UITextField *)textField;
+- (void)submitWithArray:(NSArray *)array;
 @end
 
 @interface EditView : UIView<UITextFieldDelegate>
