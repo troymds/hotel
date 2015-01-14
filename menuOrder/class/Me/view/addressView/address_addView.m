@@ -90,7 +90,11 @@
     }
     if ([nameStr isEqualToString:@""]) {
         [RemindView showViewWithTitle:@"联系人姓名不能为空" location:MIDDLE];
-    }else if ([telStr isEqualToString:@""]) {
+    }else if (nameStr.length<=1) {
+        [RemindView showViewWithTitle:@"请检查姓名" location:MIDDLE];
+        
+    }
+     else if ([telStr isEqualToString:@""]) {
         [RemindView showViewWithTitle:@"联系人联系电话不能为空" location:MIDDLE];
         
     }else if ([addressStr isEqualToString:@""]) {
@@ -109,6 +113,8 @@
 
 -(void)addLoadStatus
 {
+    NSString *uid = [[NSUserDefaults standardUserDefaults] objectForKey:@"uid"];
+
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
     hud.dimBackground = NO;
     [addAdressTool statusesWithSuccess:^(NSArray *statues) {
@@ -116,7 +122,7 @@
 
         [self disMissVC];
         
-    } uid_ID:@"uid" ContentStr:addressStr TelStr:telStr ContactStr:nameStr failure:^(NSError *error) {
+    } uid_ID:uid ContentStr:addressStr TelStr:telStr ContactStr:nameStr failure:^(NSError *error) {
         [MBProgressHUD hideAllHUDsForView:[UIApplication sharedApplication].keyWindow animated:YES];
 
        
@@ -130,7 +136,11 @@
 {
     if ([nameStr isEqualToString:@""]) {
         [RemindView showViewWithTitle:@"联系人姓名不能为空" location:MIDDLE];
-    }else if ([telStr isEqualToString:@""]) {
+    }else if (telStr.length<=1) {
+        [RemindView showViewWithTitle:@"请检查姓名" location:MIDDLE];
+        
+    }
+    else if ([telStr isEqualToString:@""]) {
         [RemindView showViewWithTitle:@"联系人姓名不能为空" location:MIDDLE];
 
     }else if ([addressStr isEqualToString:@""]) {

@@ -194,6 +194,8 @@ typedef NS_ENUM(NSInteger, TravelTypes)
         _naviManager = [[AMapNaviManager alloc] init];
         [_naviManager setDelegate:self];
     }
+    
+   
 }
 
 #pragma mark 打电话
@@ -217,7 +219,6 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     
     _endPoint   = [AMapNaviPoint locationWithLatitude:mapLat   longitude:mapLong];
     
-//    _startPoint =[AMapNaviPoint locationWithLatitude:32.035729   longitude:118.793396];
     
     
 }
@@ -237,23 +238,19 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     
     endAnnotation.title        = _fishshop_name;
     
-//    UILabel *subtitleLabel =[[UILabel alloc ]initWithFrame:CGRectMake(0, 0, 10, 40)];
-//    subtitleLabel.text=[NSString stringWithFormat:@"地址：%@",_fishaddress ];
-//    subtitleLabel.textColor =[UIColor redColor];
-//    subtitleLabel.numberOfLines =2;
-    
     
     endAnnotation.subtitle =[NSString stringWithFormat:@"地址：%@",_fishaddress ];
-//    endAnnotation.subtitle =[NSString stringWithFormat:@"电话：%@",_fishTel ];
 
     endAnnotation.navPointType = NavPointAnnotationEnd;
     
-    
+     [self.myMapView selectAnnotation:endAnnotation animated:NO];
     
     self.annotations = @[beginAnnotation, endAnnotation];
-//    _startPoint =[AMapNaviPoint locationWithLatitude:32.035729   longitude:118.793396];
 
      NSLog(@"4444%@",_startPoint);
+    if (_startPoint==nil) {
+        [RemindView showViewWithTitle:@"算路失败" location:MIDDLE];
+    }
 
 }
 
@@ -267,12 +264,12 @@ typedef NS_ENUM(NSInteger, TravelTypes)
        
        
         
-        if (_startPoint==nil) {
-            _startPoint =[AMapNaviPoint locationWithLatitude:32.032042   longitude:118.781248];
-
-        }else{
+//        if (_startPoint==nil) {
+//            _startPoint =[AMapNaviPoint locationWithLatitude:32.032042   longitude:118.781248];
+//
+//        }else{
              _startPoint = _currentPoint;
-        }
+//        }
          [self initAnnotations];
 //        _startPoint =[AMapNaviPoint locationWithLatitude:32.035729   longitude:118.793396];
 
