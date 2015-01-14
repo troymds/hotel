@@ -181,7 +181,7 @@
                 NSString *key = (NSString *)kCFBundleVersionKey;
                 NSString *version = [NSBundle mainBundle].infoDictionary[key];
                 NSString *current = [dic objectForKey:@"version"];
-                NSLog(@"--ggggggg-%@",current);
+                
                 if ([current isEqualToString:version]) {
                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"版本更新" message:@"您当前已是最新版本" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles:nil, nil];
                     alertView.tag = 1000;

@@ -16,6 +16,8 @@
 @interface sureSubscribeVC ()
 {
     NSMutableArray *_orderCategoryArray;
+    NSMutableArray *_orderCategoryNumArray;
+
     myOrderDetailModel *orderModel ;
 }
 @end
@@ -27,7 +29,8 @@
     self.title =@"预约详情";
     self.view.backgroundColor =HexRGB(0xcccccc);
     _orderCategoryArray =[NSMutableArray array];
-    
+    _orderCategoryNumArray =[NSMutableArray array];
+
     [self addLoadStatus];
 
 }
@@ -37,7 +40,13 @@
 }
 #pragma mark ---加载数据
 -(void)addLoadStatus{
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"加载中...";
+
     [MysubscribeTool getOrderDetailId:_subcribeIndex statusesWithSuccess:^(NSArray *statues) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+
         NSDictionary *dict =[statues objectAtIndex:0];
         orderModel =[[myOrderDetailModel alloc  ]init];
         orderModel.price =[dict objectForKey:@"price"];
@@ -53,8 +62,10 @@
 
         for (NSDictionary *nameDic in orderModel.products) {
             NSString * name =[nameDic objectForKey:@"name"];
+            NSString *numLabel =[nameDic objectForKey:@"num"];
             [_orderCategoryArray addObject:name];
-           
+            [_orderCategoryNumArray addObject:numLabel];
+
         }
 
         }else{
@@ -64,7 +75,8 @@
         orderModel.address =[dict objectForKey:@"address"];
     [self addUIView];
     } failure:^(NSError *error) {
-        
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+
     }];
 }
 -(void)addUIView
@@ -145,7 +157,7 @@
         orderCategory.font =[UIFont systemFontOfSize:PxFont(20)];
         orderCategory.textColor=HexRGB(0x605e5f);
         orderCategory.textAlignment=NSTextAlignmentLeft;
-        orderCategory.text=_orderCategoryArray[l];
+        orderCategory.text=[NSString stringWithFormat:@"%@*%@",_orderCategoryArray[l],_orderCategoryNumArray[l]];
     }
     backView.frame =CGRectMake(YYBORDERW, YYBORDERW, kWidth-YYBORDERW*2, 280+(_orderCategoryArray.count/2)*40);
     if (_orderCategoryArray.count==0) {

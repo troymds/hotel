@@ -83,7 +83,7 @@
         [_tableView reloadData];
     } failure:^(NSError *error) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-        [RemindView showViewWithTitle:@"网络错误！" location:MIDDLE];
+        [RemindView showViewWithTitle:offline location:MIDDLE];
     }];
 }
 -(void)addTableView

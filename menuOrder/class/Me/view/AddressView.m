@@ -81,7 +81,7 @@
         [_tableView reloadData];
     } uid_ID:uid failure:^(NSError *error) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-        [RemindView showViewWithTitle:@"网络错误！" location:MIDDLE];
+        [RemindView showViewWithTitle:offline location:MIDDLE];
         
     }];
     
@@ -157,7 +157,7 @@
             
             
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-            [RemindView showViewWithTitle:@"网络错误！" location:MIDDLE];
+            [RemindView showViewWithTitle:offline location:MIDDLE];
         }];
         
         

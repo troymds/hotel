@@ -231,8 +231,6 @@
 		18F0FA731A4B2C1C004E85A7 /* Toast+UIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Toast+UIView.h"; sourceTree = "<group>"; };
 		18F0FA741A4B2C1C004E85A7 /* Toast+UIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Toast+UIView.m"; sourceTree = "<group>"; };
 		18F0FA811A4B2C92004E85A7 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
-		18F0FA831A4B306F004E85A7 /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AMap.bundle; path = ../officialDemoNavi/officialDemoNavi/Extern/AMapNaviKit.framework/Versions/1.1.0.856bdd0/Resources/AMap.bundle; sourceTree = "<group>"; };
-		18F0FA841A4B306F004E85A7 /* AMapNavi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AMapNavi.bundle; path = ../officialDemoNavi/officialDemoNavi/Extern/AMapNaviKit.framework/Versions/1.1.0.856bdd0/Resources/AMapNavi.bundle; sourceTree = "<group>"; };
 		18F0FA871A4B30DD004E85A7 /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AMap.bundle; sourceTree = "<group>"; };
 		18F0FA881A4B30DD004E85A7 /* AMapNavi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AMapNavi.bundle; sourceTree = "<group>"; };
 		5519EC701A44031E00D9845F /* phoneView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = phoneView.h; sourceTree = "<group>"; };
@@ -776,8 +774,6 @@
 		F33541DB1A367D91005B21C8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				18F0FA831A4B306F004E85A7 /* AMap.bundle */,
-				18F0FA841A4B306F004E85A7 /* AMapNavi.bundle */,
 				18F0FA811A4B2C92004E85A7 /* libstdc++.6.dylib */,
 				55B2489C1A392D2200B3F5C7 /* libsqlite3.0.dylib */,
 				F33543C61A36A917005B21C8 /* libicucore.dylib */,
@@ -1629,7 +1625,7 @@
 						DevelopmentTeam = QE24QR2JRW;
 					};
 					F33541F31A367D91005B21C8 = {
-						DevelopmentTeam = 8XX9P5VNWY;
+						DevelopmentTeam = 64Y2W23677;
 						TestTargetID = F33541D81A367D91005B21C8;
 					};
 				};
@@ -1980,7 +1976,7 @@
 					"$(PROJECT_DIR)/menuOrder/class/Other/ShareSDK/Extend/WeChatSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e4afe9fd-14a0-47fe-ad26-9788b6e73dda";
+				PROVISIONING_PROFILE = "9bc436d8-b884-46f7-804c-10ad418d1b72";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2012,7 +2008,7 @@
 					"$(PROJECT_DIR)/menuOrder/class/Other/ShareSDK/Extend/WeChatSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e4afe9fd-14a0-47fe-ad26-9788b6e73dda";
+				PROVISIONING_PROFILE = "9bc436d8-b884-46f7-804c-10ad418d1b72";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -47,8 +47,7 @@
 }
 
 //没有数据时的状态
--(void)addNoStatusImage
-{
+-(void)addNoStatusImage{
     noStatusImg =[[UIImageView alloc]initWithFrame:CGRectMake((kWidth-230)/2, (kHeight-100)/2, 230, 100)];
     [self.view addSubview:noStatusImg];
     noStatusImg.image =[UIImage imageNamed:@"noSubscribe_img"];
@@ -82,11 +81,18 @@
       }
       _normalArray = [statues objectAtIndex:0];
       _overdueArray = [statues objectAtIndex:1];
+    
+      if (_normalArray.count==0) {
+          _tableView.frame =CGRectMake(0, -26, kWidth, kHeight-44);
+      }else{
+          _tableView.frame =CGRectMake(0, 0, kWidth, kHeight-70);
+          
+      }
       
       [_tableView reloadData];
   } orderListUid_ID:uid failure:^(NSError *error) {
       [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-      [RemindView showViewWithTitle:@"网络错误！" location:MIDDLE];
+      [RemindView showViewWithTitle:offline location:MIDDLE];
 
   }];
 }
@@ -100,71 +106,26 @@
     _tableView.showsHorizontalScrollIndicator = NO;
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    if (_normalArray.count==0) {
-//        _tableView.frame =CGRectMake(0, -20, kWidth, kHeight-44);
-//    }else{
-//        _tableView.frame =CGRectMake(0, 0, kWidth, kHeight);
-//        
-//    }
-    
+    _tableView.bounces =NO;
     [self.view addSubview:_tableView];
 
 }
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    if (_normalArray.count == 0)
-    {
-        if (_overdueArray.count == 0)
-        {
-            return 0;
-        }
-
-        return 1;
-    }else
-    {
-        if (_overdueArray.count == 0)
-        {
-            return 1;
-        }
-        
-        return 2;
-    }
-    
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return _sectionTitleArray.count;
     
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    if (_normalArray.count == 0)
+    if (section==0)
     {
-        if (_overdueArray.count == 0)
-        {
-            return 0;
-        }
-        
-        return _overdueArray.count;
+        return _normalArray.count;
     }
     else
     {
-        if (_overdueArray.count == 0)
-        {
-            return _normalArray.count;
-        }
-        else
-        {
-            if (section==0)
-            {
-                return _normalArray.count;
-            }
-            else
-            {
-                return _overdueArray.count;
-            }
-        }
-        
+        return _overdueArray.count;
     }
-    
-}
 
+}
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     static NSString *cellIndexfider =@"cell";
@@ -176,128 +137,64 @@
     }
    
     subscribeModel *subModel;
-    
-    
-    if (_normalArray.count == 0)
+    if (indexPath.section == 0)
     {
-        if (_overdueArray.count != 0)
-        {
-            subModel = [_overdueArray objectAtIndex:indexPath.row];
-        }
-    }else
-    {
-        if (_overdueArray.count == 0)
-        {
-            subModel = [_normalArray objectAtIndex:indexPath.row];
-        }else
-        {
-            if (indexPath.section == 0)
-            {
-                subModel = [_normalArray objectAtIndex:indexPath.row];
-            }
-            else
-            {
-                subModel = [_overdueArray objectAtIndex:indexPath.row];
-            }
-        }
+        subModel = [_normalArray objectAtIndex:indexPath.row];
     }
-    
-    
+    else
+    {
+        subModel = [_overdueArray objectAtIndex:indexPath.row];
+    }
     
     cell.MeSubscribeNumLabel.text=[NSString stringWithFormat:@"就餐人数：%@",subModel.people_num];
     [cell.MeSubscribeImage setImageWithURL:[NSURL URLWithString:subModel.cover] placeholderImage:placeHoderImage2];
     cell.MeSubscribeTimeLabel.text=[NSString stringWithFormat:@"时间：%@",subModel.use_time] ;
-    if ([subModel.type isEqualToString:@"0"])
-    {
-        cell.MeSubscribeCategoryLabel.text=@"亲临渔府";
+    if ([subModel.type isEqualToString:@"0"]) {
+        cell.MeSubscribeCategoryLabel.text=@"类型：亲临渔府";
     }else  if ([subModel.type isEqualToString:@"1"]){
-        cell.MeSubscribeCategoryLabel.text=@"外带取餐";
+        cell.MeSubscribeCategoryLabel.text=@"类型：外带取餐";
         cell.MeSubscribeNumLabel.hidden =YES;
         cell.MeSubscribeTimeLabel.frame =cell.MeSubscribeNumLabel.frame;
     }else{
-        cell.MeSubscribeCategoryLabel.text=@"外卖服务";
+        cell.MeSubscribeCategoryLabel.text=@"类型：外卖服务";
         cell.MeSubscribeNumLabel.hidden =YES;
         cell.MeSubscribeTimeLabel.frame =cell.MeSubscribeNumLabel.frame;
-        
-        
+
+
     }
     
     
     return cell;
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     subscribeModel *subModel;
-    
-    
-    if (_normalArray.count==0)
+    if (indexPath.section == 0)
     {
-        if (_overdueArray.count!=0)
-        {
-            subModel = [_overdueArray objectAtIndex:indexPath.row];
-        }
-        
-    }else
-    {
-        if (_overdueArray.count == 0)
-        {
-            subModel = [_normalArray objectAtIndex:indexPath.row];
-        }else
-        {
-            if (indexPath.section == 0)
-            {
-                subModel = [_normalArray objectAtIndex:indexPath.row];
-            }
-            else
-            {
-                subModel = [_overdueArray objectAtIndex:indexPath.row];
-            }
-        }
+        subModel = [_normalArray objectAtIndex:indexPath.row];
     }
-    
-    
-    
-    
+    else
+    {
+        subModel = [_overdueArray objectAtIndex:indexPath.row];
+    }
     sureSubscribeVC *sureVc=[[sureSubscribeVC alloc]init];
     sureVc.subcribeIndex =subModel.subscribeID;
     
     [self.navigationController pushViewController:sureVc animated:YES];
 }
-//-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    return [_sectionTitleArray objectAtIndex:section];
-//}
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    return [_sectionTitleArray objectAtIndex:section];
+    
+    
+}
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *headerView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 40)];
     headerView.backgroundColor=HexRGB(0xeeeeee);
     
     UIButton *sectionLabel =[UIButton buttonWithType:UIButtonTypeCustom];
-    
-    
-    if (_normalArray.count != 0)
-    {
-        if (_overdueArray.count!=0)
-        {
-            [sectionLabel setTitle:[_sectionTitleArray objectAtIndex:section] forState:UIControlStateNormal];
-        }
-        else
-        {
-            [sectionLabel setTitle:[_sectionTitleArray objectAtIndex:0] forState:UIControlStateNormal];
-        }
-        
-    }else
-    {
-        if (_overdueArray.count!=0)
-        {
-            [sectionLabel setTitle:[_sectionTitleArray objectAtIndex:1] forState:UIControlStateNormal];
-        }
-
-    }
-    
-    
+    [sectionLabel setTitle:[_sectionTitleArray objectAtIndex:section] forState:UIControlStateNormal];
     [headerView addSubview:sectionLabel];
+    sectionLabel.hidden =NO;
     sectionLabel.titleLabel.font=[UIFont systemFontOfSize:PxFont(22)];
     [sectionLabel setTitleColor:HexRGB(0x808080) forState:UIControlStateNormal];
     [sectionLabel setImage:[UIImage imageNamed:[NSString stringWithFormat:@"meSubscribe_Image%ld",(long)section]] forState:UIControlStateNormal];
@@ -313,6 +210,24 @@
 //            sectionLabel.hidden =NO;
 //        }else{
 //            sectionLabel.hidden = YES;
+//        }
+//    }
+//    NSLog(@"%d------%d",_normalArray.count,_overdueArray.count);
+    if (section ==1) {
+        if (_overdueArray.count==0) {
+            sectionLabel.hidden =YES;
+        }else{
+            sectionLabel.hidden = NO;
+        }
+    }
+//    }if (section==1){
+//        
+//        if (_overdueArray>0) {
+//            sectionLabel.hidden =YES;
+//NSLog(@"%d------%d",section,_overdueArray.count);
+//        }else if(_overdueArray==0){
+//            sectionLabel.hidden = NO;
+//            NSLog(@"ddddd");
 //        }
 //    }
 
