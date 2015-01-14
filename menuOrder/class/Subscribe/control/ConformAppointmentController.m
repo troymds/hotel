@@ -260,10 +260,10 @@
 -(void)conform
 {
     NSMutableArray *array = [CarTool sharedCarTool].totalCarMenu;
-//    NSUInteger count = array.count;
+    NSUInteger count = array.count;
     //当是从亲临鱼府提交的时候，就算count为0，也是可以提交的
     if (_type != 0) {
-        if ([CarTool sharedCarTool].totalCarMenu.count > 0) {
+        if (count > 0) {
             [self submit];
         }else
         {

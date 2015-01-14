@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "EditView.h"
+#import "subscribeViewViewController.h"
 
 #define KEditLeftX 20
 #define KLineH 30
@@ -22,15 +23,18 @@
 #define KEditStartTag 200
 
 @class menu3EditView;
+@class addressListModel;
+
 @protocol menu3Delegate <NSObject>
 
 @optional
 
 -(void)menu3EditView:(menu3EditView *)view withArray:(NSArray *)array;
+- (void)startChoseAddress;
 @end
 
 
-@interface menu3EditView : UIView<EditViewDelegate,menu3Delegate>
+@interface menu3EditView : UIView<EditViewDelegate,menu3Delegate,subscribeDelefgate>
 @property (nonatomic, strong) UIView *line; //竖线
 @property (nonatomic, strong) UIImageView *cricle; //圆圈图片
 @property (nonatomic, strong) UITextField *edit;//编辑

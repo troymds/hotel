@@ -171,15 +171,23 @@
     submit.frame = Rect(KRightOffset + 5, h + 30, kWidth - KRightOffset * 2, 40);
     [_backScroll addSubview:submit];
     [submit addTarget:self action:@selector(summitDeal) forControlEvents:UIControlEventTouchUpInside];
-    _contentHeight = CGRectGetMaxY(submit.frame);// + 70;
+    _contentHeight = CGRectGetMaxY(submit.frame) + 70;
     _backScroll.contentSize = CGSizeMake(kWidth, _contentHeight);
     
 }
 
-#pragma mark 增加姓名和电话，地址
--(void)updateUI:(NSNotification *)notify
+#pragma mark 准备选餐
+- (void)choseArddress
 {
-    addressListModel * data = notify.object;
+    if ([_delegate2 respondsToSelector:@selector(startChoseAddress)]) {
+        [_delegate2 startChoseAddress];
+    }
+}
+
+#pragma mark 增加姓名和电话，地址
+-(void)upDateAddress:(addressListModel *)address
+{
+    addressListModel * data = address;
     
     [_backScroll removeFromSuperview];
     UIScrollView *backScroll = [[UIScrollView alloc] initWithFrame:Rect(0, 0, kWidth, KBackScroolViewH)];
