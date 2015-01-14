@@ -56,6 +56,7 @@
         orderModel.use_time =[dict objectForKey:@"use_time"];
         orderModel.type =[dict objectForKey:@"type"];
         orderModel.tel =[dict objectForKey:@"tel"];
+        orderModel.address =[dict objectForKey:@"address"];
 
         orderModel.products =[dict objectForKey:@"products"];
         if (![orderModel.products isKindOfClass:[NSNull class]]) {
@@ -81,7 +82,8 @@
 }
 -(void)addUIView
 {
-    
+    CGFloat  addressHeight =[orderModel.price sizeWithFont:[UIFont systemFontOfSize:PxFont(26)] constrainedToSize:CGSizeMake(kWidth-YYBORDERW-20, MAXFLOAT)].height;
+
     UIScrollView *backScrollView =[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight)];
     [self.view addSubview:backScrollView];
     backScrollView .backgroundColor =HexRGB(0xcccccc);
@@ -103,7 +105,13 @@
         [titleBtn setTitle:titleArr[i] forState:UIControlStateNormal];
         [titleBtn setTitleColor:HexRGB(0x605e5f) forState:UIControlStateNormal];
         titleBtn.titleLabel.font =[UIFont systemFontOfSize:PxFont(22)];
-        titleBtn.frame =CGRectMake(0, YYBORDERWw+i%2*185, 130, 30);
+        if ([orderModel.type isEqualToString:@"2"]) {
+            titleBtn.frame =CGRectMake(0, YYBORDERWw+i%2*(185+addressHeight), 130, 30);
+
+        }else{
+            titleBtn.frame =CGRectMake(0, YYBORDERWw+i%2*185, 130, 30);
+
+        }
         
     }
    
@@ -115,7 +123,7 @@
     if ([orderModel.tel isKindOfClass:[NSNull class]]) {
         orderModel.tel=@"联系电话为空！";
     }
-    NSArray *orderArr =@[@"  订单金额:           ",[NSString stringWithFormat:@"  联系人:%@",orderModel.contact],[NSString stringWithFormat:@"  就餐人数:%@",orderModel.people_num],[NSString stringWithFormat:@"  就餐时间:%@",orderModel.use_time]];
+    NSArray *orderArr =@[@"  订单金额：           ",[NSString stringWithFormat:@"  联系人：%@",orderModel.contact],[NSString stringWithFormat:@"  就餐人数：%@",orderModel.people_num],[NSString stringWithFormat:@"  就餐时间：%@",orderModel.use_time]];
     for (int p=0; p<4; p++) {
         UILabel *orderLabel =[[UILabel alloc]initWithFrame:CGRectMake(YYBORDERW, YYBORDERWw+40+p%4*(YYBORDERY+20), kWidth-YYBORDERWw*2-YYBORDERW*2, 20 )];
         [backView addSubview:orderLabel];
@@ -128,7 +136,7 @@
         
         if ([orderModel.type isEqualToString:@"1"]||[orderModel.type isEqualToString:@"2"]) {
             if (p==2) {
-                orderLabel.text = [NSString stringWithFormat:@"  联系电话:%@",orderModel.tel];
+                orderLabel.text = [NSString stringWithFormat:@"  联系电话：%@",orderModel.tel];
                 
             }
         }
@@ -136,14 +144,15 @@
          if (p==3) {
         if ([orderModel.type isEqualToString:@"1"]) {
             
-            orderLabel.text = [NSString stringWithFormat:@"  取餐时间:%@",orderModel.use_time];
+            orderLabel.text = [NSString stringWithFormat:@"  取餐时间：%@",orderModel.use_time];
 
         }if ([orderModel.type isEqualToString:@"2"]) {
-            orderLabel.text = [NSString stringWithFormat:@"  送达时间:%@",orderModel.use_time];
+            orderLabel.text = [NSString stringWithFormat:@"  送达时间：%@",orderModel.use_time];
             
          }
          }
     }
+    
     
     UILabel *orderLabel =[[UILabel alloc]initWithFrame:CGRectMake(YYBORDERW+80, YYBORDERWw+36, kWidth-YYBORDERWw*2-YYBORDERW*2, 30 )];
     [backView addSubview:orderLabel];
@@ -161,30 +170,63 @@
     priceLabel.font =[UIFont systemFontOfSize:PxFont(20)];
     priceLabel.textColor=HexRGB(0x605e5f);
     priceLabel.text=@"元";
+    UILabel *addressLabel =[[UILabel alloc]initWithFrame:CGRectMake(YYBORDERW, YYBORDERWw+174, kWidth-YYBORDERW-20, addressHeight )];
+    [backView addSubview:addressLabel];
+    addressLabel.backgroundColor =[UIColor clearColor];
+    addressLabel.font =[UIFont systemFontOfSize:PxFont(20)];
+    addressLabel.textColor=HexRGB(0x605e5f);
+    addressLabel.text=[NSString stringWithFormat:@"  送达地址：%@",orderModel.address];
+    addressLabel.hidden =YES;
+    if ([orderModel.type isEqualToString:@"2"]) {
+        addressLabel.hidden =NO;
+
+    }else{
+        addressLabel.hidden =YES;
+
+    }
+    //已点菜品
     for (int l=0; l<_orderCategoryArray.count; l++) {
     
-        UILabel *orderCategory =[[UILabel alloc]initWithFrame:CGRectMake(YYBORDERW*2+l%2*(kWidth-YYBORDERWw*6-YYBORDERW*6), YYBORDERWw+230+l/2*(YYBORDERY+20), (kWidth-YYBORDERWw*2-YYBORDERW*2)/2, 20 )];
+        UILabel *orderCategory =[[UILabel alloc]initWithFrame:CGRectMake(YYBORDERW*2+l%2*(kWidth-YYBORDERWw*6-YYBORDERW*6),YYBORDERWw+230+l/2*(YYBORDERY+20), (kWidth-YYBORDERWw*2-YYBORDERW*2)/2, 20 )];
+        if ([orderModel.type isEqualToString:@"2"]) {
+            orderCategory.frame =CGRectMake(YYBORDERW*2+l%2*(kWidth-YYBORDERWw*6-YYBORDERW*6),addressHeight+ YYBORDERWw+230+l/2*(YYBORDERY+20), (kWidth-YYBORDERWw*2-YYBORDERW*2)/2, 20 );
+
+        }
         [backView addSubview:orderCategory];
         orderCategory.backgroundColor =[UIColor clearColor];
         orderCategory.font =[UIFont systemFontOfSize:PxFont(20)];
         orderCategory.textColor=HexRGB(0x605e5f);
         orderCategory.textAlignment=NSTextAlignmentLeft;
         orderCategory.text=[NSString stringWithFormat:@"%@*%@",_orderCategoryArray[l],_orderCategoryNumArray[l]];
+        
     }
-    backView.frame =CGRectMake(YYBORDERW, YYBORDERW, kWidth-YYBORDERW*2, 280+(_orderCategoryArray.count/2)*40);
     if (_orderCategoryArray.count==0) {
         
         UILabel *noOrder =[[UILabel alloc]initWithFrame:CGRectMake(0, YYBORDERWw+230, kWidth, 20 )];
+        if ([orderModel.type isEqualToString:@"2"]) {
+            noOrder.frame=CGRectMake(0, addressHeight+ YYBORDERWw+230, kWidth, 20 );
+
+        }
         noOrder.text =@"没有已点菜品";
         [backView addSubview:noOrder];
         noOrder.textColor =HexRGB(0x808080);
         noOrder.font =[UIFont systemFontOfSize:PxFont(15)];
-
+        noOrder.backgroundColor =[UIColor clearColor];
         noOrder.textAlignment=NSTextAlignmentCenter;
         
 
     }
-    backScrollView.contentSize=CGSizeMake(kWidth, 290+(_orderCategoryArray.count/2)*40);
+    if ([orderModel.type isEqualToString:@"2"]) {
+        backView.frame =CGRectMake(YYBORDERW, YYBORDERW, kWidth-YYBORDERW*2,addressHeight+ 280+(_orderCategoryArray.count/2)*40);
+        
+        backScrollView.contentSize=CGSizeMake(kWidth,addressHeight+ 290+(_orderCategoryArray.count/2)*40);
+
+    }else{
+        backView.frame =CGRectMake(YYBORDERW, YYBORDERW, kWidth-YYBORDERW*2, 280+(_orderCategoryArray.count/2)*40);
+        
+        backScrollView.contentSize=CGSizeMake(kWidth, 290+(_orderCategoryArray.count/2)*40);
+
+    }
     
 }
 - (void)didReceiveMemoryWarning {
