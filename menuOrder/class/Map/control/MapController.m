@@ -140,7 +140,7 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     CLLocation *currLocation = [locations lastObject];
 //    NSLog(@"经度=%f 纬度=%f 高度=%f", currLocation.coordinate.latitude, currLocation.coordinate.longitude, currLocation.altitude);
     _startPoint =[AMapNaviPoint locationWithLatitude:currLocation.coordinate.latitude  longitude:currLocation.coordinate.longitude];;
-    NSLog(@"00000%@",_startPoint);
+//    NSLog(@"00000%@",_startPoint);
     
     
     
@@ -257,7 +257,7 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     
     self.annotations = @[beginAnnotation, endAnnotation];
 
-     NSLog(@"4444%@",_startPoint);
+//     NSLog(@"4444%@",_startPoint);
     if (_startPoint==nil) {
         [RemindView showViewWithTitle:@"算路失败" location:MIDDLE];
     }
@@ -277,7 +277,7 @@ typedef NS_ENUM(NSInteger, TravelTypes)
 
              _startPoint = _currentPoint;
         
-         NSLog(@"5555%@",_startPoint);
+//         NSLog(@"5555%@",_startPoint);
          [self initAnnotations];
         if (_calRouteSuccess)
         {
