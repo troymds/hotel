@@ -162,7 +162,7 @@
             [self.navigationController pushViewController:addressVC animated:YES];
         }
         if (sender.tag==MYBTNTAG+3) {
-            [ShareView showViewWithTitle:@"分享" content:@"这是一段紫金渔府的分享" description:@"这是一段紫金渔府的分享"  url:@"chinapromo.cn" delegate:self];
+            [ShareView showViewWithTitle:@"分享" content:@"紫金渔府饭店是南京老字号饭店，也是南京名菜馆之一，地处南京鼓楼区水佐岗老菜市场，菜肴选料精细，操作考究，质量稳定，具有江南一带的特殊风味" description:@"紫金渔府饭店是南京老字号饭店，也是南京名菜馆之一，地处南京鼓楼区水佐岗老菜市场，菜肴选料精细，操作考究，质量稳定，具有江南一带的特殊风味"  url:@"紫金渔府饭店是南京老字号饭店，也是南京名菜馆之一，地处南京鼓楼区水佐岗老菜市场，菜肴选料精细，操作考究，质量稳定，具有江南一带的特殊风味" delegate:self];
         }
     if (sender.tag==MYBTNTAG+4) {
         SuggestView *suggestVc=[[SuggestView alloc]init];
