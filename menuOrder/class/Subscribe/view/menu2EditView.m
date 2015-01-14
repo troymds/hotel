@@ -26,6 +26,11 @@
 
 @implementation menu2EditView
 
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
+}
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
@@ -422,7 +427,10 @@
     }
     if (!isnull && isValidPhone && isNameLengthEnough) {
         [SystemConfig sharedInstance].menuType = 1;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"submit" object:data];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"submit" object:data];
+        if ([_delegate2 respondsToSelector:@selector(menu2EditView:withArray:)]) {
+            [_delegate2 menu2EditView:self withArray:data];
+        }
     }else
     {
         if (!isNameLengthEnough) {

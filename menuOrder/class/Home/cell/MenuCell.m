@@ -17,7 +17,7 @@
 #define KBigImgH       KBigImgW/KRataio
 #define KSpaceBetweenBigImgAndFoodName  10
 #define KFoodNameStartY (KBigImgStartY + 2)
-#define KFoodNameStartX (KBigImgStartX + KBigImgW + KSpaceBetweenBigImgAndFoodName)
+#define KFoodNameStartX (KBigImgStartX + KBigImgW + KSpaceBetweenBigImgAndFoodName - 3)
 #define KFooNameW   120
 #define KFontBigH     25
 #define KFontSmallH   20
@@ -68,7 +68,7 @@
         UILabel *price =  [[UILabel alloc] init];
         price.frame = CGRectZero;
         price.font = [UIFont systemFontOfSize:PxFont(18)];
-        price.textColor = HexRGB(0x605e5f);
+        price.textColor = HexRGB(0x305d05);
         price.backgroundColor = [UIColor clearColor];
         price.text = @"299/例";
         [self.contentView addSubview:price];
@@ -209,14 +209,15 @@
     }
 
     //4 美国money的图标
-    _dollarIcon.frame = Rect(KFoodNameStartX, dollarY + KSpaceBetweenBigImgAndFoodName - 5, KStarH, KStarH);
+    _dollarIcon.frame = Rect(KFoodNameStartX - 3, dollarY + KSpaceBetweenBigImgAndFoodName - 5, KStarH, KStarH);
     
     //5 价格
-    _price.frame = Rect(CGRectGetMaxX(_dollarIcon.frame), _dollarIcon.frame.origin.y - 2, KPriceW, KFontSmallH);
-    _price.text = data.price;
+    _price.frame = Rect(CGRectGetMaxX(_dollarIcon.frame) - 4, _dollarIcon.frame.origin.y - 2, KPriceW, KFontSmallH);
+    _price.text = [NSString stringWithFormat:@"%@/例",data.price];
+    
     //6 减号按钮
     CGFloat buttonY = CGRectGetMaxY(_foodName.frame) + KStarH;
-    CGFloat buttonX = CGRectGetMaxX(_price.frame) - KDefaultSpace * 1.5;
+    CGFloat buttonX = CGRectGetMaxX(_price.frame) - KDefaultSpace * 1.5 + 5;
 //    CGFloat buttonY = CGRectGetMaxY(_foodName.frame) + KStarH;;
 //    CGFloat buttonX = self.frame.size.width - KBigImgStartX - KBUttonW *2 - 18;
     _plusBtn.frame = Rect(buttonX, buttonY, KBUttonW, KBUttonH);

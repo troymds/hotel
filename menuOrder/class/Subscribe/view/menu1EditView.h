@@ -35,10 +35,10 @@
 
 @optional
 
--(void)menu1EditView:(menu1EditView *)view;
+-(void)menu1EditView:(menu1EditView *)view withArray:(NSArray *)array;
 @end
 
-@interface menu1EditView : UIView<UITextFieldDelegate,EditViewDelegate>
+@interface menu1EditView : UIView<UITextFieldDelegate,EditViewDelegate,menu1Delegate>
 @property (nonatomic, strong) UIView *line; //竖线
 @property (nonatomic, strong) UIImageView *cricle; //圆圈图片
 @property (nonatomic, strong) UITextField *edit;//编辑

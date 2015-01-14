@@ -260,14 +260,14 @@
 -(void)conform
 {
     NSMutableArray *array = [CarTool sharedCarTool].totalCarMenu;
-    NSUInteger count = array.count;
+//    NSUInteger count = array.count;
     //当是从亲临鱼府提交的时候，就算count为0，也是可以提交的
     if (_type != 0) {
-        if (count > 0) {
+        if ([CarTool sharedCarTool].totalCarMenu.count > 0) {
             [self submit];
         }else
         {
-            [RemindView showViewWithTitle:@"请重新订餐，亲！" location:MIDDLE];
+            [RemindView showViewWithTitle:@"您的提交信息与上条雷同，请修改后进行提交！" location:MIDDLE];
         }
     }else
     {
@@ -278,32 +278,37 @@
 #pragma mark提交
 -(void)submit
 {
-    // 显示指示器
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"加载中...";
     NSString *uid = [[NSUserDefaults standardUserDefaults] objectForKey:@"uid"];
     
     //时间转时间戳
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     NSDate *date = [dateFormatter dateFromString:_data.use_time];
-    
-    _data.use_time = [NSString stringWithFormat:@"%lld", (long long)[date timeIntervalSince1970]];
-    
-    [subscribeHttpTool postOrderWithSuccess:^(NSArray *data, int code, NSString *msg) {
-        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-        //删除购物车里的所有数据
-        [[CarTool sharedCarTool] clear];
+    if (date ==nil) {
+       [RemindView showViewWithTitle:@"您的提交信息与上条雷同，请修改后进行提交" location:MIDDLE];
+    }else
+    {
+        // 显示指示器
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"加载中...";
         
-        //到预约页面
-        MysubscribeView *ctl = [[MysubscribeView alloc] init];
-        [self.navigationController pushViewController:ctl animated:YES];
+        _data.use_time = [NSString stringWithFormat:@"%lld", (long long)[date timeIntervalSince1970]];
         
-    } uid:uid addressID:_data.address_id addressContent:_data.address_content contact:_data.contact tel:_data.tel type:_data.type usetime:_data.use_time peopleNum:_data.people_num remark:_data.remark price:_totalPrice products:_data.products withFailure:^(NSError *error) {
-        
-        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-        [RemindView showViewWithTitle:offline location:MIDDLE];
-    }];
+        [subscribeHttpTool postOrderWithSuccess:^(NSArray *data, int code, NSString *msg) {
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            //删除购物车里的所有数据
+            [[CarTool sharedCarTool] clear];
+            
+            //到预约页面
+            MysubscribeView *ctl = [[MysubscribeView alloc] init];
+            [self.navigationController pushViewController:ctl animated:YES];
+            
+        } uid:uid addressID:_data.address_id addressContent:_data.address_content contact:_data.contact tel:_data.tel type:_data.type usetime:_data.use_time peopleNum:_data.people_num remark:_data.remark price:_totalPrice products:_data.products withFailure:^(NSError *error) {
+            
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            [RemindView showViewWithTitle:offline location:MIDDLE];
+        }];
+    }
 }
 
 @end

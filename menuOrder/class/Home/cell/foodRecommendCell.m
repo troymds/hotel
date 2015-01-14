@@ -215,7 +215,7 @@
     if (starCount > 0) {
         for (int i = 0; i < starCount; i ++) {
             //画star
-            CGFloat x = foodNameX + 20 * i;
+            CGFloat x = foodNameX + KLeftX - 2 + 20 * i;
             UIImageView *starimg = [[UIImageView alloc] initWithImage:LOADPNGIMAGE(@"star")];
             starimg.frame = Rect(x, starY, 20, 20);
             [self addSubview:starimg];
@@ -225,18 +225,6 @@
     {
         todayY = starY;
     }
-    
-//    if (_hasStar) {
-//        starY = CGRectGetMaxY(_foodName.frame);
-//        _starImg.frame = Rect(foodNameX, starY, KStarH, KStarH);
-//        _starImg.hidden = NO;
-//        
-//        todayY = CGRectGetMaxY(_starImg.frame);
-//    }else
-//    {
-//        _starImg.hidden = YES;
-//        todayY = CGRectGetMaxY(_foodName.frame);
-//    }
     
     //4  今天价格
     _todayPrice.frame = Rect(foodNameX + KLeftX, todayY + KLeftX, 60, KStarH);

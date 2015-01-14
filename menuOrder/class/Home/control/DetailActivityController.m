@@ -33,13 +33,14 @@
     self.title = @"活动详情";
     self.view.backgroundColor = HexRGB(0xe0e0e0);
     
-//    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    rightBtn.frame = Rect(0, 0, 30, 30);
-//    [rightBtn addTarget:self action:@selector(rightBtn) forControlEvents:UIControlEventTouchUpInside];
-//    [rightBtn setBackgroundImage:LOADPNGIMAGE(@"nav_activity") forState:UIControlStateNormal];
-//    [rightBtn setBackgroundImage:LOADPNGIMAGE(@"nav_activity_pre") forState:UIControlStateHighlighted];
+    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightBtn.frame = Rect(0, 0, 33, 33);
+    [rightBtn addTarget:self action:@selector(rightBtn) forControlEvents:UIControlEventTouchUpInside];
+    [rightBtn setBackgroundImage:LOADPNGIMAGE(@"nav_activity") forState:UIControlStateNormal];
+    [rightBtn setBackgroundImage:LOADPNGIMAGE(@"nav_activity_pre") forState:UIControlStateHighlighted];
     
-   
+    
+    self.navigationItem.rightBarButtonItem =[[UIBarButtonItem alloc] initWithCustomView:rightBtn];
     
     [self loadDetailData];
     [self detailActivityStatus];
@@ -66,7 +67,7 @@
 
         
         [self buildUI];
- self.navigationItem.rightBarButtonItem =[UIBarButtonItem itemWithIcon:@"nav_activity" highlightedIcon:@"nav_activity_pre" target:self action:@selector(shareClick)];
+// self.navigationItem.rightBarButtonItem =[UIBarButtonItem itemWithIcon:@"nav_activity" highlightedIcon:@"nav_activity_pre" target:self action:@selector(shareClick)];
     } withFailure:^(NSError *error) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         [RemindView showViewWithTitle:offline location:MIDDLE];
@@ -74,9 +75,9 @@
     }];
 }
 #pragma mark---分享
--(void)shareClick{
-    [ShareView showViewWithTitle:_model.content content:_model.content  description:_model.content  url:_model.content  delegate:self];
-}
+//-(void)shareClick{
+//    [ShareView showViewWithTitle:_model.content content:_model.content  description:_model.content  url:_model.content  delegate:self];
+//}
 -(void)buildUI
 {
     UIScrollView *backScrollView =[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight)];
@@ -153,7 +154,7 @@
 
 -(void)rightBtn
 {
-    
+    [ShareView showViewWithTitle:_model.content content:_model.content  description:_model.content  url:_model.content  delegate:self];
 }
 
 @end

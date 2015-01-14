@@ -12,4 +12,5 @@
 @interface ConformAppointmentController : UIViewController
 @property (nonatomic,strong) orderModel* data;
 @property (nonatomic, assign) int type;
+@property (nonatomic,strong) NSString *oldTime;
 @end

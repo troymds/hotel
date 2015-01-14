@@ -62,7 +62,7 @@
         _tooBar.numOfFood.text = [NSString stringWithFormat:@"合计：%d份",totalNum];
         _tooBar.allSelectedBtn.selected = NO;
     }
-
+    [_table reloadData];
 }
 
 - (void)viewDidLoad {

@@ -18,6 +18,7 @@
 @property (nonatomic, strong) UIButton *addBun;//加号按钮
 @property (nonatomic, strong) UILabel *foodConnt;//数量
 @property (nonatomic, strong) UILabel *dollarIcon;//美元
+@property (nonatomic, strong) UILabel *yuan;//元
 @property (nonatomic, strong) UIImageView *foodImg;//菜品图片
 @property (nonatomic, strong) MenuModel *data;
 @property (nonatomic, assign) int count;

@@ -31,7 +31,7 @@
 #define KMenuItemW  kWidth/3
 
 
-@interface subscribeViewViewController ()<EditViewDelegate,UIScrollViewDelegate,ZHPickViewDelegate,chooseAddressDelegate>
+@interface subscribeViewViewController ()<EditViewDelegate,UIScrollViewDelegate,ZHPickViewDelegate,chooseAddressDelegate,menu1Delegate,menu2Delegate,menu3Delegate>
 {
     UIButton *_selectedBtn;//选中的菜单栏按钮
     UIView *_orangLin;
@@ -65,6 +65,20 @@
             CGPoint p = _backScroll.contentOffset;
             p.x = 0;
             [_backScroll setContentOffset:p];
+            //线条
+            _orangLin.frame = CGRectMake(0, KMenuH - 1, KMenuItemW, 1);
+           //选中的菜单
+            for (UIView *subView in _menuBack.subviews){
+                if ([subView isKindOfClass:[UIButton class]]) {
+                    UIButton * btn = (UIButton *)subView;
+                    if (btn.tag + KMenuStart == Menu1) {
+                        _selectedBtn = btn;
+                        _selectedBtn.selected = YES;
+                    }else{
+                        btn.selected = NO;
+                    }
+                }
+            }
         }
     }
 }
@@ -78,7 +92,7 @@
     
     self.title = @"预约";
     self.view.backgroundColor = HexRGB(0xeeeeee);
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(submit:) name:@"submit" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(submit:) name:@"submit" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addsdress) name:@"address" object:nil];
     // 利用通知中心监听键盘的变化（打开、关闭、中英文切换）
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
@@ -192,6 +206,7 @@
     menu1EditView *menu1 = [[menu1EditView alloc] initWithFrame:Rect(0, 0, kWidth, KBackScroolViewH)];
     [_backScroll addSubview:menu1];
     _menu1 = menu1;
+    menu1.delegate2 = self;
     _currentScroll = menu1.backScroll;
 }
 
@@ -200,6 +215,7 @@
 {
     menu2EditView *menu2= [[menu2EditView alloc] initWithFrame:Rect(kWidth, 0, kWidth, KBackScroolViewH)];
     [_backScroll addSubview:menu2];
+    menu2.delegate2 = self;
     _menu2 = menu2;
 }
 
@@ -208,14 +224,33 @@
 {
     menu3EditView *menu3= [[menu3EditView alloc] initWithFrame:Rect(kWidth * 2, 0, kWidth, KBackScroolViewH)];
     [_backScroll addSubview:menu3];
+    menu3.delegate2 = self;
     _menu3 = menu3;
 
 }
 
-//开始提交
--(void)submit:(NSNotification *)notification
+#pragma mark menu1提交数据
+-(void)menu1EditView:(menu1EditView *)view withArray:(NSArray *)array
 {
-    NSArray *data = notification.object;
+    [self submit:array];
+}
+
+#pragma mark menu1提交数据
+-(void)menu2EditView:(menu1EditView *)view withArray:(NSArray *)array
+{
+    [self submit:array];
+}
+
+#pragma mark menu1提交数据
+-(void)menu3EditView:(menu1EditView *)view withArray:(NSArray *)array
+{
+    [self submit:array];
+}
+
+#pragma mark 开始提交
+-(void)submit:(NSArray *)arr
+{
+    NSArray *data = arr;
     
     //掉接口，传递数据
     //拼接products字符串 1*3,2*4,6*1
@@ -237,7 +272,8 @@
             [parm appendString:str];
         }
     }
-    float x = _backScroll.contentOffset.x/_backScroll.frame.size.width;
+//    float x = _backScroll.contentOffset.x/_backScroll.frame.size.width;
+    int x = [SystemConfig sharedInstance].menuType;
     //判断参数的传值
     NSString *contact;
     NSString *tel;
@@ -279,6 +315,7 @@
     order.tel = tel;
     order.type = type;
     order.use_time = useTime;
+    
     order.people_num = peopleNum;
     order.remark = remark;
     order.price = [NSString stringWithFormat:@"%d",price];
@@ -286,6 +323,7 @@
     order.address_id = @"";
     ConformAppointmentController *ctl = [[ConformAppointmentController alloc] init];
     ctl.data = order;
+    ctl.oldTime = useTime;
     [self.navigationController pushViewController:ctl animated:YES];
 }
 
@@ -449,6 +487,8 @@
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"submit" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"address" object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 @end
