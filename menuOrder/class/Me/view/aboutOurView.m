@@ -74,7 +74,7 @@
     backView.layer.masksToBounds=YES;
     
     for (int i=0; i<5; i++) {
-        NSArray *aboutArray =@[[NSString stringWithFormat:@"%@",aboutmodel.shop_name],[NSString stringWithFormat:@"人均:%@",aboutmodel.shop_average_money],[NSString stringWithFormat:@"营业时间:%@",aboutmodel.shop_time],[NSString stringWithFormat:@"地址:%@",aboutmodel.shop_address],[NSString stringWithFormat:@"电话:%@",aboutmodel.shop_tel]];
+        NSArray *aboutArray =@[[NSString stringWithFormat:@"%@",aboutmodel.shop_name],[NSString stringWithFormat:@"人均：%@",aboutmodel.shop_average_money],[NSString stringWithFormat:@"营业时间：%@",aboutmodel.shop_time],[NSString stringWithFormat:@"地址：%@",aboutmodel.shop_address],[NSString stringWithFormat:@"电话：%@",aboutmodel.shop_tel]];
         UILabel *aboutLabel =[[UILabel alloc]initWithFrame:CGRectMake(YYBODERY,10+ i%5*BUTTONH, kWidth-YYBODERY*4, BUTTONH)];
         [backView addSubview:aboutLabel];
         aboutLabel.text=aboutArray[i];

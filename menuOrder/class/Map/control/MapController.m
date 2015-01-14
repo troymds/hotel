@@ -11,7 +11,7 @@
 #import "phoneView.h"
 #import "NavPointAnnotation.h"
 #import "APIKey.h"
-#define kSetingViewHeight   0.f
+#define kSetingViewHeight   20.f
 
 typedef NS_ENUM(NSInteger, NavigationTypes)
 {
@@ -27,7 +27,10 @@ typedef NS_ENUM(NSInteger, TravelTypes)
 };
 
 
-@interface MapController ()<AMapNaviViewControllerDelegate,CLLocationManagerDelegate>
+@interface MapController ()<AMapNaviViewControllerDelegate,CLLocationManagerDelegate>{
+    
+     CLLocationCoordinate2D _coordinate;
+}
 
 @property (nonatomic, strong) AMapNaviPoint         *startPoint;
 @property (nonatomic, strong) AMapNaviPoint         *endPoint;
@@ -89,20 +92,20 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     
     
     [self initNaviPoints];
-        [self addLocationManagerView];
+    [self addLocationManagerView];
     
     // 初始化travel方式为驾车方式
     self.travelType = TravelTypeCar;
-   
-// NSLog(@"1111%@",_startPoint);
+    
+    // NSLog(@"1111%@",_startPoint);
     [self configMapView];
 }
 - (void)viewDidAppear:(BOOL)animated;
 {
     [super viewDidAppear:YES];
-//     NSLog(@"2222%@",_startPoint);
+    //     NSLog(@"2222%@",_startPoint);
     
-
+    
 }
 -(void)addLocationManagerView{
     _locationManager =[[CLLocationManager alloc]init];
@@ -112,10 +115,7 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     
     if([_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
         [_locationManager requestAlwaysAuthorization]; // 永久授权
-//        [_locationManager requestWhenInUseAuthorization]; //使用中授权
     }
-//    [locationManager startUpdatingLocation];
-
     [_locationManager startUpdatingLocation];
 }
 //#pragma mark ----加载数据
@@ -135,28 +135,8 @@ typedef NS_ENUM(NSInteger, TravelTypes)
         
     }];
 }
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-{
-    CLLocation *currLocation = [locations lastObject];
-//    NSLog(@"经度=%f 纬度=%f 高度=%f", currLocation.coordinate.latitude, currLocation.coordinate.longitude, currLocation.altitude);
-    _startPoint =[AMapNaviPoint locationWithLatitude:currLocation.coordinate.latitude  longitude:currLocation.coordinate.longitude];;
-//    NSLog(@"00000%@",_startPoint);
-    
-    
-    
 
-}
-//
-//- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-//{
-//    if ([error code] == kCLErrorDenied)
-//    {
-//        //访问被拒绝
-//    }
-//    if ([error code] == kCLErrorLocationUnknown) {
-//        //无法获取位置信息
-//    }
-//}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -164,8 +144,6 @@ typedef NS_ENUM(NSInteger, TravelTypes)
 }
 -(void)addUIView
 {
-    
-    
     
     UIButton *phoneTel = [UIButton buttonWithType:UIButtonTypeCustom];
     phoneTel.backgroundColor =[UIColor clearColor];
@@ -176,7 +154,7 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     phoneTel.frame = CGRectMake(kWidth-85, kHeight-210, 55, 73);
     [self.view addSubview:phoneTel];
     [self.view bringSubviewToFront:phoneTel];
-  
+    
 }
 
 
@@ -185,7 +163,7 @@ typedef NS_ENUM(NSInteger, TravelTypes)
 {
     if (self.myMapView == nil)
     {
-        self.myMapView = [[MAMapView alloc] initWithFrame:self.view.bounds];
+        self.myMapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 20, kWidth, kHeight-20)];
     }
     
     self.myMapView.showsScale = NO;
@@ -205,7 +183,7 @@ typedef NS_ENUM(NSInteger, TravelTypes)
         [_naviManager setDelegate:self];
     }
     
-   
+    
 }
 
 #pragma mark 打电话
@@ -250,35 +228,38 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     
     
     endAnnotation.subtitle =[NSString stringWithFormat:@"地址：%@",_fishaddress ];
-
+    
     endAnnotation.navPointType = NavPointAnnotationEnd;
     
-     [self.myMapView selectAnnotation:endAnnotation animated:NO];
+    [self.myMapView selectAnnotation:endAnnotation animated:NO];
     
     self.annotations = @[beginAnnotation, endAnnotation];
-
-//     NSLog(@"4444%@",_startPoint);
+    
+         NSLog(@"4444%@",_startPoint);
     if (_startPoint==nil) {
         [RemindView showViewWithTitle:@"算路失败" location:MIDDLE];
     }
-
+    
 }
 
 - (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation
 {
     _currentPoint = [AMapNaviPoint locationWithLatitude:mapView.userLocation.location.coordinate.latitude longitude:mapView.userLocation.location.coordinate.longitude];
-   
+    
     
     if (_locChange == NO)
     {
-       
-       
+        NSLog(@"%f------%f",self.myMapView.userLocation.location.coordinate.latitude,self.myMapView.userLocation.location.coordinate.longitude);
+        _coordinate.latitude = userLocation.location.coordinate.latitude;
+        _coordinate.longitude = userLocation.location.coordinate.longitude;
         
+//        [self setMapRegionWithCoordinate:_coordinate];
 
-             _startPoint = _currentPoint;
+
+        _startPoint = _currentPoint;
         
-//         NSLog(@"5555%@",_startPoint);
-         [self initAnnotations];
+                 NSLog(@"5555%@",_startPoint);
+        [self initAnnotations];
         if (_calRouteSuccess)
         {
             [self.myMapView addOverlay:_polyline];
@@ -288,20 +269,20 @@ typedef NS_ENUM(NSInteger, TravelTypes)
         {
             [self.myMapView addAnnotations:self.annotations];
         }
-
+        
         
         NSArray *startPoints = @[_startPoint];
         NSArray *endPoints   = @[_endPoint];
         if (self.travelType == TravelTypeCar)
         {
             [self.naviManager calculateWalkRouteWithStartPoints:startPoints endPoints:endPoints];
-
+            
         }
         else
         {
             [self.naviManager calculateWalkRouteWithStartPoints:startPoints endPoints:endPoints];
         }
-
+        
         _locChange = YES;
         
     }
@@ -309,27 +290,30 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     {
         [_locationManager requestAlwaysAuthorization];
         [_locationManager startUpdatingLocation];
-
+        
     }else{
         
     }
-
+    
     
 }
-
+- (void)setMapRegionWithCoordinate:(CLLocationCoordinate2D)coordinate
+{
+//    MKCoordinateRegion region;
+    MACoordinateRegion region;
+//    region = MKCoordinateRegionMake(coordinate, MKCoordinateSpanMake(.1, .1));
+    region =MACoordinateRegionMake(coordinate, MACoordinateSpanMake(.1, .1));
+    MACoordinateRegion adjustedRegion = [self.myMapView regionThatFits:region];
+    [self.myMapView setRegion:adjustedRegion animated:YES];
+}
 
 
 #pragma mark - AMapNaviManager Delegate
 
-//- (void)AMapNaviManager:(AMapNaviManager *)naviManager onCalculateRouteFailure:(NSError *)error
-//{
-//    [self AMapNaviManager:naviManager onCalculateRouteFailure:error];
-//}
-
 
 - (void)AMapNaviManagerOnCalculateRouteSuccess:(AMapNaviManager *)naviManager
 {
-//    [super AMapNaviManagerOnCalculateRouteSuccess:naviManager];
+    //    [super AMapNaviManagerOnCalculateRouteSuccess:naviManager];
     
     
     if (naviManager.naviRoute == nil)
@@ -351,7 +335,7 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     [self.myMapView addOverlay:polyline];
     [self.myMapView setVisibleMapRect:[polyline boundingMapRect] animated:NO];
     
-//     NSLog(@"8888%@",_startPoint);
+    //     NSLog(@"8888%@",_startPoint);
     
     _calRouteSuccess = YES;
 }
@@ -374,8 +358,8 @@ typedef NS_ENUM(NSInteger, TravelTypes)
         pointAnnotationView.animatesDrop   = NO;
         pointAnnotationView.canShowCallout = YES;
         pointAnnotationView.draggable      = NO;
-//         NSLog(@"999999%@",_startPoint);
-
+        //         NSLog(@"999999%@",_startPoint);
+        
         NavPointAnnotation *navAnnotation = (NavPointAnnotation *)annotation;
         
         if (navAnnotation.navPointType == NavPointAnnotationStart)
@@ -388,10 +372,10 @@ typedef NS_ENUM(NSInteger, TravelTypes)
             [pointAnnotationView setPinColor:MAPinAnnotationColorRed];
             UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
             pointAnnotationView.RightCalloutAccessoryView = imageView;
-
+            
             [pointAnnotationView setImage:[UIImage imageNamed:@"end_img.png"]];
             imageView.image = [UIImage imageNamed:@"heaar_img"];
-
+            
             
         }
         return pointAnnotationView;
@@ -400,52 +384,26 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     return nil;
 }
 
-- (void)locationManager:(CLLocationManager *)manager
-    didUpdateToLocation:(CLLocation *)newLocation
-           fromLocation:(CLLocation *)oldLocation
-{
-    
-    
-    
-//    MKReverseGeocoder *geocoder = [[MKReverseGeocoder alloc] initWithCoordinate:newLocation.coordinate];
-//    geocoder.delegate = self;
-//    [geocoder start];
-//    CLLocationCoordinate2D theCoordinate;
-//    theCoordinate.latitude = newLocation.coordinate.latitude;
-//    theCoordinate.longitude = newLocation.coordinate.longitude;
-//    //[self.mmapView setCenterCoordinate:theCoordinate];
-//    
-//    //设定显示范围
-//    MACoordinateSpan theSpan;
-//    theSpan.latitudeDelta=0.1;
-//    theSpan.longitudeDelta=0.1;
-//    //设置地图显示的中心及范围
-//    MACoordinateRegion theRegion;
-//    theRegion.center=theCoordinate;
-//    theRegion.span=theSpan;
-//    
-//    // 设置地图显示的类型及根据范围进行显示
-//    [self.myMapView setRegion:theRegion];
-}
 - (MAOverlayView *)mapView:(MAMapView *)mapView viewForOverlay:(id<MAOverlay>)overlay
 {
     if ([overlay isKindOfClass:[MAPolyline class]])
     {
-//         NSLog(@"101010101%@",_startPoint);
+        //         NSLog(@"101010101%@",_startPoint);
         MAPolylineView *polylineView = [[MAPolylineView alloc] initWithPolyline:overlay];
         polylineView.strokeColor = HexRGB(0x7c9de4);
-
-        polylineView.lineWidth   = 5.0f;
-//        polylineView.layer.cornerRadius=0;
-//        polylineView.layer.borderWidth=2.0;
-//        polylineView.layer.masksToBounds = YES;
-//        polylineView.layer.borderColor=[UIColor colorWithRed:85.0/255.0 green:113.0/255.0 blue:219.0/255.0 alpha:1 ] .CGColor;
         
+        polylineView.lineWidth   = 5.0f;
         return polylineView;
     }
     return nil;
 }
 
+#pragma mark 控件将要显示
+- (void)viewWillAppear:(BOOL)animated
+{
+    //隐藏导航栏
+    self.navigationController.navigationBarHidden = YES;
+}
 
 
 
