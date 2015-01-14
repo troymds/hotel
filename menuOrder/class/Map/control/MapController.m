@@ -85,6 +85,9 @@ typedef NS_ENUM(NSInteger, TravelTypes)
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
+    
     [self initNaviPoints];
         [self addLocationManagerView];
     
@@ -106,6 +109,13 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     _locationManager.delegate =self;
     _locationManager.desiredAccuracy =kCLLocationAccuracyBest;
     _locationManager.distanceFilter=10;
+    
+    if([_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+        [_locationManager requestAlwaysAuthorization]; // 永久授权
+//        [_locationManager requestWhenInUseAuthorization]; //使用中授权
+    }
+//    [locationManager startUpdatingLocation];
+
     [_locationManager startUpdatingLocation];
 }
 //#pragma mark ----加载数据
@@ -125,17 +135,17 @@ typedef NS_ENUM(NSInteger, TravelTypes)
         
     }];
 }
-//- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-//{
-//    CLLocation *currLocation = [locations lastObject];
-////    NSLog(@"经度=%f 纬度=%f 高度=%f", currLocation.coordinate.latitude, currLocation.coordinate.longitude, currLocation.altitude);
-//    _startPoint =[AMapNaviPoint locationWithLatitude:currLocation.coordinate.latitude  longitude:currLocation.coordinate.longitude];;
-//    NSLog(@"00000%@",_startPoint);
-//    [self initAnnotations];
-//    
-//    
-//
-//}
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    CLLocation *currLocation = [locations lastObject];
+//    NSLog(@"经度=%f 纬度=%f 高度=%f", currLocation.coordinate.latitude, currLocation.coordinate.longitude, currLocation.altitude);
+    _startPoint =[AMapNaviPoint locationWithLatitude:currLocation.coordinate.latitude  longitude:currLocation.coordinate.longitude];;
+    NSLog(@"00000%@",_startPoint);
+    
+    
+    
+
+}
 //
 //- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 //{
@@ -258,21 +268,17 @@ typedef NS_ENUM(NSInteger, TravelTypes)
 {
     _currentPoint = [AMapNaviPoint locationWithLatitude:mapView.userLocation.location.coordinate.latitude longitude:mapView.userLocation.location.coordinate.longitude];
    
-//     NSLog(@"5555%@",_startPoint);
+    
     if (_locChange == NO)
     {
        
        
         
-//        if (_startPoint==nil) {
-//            _startPoint =[AMapNaviPoint locationWithLatitude:32.032042   longitude:118.781248];
-//
-//        }else{
-             _startPoint = _currentPoint;
-//        }
-         [self initAnnotations];
-//        _startPoint =[AMapNaviPoint locationWithLatitude:32.035729   longitude:118.793396];
 
+             _startPoint = _currentPoint;
+        
+         NSLog(@"5555%@",_startPoint);
+         [self initAnnotations];
         if (_calRouteSuccess)
         {
             [self.myMapView addOverlay:_polyline];
@@ -286,7 +292,6 @@ typedef NS_ENUM(NSInteger, TravelTypes)
         
         NSArray *startPoints = @[_startPoint];
         NSArray *endPoints   = @[_endPoint];
-//        NSLog(@"6666%@",_startPoint);
         if (self.travelType == TravelTypeCar)
         {
             [self.naviManager calculateWalkRouteWithStartPoints:startPoints endPoints:endPoints];
@@ -302,7 +307,6 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     }
     if ([[[UIDevice currentDevice]systemVersion]floatValue]>=8)
     {
-//          NSLog(@"7777%@",_startPoint);
         [_locationManager requestAlwaysAuthorization];
         [_locationManager startUpdatingLocation];
 
