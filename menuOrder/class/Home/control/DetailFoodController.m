@@ -216,7 +216,7 @@
 -(void)sharefood
 {
      ProductDetailModel *model = _dataList[0];
-    [ShareView showViewWithTitle:@"分享" content:model.cover description:model.cover url:model.cover delegate:self];
+    [ShareView showViewWithTitle:@"紫金渔府饭店是南京老字号饭店，也是南京名菜馆之一，地处南京鼓楼区水佐岗老菜市场，菜肴选料精细，操作考究，质量稳定，具有江南一带的特殊风味" content:model.cover description:@"紫金渔府饭店是南京老字号饭店，也是南京名菜馆之一，地处南京鼓楼区水佐岗老菜市场，菜肴选料精细，操作考究，质量稳定，具有江南一带的特殊风味" url:@"紫金渔府饭店是南京老字号饭店，也是南京名菜馆之一，地处南京鼓楼区水佐岗老菜市场，菜肴选料精细，操作考究，质量稳定，具有江南一带的特殊风味" delegate:self];
 }
 
 #pragma mark 动态变化的高度
