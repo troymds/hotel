@@ -53,7 +53,7 @@
         
         orderModel.contact =[dict objectForKey:@"contact"];
         orderModel.people_num =[dict objectForKey:@"people_num"];
-        orderModel.use_time =[dict objectForKey:@"create_time"];
+        orderModel.use_time =[dict objectForKey:@"use_time"];
         orderModel.type =[dict objectForKey:@"type"];
         orderModel.tel =[dict objectForKey:@"tel"];
 
@@ -124,11 +124,19 @@
         orderLabel.textColor=HexRGB(0x605e5f);
         orderLabel.text=orderArr[p];
         
+       
+        
         if ([orderModel.type isEqualToString:@"1"]||[orderModel.type isEqualToString:@"2"]) {
             if (p==2) {
                 orderLabel.text = [NSString stringWithFormat:@"  联系电话:%@",orderModel.tel];
                 
             }
+        }if ([orderModel.type isEqualToString:@"1"]) {
+            orderLabel.text = [NSString stringWithFormat:@"  取餐时间:%@",orderModel.use_time];
+
+        }if ([orderModel.type isEqualToString:@"2"]) {
+            orderLabel.text = [NSString stringWithFormat:@"  送达时间:%@",orderModel.use_time];
+            
         }
        
     }
