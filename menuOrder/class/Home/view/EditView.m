@@ -57,7 +57,7 @@
     
     //3  textField
     UITextField *edit = [[UITextField alloc] init];
-
+    edit.tintColor = HexRGB(0x055c0a);
     CGFloat editX = CGRectGetMaxX(circle.frame) + KEditLeftX * 2;
     CGFloat editY = KLineH;
     CGFloat editW = kWidth - editX - KEditLeftX;
@@ -72,8 +72,8 @@
         [self addSubview:edit];
         //后面加地址button
         UIButton *addressSelecte = [UIButton buttonWithType:UIButtonTypeCustom];
-        [addressSelecte setBackgroundImage:LOADPNGIMAGE(@"输入送餐地址") forState:UIControlStateNormal];
-        [addressSelecte setBackgroundImage:LOADPNGIMAGE(@"输入送餐地址_pre") forState:UIControlStateHighlighted];
+        [addressSelecte setBackgroundImage:LOADPNGIMAGE(@"选择送餐地址") forState:UIControlStateNormal];
+        [addressSelecte setBackgroundImage:LOADPNGIMAGE(@"选择送餐地址_pre") forState:UIControlStateHighlighted];
         addressSelecte.frame = Rect(kWidth - 100, editY, 74, editH);
         [addressSelecte addTarget:self action:@selector(addaddress) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:addressSelecte];

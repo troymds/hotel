@@ -22,4 +22,5 @@
 @property (nonatomic, strong) UIView *line;
 @property (nonatomic, strong) NSString *categoryID;
 @property (nonatomic, weak) id<MenuItemDelegate> delegate;
+@property (nonatomic, strong) UIView *back;
 @end

@@ -21,13 +21,14 @@
 #import "MenuController.h"
 
 #define KDelX        5
-
+#define KNodataX    40
 @interface FoodCarController ()<UITableViewDataSource,UITableViewDelegate,CarClickedDelegate,DockDelegate,ChangeControllerDelegate>
 {
     NSArray *_dataList;//购物车数据
     int _totaNum;
     UITableView *_table;
     CarOrderToolBar *_tooBar;
+    UIImageView *_noDataView;
 }
 @end
 
@@ -35,6 +36,12 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    if (_dataList && _dataList.count > 0) {
+        _noDataView.hidden = YES;
+    }else
+    {
+        _noDataView.hidden = NO;
+    }
     //重新计算,全部全选
     if (_table) {
         [self reCaculate];
@@ -110,7 +117,22 @@
     [self.view addSubview:toolBar];
     _tooBar = toolBar;
     
+    [self addNoDataView];
     [self caculate];
+}
+
+#pragma mark 没有数据时
+-(void)addNoDataView
+{
+    _noDataView = [[UIImageView alloc] initWithFrame:Rect((kWidth-230)/2, (kHeight-100)/2, 230, 100)];
+    [self.view addSubview:_noDataView];
+    _noDataView.image =[UIImage imageNamed:@"noCarFood"];
+    if (_dataList.count > 0) {
+        _noDataView.hidden = YES;
+    }else
+    {
+        _noDataView.hidden = NO;
+    }
 }
 
 #pragma mark 进入飘香菜单
@@ -128,6 +150,7 @@
     bool isAllSelected = YES;
     NSUInteger count = _dataList.count;
     if (count > 0) {
+//        _noDataView.hidden = YES;
         for (int i = 0; i < count; i++) {
             //因为不能得到除可视范围内的cell ,所以要根据cell里面的  data来计算数据
             MenuModel *data = _dataList[i];
@@ -142,6 +165,7 @@
         }
     }else
     {
+//        _noDataView.hidden = NO;
         isAllSelected = NO;//购物车里没有数据，肯定没有全选
     }
     _tooBar.money.text = [NSString stringWithFormat:@"%d",totalPrice];

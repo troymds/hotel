@@ -18,19 +18,24 @@
     self = [super initWithFrame:frame];
     if (self) {
         //1 背景色
-        self.backgroundColor = HexRGB(0xe0e0e0);
+        UIView *back = [[UIView alloc] initWithFrame:Rect(0, 0, frame.size.width, frame.size.height)];
+        back.backgroundColor = HexRGB(0xe0e0e0);
+        [self addSubview:back];
+        _back = back;
+        
         //2 菜色
         UILabel *text = [[UILabel alloc] init];
         text.frame = Rect(KLineW + KTextSpaceFromLine, 0, frame.size.width - KLineW - KTextSpaceFromLine, frame.size.height);
         text.font = [UIFont systemFontOfSize:PxFont(20)];
         text.text = @"飘香菜单";
+        text.backgroundColor = [UIColor clearColor];
         text.textColor = [UIColor blackColor];
-        [self addSubview:text];
+        [back addSubview:text];
         _contentLabel = text;
         //3 划线
         UIView *line = [[UIView alloc] initWithFrame:Rect(0, 0, 3, frame.size.height)];
         line.backgroundColor = HexRGB(0x56b001);
-        [self addSubview:line];
+        [back addSubview:line];
         line.hidden = YES;
         _line = line;
     }
@@ -40,15 +45,16 @@
 #pragma mark 被选中状态UI改变
 - (void)setIsSelected:(BOOL)isSelected
 {
+    _isSelected = isSelected;
     if (isSelected) {//选中状态
         // 字体颜色变HexRGB(0x56b001)，背景变白,划线显示
         _contentLabel.textColor = HexRGB(0x56b001);
-        self.backgroundColor  = [UIColor whiteColor];
+        _back.backgroundColor  = [UIColor whiteColor];
         _line.hidden = NO;
     }else
     {
         _contentLabel.textColor = [UIColor blackColor];
-        self.backgroundColor  = HexRGB(0xe0e0e0);
+        _back.backgroundColor  = HexRGB(0xe0e0e0);
         _line.hidden = YES;
     }
 }

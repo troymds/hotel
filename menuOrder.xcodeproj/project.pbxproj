@@ -104,12 +104,6 @@
 		F33543521A369ED1005B21C8 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = F33542E71A369ED0005B21C8 /* SVProgressHUD.m */; };
 		F33543531A369ED1005B21C8 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = F33542EB1A369ED0005B21C8 /* UIScrollView+SVInfiniteScrolling.m */; };
 		F33543541A369ED1005B21C8 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = F33542ED1A369ED0005B21C8 /* UIScrollView+SVPullToRefresh.m */; };
-		F33543551A369ED1005B21C8 /* DimensionalCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F33542F01A369ED1005B21C8 /* DimensionalCodeViewController.m */; };
-		F33543561A369ED1005B21C8 /* libzbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F33543081A369ED1005B21C8 /* libzbar.a */; };
-		F33543571A369ED1005B21C8 /* zbar-back.png in Resources */ = {isa = PBXBuildFile; fileRef = F335430A1A369ED1005B21C8 /* zbar-back.png */; };
-		F33543581A369ED1005B21C8 /* zbar-help.html in Resources */ = {isa = PBXBuildFile; fileRef = F335430B1A369ED1005B21C8 /* zbar-help.html */; };
-		F33543591A369ED1005B21C8 /* zbar-helpicons.png in Resources */ = {isa = PBXBuildFile; fileRef = F335430C1A369ED1005B21C8 /* zbar-helpicons.png */; };
-		F335435A1A369ED1005B21C8 /* zbar-samples.png in Resources */ = {isa = PBXBuildFile; fileRef = F335430D1A369ED1005B21C8 /* zbar-samples.png */; };
 		F335435B1A369ED1005B21C8 /* MailConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F33543101A369ED1005B21C8 /* MailConnection.framework */; };
 		F335435C1A369ED1005B21C8 /* QQConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F33543111A369ED1005B21C8 /* QQConnection.framework */; };
 		F335435D1A369ED1005B21C8 /* QZoneConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F33543121A369ED1005B21C8 /* QZoneConnection.framework */; };
@@ -392,33 +386,6 @@
 		F33542EB1A369ED0005B21C8 /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
 		F33542EC1A369ED0005B21C8 /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
 		F33542ED1A369ED0005B21C8 /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
-		F33542EF1A369ED1005B21C8 /* DimensionalCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DimensionalCodeViewController.h; sourceTree = "<group>"; };
-		F33542F01A369ED1005B21C8 /* DimensionalCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DimensionalCodeViewController.m; sourceTree = "<group>"; };
-		F33542F41A369ED1005B21C8 /* Decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decoder.h; sourceTree = "<group>"; };
-		F33542F51A369ED1005B21C8 /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exception.h; sourceTree = "<group>"; };
-		F33542F61A369ED1005B21C8 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
-		F33542F71A369ED1005B21C8 /* ImageScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScanner.h; sourceTree = "<group>"; };
-		F33542F81A369ED1005B21C8 /* Processor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processor.h; sourceTree = "<group>"; };
-		F33542F91A369ED1005B21C8 /* Scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scanner.h; sourceTree = "<group>"; };
-		F33542FA1A369ED1005B21C8 /* Symbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Symbol.h; sourceTree = "<group>"; };
-		F33542FB1A369ED1005B21C8 /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
-		F33542FC1A369ED1005B21C8 /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
-		F33542FD1A369ED1005B21C8 /* zbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zbar.h; sourceTree = "<group>"; };
-		F33542FE1A369ED1005B21C8 /* ZBarCameraSimulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarCameraSimulator.h; sourceTree = "<group>"; };
-		F33542FF1A369ED1005B21C8 /* ZBarCaptureReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarCaptureReader.h; sourceTree = "<group>"; };
-		F33543001A369ED1005B21C8 /* ZBarHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarHelpController.h; sourceTree = "<group>"; };
-		F33543011A369ED1005B21C8 /* ZBarImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarImage.h; sourceTree = "<group>"; };
-		F33543021A369ED1005B21C8 /* ZBarImageScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarImageScanner.h; sourceTree = "<group>"; };
-		F33543031A369ED1005B21C8 /* ZBarReaderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarReaderController.h; sourceTree = "<group>"; };
-		F33543041A369ED1005B21C8 /* ZBarReaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarReaderView.h; sourceTree = "<group>"; };
-		F33543051A369ED1005B21C8 /* ZBarReaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarReaderViewController.h; sourceTree = "<group>"; };
-		F33543061A369ED1005B21C8 /* ZBarSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarSDK.h; sourceTree = "<group>"; };
-		F33543071A369ED1005B21C8 /* ZBarSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarSymbol.h; sourceTree = "<group>"; };
-		F33543081A369ED1005B21C8 /* libzbar.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzbar.a; sourceTree = "<group>"; };
-		F335430A1A369ED1005B21C8 /* zbar-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-back.png"; sourceTree = "<group>"; };
-		F335430B1A369ED1005B21C8 /* zbar-help.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "zbar-help.html"; sourceTree = "<group>"; };
-		F335430C1A369ED1005B21C8 /* zbar-helpicons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-helpicons.png"; sourceTree = "<group>"; };
-		F335430D1A369ED1005B21C8 /* zbar-samples.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-samples.png"; sourceTree = "<group>"; };
 		F33543101A369ED1005B21C8 /* MailConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MailConnection.framework; sourceTree = "<group>"; };
 		F33543111A369ED1005B21C8 /* QQConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QQConnection.framework; sourceTree = "<group>"; };
 		F33543121A369ED1005B21C8 /* QZoneConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QZoneConnection.framework; sourceTree = "<group>"; };
@@ -609,7 +576,6 @@
 				F335435D1A369ED1005B21C8 /* QZoneConnection.framework in Frameworks */,
 				F33541E11A367D91005B21C8 /* UIKit.framework in Frameworks */,
 				F33543611A369ED1005B21C8 /* AGCommon.framework in Frameworks */,
-				F33543561A369ED1005B21C8 /* libzbar.a in Frameworks */,
 				F335435C1A369ED1005B21C8 /* QQConnection.framework in Frameworks */,
 				F33541DD1A367D91005B21C8 /* Foundation.framework in Frameworks */,
 				F33543691A369ED1005B21C8 /* libWeChatSDK.a in Frameworks */,
@@ -1033,7 +999,6 @@
 				F33542C61A369ED0005B21C8 /* SDWebImage */,
 				F33542E41A369ED0005B21C8 /* SVProgress */,
 				F33542E81A369ED0005B21C8 /* SVPullToRefresh */,
-				F33542EE1A369ED1005B21C8 /* ZBarSDK */,
 			);
 			path = Lib;
 			sourceTree = "<group>";
@@ -1168,72 +1133,6 @@
 				F33542ED1A369ED0005B21C8 /* UIScrollView+SVPullToRefresh.m */,
 			);
 			path = SVPullToRefresh;
-			sourceTree = "<group>";
-		};
-		F33542EE1A369ED1005B21C8 /* ZBarSDK */ = {
-			isa = PBXGroup;
-			children = (
-				F33542EF1A369ED1005B21C8 /* DimensionalCodeViewController.h */,
-				F33542F01A369ED1005B21C8 /* DimensionalCodeViewController.m */,
-				F33542F11A369ED1005B21C8 /* Headers */,
-				F33543081A369ED1005B21C8 /* libzbar.a */,
-				F33543091A369ED1005B21C8 /* Resources */,
-			);
-			path = ZBarSDK;
-			sourceTree = "<group>";
-		};
-		F33542F11A369ED1005B21C8 /* Headers */ = {
-			isa = PBXGroup;
-			children = (
-				F33542F21A369ED1005B21C8 /* ZBarSDK */,
-			);
-			path = Headers;
-			sourceTree = "<group>";
-		};
-		F33542F21A369ED1005B21C8 /* ZBarSDK */ = {
-			isa = PBXGroup;
-			children = (
-				F33542F31A369ED1005B21C8 /* zbar */,
-				F33542FD1A369ED1005B21C8 /* zbar.h */,
-				F33542FE1A369ED1005B21C8 /* ZBarCameraSimulator.h */,
-				F33542FF1A369ED1005B21C8 /* ZBarCaptureReader.h */,
-				F33543001A369ED1005B21C8 /* ZBarHelpController.h */,
-				F33543011A369ED1005B21C8 /* ZBarImage.h */,
-				F33543021A369ED1005B21C8 /* ZBarImageScanner.h */,
-				F33543031A369ED1005B21C8 /* ZBarReaderController.h */,
-				F33543041A369ED1005B21C8 /* ZBarReaderView.h */,
-				F33543051A369ED1005B21C8 /* ZBarReaderViewController.h */,
-				F33543061A369ED1005B21C8 /* ZBarSDK.h */,
-				F33543071A369ED1005B21C8 /* ZBarSymbol.h */,
-			);
-			path = ZBarSDK;
-			sourceTree = "<group>";
-		};
-		F33542F31A369ED1005B21C8 /* zbar */ = {
-			isa = PBXGroup;
-			children = (
-				F33542F41A369ED1005B21C8 /* Decoder.h */,
-				F33542F51A369ED1005B21C8 /* Exception.h */,
-				F33542F61A369ED1005B21C8 /* Image.h */,
-				F33542F71A369ED1005B21C8 /* ImageScanner.h */,
-				F33542F81A369ED1005B21C8 /* Processor.h */,
-				F33542F91A369ED1005B21C8 /* Scanner.h */,
-				F33542FA1A369ED1005B21C8 /* Symbol.h */,
-				F33542FB1A369ED1005B21C8 /* Video.h */,
-				F33542FC1A369ED1005B21C8 /* Window.h */,
-			);
-			path = zbar;
-			sourceTree = "<group>";
-		};
-		F33543091A369ED1005B21C8 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				F335430A1A369ED1005B21C8 /* zbar-back.png */,
-				F335430B1A369ED1005B21C8 /* zbar-help.html */,
-				F335430C1A369ED1005B21C8 /* zbar-helpicons.png */,
-				F335430D1A369ED1005B21C8 /* zbar-samples.png */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		F335430E1A369ED1005B21C8 /* ShareSDK */ = {
@@ -1662,13 +1561,9 @@
 				18F0FA7A1A4B2C1C004E85A7 /* dropdown.png in Resources */,
 				18F0FA8A1A4B30DD004E85A7 /* AMapNavi.bundle in Resources */,
 				18F0FA7B1A4B2C1C004E85A7 /* dropup.png in Resources */,
-				F335435A1A369ED1005B21C8 /* zbar-samples.png in Resources */,
 				F335436B1A369ED1005B21C8 /* ShareSDKFlatShareViewUI.bundle in Resources */,
-				F33543581A369ED1005B21C8 /* zbar-help.html in Resources */,
 				F33543621A369ED1005B21C8 /* ShareSDKLocalizable.strings in Resources */,
 				F33543661A369ED1005B21C8 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
-				F33543571A369ED1005B21C8 /* zbar-back.png in Resources */,
-				F33543591A369ED1005B21C8 /* zbar-helpicons.png in Resources */,
 				F33543631A369ED1005B21C8 /* Resource.bundle in Resources */,
 				F33543681A369ED1005B21C8 /* WeiboSDK.bundle in Resources */,
 			);
@@ -1747,7 +1642,6 @@
 				F3BF876E1A5A343C00E0A49A /* NiceFoodView.m in Sources */,
 				F3BF87601A5A343C00E0A49A /* HomePageDataModel.m in Sources */,
 				5551FF391A3A907E0057598D /* MyOrderView.m in Sources */,
-				F33543551A369ED1005B21C8 /* DimensionalCodeViewController.m in Sources */,
 				F3BF878E1A5A345100E0A49A /* menu3EditView.m in Sources */,
 				F33543391A369ED1005B21C8 /* KDCycleBannerView.m in Sources */,
 				55BA74B01A3EC08E00203DA2 /* addressListModel.m in Sources */,
@@ -1952,10 +1846,11 @@
 		F33542061A367D91005B21C8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ma xundong (Q9AV45MB6G)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ma xundong (Q9AV45MB6G)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Cui ning (T36P48QBZN)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Cui ning (T36P48QBZN)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/menuOrder/class/Other/ShareSDK/Connection",
@@ -1971,12 +1866,13 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/menuOrder/class/Other/Lib/ZBarSDK",
 					"$(PROJECT_DIR)/menuOrder/class/Other/ShareSDK/Extend/SinaWeiboSDK",
 					"$(PROJECT_DIR)/menuOrder/class/Other/ShareSDK/Extend/WeChatSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9bc436d8-b884-46f7-804c-10ad418d1b72";
+				PROVISIONING_PROFILE = "e4afe9fd-14a0-47fe-ad26-9788b6e73dda";
+				SDKROOT = iphoneos;
+				VALID_ARCHS = "arm64 armv7";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1984,10 +1880,11 @@
 		F33542071A367D91005B21C8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ma xundong (Q9AV45MB6G)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ma xundong (Q9AV45MB6G)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Cui ning (T36P48QBZN)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Cui ning (T36P48QBZN)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/menuOrder/class/Other/ShareSDK/Connection",
@@ -2003,12 +1900,13 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/menuOrder/class/Other/Lib/ZBarSDK",
 					"$(PROJECT_DIR)/menuOrder/class/Other/ShareSDK/Extend/SinaWeiboSDK",
 					"$(PROJECT_DIR)/menuOrder/class/Other/ShareSDK/Extend/WeChatSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9bc436d8-b884-46f7-804c-10ad418d1b72";
+				PROVISIONING_PROFILE = "e4afe9fd-14a0-47fe-ad26-9788b6e73dda";
+				SDKROOT = iphoneos;
+				VALID_ARCHS = "arm64 armv7";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -2017,8 +1915,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/menuOrder.app/menuOrder";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Cui ning (T36P48QBZN)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Cui ning (T36P48QBZN)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2032,7 +1930,7 @@
 				);
 				INFOPLIST_FILE = "menuOrderTests/menuOrderTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "e4afe9fd-14a0-47fe-ad26-9788b6e73dda";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -2042,8 +1940,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/menuOrder.app/menuOrder";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Cui ning (T36P48QBZN)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Cui ning (T36P48QBZN)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2053,7 +1951,7 @@
 				GCC_PREFIX_HEADER = "menuOrder/menuOrder-Prefix.pch";
 				INFOPLIST_FILE = "menuOrderTests/menuOrderTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "e4afe9fd-14a0-47fe-ad26-9788b6e73dda";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};

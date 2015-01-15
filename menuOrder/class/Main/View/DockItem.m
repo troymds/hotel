@@ -3,7 +3,7 @@
 
 
 // 文字的高度比例
-#define kTitleRatio 0.4
+#define kTitleRatio 0.3
 
 @implementation DockItem
 
@@ -45,7 +45,7 @@
 {
     CGFloat titleX = 0;
     CGFloat titleHeight = contentRect.size.height * kTitleRatio;
-    CGFloat titleY = contentRect.size.height - titleHeight + 1;
+    CGFloat titleY = contentRect.size.height - titleHeight;
     CGFloat titleWidth = contentRect.size.width;
     return CGRectMake(titleX, titleY, titleWidth, titleHeight);
 }
