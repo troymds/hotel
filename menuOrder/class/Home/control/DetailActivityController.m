@@ -42,7 +42,6 @@
     
     self.navigationItem.rightBarButtonItem =[[UIBarButtonItem alloc] initWithCustomView:rightBtn];
     
-    [self loadDetailData];
     [self detailActivityStatus];
     
 }
@@ -146,15 +145,11 @@
     contentBackView.frame = Rect(KLeftXYDistence, KLeftXYDistence, kWidth - KLeftXYDistence * 2, backScrollView.contentSize.height-90);
 
 }
-#pragma mark 获得详情活动
--(void)loadDetailData
-{
-    
-}
+
 
 -(void)rightBtn
 {
-    [ShareView showViewWithTitle:_model.content content:_model.content  description:_model.content  url:_model.content  delegate:self];
+     [ShareView showViewWithTitle:@"分享紫金渔府" content:@"http://fish.ebingoo.com/" description:@"http://fish.ebingoo.com/" url:@"http://fish.ebingoo.com/" delegate:self];
 }
 
 @end
