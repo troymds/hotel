@@ -165,10 +165,10 @@
     }else
     {
         if (!isNameLengthEnough) {
-            [RemindView showViewWithTitle:@"请检查姓名！" location:MIDDLE];
+            [RemindView showViewWithTitle:@"请将姓名填写完整，亲！" location:MIDDLE];
         }
         else if (!isValidPhone) {
-            [RemindView showViewWithTitle:@"请输入正确的手机号码！" location:MIDDLE];
+            [RemindView showViewWithTitle:@"请输入正确的手机号码,亲！" location:MIDDLE];
         }else
         {
             [RemindView showViewWithTitle:@"请填写完信息，亲！" location:MIDDLE];

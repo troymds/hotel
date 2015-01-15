@@ -241,6 +241,7 @@
         CGFloat y = startY + itemH * i;
         MenuItem * item = [[MenuItem alloc] initWithFrame:Rect(startX, y, itemW, itemH)];
         item.delegate = self;
+//        item.backgroundColor = HexRGB(0xe0e0e0);
         MenuCategory *category = _categoryList[i];
         item.contentLabel.text = category.name;
         item.categoryID = category.ID;

@@ -75,7 +75,7 @@
         dollarIcon.textColor = HexRGB(0x605e5f);
         dollarIcon.backgroundColor = [UIColor clearColor];
         dollarIcon.text = @"￥";
-        dollarIcon.textAlignment = NSTextAlignmentCenter;
+        dollarIcon.textAlignment = NSTextAlignmentLeft;
         
         //6 价格
         UILabel *price =  [[UILabel alloc] init];

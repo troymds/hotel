@@ -185,12 +185,12 @@
     _scroll.contentSize = CGSizeMake(kWidth, viewHight) ;
 }
 
-#pragma mark 菜单按钮点击事件
+#pragma mark 菜单按钮点击按下
 - (void) buttonclicked:(UIButton *)btn
 {
     btn.selected = !btn.selected;
 
-    [self performSelector:@selector(cancleBtnSelected:) withObject:btn afterDelay:0.1];
+    [self performSelector:@selector(cancleBtnSelected:) withObject:btn afterDelay:0.2];
 }
 
 #pragma mark 取消按钮按下的效果
