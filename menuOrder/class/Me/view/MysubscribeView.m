@@ -147,7 +147,12 @@
     }
     
     cell.MeSubscribeNumLabel.text=[NSString stringWithFormat:@"就餐人数：%@",subModel.people_num];
-    [cell.MeSubscribeImage setImageWithURL:[NSURL URLWithString:subModel.cover] placeholderImage:placeHoderImage2];
+    if ([subModel.cover isEqualToString:@"http://fish.ebingoo.com/"]) {
+        cell.MeSubscribeImage.image =[UIImage imageNamed:@"no_img.png"];
+    }else{
+        [cell.MeSubscribeImage setImageWithURL:[NSURL URLWithString:subModel.cover] placeholderImage:placeHoderImage2];
+
+    }
     cell.MeSubscribeTimeLabel.text=[NSString stringWithFormat:@"时间：%@",subModel.use_time] ;
     if ([subModel.type isEqualToString:@"0"]) {
         cell.MeSubscribeCategoryLabel.text=@"类型：亲临渔府";

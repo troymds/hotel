@@ -91,7 +91,7 @@
     if ([nameStr isEqualToString:@""]) {
         [RemindView showViewWithTitle:@"联系人姓名不能为空" location:MIDDLE];
     }else if (nameStr.length<=1) {
-        [RemindView showViewWithTitle:@"请检查姓名" location:MIDDLE];
+        [RemindView showViewWithTitle:@"请将姓名填写完整" location:MIDDLE];
         
     }
      else if ([telStr isEqualToString:@""]) {
@@ -137,14 +137,14 @@
     if ([nameStr isEqualToString:@""]) {
         [RemindView showViewWithTitle:@"联系人姓名不能为空" location:MIDDLE];
     }else if (telStr.length<=1) {
-        [RemindView showViewWithTitle:@"请检查姓名" location:MIDDLE];
+        [RemindView showViewWithTitle:@"请将姓名填写完整" location:MIDDLE];
         
     }
     else if ([telStr isEqualToString:@""]) {
-        [RemindView showViewWithTitle:@"联系人姓名不能为空" location:MIDDLE];
+        [RemindView showViewWithTitle:@"联系人联系电话不能为空" location:MIDDLE];
 
     }else if ([addressStr isEqualToString:@""]) {
-        [RemindView showViewWithTitle:@"联系人姓名不能为空" location:MIDDLE];
+        [RemindView showViewWithTitle:@"联系人详细地址不能为空" location:MIDDLE];
 
     }else{
         [self.navigationController popViewControllerAnimated:YES];

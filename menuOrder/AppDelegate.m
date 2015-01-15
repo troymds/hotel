@@ -23,19 +23,12 @@
 #import "uidTool.h"
 
 
-//#import "iflyMSC/IFlySpeechSynthesizer.h"
-//#import "iflyMSC/IFlySpeechSynthesizerDelegate.h"
-//#import "iflyMSC/IFlySpeechConstant.h"
-//#import "iflyMSC/IFlySpeechUtility.h"
-//#import "iflyMSC/IFlySetting.h"
-#import <AMapNaviKit/AMapNaviKit.h>
-#import "APIKey.h"
+
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [self configureAPIKey];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     //获取用户uuid
@@ -152,18 +145,6 @@
 }
 
 
-- (void)configureAPIKey
-{
-    if ([APIKey length] == 0)
-    {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"apiKey为空，请检查key是否正确设置" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        
-        [alert show];
-    }
-    
-    [AMapNaviServices sharedServices].apiKey = (NSString *)APIKey;
-    [MAMapServices sharedServices].apiKey = (NSString *)APIKey;
-}
 
 
 

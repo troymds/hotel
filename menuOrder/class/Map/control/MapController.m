@@ -2,93 +2,43 @@
 //  MapController.m
 //  menuOrder
 //
-//  Created by promo on 14-12-9.
-//  Copyright (c) 2014年 promo. All rights reserved.
+//  Created by YY on 15-1-13.
+//  Copyright (c) 2015年 promo. All rights reserved.
 //
 
 #import "MapController.h"
+#import <MapKit/MapKit.h>
 #import "mapTool.h"
 #import "phoneView.h"
-#import "NavPointAnnotation.h"
-#import "APIKey.h"
-#define kSetingViewHeight   20.f
 #define KStartY 20
-typedef NS_ENUM(NSInteger, NavigationTypes)
+@interface MapController ()<MKMapViewDelegate,CLLocationManagerDelegate>
 {
-    NavigationTypeNone = 0,
-    NavigationTypeSimulator, // 模拟导航
-    NavigationTypeGPS,       // 实时导航
-};
-
-typedef NS_ENUM(NSInteger, TravelTypes)
-{
-    TravelTypeCar = 0,    // 驾车方式
-    TravelTypeWalk,       // 步行方式
-};
-
-
-@interface MapController ()<AMapNaviViewControllerDelegate,CLLocationManagerDelegate>{
-    
-     CLLocationCoordinate2D _coordinate;
+    CLLocationCoordinate2D _coordinate;
+    CLLocationManager *locationManager;
     CGFloat starY;
+    BOOL catClickFlage;
+    
+    
 }
-
-@property (nonatomic, strong) AMapNaviPoint         *startPoint;
-@property (nonatomic, strong) AMapNaviPoint         *endPoint;
-
-@property (nonatomic,strong) AMapNaviPoint          *currentPoint;
-@property (strong,nonatomic) CLLocationManager *locationManager;
-
-@property (nonatomic,assign) BOOL       locChange;
-@property(nonatomic,copy)NSString *fishLong;
-@property(nonatomic,copy)NSString *fishLat;
-@property(nonatomic,copy)NSString *fishTel;
+@property (strong, nonatomic)  MKMapView *mapView;
+@property(nonatomic,assign)CGFloat fishLong;
+@property(nonatomic,assign)CGFloat fishLat;
+@property(nonatomic,copy)NSString * fishTel;
 @property(nonatomic,copy)NSString *fishshop_name;
 @property(nonatomic,copy)NSString *fishaddress;
+@property (nonatomic,strong)  MKPointAnnotation   *currentPoint;
 
+@property (nonatomic,assign) BOOL       locChange;
 
-@property (nonatomic, strong) NSArray *annotations;
-
-@property (nonatomic, strong) MAPolyline *polyline;
-
-@property (nonatomic) BOOL calRouteSuccess; // 指示是否算路成功
-
-@property (nonatomic) NavigationTypes naviType;
-@property (nonatomic) TravelTypes travelType;
 
 
 @end
 
 @implementation MapController
-- (id)init
-{
-    self = [super init];
-    if (self)
-    {
-        [self configureAPIKey];
-        [self addLoadStatus];
-        
-    }
-    return self;
-}
 
-
-- (void)configureAPIKey
-{
-    if ([APIKey length] == 0)
-    {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"apiKey为空，请检查key是否正确设置" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        
-        [alert show];
-    }
-    
-    [AMapNaviServices sharedServices].apiKey = (NSString *)APIKey;
-    [MAMapServices sharedServices].apiKey = (NSString *)APIKey;
-}
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
+    
     if (IsIos7) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
         starY = KStartY;
@@ -97,45 +47,31 @@ typedef NS_ENUM(NSInteger, TravelTypes)
         starY = 0;
     }
     
-    
-    [self initNaviPoints];
-    [self addLocationManagerView];
-    
-    // 初始化travel方式为驾车方式
-    self.travelType = TravelTypeCar;
-    
-    // NSLog(@"1111%@",_startPoint);
-    [self configMapView];
-}
-- (void)viewDidAppear:(BOOL)animated;
-{
-    [super viewDidAppear:YES];
-    //     NSLog(@"2222%@",_startPoint);
-    
-    
-}
--(void)addLocationManagerView{
-    _locationManager =[[CLLocationManager alloc]init];
-    _locationManager.delegate =self;
-    _locationManager.desiredAccuracy =kCLLocationAccuracyBest;
-    _locationManager.distanceFilter=10;
-    
-    if([_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
-        [_locationManager requestAlwaysAuthorization]; // 永久授权
+    [self addLoadStatus];
+    locationManager = [[CLLocationManager alloc] init];
+    if([locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+        [locationManager requestAlwaysAuthorization]; // 永久授权
+        [locationManager requestWhenInUseAuthorization]; //使用中授权
     }
-    [_locationManager startUpdatingLocation];
+    [locationManager startUpdatingLocation];
+    NSLog(@"3333%f-----%f",_coordinate.latitude,_coordinate.longitude);
+    
+    catClickFlage =YES;
+    NSLog(@"ffffffffff;");
+    
 }
+
 //#pragma mark ----加载数据
 -(void)addLoadStatus
 {
     [mapTool mapStatusesWithSuccess:^(NSArray *statues) {
         NSDictionary *dict =[statues objectAtIndex:0];
-        _fishLat =[dict objectForKey:@"lat"];
-        _fishLong =[dict objectForKey:@"long"];
+        _fishLat =[[dict objectForKey:@"lat"]floatValue];
+        _fishLong =[[dict objectForKey:@"long"]floatValue];
         _fishTel=[dict objectForKey:@"tel"];
         _fishaddress=[dict objectForKey:@"address"];
         _fishshop_name=[dict objectForKey:@"shop_name"];
-        
+        NSLog(@"bbbbbbbbb;");
         [self addUIView];
         
     } failure:^(NSError *error) {
@@ -143,14 +79,14 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     }];
 }
 
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [_locationManager stopUpdatingLocation];
-}
 -(void)addUIView
-{
+{NSLog(@"ssssssssss;");
+    self.mapView =[[MKMapView alloc]initWithFrame:CGRectMake(0, starY, kWidth, kHeight-starY)];
+    [self.view addSubview:self.mapView];
+    self.mapView.delegate =self;
+    
+    self.mapView.showsUserLocation = YES;
+    
     
     UIButton *phoneTel = [UIButton buttonWithType:UIButtonTypeCustom];
     phoneTel.backgroundColor =[UIColor clearColor];
@@ -158,41 +94,75 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     [phoneTel setImage:[UIImage imageNamed:@"Tel_rep"] forState:UIControlStateHighlighted];
     
     [phoneTel addTarget:self action:@selector(phoneBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    phoneTel.frame = CGRectMake(kWidth-85, kHeight-210, 55, 73);
+    phoneTel.frame = CGRectMake(kWidth-85, kHeight-150, 55, 73);
     [self.view addSubview:phoneTel];
     [self.view bringSubviewToFront:phoneTel];
+    //设置起始点
     
+    CLLocationManager *locationManager1 = [[CLLocationManager alloc] init];//创建位置管理器
+    locationManager1.delegate=self;//设置代理
+    locationManager1.desiredAccuracy=kCLLocationAccuracyBest;//指定需要的精度级别
+    locationManager1.distanceFilter=1000.0f;//设置距离筛选器
+    [locationManager1 startUpdatingLocation];//启动位置管理器
+    
+    MKCoordinateRegion theRegion1 = { _coordinate.latitude,  _coordinate.latitude };
+    theRegion1.center=[[locationManager1 location] coordinate];
+    
+    [self.mapView setRegion:theRegion1 animated:YES];
+    
+    CLLocationCoordinate2D location2=CLLocationCoordinate2DMake(_fishLat, _fishLong);
+    MKPointAnnotation *annotation2=[[MKPointAnnotation alloc]init];
+    annotation2.title=_fishshop_name;
+    
+    annotation2.subtitle=[NSString stringWithFormat:@"地址：%@",_fishaddress ];
+    annotation2.coordinate=location2;
+    [_mapView addAnnotation:annotation2];
+}
+#pragma mark ---设置起始点
+-(void)addStarPoint{
+    CLLocationCoordinate2D location=_coordinate;
+    MKPointAnnotation *annotation=[[MKPointAnnotation alloc]init];
+    annotation.title=@"当前位置";
+    annotation.coordinate=location;
+    [_mapView addAnnotation:annotation];
 }
 
-
-
-- (void)configMapView
+- (MKAnnotationView *)mapView:(MKMapView *)mV viewForAnnotation:(id <MKAnnotation>)annotation
 {
-    if (self.myMapView == nil)
+    
+    MKPinAnnotationView *pinView = nil;
+    if(annotation != self.mapView.userLocation)
     {
-        self.myMapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, starY, kWidth, kHeight-starY)];
+        static NSString *defaultPinID = @"com.invasivecode.pin";
+        pinView = (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
+        if ( pinView == nil ) pinView = [[MKPinAnnotationView alloc]
+                                         initWithAnnotation:annotation reuseIdentifier:defaultPinID];
+        if (annotation.coordinate.latitude==_fishLat)
+        {
+            [pinView setImage:[UIImage imageNamed:@"end_img.png"]];
+            //            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+            //            pinView.RightCalloutAccessoryView = imageView;
+            //            imageView.image = [UIImage imageNamed:@"heaar_img"];
+        }
+        else
+        {
+            pinView.pinColor=MKPinAnnotationColorGreen;
+            [pinView setImage:[UIImage imageNamed:@"star_img.png"]];
+            
+        }
+        
+        
+        
+        pinView.canShowCallout = YES;
+        pinView.animatesDrop = YES;
     }
-    
-    self.myMapView.showsScale = NO;
-    [self.myMapView setDelegate:self];
-    [self.myMapView setFrame:CGRectMake(0, starY,
-                                        self.view.bounds.size.width,
-                                        self.view.bounds.size.height - starY)];
-    [self.view insertSubview:self.myMapView atIndex:0];
-    
-    
-    self.myMapView.showsUserLocation = YES;
-    
-    
-    if (self.naviManager == nil)
-    {
-        _naviManager = [[AMapNaviManager alloc] init];
-        [_naviManager setDelegate:self];
+    else {
+        [self.mapView.userLocation setTitle:@"当前位置"];
+        [self goSearch];
+        
     }
-    
-    
+    return pinView;
 }
-
 #pragma mark 打电话
 -(void)phoneBtnClick{
     [phoneView callPhoneNumber:_fishTel call:^(NSTimeInterval duration) {
@@ -203,206 +173,101 @@ typedef NS_ENUM(NSInteger, TravelTypes)
     }];
 }
 
-#pragma mark - Construct and Inits
 
-- (void)initNaviPoints
-{
-    CGFloat mapLat;
-    CGFloat mapLong;
-    mapLat =[_fishLat floatValue];
-    mapLong =[_fishLong floatValue];
+- (void)goSearch {
+    CLLocationCoordinate2D fromCoordinate = _coordinate;
     
-    _endPoint   = [AMapNaviPoint locationWithLatitude:mapLat   longitude:mapLong];
+    CLLocationCoordinate2D toCoordinate   = CLLocationCoordinate2DMake(_fishLat,_fishLong);
     
+    MKPlacemark *fromPlacemark = [[MKPlacemark alloc] initWithCoordinate:fromCoordinate
+                                                       addressDictionary:nil];
     
+    MKPlacemark *toPlacemark   = [[MKPlacemark alloc] initWithCoordinate:toCoordinate
+                                                       addressDictionary:nil];
+    
+    MKMapItem *fromItem = [[MKMapItem alloc] initWithPlacemark:fromPlacemark];
+    
+    MKMapItem *toItem   = [[MKMapItem alloc] initWithPlacemark:toPlacemark];
+    
+    [self findDirectionsFrom:fromItem
+                          to:toItem];
+    NSLog(@"888888%f-----%f",_coordinate.latitude,_coordinate.longitude);
     
 }
 
+#pragma mark - Private
 
-- (void)initAnnotations
+- (void)findDirectionsFrom:(MKMapItem *)source
+                        to:(MKMapItem *)destination
 {
-    NavPointAnnotation *beginAnnotation = [[NavPointAnnotation alloc] init];
+    MKDirectionsRequest *request = [[MKDirectionsRequest alloc] init];
+    request.source = source;
+    request.destination = destination;
+    request.requestsAlternateRoutes = YES;
     
-    [beginAnnotation setCoordinate:CLLocationCoordinate2DMake(_startPoint.latitude, _startPoint.longitude)];
-    beginAnnotation.title        = @"起始点";
-    beginAnnotation.navPointType = NavPointAnnotationStart;
+    MKDirections *directions = [[MKDirections alloc] initWithRequest:request];
     
-    NavPointAnnotation *endAnnotation = [[NavPointAnnotation alloc] init];
-    
-    [endAnnotation setCoordinate:CLLocationCoordinate2DMake(_endPoint.latitude, _endPoint.longitude)];
-    
-    endAnnotation.title        = _fishshop_name;
-    
-    
-    endAnnotation.subtitle =[NSString stringWithFormat:@"地址：%@",_fishaddress ];
-    
-    endAnnotation.navPointType = NavPointAnnotationEnd;
-    
-    [self.myMapView selectAnnotation:endAnnotation animated:NO];
-    
-    self.annotations = @[beginAnnotation, endAnnotation];
-    
-         NSLog(@"4444%@",_startPoint);
-    if (_startPoint==nil) {
-        [RemindView showViewWithTitle:@"算路失败" location:MIDDLE];
-    }
-    
+    [directions calculateDirectionsWithCompletionHandler:
+     ^(MKDirectionsResponse *response, NSError *error) {
+         
+         if (error) {
+             
+             NSLog(@"error:%@", error);
+         }
+         else {
+             
+             MKRoute *route = response.routes[0];
+             
+             [self.mapView addOverlay:route.polyline];
+         }
+     }];
 }
 
-- (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation
+#pragma mark - MKMapViewDelegate
+
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView
+            rendererForOverlay:(id<MKOverlay>)overlay
 {
-    _currentPoint = [AMapNaviPoint locationWithLatitude:mapView.userLocation.location.coordinate.latitude longitude:mapView.userLocation.location.coordinate.longitude];
-    
-    
-    if (_locChange == NO)
-    {
-        NSLog(@"%f------%f",self.myMapView.userLocation.location.coordinate.latitude,self.myMapView.userLocation.location.coordinate.longitude);
-        _coordinate.latitude = userLocation.location.coordinate.latitude;
-        _coordinate.longitude = userLocation.location.coordinate.longitude;
-        
-//        [self setMapRegionWithCoordinate:_coordinate];
+    MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithOverlay:overlay];
+    renderer.lineWidth = 5.0;
+    renderer.strokeColor = HexRGB(0x7c9de4);
+    return renderer;
+    NSLog(@"77777%f-----%f",_coordinate.latitude,_coordinate.longitude);
+}
 
-
-        _startPoint = _currentPoint;
-        
-                 NSLog(@"5555%@",_startPoint);
-        [self initAnnotations];
-        if (_calRouteSuccess)
-        {
-            [self.myMapView addOverlay:_polyline];
-        }
-        
-        if (self.annotations.count > 0)
-        {
-            [self.myMapView addAnnotations:self.annotations];
-        }
-        
-        
-        NSArray *startPoints = @[_startPoint];
-        NSArray *endPoints   = @[_endPoint];
-        if (self.travelType == TravelTypeCar)
-        {
-            [self.naviManager calculateWalkRouteWithStartPoints:startPoints endPoints:endPoints];
-            
-        }
-        else
-        {
-            [self.naviManager calculateWalkRouteWithStartPoints:startPoints endPoints:endPoints];
-        }
-        
-        _locChange = YES;
-        
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    _coordinate.latitude = userLocation.location.coordinate.latitude;
+    _coordinate.longitude = userLocation.location.coordinate.longitude;
+    
+    [self setMapRegionWithCoordinate:_coordinate];
+    
+    NSLog(@"999999%f-----%f",_coordinate.latitude,_coordinate.longitude);
+    if (catClickFlage==YES) {
+        [self addStarPoint];
     }
+    catClickFlage =NO;
     if ([[[UIDevice currentDevice]systemVersion]floatValue]>=8)
     {
-        [_locationManager requestAlwaysAuthorization];
-        [_locationManager startUpdatingLocation];
+        [locationManager requestAlwaysAuthorization];
+        [locationManager startUpdatingLocation];
         
     }else{
         
     }
     
-    
 }
+
 - (void)setMapRegionWithCoordinate:(CLLocationCoordinate2D)coordinate
 {
-//    MKCoordinateRegion region;
-    MACoordinateRegion region;
-//    region = MKCoordinateRegionMake(coordinate, MKCoordinateSpanMake(.1, .1));
-    region =MACoordinateRegionMake(coordinate, MACoordinateSpanMake(.1, .1));
-    MACoordinateRegion adjustedRegion = [self.myMapView regionThatFits:region];
-    [self.myMapView setRegion:adjustedRegion animated:YES];
-}
-
-
-#pragma mark - AMapNaviManager Delegate
-
-
-- (void)AMapNaviManagerOnCalculateRouteSuccess:(AMapNaviManager *)naviManager
-{
-    //    [super AMapNaviManagerOnCalculateRouteSuccess:naviManager];
+    MKCoordinateRegion region;
+    
+    region = MKCoordinateRegionMake(coordinate, MKCoordinateSpanMake(.1, .1));
+    MKCoordinateRegion adjustedRegion = [_mapView regionThatFits:region];
+    [_mapView setRegion:adjustedRegion animated:YES];
     
     
-    if (naviManager.naviRoute == nil)
-    {
-        return;
-    }
     
-    [self.myMapView removeOverlays:self.myMapView.overlays];
-    
-    NSUInteger coordianteCount = [naviManager.naviRoute.routeCoordinates count];
-    CLLocationCoordinate2D coordinates[coordianteCount];
-    for (int i = 0; i < coordianteCount; i++)
-    {
-        AMapNaviPoint *aCoordinate = [naviManager.naviRoute.routeCoordinates objectAtIndex:i];
-        coordinates[i] = CLLocationCoordinate2DMake(aCoordinate.latitude, aCoordinate.longitude);
-    }
-    
-    MAPolyline *polyline = [MAPolyline polylineWithCoordinates:coordinates count:coordianteCount];
-    [self.myMapView addOverlay:polyline];
-    [self.myMapView setVisibleMapRect:[polyline boundingMapRect] animated:NO];
-    
-    //     NSLog(@"8888%@",_startPoint);
-    
-    _calRouteSuccess = YES;
-}
-
-
-#pragma mark - MAMapView Delegate
-
-- (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation
-{
-    if ([annotation isKindOfClass:[NavPointAnnotation class]])
-    {
-        static NSString *annotationIdentifier = @"annotationIdentifier";
-        
-        MAPinAnnotationView *pointAnnotationView = (MAPinAnnotationView*)[self.myMapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
-        if (pointAnnotationView == nil)
-        {
-            pointAnnotationView = [[MAPinAnnotationView alloc] initWithAnnotation:annotation
-                                                                  reuseIdentifier:annotationIdentifier];
-        }
-        pointAnnotationView.animatesDrop   = NO;
-        pointAnnotationView.canShowCallout = YES;
-        pointAnnotationView.draggable      = NO;
-        //         NSLog(@"999999%@",_startPoint);
-        
-        NavPointAnnotation *navAnnotation = (NavPointAnnotation *)annotation;
-        
-        if (navAnnotation.navPointType == NavPointAnnotationStart)
-        {
-            [pointAnnotationView setPinColor:MAPinAnnotationColorGreen];
-            [pointAnnotationView setImage:[UIImage imageNamed:@"star_img.png"]];
-        }
-        else if (navAnnotation.navPointType == NavPointAnnotationEnd)
-        {
-            [pointAnnotationView setPinColor:MAPinAnnotationColorRed];
-            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-            pointAnnotationView.RightCalloutAccessoryView = imageView;
-            
-            [pointAnnotationView setImage:[UIImage imageNamed:@"end_img.png"]];
-            imageView.image = [UIImage imageNamed:@"heaar_img"];
-            
-            
-        }
-        return pointAnnotationView;
-    }
-    
-    return nil;
-}
-
-- (MAOverlayView *)mapView:(MAMapView *)mapView viewForOverlay:(id<MAOverlay>)overlay
-{
-    if ([overlay isKindOfClass:[MAPolyline class]])
-    {
-        //         NSLog(@"101010101%@",_startPoint);
-        MAPolylineView *polylineView = [[MAPolylineView alloc] initWithPolyline:overlay];
-        polylineView.strokeColor = HexRGB(0x7c9de4);
-        
-        polylineView.lineWidth   = 5.0f;
-        return polylineView;
-    }
-    return nil;
 }
 
 #pragma mark 控件将要显示
