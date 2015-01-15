@@ -76,7 +76,7 @@
     CGFloat imgX = KStartX;
     CGFloat imgY = KStartX;
     _foodImg.frame = Rect(imgX, imgY, KImgW, KimgH);
-    [_foodImg setImageWithURL:[NSURL URLWithString:data.cover] placeholderImage:placeHoderloading];
+    [_foodImg setImageWithURL:[NSURL URLWithString:data.cover] placeholderImage:placeHoderImage2];
     
    //2 标题名
     CGFloat titleX = CGRectGetMaxX(_foodImg.frame) + 10;

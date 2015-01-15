@@ -31,7 +31,6 @@
 @property (nonatomic,assign) BOOL       locChange;
 
 
-
 @end
 
 @implementation MapController
@@ -59,6 +58,8 @@
     catClickFlage =YES;
     NSLog(@"ffffffffff;");
     
+    
+    
 }
 
 //#pragma mark ----加载数据
@@ -80,7 +81,8 @@
 }
 
 -(void)addUIView
-{NSLog(@"ssssssssss;");
+{
+    NSLog(@"ssssssssss;");
     self.mapView =[[MKMapView alloc]initWithFrame:CGRectMake(0, starY, kWidth, kHeight-starY)];
     [self.view addSubview:self.mapView];
     self.mapView.delegate =self;
@@ -94,7 +96,7 @@
     [phoneTel setImage:[UIImage imageNamed:@"Tel_rep"] forState:UIControlStateHighlighted];
     
     [phoneTel addTarget:self action:@selector(phoneBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    phoneTel.frame = CGRectMake(kWidth-85, kHeight-120-starY, 55, 73);
+    phoneTel.frame = CGRectMake(kWidth-85, kHeight-150-starY, 55, 73);
     [self.view addSubview:phoneTel];
     [self.view bringSubviewToFront:phoneTel];
     //设置起始点
@@ -203,8 +205,23 @@
     MKDirectionsRequest *request = [[MKDirectionsRequest alloc] init];
     request.source = source;
     request.destination = destination;
-    request.requestsAlternateRoutes = YES;
-    
+    if (IsIos6) {
+        CLLocationCoordinate2D to;
+        
+        
+        to.latitude = _fishLat;
+        to.longitude = _fishLong;
+        MKMapItem *currentLocation = [MKMapItem mapItemForCurrentLocation];
+        MKMapItem *toLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:to addressDictionary:nil]];
+        
+        toLocation.name = @"Destination";
+        [MKMapItem openMapsWithItems:[NSArray arrayWithObjects:currentLocation, toLocation, nil]
+                       launchOptions:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:MKLaunchOptionsDirectionsModeDriving, [NSNumber numberWithBool:YES], nil]
+                                                                 forKeys:[NSArray arrayWithObjects:MKLaunchOptionsDirectionsModeKey, MKLaunchOptionsShowsTrafficKey, nil]]];
+    }else{
+      request.requestsAlternateRoutes = YES;
+    }
+//
     MKDirections *directions = [[MKDirections alloc] initWithRequest:request];
     
     [directions calculateDirectionsWithCompletionHandler:
