@@ -94,7 +94,7 @@
     [phoneTel setImage:[UIImage imageNamed:@"Tel_rep"] forState:UIControlStateHighlighted];
     
     [phoneTel addTarget:self action:@selector(phoneBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    phoneTel.frame = CGRectMake(kWidth-85, kHeight-150, 55, 73);
+    phoneTel.frame = CGRectMake(kWidth-85, kHeight-120-starY, 55, 73);
     [self.view addSubview:phoneTel];
     [self.view bringSubviewToFront:phoneTel];
     //设置起始点
