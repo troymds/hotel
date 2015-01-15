@@ -122,7 +122,7 @@
     for (int i = 0; i < count; i++) {
         
         //1.1 编辑框
-        CGFloat editY = (editH + 10)* i;
+        CGFloat editY = (editH + 10)* i - 15;;
         EditView * edit = [[EditView alloc] initWithFrame:Rect(0, editY, editW, editH)];
         [_backScroll addSubview:edit];
         
@@ -533,10 +533,10 @@
         }else
         {
             if (!isNameLengthEnough) {
-                [RemindView showViewWithTitle:@"请检查姓名长度！" location:MIDDLE];
+                [RemindView showViewWithTitle:@"请将姓名填写完整，亲！" location:MIDDLE];
             }
             else if (!isValidPhone) {
-                [RemindView showViewWithTitle:@"请输入正确的手机号！" location:MIDDLE];
+                [RemindView showViewWithTitle:@"请输入正确的手机号，亲！" location:MIDDLE];
             }else
             {
                 [RemindView showViewWithTitle:@"请填写完信息，亲！" location:MIDDLE];

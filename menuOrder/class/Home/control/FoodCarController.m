@@ -126,7 +126,7 @@
 {
     _noDataView = [[UIImageView alloc] initWithFrame:Rect((kWidth-230)/2, (kHeight-100)/2, 230, 100)];
     [self.view addSubview:_noDataView];
-    _noDataView.image =[UIImage imageNamed:@"noCarFood"];
+    _noDataView.image =[UIImage imageNamed:@"noFood"];
     if (_dataList.count > 0) {
         _noDataView.hidden = YES;
     }else
