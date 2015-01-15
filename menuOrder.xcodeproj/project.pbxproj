@@ -63,16 +63,11 @@
 		F33543361A369ED1005B21C8 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F33542A91A369ED0005B21C8 /* AFURLConnectionOperation.m */; };
 		F33543371A369ED1005B21C8 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F33542AB1A369ED0005B21C8 /* AFXMLRequestOperation.m */; };
 		F33543381A369ED1005B21C8 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = F33542AD1A369ED0005B21C8 /* UIImageView+AFNetworking.m */; };
-		F33543391A369ED1005B21C8 /* KDCycleBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F33542B01A369ED0005B21C8 /* KDCycleBannerView.m */; };
 		F335433A1A369ED1005B21C8 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = F33542B31A369ED0005B21C8 /* MBProgressHUD.m */; };
 		F335433B1A369ED1005B21C8 /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F33542B51A369ED0005B21C8 /* MJRefresh.bundle */; };
 		F335433C1A369ED1005B21C8 /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = F33542B81A369ED0005B21C8 /* MJRefreshBaseView.m */; };
 		F335433D1A369ED1005B21C8 /* MJRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = F33542BA1A369ED0005B21C8 /* MJRefreshFooterView.m */; };
 		F335433E1A369ED1005B21C8 /* MJRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F33542BC1A369ED0005B21C8 /* MJRefreshHeaderView.m */; };
-		F335433F1A369ED1005B21C8 /* REMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F33542BF1A369ED0005B21C8 /* REMenu.m */; };
-		F33543401A369ED1005B21C8 /* REMenuContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F33542C11A369ED0005B21C8 /* REMenuContainerView.m */; };
-		F33543411A369ED1005B21C8 /* REMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F33542C31A369ED0005B21C8 /* REMenuItem.m */; };
-		F33543421A369ED1005B21C8 /* REMenuItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = F33542C51A369ED0005B21C8 /* REMenuItemView.m */; };
 		F33543431A369ED1005B21C8 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = F33542C81A369ED0005B21C8 /* MKAnnotationView+WebCache.m */; };
 		F33543441A369ED1005B21C8 /* NSData+GIF.m in Sources */ = {isa = PBXBuildFile; fileRef = F33542CA1A369ED0005B21C8 /* NSData+GIF.m */; };
 		F33543451A369ED1005B21C8 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = F33542CC1A369ED0005B21C8 /* SDImageCache.m */; };
@@ -294,8 +289,6 @@
 		F33542AB1A369ED0005B21C8 /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFXMLRequestOperation.m; sourceTree = "<group>"; };
 		F33542AC1A369ED0005B21C8 /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		F33542AD1A369ED0005B21C8 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
-		F33542AF1A369ED0005B21C8 /* KDCycleBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KDCycleBannerView.h; sourceTree = "<group>"; };
-		F33542B01A369ED0005B21C8 /* KDCycleBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KDCycleBannerView.m; sourceTree = "<group>"; };
 		F33542B21A369ED0005B21C8 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		F33542B31A369ED0005B21C8 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		F33542B51A369ED0005B21C8 /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
@@ -306,14 +299,6 @@
 		F33542BA1A369ED0005B21C8 /* MJRefreshFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshFooterView.m; sourceTree = "<group>"; };
 		F33542BB1A369ED0005B21C8 /* MJRefreshHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshHeaderView.h; sourceTree = "<group>"; };
 		F33542BC1A369ED0005B21C8 /* MJRefreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshHeaderView.m; sourceTree = "<group>"; };
-		F33542BE1A369ED0005B21C8 /* REMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REMenu.h; sourceTree = "<group>"; };
-		F33542BF1A369ED0005B21C8 /* REMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REMenu.m; sourceTree = "<group>"; };
-		F33542C01A369ED0005B21C8 /* REMenuContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REMenuContainerView.h; sourceTree = "<group>"; };
-		F33542C11A369ED0005B21C8 /* REMenuContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REMenuContainerView.m; sourceTree = "<group>"; };
-		F33542C21A369ED0005B21C8 /* REMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REMenuItem.h; sourceTree = "<group>"; };
-		F33542C31A369ED0005B21C8 /* REMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REMenuItem.m; sourceTree = "<group>"; };
-		F33542C41A369ED0005B21C8 /* REMenuItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REMenuItemView.h; sourceTree = "<group>"; };
-		F33542C51A369ED0005B21C8 /* REMenuItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REMenuItemView.m; sourceTree = "<group>"; };
 		F33542C71A369ED0005B21C8 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
 		F33542C81A369ED0005B21C8 /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
 		F33542C91A369ED0005B21C8 /* NSData+GIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+GIF.h"; sourceTree = "<group>"; };
@@ -862,10 +847,8 @@
 			isa = PBXGroup;
 			children = (
 				F335429A1A369ED0005B21C8 /* AFNetworking */,
-				F33542AE1A369ED0005B21C8 /* banner */,
 				F33542B11A369ED0005B21C8 /* MBProgressHUD */,
 				F33542B41A369ED0005B21C8 /* MJRefresh */,
-				F33542BD1A369ED0005B21C8 /* REMenu */,
 				F33542C61A369ED0005B21C8 /* SDWebImage */,
 				F33542E41A369ED0005B21C8 /* SVProgress */,
 				F33542E81A369ED0005B21C8 /* SVPullToRefresh */,
@@ -899,15 +882,6 @@
 			path = AFNetworking;
 			sourceTree = "<group>";
 		};
-		F33542AE1A369ED0005B21C8 /* banner */ = {
-			isa = PBXGroup;
-			children = (
-				F33542AF1A369ED0005B21C8 /* KDCycleBannerView.h */,
-				F33542B01A369ED0005B21C8 /* KDCycleBannerView.m */,
-			);
-			path = banner;
-			sourceTree = "<group>";
-		};
 		F33542B11A369ED0005B21C8 /* MBProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
@@ -930,21 +904,6 @@
 				F33542BC1A369ED0005B21C8 /* MJRefreshHeaderView.m */,
 			);
 			path = MJRefresh;
-			sourceTree = "<group>";
-		};
-		F33542BD1A369ED0005B21C8 /* REMenu */ = {
-			isa = PBXGroup;
-			children = (
-				F33542BE1A369ED0005B21C8 /* REMenu.h */,
-				F33542BF1A369ED0005B21C8 /* REMenu.m */,
-				F33542C01A369ED0005B21C8 /* REMenuContainerView.h */,
-				F33542C11A369ED0005B21C8 /* REMenuContainerView.m */,
-				F33542C21A369ED0005B21C8 /* REMenuItem.h */,
-				F33542C31A369ED0005B21C8 /* REMenuItem.m */,
-				F33542C41A369ED0005B21C8 /* REMenuItemView.h */,
-				F33542C51A369ED0005B21C8 /* REMenuItemView.m */,
-			);
-			path = REMenu;
 			sourceTree = "<group>";
 		};
 		F33542C61A369ED0005B21C8 /* SDWebImage */ = {
@@ -1427,7 +1386,6 @@
 				F33541EF1A367D91005B21C8 /* Images.xcassets in Resources */,
 				F335433B1A369ED1005B21C8 /* MJRefresh.bundle in Resources */,
 				F33543511A369ED1005B21C8 /* SVProgressHUD.bundle in Resources */,
-				F335435A1A369ED1005B21C8 /* zbar-samples.png in Resources */,
 				F335436B1A369ED1005B21C8 /* ShareSDKFlatShareViewUI.bundle in Resources */,
 				F33543621A369ED1005B21C8 /* ShareSDKLocalizable.strings in Resources */,
 				F33543661A369ED1005B21C8 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
@@ -1452,7 +1410,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F335433D1A369ED1005B21C8 /* MJRefreshFooterView.m in Sources */,
-				F33543421A369ED1005B21C8 /* REMenuItemView.m in Sources */,
 				55B600D81A42728B0002808F /* sureSubscribeVC.m in Sources */,
 				55BA74A01A3E82C400203DA2 /* modificationAddress.m in Sources */,
 				F335434A1A369ED1005B21C8 /* SDWebImageManager.m in Sources */,
@@ -1496,7 +1453,6 @@
 				55B600CC1A42720D0002808F /* MysubscribeModel.m in Sources */,
 				F3BF876D1A5A343C00E0A49A /* MenuItem.m in Sources */,
 				F33543831A369F58005B21C8 /* FileManager.m in Sources */,
-				F335433F1A369ED1005B21C8 /* REMenu.m in Sources */,
 				F33542951A369E84005B21C8 /* NSString+MJ.m in Sources */,
 				F335438F1A36A146005B21C8 /* WBNavigationController.m in Sources */,
 				F3BF87641A5A343C00E0A49A /* orderModel.m in Sources */,
@@ -1508,7 +1464,6 @@
 				F3BF87601A5A343C00E0A49A /* HomePageDataModel.m in Sources */,
 				5551FF391A3A907E0057598D /* MyOrderView.m in Sources */,
 				F3BF878E1A5A345100E0A49A /* menu3EditView.m in Sources */,
-				F33543391A369ED1005B21C8 /* KDCycleBannerView.m in Sources */,
 				55BA74B01A3EC08E00203DA2 /* addressListModel.m in Sources */,
 				F33543A51A36A2CF005B21C8 /* MapController.m in Sources */,
 				F335438E1A36A146005B21C8 /* labelColor.m in Sources */,
@@ -1528,7 +1483,6 @@
 				55B600CF1A42721C0002808F /* subscribeModel.m in Sources */,
 				F3BF878A1A5A345100E0A49A /* subscribeViewViewController.m in Sources */,
 				F3BF878D1A5A345100E0A49A /* menu2EditView.m in Sources */,
-				F33543401A369ED1005B21C8 /* REMenuContainerView.m in Sources */,
 				F3BF875E1A5A343C00E0A49A /* ActivityModel.m in Sources */,
 				F335434C1A369ED1005B21C8 /* UIButton+WebCache.m in Sources */,
 				F33543AE1A36A5FA005B21C8 /* RemindView.m in Sources */,
@@ -1569,7 +1523,6 @@
 				F3BF875A1A5A343C00E0A49A /* MenuController.m in Sources */,
 				F335433C1A369ED1005B21C8 /* MJRefreshBaseView.m in Sources */,
 				F335428C1A369DFB005B21C8 /* NSString+MD5.m in Sources */,
-				F33543411A369ED1005B21C8 /* REMenuItem.m in Sources */,
 				F3BF87591A5A343C00E0A49A /* HomeController.m in Sources */,
 				F3BF876A1A5A343C00E0A49A /* CarOrderToolBar.m in Sources */,
 				F33543441A369ED1005B21C8 /* NSData+GIF.m in Sources */,
