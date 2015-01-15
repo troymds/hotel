@@ -285,7 +285,10 @@
 
 -(void)remove{
     
-    [self removeFromSuperview];
+//    [self removeFromSuperview];
+    if ([_delegate respondsToSelector:@selector(cancleZpick)]) {
+        [_delegate cancleZpick];
+    }
 }
 -(void)show{
     

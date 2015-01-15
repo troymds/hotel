@@ -129,7 +129,7 @@
         [self.delegate textshouleBeginEditting:self :_selectedText withstring:string];
     }
     
-    if(self.edtype == EditTime)
+    if(self.edtype == EditAddress)
     {//显示时间时，禁止输入
         return NO;
     }else
@@ -150,6 +150,14 @@
     _selectedText = textField;
     if ([self.delegate respondsToSelector:@selector(textFieldEndEditting::)]) {
         [self.delegate textFieldEndEditting:self :_selectedText];
+    }
+}
+
+-(void)cancleZpick
+{
+    [_selectedText resignFirstResponder];
+    if ([_delegate respondsToSelector:@selector(updateHilightStatus:withTextfield:)]) {
+        [_delegate updateHilightStatus:self withTextfield:_selectedText];
     }
 }
 
