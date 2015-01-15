@@ -19,12 +19,14 @@
 #define BUTTONH 40
 #define HearderImageH 170
 #define MYBTNTAG 1000
+#define KStartY 20
+
 @interface MeController ()
 {
    
     UIScrollView *_backScrollView;
     NSString *_url;
-
+    CGFloat starY;
 }
 @end
 
@@ -35,6 +37,10 @@
     [super viewDidLoad];
     if (IsIos7) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
+        starY = KStartY;
+    }else
+    {
+        starY = 0;
     }
     
     self.title = @"我的";
@@ -43,7 +49,7 @@
 }
 -(void)addUIView{
     
-    _backScrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 20, kWidth, kHeight)];
+    _backScrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0, starY, kWidth, kHeight-starY)];
 //    if (IsIos6) {
 //        _backScrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight)];
 //
@@ -162,7 +168,7 @@
             [self.navigationController pushViewController:addressVC animated:YES];
         }
         if (sender.tag==MYBTNTAG+3) {
-            [ShareView showViewWithTitle:@"分享" content:@"紫金渔府饭店是南京老字号饭店，也是南京名菜馆之一，地处南京鼓楼区水佐岗老菜市场，菜肴选料精细，操作考究，质量稳定，具有江南一带的特殊风味" description:@"紫金渔府饭店是南京老字号饭店，也是南京名菜馆之一，地处南京鼓楼区水佐岗老菜市场，菜肴选料精细，操作考究，质量稳定，具有江南一带的特殊风味"  url:@"紫金渔府饭店是南京老字号饭店，也是南京名菜馆之一，地处南京鼓楼区水佐岗老菜市场，菜肴选料精细，操作考究，质量稳定，具有江南一带的特殊风味" delegate:self];
+           [ShareView showViewWithTitle:@"分享紫金渔府" content:@"http://fish.ebingoo.com/" description:@"http://fish.ebingoo.com/" url:@"http://fish.ebingoo.com/" delegate:self];
         }
     if (sender.tag==MYBTNTAG+4) {
         SuggestView *suggestVc=[[SuggestView alloc]init];

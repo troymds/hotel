@@ -12,7 +12,7 @@
 #import "NavPointAnnotation.h"
 #import "APIKey.h"
 #define kSetingViewHeight   20.f
-
+#define KStartY 20
 typedef NS_ENUM(NSInteger, NavigationTypes)
 {
     NavigationTypeNone = 0,
@@ -30,6 +30,7 @@ typedef NS_ENUM(NSInteger, TravelTypes)
 @interface MapController ()<AMapNaviViewControllerDelegate,CLLocationManagerDelegate>{
     
      CLLocationCoordinate2D _coordinate;
+    CGFloat starY;
 }
 
 @property (nonatomic, strong) AMapNaviPoint         *startPoint;
@@ -88,7 +89,13 @@ typedef NS_ENUM(NSInteger, TravelTypes)
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    if (IsIos7) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+        starY = KStartY;
+    }else
+    {
+        starY = 0;
+    }
     
     
     [self initNaviPoints];
@@ -163,14 +170,14 @@ typedef NS_ENUM(NSInteger, TravelTypes)
 {
     if (self.myMapView == nil)
     {
-        self.myMapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 20, kWidth, kHeight-20)];
+        self.myMapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, starY, kWidth, kHeight-starY)];
     }
     
     self.myMapView.showsScale = NO;
     [self.myMapView setDelegate:self];
-    [self.myMapView setFrame:CGRectMake(0, kSetingViewHeight,
+    [self.myMapView setFrame:CGRectMake(0, starY,
                                         self.view.bounds.size.width,
-                                        self.view.bounds.size.height - kSetingViewHeight)];
+                                        self.view.bounds.size.height - starY)];
     [self.view insertSubview:self.myMapView atIndex:0];
     
     
