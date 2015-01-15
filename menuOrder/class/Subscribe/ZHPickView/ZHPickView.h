@@ -13,7 +13,7 @@
 
 @optional
 -(void)toobarDonBtnHaveClick:(ZHPickView *)pickView resultString:(NSString *)resultString timestamp:(NSString *)timestamp;
-
+-(void)cancleZpick;
 @end
 
 @interface ZHPickView : UIView
