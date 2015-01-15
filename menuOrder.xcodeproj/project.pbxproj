@@ -7,20 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		18F0FA751A4B2C1C004E85A7 /* NavPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0FA5A1A4B2C1C004E85A7 /* NavPointAnnotation.m */; };
-		18F0FA761A4B2C1C004E85A7 /* UIView+Geometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0FA5D1A4B2C1C004E85A7 /* UIView+Geometry.m */; };
-		18F0FA771A4B2C1C004E85A7 /* BaseNaviViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0FA621A4B2C1C004E85A7 /* BaseNaviViewController.m */; };
-		18F0FA781A4B2C1C004E85A7 /* AMapNaviKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F0FA641A4B2C1C004E85A7 /* AMapNaviKit.framework */; };
-		18F0FA7A1A4B2C1C004E85A7 /* dropdown.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F0FA681A4B2C1C004E85A7 /* dropdown.png */; };
-		18F0FA7B1A4B2C1C004E85A7 /* dropup.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F0FA691A4B2C1C004E85A7 /* dropup.png */; };
-		18F0FA7C1A4B2C1C004E85A7 /* MACombox.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0FA6B1A4B2C1C004E85A7 /* MACombox.m */; };
-		18F0FA7D1A4B2C1C004E85A7 /* TableViewWithBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0FA6D1A4B2C1C004E85A7 /* TableViewWithBlock.m */; };
-		18F0FA7E1A4B2C1C004E85A7 /* UITableView+DataSourceBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0FA6F1A4B2C1C004E85A7 /* UITableView+DataSourceBlocks.m */; };
-		18F0FA7F1A4B2C1C004E85A7 /* UITableView+DelegateBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0FA711A4B2C1C004E85A7 /* UITableView+DelegateBlocks.m */; };
-		18F0FA801A4B2C1C004E85A7 /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0FA741A4B2C1C004E85A7 /* Toast+UIView.m */; };
 		18F0FA821A4B2C92004E85A7 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F0FA811A4B2C92004E85A7 /* libstdc++.6.dylib */; };
-		18F0FA891A4B30DD004E85A7 /* AMap.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18F0FA871A4B30DD004E85A7 /* AMap.bundle */; };
-		18F0FA8A1A4B30DD004E85A7 /* AMapNavi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18F0FA881A4B30DD004E85A7 /* AMapNavi.bundle */; };
 		5519EC721A44031E00D9845F /* phoneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5519EC711A44031E00D9845F /* phoneView.m */; };
 		554ECD341A42A7D90091C020 /* myOrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 554ECD331A42A7D90091C020 /* myOrderDetailModel.m */; };
 		554ECD371A42B8750091C020 /* myOrderListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 554ECD361A42B8750091C020 /* myOrderListModel.m */; };
@@ -210,29 +197,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		18F0FA591A4B2C1C004E85A7 /* NavPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavPointAnnotation.h; sourceTree = "<group>"; };
-		18F0FA5A1A4B2C1C004E85A7 /* NavPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavPointAnnotation.m; sourceTree = "<group>"; };
-		18F0FA5C1A4B2C1C004E85A7 /* UIView+Geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Geometry.h"; sourceTree = "<group>"; };
-		18F0FA5D1A4B2C1C004E85A7 /* UIView+Geometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Geometry.m"; sourceTree = "<group>"; };
-		18F0FA5F1A4B2C1C004E85A7 /* APIKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIKey.h; sourceTree = "<group>"; };
-		18F0FA611A4B2C1C004E85A7 /* BaseNaviViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNaviViewController.h; sourceTree = "<group>"; };
-		18F0FA621A4B2C1C004E85A7 /* BaseNaviViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNaviViewController.m; sourceTree = "<group>"; };
-		18F0FA641A4B2C1C004E85A7 /* AMapNaviKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapNaviKit.framework; sourceTree = "<group>"; };
-		18F0FA681A4B2C1C004E85A7 /* dropdown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dropdown.png; sourceTree = "<group>"; };
-		18F0FA691A4B2C1C004E85A7 /* dropup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dropup.png; sourceTree = "<group>"; };
-		18F0FA6A1A4B2C1C004E85A7 /* MACombox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MACombox.h; sourceTree = "<group>"; };
-		18F0FA6B1A4B2C1C004E85A7 /* MACombox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MACombox.m; sourceTree = "<group>"; };
-		18F0FA6C1A4B2C1C004E85A7 /* TableViewWithBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewWithBlock.h; sourceTree = "<group>"; };
-		18F0FA6D1A4B2C1C004E85A7 /* TableViewWithBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewWithBlock.m; sourceTree = "<group>"; };
-		18F0FA6E1A4B2C1C004E85A7 /* UITableView+DataSourceBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+DataSourceBlocks.h"; sourceTree = "<group>"; };
-		18F0FA6F1A4B2C1C004E85A7 /* UITableView+DataSourceBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+DataSourceBlocks.m"; sourceTree = "<group>"; };
-		18F0FA701A4B2C1C004E85A7 /* UITableView+DelegateBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+DelegateBlocks.h"; sourceTree = "<group>"; };
-		18F0FA711A4B2C1C004E85A7 /* UITableView+DelegateBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+DelegateBlocks.m"; sourceTree = "<group>"; };
-		18F0FA731A4B2C1C004E85A7 /* Toast+UIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Toast+UIView.h"; sourceTree = "<group>"; };
-		18F0FA741A4B2C1C004E85A7 /* Toast+UIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Toast+UIView.m"; sourceTree = "<group>"; };
 		18F0FA811A4B2C92004E85A7 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
-		18F0FA871A4B30DD004E85A7 /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AMap.bundle; sourceTree = "<group>"; };
-		18F0FA881A4B30DD004E85A7 /* AMapNavi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AMapNavi.bundle; sourceTree = "<group>"; };
 		5519EC701A44031E00D9845F /* phoneView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = phoneView.h; sourceTree = "<group>"; };
 		5519EC711A44031E00D9845F /* phoneView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = phoneView.m; sourceTree = "<group>"; };
 		554ECD321A42A7D90091C020 /* myOrderDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myOrderDetailModel.h; sourceTree = "<group>"; };
@@ -597,7 +562,6 @@
 				F33543601A369ED1005B21C8 /* WeChatConnection.framework in Frameworks */,
 				F335436C1A369ED1005B21C8 /* ShareSDKFlatShareViewUI.framework in Frameworks */,
 				F335435F1A369ED1005B21C8 /* SMSConnection.framework in Frameworks */,
-				18F0FA781A4B2C1C004E85A7 /* AMapNaviKit.framework in Frameworks */,
 				F335436D1A369ED1005B21C8 /* ShareSDKShareActionSheet.framework in Frameworks */,
 				F33543671A369ED1005B21C8 /* libSinaWeiboSDK.a in Frameworks */,
 				F335436A1A369ED1005B21C8 /* ShareSDK.framework in Frameworks */,
@@ -629,99 +593,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		18F0FA571A4B2C1C004E85A7 /* Map */ = {
-			isa = PBXGroup;
-			children = (
-				18F0FA871A4B30DD004E85A7 /* AMap.bundle */,
-				18F0FA881A4B30DD004E85A7 /* AMapNavi.bundle */,
-				18F0FA581A4B2C1C004E85A7 /* Annotation */,
-				18F0FA5B1A4B2C1C004E85A7 /* Category */,
-				18F0FA5E1A4B2C1C004E85A7 /* Configuration */,
-				18F0FA601A4B2C1C004E85A7 /* Controllers */,
-				18F0FA631A4B2C1C004E85A7 /* Extern */,
-				18F0FA661A4B2C1C004E85A7 /* Vendor */,
-			);
-			path = Map;
-			sourceTree = "<group>";
-		};
-		18F0FA581A4B2C1C004E85A7 /* Annotation */ = {
-			isa = PBXGroup;
-			children = (
-				18F0FA591A4B2C1C004E85A7 /* NavPointAnnotation.h */,
-				18F0FA5A1A4B2C1C004E85A7 /* NavPointAnnotation.m */,
-			);
-			path = Annotation;
-			sourceTree = "<group>";
-		};
-		18F0FA5B1A4B2C1C004E85A7 /* Category */ = {
-			isa = PBXGroup;
-			children = (
-				18F0FA5C1A4B2C1C004E85A7 /* UIView+Geometry.h */,
-				18F0FA5D1A4B2C1C004E85A7 /* UIView+Geometry.m */,
-			);
-			path = Category;
-			sourceTree = "<group>";
-		};
-		18F0FA5E1A4B2C1C004E85A7 /* Configuration */ = {
-			isa = PBXGroup;
-			children = (
-				18F0FA5F1A4B2C1C004E85A7 /* APIKey.h */,
-			);
-			path = Configuration;
-			sourceTree = "<group>";
-		};
-		18F0FA601A4B2C1C004E85A7 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				18F0FA611A4B2C1C004E85A7 /* BaseNaviViewController.h */,
-				18F0FA621A4B2C1C004E85A7 /* BaseNaviViewController.m */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		18F0FA631A4B2C1C004E85A7 /* Extern */ = {
-			isa = PBXGroup;
-			children = (
-				18F0FA641A4B2C1C004E85A7 /* AMapNaviKit.framework */,
-			);
-			path = Extern;
-			sourceTree = "<group>";
-		};
-		18F0FA661A4B2C1C004E85A7 /* Vendor */ = {
-			isa = PBXGroup;
-			children = (
-				18F0FA671A4B2C1C004E85A7 /* Combox */,
-				18F0FA721A4B2C1C004E85A7 /* Toast */,
-			);
-			path = Vendor;
-			sourceTree = "<group>";
-		};
-		18F0FA671A4B2C1C004E85A7 /* Combox */ = {
-			isa = PBXGroup;
-			children = (
-				18F0FA681A4B2C1C004E85A7 /* dropdown.png */,
-				18F0FA691A4B2C1C004E85A7 /* dropup.png */,
-				18F0FA6A1A4B2C1C004E85A7 /* MACombox.h */,
-				18F0FA6B1A4B2C1C004E85A7 /* MACombox.m */,
-				18F0FA6C1A4B2C1C004E85A7 /* TableViewWithBlock.h */,
-				18F0FA6D1A4B2C1C004E85A7 /* TableViewWithBlock.m */,
-				18F0FA6E1A4B2C1C004E85A7 /* UITableView+DataSourceBlocks.h */,
-				18F0FA6F1A4B2C1C004E85A7 /* UITableView+DataSourceBlocks.m */,
-				18F0FA701A4B2C1C004E85A7 /* UITableView+DelegateBlocks.h */,
-				18F0FA711A4B2C1C004E85A7 /* UITableView+DelegateBlocks.m */,
-			);
-			path = Combox;
-			sourceTree = "<group>";
-		};
-		18F0FA721A4B2C1C004E85A7 /* Toast */ = {
-			isa = PBXGroup;
-			children = (
-				18F0FA731A4B2C1C004E85A7 /* Toast+UIView.h */,
-				18F0FA741A4B2C1C004E85A7 /* Toast+UIView.m */,
-			);
-			path = Toast;
-			sourceTree = "<group>";
-		};
 		55BA749A1A3E786300203DA2 /* addressView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1024,7 +895,6 @@
 		F33542991A369ED0005B21C8 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
-				18F0FA571A4B2C1C004E85A7 /* Map */,
 				F335429A1A369ED0005B21C8 /* AFNetworking */,
 				F33542AE1A369ED0005B21C8 /* banner */,
 				F33542B11A369ED0005B21C8 /* MBProgressHUD */,
@@ -1656,12 +1526,8 @@
 			files = (
 				F33541E71A367D91005B21C8 /* InfoPlist.strings in Resources */,
 				F33541EF1A367D91005B21C8 /* Images.xcassets in Resources */,
-				18F0FA891A4B30DD004E85A7 /* AMap.bundle in Resources */,
 				F335433B1A369ED1005B21C8 /* MJRefresh.bundle in Resources */,
 				F33543511A369ED1005B21C8 /* SVProgressHUD.bundle in Resources */,
-				18F0FA7A1A4B2C1C004E85A7 /* dropdown.png in Resources */,
-				18F0FA8A1A4B30DD004E85A7 /* AMapNavi.bundle in Resources */,
-				18F0FA7B1A4B2C1C004E85A7 /* dropup.png in Resources */,
 				F335435A1A369ED1005B21C8 /* zbar-samples.png in Resources */,
 				F335436B1A369ED1005B21C8 /* ShareSDKFlatShareViewUI.bundle in Resources */,
 				F33543581A369ED1005B21C8 /* zbar-help.html in Resources */,
@@ -1689,7 +1555,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18F0FA801A4B2C1C004E85A7 /* Toast+UIView.m in Sources */,
 				F335433D1A369ED1005B21C8 /* MJRefreshFooterView.m in Sources */,
 				F33543421A369ED1005B21C8 /* REMenuItemView.m in Sources */,
 				55B600D81A42728B0002808F /* sureSubscribeVC.m in Sources */,
@@ -1702,7 +1567,6 @@
 				F33543321A369ED1005B21C8 /* AFImageRequestOperation.m in Sources */,
 				F3BF87691A5A343C00E0A49A /* BBBadgeBarButtonItem.m in Sources */,
 				F33543311A369ED1005B21C8 /* AFHTTPRequestOperation.m in Sources */,
-				18F0FA7E1A4B2C1C004E85A7 /* UITableView+DataSourceBlocks.m in Sources */,
 				F3BF87621A5A343C00E0A49A /* MenuModel.m in Sources */,
 				F3BF875F1A5A343C00E0A49A /* CarModel.m in Sources */,
 				55B2489B1A39252700B3F5C7 /* ShareView.m in Sources */,
@@ -1758,20 +1622,15 @@
 				F335434D1A369ED1005B21C8 /* UIImage+GIF.m in Sources */,
 				F3BF87871A5A345100E0A49A /* ConformAppointmentController.m in Sources */,
 				55BA749D1A3E78BB00203DA2 /* address_addView.m in Sources */,
-				18F0FA7F1A4B2C1C004E85A7 /* UITableView+DelegateBlocks.m in Sources */,
 				F3BF875D1A5A343C00E0A49A /* ActivityDetailModel.m in Sources */,
 				F33543851A369F58005B21C8 /* SSKeychain.m in Sources */,
-				18F0FA751A4B2C1C004E85A7 /* NavPointAnnotation.m in Sources */,
 				F3BF87631A5A343C00E0A49A /* NiceFoodModel.m in Sources */,
 				F3BF87551A5A343C00E0A49A /* DetailActivityController.m in Sources */,
-				18F0FA761A4B2C1C004E85A7 /* UIView+Geometry.m in Sources */,
 				F33543371A369ED1005B21C8 /* AFXMLRequestOperation.m in Sources */,
 				F33543841A369F58005B21C8 /* GTMBase64.m in Sources */,
 				F33543381A369ED1005B21C8 /* UIImageView+AFNetworking.m in Sources */,
 				F33541E91A367D91005B21C8 /* main.m in Sources */,
 				55B600CF1A42721C0002808F /* subscribeModel.m in Sources */,
-				18F0FA771A4B2C1C004E85A7 /* BaseNaviViewController.m in Sources */,
-				18F0FA7C1A4B2C1C004E85A7 /* MACombox.m in Sources */,
 				F3BF878A1A5A345100E0A49A /* subscribeViewViewController.m in Sources */,
 				F3BF878D1A5A345100E0A49A /* menu2EditView.m in Sources */,
 				F33543401A369ED1005B21C8 /* REMenuContainerView.m in Sources */,
@@ -1783,7 +1642,6 @@
 				F335434F1A369ED1005B21C8 /* UIImage+WebP.m in Sources */,
 				55B248A31A393BA900B3F5C7 /* subscribeCell.m in Sources */,
 				55BA74A61A3E8EA400203DA2 /* addressListTool.m in Sources */,
-				18F0FA7D1A4B2C1C004E85A7 /* TableViewWithBlock.m in Sources */,
 				F335434E1A369ED1005B21C8 /* UIImage+MultiFormat.m in Sources */,
 				F335439D1A36A1EB005B21C8 /* Dock.m in Sources */,
 				F33543531A369ED1005B21C8 /* UIScrollView+SVInfiniteScrolling.m in Sources */,

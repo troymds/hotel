@@ -138,7 +138,7 @@
     addModel =[_addressArray objectAtIndex:indexPath.row];
     
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"是否删除地址?" delegate:self cancelButtonTitle:@"是" otherButtonTitles:@"否", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"亲，你确定要删除这条地址信息吗?" delegate:self cancelButtonTitle:@"是" otherButtonTitles:@"否", nil];
     
     [alert show];
     

@@ -104,7 +104,7 @@
     if ([updateNameStr isEqualToString:@""]) {
         [RemindView showViewWithTitle:@"联系人姓名不能为空" location:MIDDLE];
     }else if (updateNameStr.length<=1) {
-        [RemindView showViewWithTitle:@"请检查姓名" location:MIDDLE];
+        [RemindView showViewWithTitle:@"请将姓名填写完整" location:MIDDLE];
         
     }
     else if ([updateTelStr isEqualToString:@""]) {
@@ -149,7 +149,7 @@
     if ([updateNameStr isEqualToString:@""]) {
         [RemindView showViewWithTitle:@"联系人姓名不能为空" location:MIDDLE];
     }else if (updateNameStr.length<=1) {
-        [RemindView showViewWithTitle:@"请检查姓名" location:MIDDLE];
+        [RemindView showViewWithTitle:@"请将姓名填写完整" location:MIDDLE];
         
     }
     else if ([updateTelStr isEqualToString:@""]) {
