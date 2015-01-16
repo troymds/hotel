@@ -190,8 +190,12 @@
         }
         [[CarTool sharedCarTool] deleteDataWithArray:temDeleteArray];
         //到预约页面
-        subscribeViewViewController *ctl = [[subscribeViewViewController alloc] init];
-        [self.navigationController pushViewController:ctl animated:YES];
+        if ([_delegate respondsToSelector:@selector(changeController)]) {
+            [_delegate changeController];
+        }
+        
+//        subscribeViewViewController *ctl = [[subscribeViewViewController alloc] init];
+//        [self.navigationController pushViewController:ctl animated:YES];
 
     }else
     {
