@@ -10,6 +10,7 @@
 #import "AddressCell.h"
 #import "addressListTool.h"
 #import "addressListModel.h"
+#import "address_addView.h"
 @interface chooseAddressVC ()<UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *_tableView;
@@ -34,7 +35,7 @@
     [self addTableView];
     [self addMBprogressView];
     [self addNoStatusImage];
-    
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithSearch:@"nav_add_pre" highlightedSearch:@"nav_add" target:(self) action:@selector(categoryBtnClick)];
     
 }
 #pragma  mark ------显示指示器
@@ -85,7 +86,12 @@
     }];
     
 }
-
+#pragma mark ===添加地址
+-(void)categoryBtnClick
+{
+    address_addView *addVc=[[address_addView alloc]init];
+    [self.navigationController pushViewController:addVc animated:YES];
+}
 
 -(void)addTableView
 {
