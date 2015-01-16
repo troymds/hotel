@@ -205,7 +205,11 @@
     MKDirectionsRequest *request = [[MKDirectionsRequest alloc] init];
     request.source = source;
     request.destination = destination;
-    if (IsIos6) {
+    if (IsIos7) {
+        request.requestsAlternateRoutes = YES;
+        request.transportType=MKDirectionsTransportTypeAutomobile;
+
+    }else{
         CLLocationCoordinate2D to;
         
         
@@ -218,8 +222,6 @@
         [MKMapItem openMapsWithItems:[NSArray arrayWithObjects:currentLocation, toLocation, nil]
                        launchOptions:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:MKLaunchOptionsDirectionsModeDriving, [NSNumber numberWithBool:YES], nil]
                                                                  forKeys:[NSArray arrayWithObjects:MKLaunchOptionsDirectionsModeKey, MKLaunchOptionsShowsTrafficKey, nil]]];
-    }else{
-      request.requestsAlternateRoutes = YES;
     }
 //
     MKDirections *directions = [[MKDirections alloc] initWithRequest:request];
