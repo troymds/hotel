@@ -31,7 +31,6 @@
 @property (nonatomic,assign) BOOL       locChange;
 
 
-
 @end
 
 @implementation MapController
@@ -59,6 +58,8 @@
     catClickFlage =YES;
     NSLog(@"ffffffffff;");
     
+    
+    
 }
 
 //#pragma mark ----加载数据
@@ -80,7 +81,8 @@
 }
 
 -(void)addUIView
-{NSLog(@"ssssssssss;");
+{
+    NSLog(@"ssssssssss;");
     self.mapView =[[MKMapView alloc]initWithFrame:CGRectMake(0, starY, kWidth, kHeight-starY)];
     [self.view addSubview:self.mapView];
     self.mapView.delegate =self;
@@ -94,7 +96,7 @@
     [phoneTel setImage:[UIImage imageNamed:@"Tel_rep"] forState:UIControlStateHighlighted];
     
     [phoneTel addTarget:self action:@selector(phoneBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    phoneTel.frame = CGRectMake(kWidth-85, kHeight-120-starY, 55, 73);
+    phoneTel.frame = CGRectMake(kWidth-85, kHeight-150-starY, 55, 73);
     [self.view addSubview:phoneTel];
     [self.view bringSubviewToFront:phoneTel];
     //设置起始点

@@ -94,7 +94,7 @@
     // 1.2 展示图片
     UIImageView *foodImg  = [[UIImageView alloc] init];
     
-    [foodImg setImageWithURL:[NSURL URLWithString:_model.cover] placeholderImage:placeHoderImage3];
+    [foodImg setImageWithURL:[NSURL URLWithString:_model.cover] placeholderImage:placeHoderImage1];
     foodImg.layer.cornerRadius = 4;
     foodImg.layer.masksToBounds = YES;
     CGFloat imgW = contentBackView.frame.size.width - KFrameOffset * 2;
@@ -104,7 +104,7 @@
     //1.3 title
     UILabel *title = [[UILabel alloc] init];
     CGFloat titleX = foodImg.frame.origin.x + 10;
-    CGFloat titleY  = CGRectGetMaxY(foodImg.frame) + 10;
+    CGFloat titleY  = CGRectGetMaxY(foodImg.frame) +10;
     CGFloat titleW = 150;
     CGFloat titleH = 30;
     title.frame = Rect(titleX, titleY, titleW, titleH);
@@ -118,8 +118,8 @@
     UILabel *star_date = [[UILabel alloc] init];
     CGFloat dateW = kWidth-KLeftXYDistence*2;
     CGFloat dateX = foodImg.frame.origin.x + 10;
-    CGFloat dateY  = titleY+20;
-    CGFloat dateH = 27;
+    CGFloat dateY  = titleY+25;
+    CGFloat dateH = 30;
     star_date.frame = Rect(dateX, dateY, dateW, dateH);
     star_date.font = [UIFont systemFontOfSize:PxFont(22)];
     star_date.textColor = HexRGB(0x605e5f);
@@ -133,11 +133,11 @@
     detail.numberOfLines = 0;
     detail.text = _model.content;
     CGFloat detailW = contentBackView.frame.size.width - KFrameOffset * 10;
-    CGFloat detailX = titleX + 10;
-    CGFloat detailY  = titleY + 50;
-    CGFloat detailH = [AdaptationSize getSizeFromString:detail.text Font:[UIFont systemFontOfSize:PxFont(16)] withHight: CGFLOAT_MAX withWidth:detailW].height;
+    CGFloat detailX = titleX ;
+    CGFloat detailY  = titleY + 55;
+    CGFloat detailH = [AdaptationSize getSizeFromString:detail.text Font:[UIFont systemFontOfSize:PxFont(18)] withHight: CGFLOAT_MAX withWidth:detailW].height;
     detail.frame = Rect(detailX, detailY, detailW, detailH);
-    detail.font = [UIFont systemFontOfSize:PxFont(16)];
+    detail.font = [UIFont systemFontOfSize:PxFont(18)];
     detail.textColor = HexRGB(0x605e5f);
     detail.backgroundColor = [UIColor clearColor];
     [contentBackView addSubview:detail];

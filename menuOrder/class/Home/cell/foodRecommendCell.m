@@ -200,7 +200,7 @@
     CGFloat foodImgW = KBackViewW - KStartX * 2;
     CGFloat foodImgH = foodImgW/KImgWHRace;
     _foodImg.frame = Rect(foodImgX, foodImgY, foodImgW, foodImgH);
-    [_foodImg setImageWithURL:[NSURL URLWithString:data.cover] placeholderImage:placeHoderloading];
+    [_foodImg setImageWithURL:[NSURL URLWithString:data.cover] placeholderImage:placeHoderImage1];
     //2 菜名
     CGFloat foodNameX = foodImgX + KLeftX;
     CGFloat foodNameY = CGRectGetMaxY(_foodImg.frame) + KStartX;

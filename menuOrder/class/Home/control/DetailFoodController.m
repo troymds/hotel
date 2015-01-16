@@ -156,7 +156,7 @@
     // 1.2 菜品展示图片
     UIImageView *foodImg  = [[UIImageView alloc] init];
     ProductDetailModel *model = _dataList[0];
-    [foodImg setImageWithURL:[NSURL URLWithString:model.cover] placeholderImage:placeHoderloading];
+    [foodImg setImageWithURL:[NSURL URLWithString:model.cover] placeholderImage:placeHoderImage1];
     foodImg.layer.cornerRadius = 4;
     foodImg.layer.masksToBounds = YES;
     CGFloat imgW = foodBackView.frame.size.width - KFrameOffset * 2;

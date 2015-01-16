@@ -176,7 +176,7 @@
     //1 美食图片
     _foodImg.frame = Rect(KBigImgStartX, KBigImgStartY, KBigImgW, KBigImgH);
     __weak UIImageView *foodImg = _foodImg;
-    [_foodImg setImageWithURL:[NSURL URLWithString:data.cover] placeholderImage:placeHoderloading completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+    [_foodImg setImageWithURL:[NSURL URLWithString:data.cover] placeholderImage:placeHoderImage3 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
         CGRect rect =  CGRectMake(90, 90, 300, 300/1.3);
         CGImageRef cgimg = CGImageCreateWithImageInRect([image CGImage], rect);
         foodImg.image = [UIImage imageWithCGImage:cgimg];
