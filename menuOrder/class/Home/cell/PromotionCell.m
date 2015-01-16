@@ -11,7 +11,7 @@
 
 #define KLeftX    5
 #define KStartX   4
-#define KImgWHRace   1.25
+#define KImgWHRace   2
 #define KImgW       120
 #define KimgH   (KImgW/KImgWHRace)
 #define KCellHeight  (((KLeftX + KStartX) *2) + KimgH)
@@ -86,7 +86,8 @@
     //3 细节
     CGFloat detailY = CGRectGetMaxY(_title.frame);
     CGFloat detailW = KBackViewW - titleX - KLeftX;
-    _detail.frame = Rect(titleX, detailY, detailW, 60);
+    
+    _detail.frame = Rect(titleX, detailY, detailW, 30);
     _detail.text = data.content;
 //    NSLog(@"view H %f",KCellHeight) ;
 }

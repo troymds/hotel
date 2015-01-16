@@ -203,7 +203,9 @@
     MKDirectionsRequest *request = [[MKDirectionsRequest alloc] init];
     request.source = source;
     request.destination = destination;
-    request.requestsAlternateRoutes = YES;
+    if (IsIos7) {
+        request.requestsAlternateRoutes = YES;
+    }
     
     MKDirections *directions = [[MKDirections alloc] initWithRequest:request];
     

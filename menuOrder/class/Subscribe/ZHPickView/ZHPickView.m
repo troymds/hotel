@@ -150,8 +150,10 @@
 -(void)setUpDatePickerWithdatePickerMode:(UIDatePickerMode)datePickerMode{
     UIDatePicker *datePicker=[[UIDatePicker alloc] init];
     datePicker.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
+//    [datePicker setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     datePicker.datePickerMode = datePickerMode;
     datePicker.backgroundColor=[UIColor lightGrayColor];
+//    datePicker
     if (_defaulDate) {
         datePicker.minimumDate = _defaulDate;
         [datePicker setDate:_defaulDate];

@@ -174,18 +174,21 @@
             }
         }
         
-        UILabel *warning = [[UILabel alloc] init];
-        warning.textColor=HexRGB(0x605e5f);
-        warning.font =[UIFont systemFontOfSize:PxFont(20)];
-        [_backView addSubview:warning];
-        warning.text = @"温馨提示：为了您的方便，请在预定的时间内到达，若超过10分钟未到达，我们将另行安排。";
-        CGFloat detailH = [AdaptationSize getSizeFromString:warning.text Font:[UIFont systemFontOfSize:PxFont(20)] withHight: CGFLOAT_MAX withWidth:kWidth-YYBORDERWw*2-YYBORDERW*2].height;
-        warning.frame  = Rect(YYBORDERW + KSpace, viewH, kWidth - YYBORDERW*4, detailH);
-        warning.numberOfLines = 0;
-        warning.backgroundColor =[UIColor clearColor];
-        warning.textColor=HexRGB(0x605e5f);
-        
-        viewH = CGRectGetMaxY(warning.frame) + 10;
+        if (_type == 0) {//只有亲临鱼府才有提示
+            UILabel *warning = [[UILabel alloc] init];
+            warning.textColor=HexRGB(0x605e5f);
+            warning.font =[UIFont systemFontOfSize:PxFont(20)];
+            [_backView addSubview:warning];
+            warning.text = @"温馨提示：为了您的方便，请在预定的时间内到达，若超过10分钟未到达，我们将另行安排。";
+            CGFloat detailH = [AdaptationSize getSizeFromString:warning.text Font:[UIFont systemFontOfSize:PxFont(20)] withHight: CGFLOAT_MAX withWidth:kWidth-YYBORDERWw*2-YYBORDERW*2].height;
+            warning.frame  = Rect(YYBORDERW + KSpace, viewH, kWidth - YYBORDERW*4, detailH);
+            warning.numberOfLines = 0;
+            warning.backgroundColor =[UIColor clearColor];
+            warning.textColor=HexRGB(0x605e5f);
+            
+            viewH = CGRectGetMaxY(warning.frame) + 10;
+            
+        }
         
         CGRect backF = _backView.frame;
         backF.size.height = viewH;
@@ -203,18 +206,21 @@
         
     }else
     {
-        UILabel *warning = [[UILabel alloc] init];
-        warning.textColor=HexRGB(0x605e5f);
-        warning.font =[UIFont systemFontOfSize:PxFont(20)];
-        [_backView addSubview:warning];
-        warning.text = @"温馨提示：为了您的方便，请在预定的时间内到达，若超过10分钟未到达，我们将另行安排。";
-        CGFloat detailH = [AdaptationSize getSizeFromString:warning.text Font:[UIFont systemFontOfSize:PxFont(20)] withHight: CGFLOAT_MAX withWidth:kWidth-YYBORDERWw*2-YYBORDERW*2].height;
-        warning.frame  = Rect(YYBORDERW + KSpace, viewH, kWidth - YYBORDERW*4, detailH);
-        warning.numberOfLines = 0;
-        warning.backgroundColor =[UIColor clearColor];
-        warning.textColor=HexRGB(0x605e5f);
-        
-        viewH = CGRectGetMaxY(warning.frame) + 10;
+        if (_type == 0) {//只有亲临鱼府才有提示
+            UILabel *warning = [[UILabel alloc] init];
+            warning.textColor=HexRGB(0x605e5f);
+            warning.font =[UIFont systemFontOfSize:PxFont(20)];
+            [_backView addSubview:warning];
+            warning.text = @"温馨提示：为了您的方便，请在预定的时间内到达，若超过10分钟未到达，我们将另行安排。";
+            CGFloat detailH = [AdaptationSize getSizeFromString:warning.text Font:[UIFont systemFontOfSize:PxFont(20)] withHight: CGFLOAT_MAX withWidth:kWidth-YYBORDERWw*2-YYBORDERW*2].height;
+            warning.frame  = Rect(YYBORDERW + KSpace, viewH, kWidth - YYBORDERW*4, detailH);
+            warning.numberOfLines = 0;
+            warning.backgroundColor =[UIColor clearColor];
+            warning.textColor=HexRGB(0x605e5f);
+            
+            viewH = CGRectGetMaxY(warning.frame) + 10;
+            
+        }
         
         CGRect backF = _backView.frame;
         backF.size.height = viewH;

@@ -15,12 +15,16 @@
 #import "CarTool.h"
 #import "BBBadgeBarButtonItem.h"
 #import "DetailFoodController.h"
+#import "MJRefresh.h"
 
-@interface FoodRecommendController ()<UITableViewDataSource,UITableViewDelegate,CarClickedDelegate>
+@interface FoodRecommendController ()<UITableViewDataSource,UITableViewDelegate,CarClickedDelegate,MJRefreshBaseViewDelegate>
 {
-    NSArray *_dataList;
+    NSMutableArray *_dataList;
     UITableView *_table;
     int _totaNum;
+    MJRefreshFooterView *_footer;
+    BOOL isLoadMore;//判断是否加载更多
+    NSInteger _pageNum;
 }
 @end
 
@@ -60,7 +64,7 @@
     table.delegate =self;
     table.dataSource = self;
     _table = table;
-    
+    _pageNum = 0;
     _totaNum = 0;
     //先获取购物车总数量
     [self totalCarNum];
@@ -79,11 +83,56 @@
     barButton.badgeOriginY = 0;
     barButton.shouldAnimateBadge = YES;
     self.navigationItem.rightBarButtonItem = barButton;
-    
+    [self addRefreshViews];
     [self loadHotData];
     [self buildUI];
 }
 
+#pragma mark 集成刷新控件
+- (void)addRefreshViews
+{
+    // 1.上拉加载更多
+    MJRefreshFooterView *footer = [MJRefreshFooterView footer];
+    footer.scrollView = _table;
+    footer.delegate = self;
+    _footer = footer;
+    isLoadMore = YES;
+}
+
+#pragma mark 刷新代理方法
+- (void)refreshViewBeginRefreshing:(MJRefreshBaseView *)refreshView
+{
+    if ([refreshView isKindOfClass:[MJRefreshFooterView class]]) {
+        // 上拉加载更多
+        [self addLoadStatus:refreshView];
+    }
+}
+
+
+#pragma mark 加载更多
+-(void)addLoadStatus:(MJRefreshBaseView *)refreshView{
+    _pageNum++;
+    [GetIndexHttpTool GettHotProductListWithSuccess:^(NSArray *data, int code, NSString *msg) {
+        if (data.count > 0) {
+            if (data.count < 10) {
+                //没有更多数据
+                [_dataList addObjectsFromArray:data];
+                [_table reloadData];
+                _footer.hidden = YES;
+            }else{
+                [_dataList addObjectsFromArray:data];
+                _footer.hidden = NO;
+                [_table reloadData];
+            }
+        }else{
+            [RemindView showViewWithTitle:@"数据已加载完毕，亲！" location:MIDDLE];
+        }
+        [refreshView endRefreshing];
+        
+    } page:[NSString stringWithFormat:@"%ld",_pageNum] withFailure:^(NSError *error) {
+        [RemindView showViewWithTitle:offline location:MIDDLE];
+    }];
+}
 
 -(void)ordeFood
 {
@@ -144,7 +193,7 @@
             [RemindView showViewWithTitle:msg location:MIDDLE];
         }
 
-    } page:@"1" withFailure:^(NSError *error) {
+    } page:[NSString stringWithFormat:@"%ld",_pageNum] withFailure:^(NSError *error) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         [RemindView showViewWithTitle:offline location:MIDDLE];
     }];

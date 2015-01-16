@@ -12,11 +12,16 @@
 #import "UIImageView+WebCache.h"
 #import "GetIndexHttpTool.h"
 #import "DetailActivityController.h"
+#import "CarTool.h"
+#import "BBBadgeBarButtonItem.h"
+#import "MenuModel.h"
+#import "FoodCarController.h"
 
 @interface PromotionController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *_table;
     NSArray *_dataList;
+    int _totaNum;
 }
 @end
 
@@ -26,8 +31,27 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.navigationBarHidden = NO;
+    
+    //2 计算购物车数量
+    if (self.navigationItem.rightBarButtonItem) {
+        BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.rightBarButtonItem;
+        barButton.badgeValue = [NSString stringWithFormat:@"%ld", (long)[self totalCarNum] ];
+    }
+    
 }
 
+#pragma mark 计算badgeNum
+-(int)totalCarNum
+{
+    NSUInteger count = [CarTool sharedCarTool].totalCarMenu.count;
+    int total = 0;
+    for (int i = 0; i < count; i++) {
+        MenuModel *data = [CarTool sharedCarTool].totalCarMenu[i];
+        total += data.foodCount;
+    }
+    _totaNum = total;
+    return _totaNum;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -48,7 +72,32 @@
     table.dataSource = self;
     _table = table;
     
+    _totaNum = 0;
+    //先获取购物车总数量
+    [self totalCarNum];
+    UIButton *foodcar = [UIButton buttonWithType:UIButtonTypeCustom];
+    foodcar.frame = Rect(0, 0, 30, 30);
+    [foodcar addTarget:self action:@selector(ordeFood) forControlEvents:UIControlEventTouchUpInside];
+    [foodcar setBackgroundImage:LOADPNGIMAGE(@"cart2") forState:UIControlStateNormal];
+    
+    BBBadgeBarButtonItem *barButton = [[BBBadgeBarButtonItem alloc] initWithCustomView:foodcar];
+    
+    barButton.badgeValue = [NSString stringWithFormat:@"%d",_totaNum];
+    barButton.badgeBGColor = [UIColor whiteColor];
+    barButton.badgeTextColor = HexRGB(0x899c02);
+    barButton.badgeFont = [UIFont systemFontOfSize:11.5];
+    barButton.badgeOriginX = 20;
+    barButton.badgeOriginY = 0;
+    barButton.shouldAnimateBadge = YES;
+    self.navigationItem.rightBarButtonItem = barButton;
+    
     [self loadActivityData];
+}
+
+-(void)ordeFood
+{
+    FoodCarController *car = [[FoodCarController alloc] init];
+    [self.navigationController pushViewController:car animated:YES];
 }
 
 #pragma mark 获取活动数据
@@ -94,7 +143,7 @@
 #pragma mark tableview cell 高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 114;
+    return 71;
 }
 
 #pragma mark tableview 行数

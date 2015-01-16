@@ -203,7 +203,7 @@
     _data = data;
  
     //1 菜名
-    _foodName.frame = Rect(KLeftX, KLeftX, 100, KFoodNameH);
+    _foodName.frame = Rect(KLeftX, KLeftX, 140, KFoodNameH);
     _foodName.text = data.name;
     //判断是否有星级别
 

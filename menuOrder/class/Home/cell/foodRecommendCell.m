@@ -21,7 +21,7 @@
 #define KChosenBtnW 20
 #define KAddBtnW    30
 #define KStartX 3
-#define KFooNameW   100
+#define KFooNameW   140
 #define KFooNameH   30
 #define KStarH       20
 #define KPriceH     25
