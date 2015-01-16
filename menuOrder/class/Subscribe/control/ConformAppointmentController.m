@@ -14,6 +14,7 @@
 #import "subscribeHttpTool.h"
 #import "SystemConfig.h"
 #import "MysubscribeView.h"
+#import "subScribeView.h"
 
 #define  YYBORDERW 9
 
@@ -306,7 +307,7 @@
             [[CarTool sharedCarTool] clear];
             [SystemConfig sharedInstance].isSubmit = YES;
             //到预约页面
-            MysubscribeView *ctl = [[MysubscribeView alloc] init];
+            subScribeView *ctl = [[subScribeView alloc] init];
             [self.navigationController pushViewController:ctl animated:YES];
             
         } uid:uid addressID:_data.address_id addressContent:_data.address_content contact:_data.contact tel:_data.tel type:_data.type usetime:_data.use_time peopleNum:_data.people_num remark:_data.remark price:_totalPrice products:_data.products withFailure:^(NSError *error) {

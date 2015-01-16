@@ -15,6 +15,7 @@
 @property (nonatomic,assign) NSString * uid;       //用户uid
 @property (nonatomic, assign) int menuType;         //1 亲临鱼府 ，2 外带取餐 3 外卖服务
 @property (nonatomic,assign) BOOL isSubmit;         //是否已经成功提交了
+@property (nonatomic,assign) BOOL isGoHome;         //是否直接返回首页
 + (SystemConfig *)sharedInstance;
 
 @end

@@ -23,8 +23,8 @@
 #define KFontSmallH   20
 #define KStarH       20
 #define KPriceW      80
-#define KBUttonW     30
-#define KBUttonH     30
+#define KBUttonW     33
+#define KBUttonH     33
 #define KDefaultSpace   30
 
 @implementation MenuCell
@@ -216,7 +216,7 @@
     _price.text = [NSString stringWithFormat:@"%@/例",data.price];
     
     //6 减号按钮
-    CGFloat buttonY = CGRectGetMaxY(_foodName.frame) + KStarH;
+    CGFloat buttonY = CGRectGetMaxY(_foodName.frame) + KStarH - 2;
     CGFloat buttonX = CGRectGetMaxX(_price.frame) - KDefaultSpace * 1.5 + 5;
 //    CGFloat buttonY = CGRectGetMaxY(_foodName.frame) + KStarH;;
 //    CGFloat buttonX = self.frame.size.width - KBigImgStartX - KBUttonW *2 - 18;

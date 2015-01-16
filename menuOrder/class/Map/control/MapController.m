@@ -207,8 +207,22 @@
     request.destination = destination;
     if (IsIos7) {
         request.requestsAlternateRoutes = YES;
+        request.transportType=MKDirectionsTransportTypeAutomobile;
+
+    }else{
+        CLLocationCoordinate2D to;
+        
+        
+        to.latitude = _fishLat;
+        to.longitude = _fishLong;
+        MKMapItem *currentLocation = [MKMapItem mapItemForCurrentLocation];
+        MKMapItem *toLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:to addressDictionary:nil]];
+        
+        toLocation.name = @"Destination";
+        [MKMapItem openMapsWithItems:[NSArray arrayWithObjects:currentLocation, toLocation, nil]
+                       launchOptions:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:MKLaunchOptionsDirectionsModeDriving, [NSNumber numberWithBool:YES], nil]
+                                                                 forKeys:[NSArray arrayWithObjects:MKLaunchOptionsDirectionsModeKey, MKLaunchOptionsShowsTrafficKey, nil]]];
     }
-    
     MKDirections *directions = [[MKDirections alloc] initWithRequest:request];
     
     [directions calculateDirectionsWithCompletionHandler:

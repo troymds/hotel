@@ -37,6 +37,7 @@
 		55BA74BE1A3EDE2200203DA2 /* SuggestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BA74BD1A3EDE2200203DA2 /* SuggestView.m */; };
 		55C66ECF1A47ADE100E793D9 /* mapTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C66ECE1A47ADE100E793D9 /* mapTool.m */; };
 		55D24CD31A4A8AA8002F5C0D /* uidTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D24CD21A4A8AA8002F5C0D /* uidTool.m */; };
+		F332EAE71A68A9F100225EF8 /* subScribeView.m in Sources */ = {isa = PBXBuildFile; fileRef = F332EAE61A68A9F100225EF8 /* subScribeView.m */; };
 		F33541DD1A367D91005B21C8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F33541DC1A367D91005B21C8 /* Foundation.framework */; };
 		F33541DF1A367D91005B21C8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F33541DE1A367D91005B21C8 /* CoreGraphics.framework */; };
 		F33541E11A367D91005B21C8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F33541E01A367D91005B21C8 /* UIKit.framework */; };
@@ -244,6 +245,8 @@
 		55C66ECE1A47ADE100E793D9 /* mapTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mapTool.m; sourceTree = "<group>"; };
 		55D24CD11A4A8AA8002F5C0D /* uidTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uidTool.h; sourceTree = "<group>"; };
 		55D24CD21A4A8AA8002F5C0D /* uidTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = uidTool.m; sourceTree = "<group>"; };
+		F332EAE51A68A9F100225EF8 /* subScribeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = subScribeView.h; sourceTree = "<group>"; };
+		F332EAE61A68A9F100225EF8 /* subScribeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = subScribeView.m; sourceTree = "<group>"; };
 		F33541D91A367D91005B21C8 /* menuOrder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = menuOrder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F33541DC1A367D91005B21C8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F33541DE1A367D91005B21C8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1266,6 +1269,8 @@
 				F3BF87761A5A345100E0A49A /* SubScribeController.m */,
 				F3BF87771A5A345100E0A49A /* subscribeViewViewController.h */,
 				F3BF87781A5A345100E0A49A /* subscribeViewViewController.m */,
+				F332EAE51A68A9F100225EF8 /* subScribeView.h */,
+				F332EAE61A68A9F100225EF8 /* subScribeView.m */,
 			);
 			path = control;
 			sourceTree = "<group>";
@@ -1350,7 +1355,7 @@
 				ORGANIZATIONNAME = promo;
 				TargetAttributes = {
 					F33541D81A367D91005B21C8 = {
-						DevelopmentTeam = QE24QR2JRW;
+						DevelopmentTeam = 64Y2W23677;
 					};
 					F33541F31A367D91005B21C8 = {
 						DevelopmentTeam = 64Y2W23677;
@@ -1430,6 +1435,7 @@
 				55BA74BB1A3EDDAE00203DA2 /* suggestTool.m in Sources */,
 				5551FF421A3AB87A0057598D /* AddressCell.m in Sources */,
 				F33541ED1A367D91005B21C8 /* AppDelegate.m in Sources */,
+				F332EAE71A68A9F100225EF8 /* subScribeView.m in Sources */,
 				F335439C1A36A1EB005B21C8 /* MainController.m in Sources */,
 				55BA74BE1A3EDE2200203DA2 /* SuggestView.m in Sources */,
 				F335439F1A36A1EB005B21C8 /* DockItem.m in Sources */,

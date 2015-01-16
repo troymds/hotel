@@ -15,6 +15,7 @@
 #import "UIBarButtonItem+MJ.h"
 #import "WBNavigationController.h"
 #import "subscribeViewViewController.h"
+#import "SystemConfig.h"
 
 #define kDockHeight 44
 
@@ -123,7 +124,13 @@
 
 - (void)backItem
 {
-    [self.childViewControllers[_dock.selectedIndex] popViewControllerAnimated:YES];
+    if ([SystemConfig sharedInstance].isGoHome) {
+        [self.childViewControllers[_dock.selectedIndex] popToRootViewControllerAnimated:YES];
+        [SystemConfig sharedInstance].isGoHome = NO;
+    }else
+    {
+        [self.childViewControllers[_dock.selectedIndex] popViewControllerAnimated:YES];
+    }
 }
 
 - (void)navigationController:(WBNavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
