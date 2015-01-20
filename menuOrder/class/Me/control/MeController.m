@@ -184,7 +184,7 @@
             NSDictionary *result = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:nil];
             NSDictionary *dic = [[result objectForKey:@"response"]objectForKey:@"data"];
             if (dic) {
-                NSString *key = (NSString *)kCFBundleVersionKey;
+                NSString *key = @"CFBundleShortVersionString";
                 NSString *version = [NSBundle mainBundle].infoDictionary[key];
                 NSString *current = [dic objectForKey:@"version"];
                 
@@ -217,8 +217,9 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     //版本更新
-    openURL(_url);
-    NSLog(@"%@",_url);
+    if (buttonIndex != 0) {
+        openURL(_url);
+    }
 }
 #pragma mark 控件将要显示
 - (void)viewWillAppear:(BOOL)animated

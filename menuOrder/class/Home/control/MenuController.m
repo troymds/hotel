@@ -70,7 +70,7 @@
     _categoryList = [NSArray array];
     _productsList = [NSMutableArray array];
     _totaNum = 0;
-    _pageNum = 0;
+    _pageNum = 1;
     //先获取购物车总数量
     [self totalCarNum];
     UIButton *foodcar = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -289,7 +289,7 @@
 - (void)loadCategoryFoodList
 {
     // 显示指示器
-    _pageNum = 0;
+    _pageNum = 1;
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"加载中...";
     [GetIndexHttpTool GetProductListWithSuccess:^(NSArray *data, int code, NSString *msg) {
@@ -316,7 +316,7 @@
             [RemindView showViewWithTitle:msg location:MIDDLE];
         }
 
-    } category_id:_selectedItem.categoryID  page:[NSString stringWithFormat:@"%ld",_pageNum] withFailure:^(NSError *error) {
+    } category_id:_selectedItem.categoryID  page:[NSString stringWithFormat:@"%ld",(long)_pageNum] withFailure:^(NSError *error) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         [RemindView showViewWithTitle:offline location:MIDDLE];
     }];
@@ -339,7 +339,7 @@
             [RemindView showViewWithTitle:@"数据已加载完毕，亲！" location:MIDDLE];
         }
         [refreshView endRefreshing];
-    } category_id:_selectedItem.categoryID page:[NSString stringWithFormat:@"%ld",_pageNum] withFailure:^(NSError *error) {
+    } category_id:_selectedItem.categoryID page:[NSString stringWithFormat:@"%ld",(long)_pageNum] withFailure:^(NSError *error) {
         [RemindView showViewWithTitle:offline location:MIDDLE];
     }];
 }

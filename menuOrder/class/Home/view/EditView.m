@@ -73,6 +73,7 @@
     {
         [self addSubview:edit];
         //后面加地址button
+        edit.frame = Rect(editX, editY, editW - 100, editH);
         UIButton *addressSelecte = [UIButton buttonWithType:UIButtonTypeCustom];
         [addressSelecte setBackgroundImage:LOADPNGIMAGE(@"选择送餐地址") forState:UIControlStateNormal];
         [addressSelecte setBackgroundImage:LOADPNGIMAGE(@"选择送餐地址_pre") forState:UIControlStateHighlighted];

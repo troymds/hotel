@@ -2,6 +2,7 @@
 
 #import "Dock.h"
 #import "DockItem.h"
+#import "SystemConfig.h"
 
 @interface Dock()
 {
@@ -33,6 +34,7 @@
     // 默认选中第一个item
     if (count == 1) {
         [self itemClick:item];
+        
     }
     
     // 3.调整所有item的frame
@@ -59,6 +61,7 @@
     // 0.通知代理
     if ([_delegate respondsToSelector:@selector(dock:itemSelectedFrom:to:)]) {
         [_delegate dock:self itemSelectedFrom:_selectedItem.tag to:item.tag];
+        [SystemConfig sharedInstance].selectedIndex = item.tag;
     }
     
     // 1.取消选中当前选中的item

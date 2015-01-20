@@ -128,24 +128,24 @@
         
         if (i == 2) {
             edit.edtype = EditAddress;
-            [edit addEditView:i+1 placeHoldString:placeHolds[i] editIcon:placeHolds[i] editType:edit.edtype];
+            [edit addEditView:i+1 placeHoldString:placeHolds[i] editIcon:icons[i] editType:edit.edtype];
             edit.edit.text = address.content;
         }else if(i == 3)
         {
             edit.edtype = EditTime;
-            [edit addEditView:i+1 placeHoldString:placeHolds[i] editIcon:placeHolds[i] editType:edit.edtype];
+            [edit addEditView:i+1 placeHoldString:placeHolds[i] editIcon:icons[i] editType:edit.edtype];
         }else if (i == 1)
         {
             edit.edtype = EditNum;
-            [edit addEditView:i+1 placeHoldString:placeHolds[i] editIcon:placeHolds[i] editType:edit.edtype];
+            [edit addEditView:i+1 placeHoldString:placeHolds[i] editIcon:icons[i] editType:edit.edtype];
             edit.edit.text = address.tel;
         }else if (i == 0)
         {
-            [edit addEditView:i+1 placeHoldString:placeHolds[i] editIcon:placeHolds[i] editType:edit.edtype];
+            [edit addEditView:i+1 placeHoldString:placeHolds[i] editIcon:icons[i] editType:edit.edtype];
             edit.edit.text = address.contact;
         }else
         {
-            [edit addEditView:i+1 placeHoldString:placeHolds[i] editIcon:placeHolds[i] editType:edit.edtype];
+            [edit addEditView:i+1 placeHoldString:placeHolds[i] editIcon:icons[i] editType:edit.edtype];
         }
         edit.delegate = self;
         edit.editTag = KEditStartTag + i + 1;

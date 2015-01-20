@@ -9,6 +9,7 @@
 #import "NewFeatureController.h"
 #import "UIImage+MJ.h"
 #import "MainController.h"
+#import "AppDelegate.h"
 
 #define kCount 3
 
@@ -213,7 +214,7 @@
 }
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    int index =  scrollView.contentOffset.x / 320;
+    int index =  scrollView.contentOffset.x / kWidth;
     
     if (x != scrollView.contentOffset.x)
     {
@@ -246,7 +247,11 @@
     }
     
     [UIApplication sharedApplication].statusBarHidden = NO;
-    self.view.window.rootViewController =[[MainController alloc]init];
+//    MainController *main = ((AppDelegate *)[UIApplication sharedApplication].delegate).mainCtl;
+    MainController *main = [[MainController alloc] init];
+    
+    self.view.window.rootViewController = main;
+    ((AppDelegate *)[UIApplication sharedApplication].delegate).mainCtl = main;
 }
 
 

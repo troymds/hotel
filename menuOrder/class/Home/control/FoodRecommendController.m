@@ -64,7 +64,7 @@
     table.delegate =self;
     table.dataSource = self;
     _table = table;
-    _pageNum = 0;
+    _pageNum = 1;
     _totaNum = 0;
     //先获取购物车总数量
     [self totalCarNum];
@@ -129,7 +129,7 @@
         }
         [refreshView endRefreshing];
         
-    } page:[NSString stringWithFormat:@"%ld",_pageNum] withFailure:^(NSError *error) {
+    } page:[NSString stringWithFormat:@"%ld",(long)_pageNum] withFailure:^(NSError *error) {
         [RemindView showViewWithTitle:offline location:MIDDLE];
     }];
 }
@@ -193,7 +193,7 @@
             [RemindView showViewWithTitle:msg location:MIDDLE];
         }
 
-    } page:[NSString stringWithFormat:@"%ld",_pageNum] withFailure:^(NSError *error) {
+    } page:[NSString stringWithFormat:@"%ld",(long)_pageNum] withFailure:^(NSError *error) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         [RemindView showViewWithTitle:offline location:MIDDLE];
     }];

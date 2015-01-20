@@ -19,6 +19,7 @@
 #import "AppDelegate.h"
 #import "subscribeViewViewController.h"
 #import "MenuController.h"
+#import "SystemConfig.h"
 
 #define KDelX        5
 #define KNodataX    40
@@ -82,6 +83,7 @@
     self.view.backgroundColor = HexRGB(0xe0e0e0);
     
     MainController *main = ((AppDelegate *)[UIApplication sharedApplication].delegate).mainCtl;
+//    MainController *main = (MainController *)self.view.window.rootViewController;
     self.delegate = main;
     
     UIButton *rightBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -189,13 +191,17 @@
             }
         }
         [[CarTool sharedCarTool] deleteDataWithArray:temDeleteArray];
-        //到预约页面
-        if ([_delegate respondsToSelector:@selector(changeController)]) {
-            [_delegate changeController];
+        //到预约页面，如果是首页的点餐车，则跳转到预约，否则就pop
+        if ([SystemConfig sharedInstance].selectedIndex == 0) {
+//            [self.navigationController popToRootViewControllerAnimated:YES];
+            if ([_delegate respondsToSelector:@selector(changeController)]) {
+                [_delegate changeController];
+            }
+//            [self.navigationController popToRootViewControllerAnimated:YES];
+        }else
+        {
+            [self.navigationController popToRootViewControllerAnimated:YES];
         }
-        
-//        subscribeViewViewController *ctl = [[subscribeViewViewController alloc] init];
-//        [self.navigationController pushViewController:ctl animated:YES];
 
     }else
     {

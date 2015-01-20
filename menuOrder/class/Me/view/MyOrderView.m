@@ -36,7 +36,7 @@
     
     _firArray = [[NSMutableArray alloc] initWithCapacity:0];
     _secArray = [[NSMutableArray alloc] initWithCapacity:0];
-    
+    _orderArray  = [NSMutableArray array];
     [self addTableView];
     [self addLoadStatus];
     [self addNoStatusImage];
@@ -67,7 +67,46 @@
 
         
         [_sectionTitleArray addObjectsFromArray:statues];
-
+        if (_sectionTitleArray.count > 0) {
+            myOrderListModel *orderListModel = nil;
+            
+            for (int i = 0; i<_sectionTitleArray.count; i++)
+            {
+                //根据分组，添加每个分组的array存放该分组的数据
+                NSUInteger count = [_sectionTitleArray[i] count];
+                NSMutableArray *sectionData;
+                if (count > 0) {
+                    sectionData = [NSMutableArray arrayWithCapacity:count];
+                    for (int j = 0; j < count; j++) {
+                        orderListModel = _sectionTitleArray[i][j];
+                        [sectionData addObject:orderListModel];
+                    }
+                }
+                [_orderArray addObject:sectionData];
+            }
+            //再把_orderArray  里面的数据拆成2列
+            NSUInteger num = _orderArray.count;
+            for (int i = 0; i < num; i++) {
+                NSMutableArray *array = _orderArray[i];
+                if (array.count > 0) {
+                    NSMutableArray *first = [NSMutableArray array];
+                    NSMutableArray *second = [NSMutableArray array];
+                    for (int j = 0; j < array.count; j++) {
+                        myOrderListModel * data = array[j];
+                        if (j%2==0)
+                        {
+                            [first addObject:data];
+                        }
+                        else
+                        {
+                            [second addObject:data];
+                        }
+                    }
+                    [_firArray addObject:first];
+                    [_secArray addObject:second];
+                }
+            }
+        }
         
         if (_sectionTitleArray.count>0)
         {
@@ -86,6 +125,7 @@
         [RemindView showViewWithTitle:offline location:MIDDLE];
     }];
 }
+
 -(void)addTableView
 {
     _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight-70) style:UITableViewStylePlain];
@@ -96,15 +136,16 @@
     _tableView.showsHorizontalScrollIndicator = NO;
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    _tableView.backgroundColor =[UIColor redColor];
 
     [self.view addSubview:_tableView];
     
 }
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return _sectionTitleArray.count;
 }
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSArray *timeModelArray =[_sectionTitleArray objectAtIndex:section];
@@ -127,39 +168,14 @@
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
         cell.backgroundColor=HexRGB(0xeeeeee);
     }
-    
-    NSArray *timeModelArray =[_sectionTitleArray objectAtIndex:indexPath.section];
-    
-    
-    if (_sectionTitleArray.count != 0)
+    NSInteger section  =  indexPath.section;
+    if (_orderArray.count > 0)
     {
-        
-        [_firArray removeAllObjects];
-        [_secArray removeAllObjects];
-        
-        
-        myOrderListModel *orderListModel = nil;
-        
-        for (int i = 0; i<timeModelArray.count; i++)
-        {
-            
-            orderListModel = [timeModelArray objectAtIndex:i];
-            if (i%2==0)
-            {
-                [_firArray addObject:orderListModel];
-            }
-            else
-            {
-                [_secArray addObject:orderListModel];
-            }
-            
-        }
-        
-        if (_firArray.count < 2)
+        if ([_firArray[section] count] < 2)
         {
             cell.backImage.image=[UIImage imageNamed:@""];
         }
-        else if(_firArray.count == 2)
+        else if([_firArray[section] count] == 2)
         {
             if (indexPath.row==0)
             {
@@ -168,12 +184,13 @@
             {
                 cell.backImage.image =[UIImage imageNamed:@"down"];
             }
-        }else
+        }
+        else
         {
             if (indexPath.row==0)
             {
                 cell.backImage.image =[UIImage imageNamed:@"up"];
-            }else if (indexPath.row < _firArray.count-1)
+            }else if (indexPath.row < [_firArray[section] count]-1)
             {
                 cell.backImage.image =[UIImage imageNamed:@"center"];
                 
@@ -183,16 +200,16 @@
         }
 
         
-        myOrderListModel *firOrderModel = [_firArray objectAtIndex:indexPath.row];
+        myOrderListModel *firOrderModel = _firArray[section][indexPath.row];
         [cell.firMeOrderImage setImageWithURL:[NSURL URLWithString:firOrderModel.cover] placeholderImage:placeHoderImage2];
         cell.firMeOrderTitle.text = firOrderModel.name;
         UITapGestureRecognizer *firTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(firTapClick:)];
         [cell.firMeOrderImage addGestureRecognizer:firTap];
         cell.firMeOrderImage.tag =100;
         
-        if(_firArray.count == _secArray.count)
+        if([_firArray[section] count] == [_secArray[section] count])
         {
-            myOrderListModel *secOrderModel = [_secArray objectAtIndex:indexPath.row];
+            myOrderListModel *secOrderModel = _secArray[section][indexPath.row];
             [cell.secMeOrderImage setImageWithURL:[NSURL URLWithString:secOrderModel.cover] placeholderImage:placeHoderImage2];
             cell.secMeOrderTitle.text = secOrderModel.name;
             UITapGestureRecognizer *secTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(firTapClick:)];
@@ -202,9 +219,9 @@
         }
         else
         {
-            if (indexPath.row < _secArray.count)
+            if (indexPath.row < [_secArray[section] count])
             {
-                myOrderListModel *secOrderModel = [_secArray objectAtIndex:indexPath.row];
+                myOrderListModel *secOrderModel = _secArray[section][indexPath.row];
                 [cell.secMeOrderImage setImageWithURL:[NSURL URLWithString:secOrderModel.cover] placeholderImage:placeHoderImage2];
                 cell.secMeOrderTitle.text = secOrderModel.name;
                 UITapGestureRecognizer *secTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(firTapClick:)];
@@ -212,9 +229,6 @@
                 cell.secMeOrderImage.tag =101;
             }
         }
-        
-        
- 
     }
     
     return cell;
@@ -239,10 +253,10 @@
     
     if (img.view.tag ==100)
     {
-        orderModel =[_firArray objectAtIndex:indexPath.row];
+        orderModel =_firArray[indexPath.section][indexPath.row];
     }else
     {
-        orderModel =[_secArray objectAtIndex:indexPath.row];
+        orderModel =_secArray[indexPath.section][indexPath.row];
     }
     
     DetailFoodController *detailVC=[[DetailFoodController alloc]init];
@@ -250,8 +264,6 @@
     [self.navigationController pushViewController:detailVC animated:YES];
 
 }
-
-
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -281,22 +293,4 @@
 {
     return 110;
 }
-
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end
